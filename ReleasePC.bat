@@ -1,13 +1,13 @@
 chcp 65001
 @echo 开始自动化发布
 cd /d %~dp0
-dotnet publish PC\CandySugar.EntryUI\CandySugar.EntryUI.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
+dotnet publish PC\CandySugar.MainUI\CandySugar.MainUI.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
 dotnet publish PC\Component\CandySugar.LightNovel\CandySugar.LightNovel.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
 dotnet publish PC\Component\CandySugar.Music\CandySugar.Music.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
 dotnet publish PC\Component\CandySugar.WallPaper\CandySugar.WallPaper.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
 dotnet publish PC\Component\CandySugar.Bilibili\CandySugar.Bilibili.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
 
-rd /S /Q PC\CandySugar.EntryUI\obj PC\CandySugar.EntryUI\bin\Release
+rd /S /Q PC\CandySugar.MainUI\obj PC\CandySugar.MainUI\bin\Release
 
 rd /S /Q PC\CandySugar.Com.Controls\obj PC\CandySugar.Com.Controls\bin\Release
 
@@ -25,10 +25,10 @@ rd /S /Q PC\Component\CandySugar.WallPaper\obj PC\Component\CandySugar.WallPaper
 
 rd /S /Q PC\Component\CandySugar.Bilibili\obj PC\Component\CandySugar.Bilibili\bin\Release
 
-xcopy PC\CandySugar.EntryUI\bin\Debug\net7.0-windows\ffmpeg Release\ffmpeg /e /s
+xcopy PC\CandySugar.MainUI\bin\Debug\net7.0-windows\ffmpeg Release\ffmpeg /e /s
 
 cd Release
 del *.pdb *.json 
-ren CandySugar.EntryUI.exe CandySugar.exe
+ren CandySugar.MainUI.exe CandySugar.exe
 @echo 已完成处理
 pause

@@ -4,7 +4,7 @@ using CandySugar.Com.Library.DLLoader;
 using CandySugar.Com.Library.DownQueue;
 using CandySugar.Com.Library.ReadFile;
 using CandySugar.Com.Options.ComponentObject;
-using CandySugar.EntryUI.ViewModels;
+using CandySugar.MainUI.ViewModels;
 using RestSharp;
 using Serilog;
 using Stylet;
@@ -15,7 +15,7 @@ using System.Windows;
 using System.Windows.Threading;
 using XExten.Advance;
 
-namespace CandySugar.EntryUI
+namespace CandySugar.MainUI
 {
     public class Bootstrapper : Bootstrapper<IndexViewModel>
     {

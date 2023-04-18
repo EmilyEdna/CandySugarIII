@@ -1,7 +1,7 @@
 ﻿using Stylet;
 using System.Windows;
 
-namespace CandySugar.EntryUI.ViewModels
+namespace CandySugar.MainUI.ViewModels
 {
     public class AboutViewModel : PropertyChangedBase
     {

@@ -1,6 +1,4 @@
-﻿using CandySugar.Com.Library.BitConvert;
-using CandySugar.Com.Library.FileWrite;
-using CandySugar.Com.Library.HotKey;
+﻿using CandySugar.Com.Library.HotKey;
 using CandySugar.Com.Options.ComponentGeneric;
 using CandySugar.Com.Options.NotifyObject;
 using CandySugar.Com.Style;
@@ -12,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Animation;
 
-namespace CandySugar.EntryUI.Views
+namespace CandySugar.MainUI.Views
 {
     /// <summary>
     /// IndexView.xaml 的交互逻辑
@@ -50,7 +48,7 @@ namespace CandySugar.EntryUI.Views
             _HotKey.InitHotKey();
             //自定义搜索框的位置
             PopBox.CustomPopupPlacementCallback = new((popupSize, targetSize, offset) =>
-            {           
+            {
                 Point point = new(0, 0);
                 if (WindowState == WindowState.Maximized)
                     point = new Point(targetSize.Width / 2.4, targetSize.Height / 10);
@@ -71,7 +69,7 @@ namespace CandySugar.EntryUI.Views
         /// <summary>
         /// 动态转换浮动按钮的位置
         /// </summary>
-        public  void RelyLocation()
+        public void RelyLocation()
         {
             if (this.WindowState == WindowState.Maximized)
             {

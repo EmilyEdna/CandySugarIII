@@ -8,7 +8,7 @@ using CandySugar.Com.Library.Internet;
 using CandySugar.Com.Library.Threads;
 using CandySugar.Com.Library.Transfers;
 using CandySugar.Com.Options.ComponentGeneric;
-using CandySugar.EntryUI.Views;
+using CandySugar.MainUI.Views;
 using Microsoft.Win32;
 using Stylet;
 using StyletIoC;
@@ -23,7 +23,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using XExten.Advance.LinqFramework;
 
-namespace CandySugar.EntryUI.ViewModels
+namespace CandySugar.MainUI.ViewModels
 {
     public class IndexViewModel : Conductor<IScreen>
     {

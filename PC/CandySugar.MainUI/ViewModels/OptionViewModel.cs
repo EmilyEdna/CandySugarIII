@@ -13,7 +13,7 @@ using System.Windows.Forms;
 using XExten.Advance.LinqFramework;
 using XExten.Advance.StaticFramework;
 
-namespace CandySugar.EntryUI.ViewModels
+namespace CandySugar.MainUI.ViewModels
 {
     public class OptionViewModel : PropertyChangedBase
     {
