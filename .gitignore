@@ -365,4 +365,4 @@ FodyWeavers.xsd
 #dll
 Lib/*.dll
 #7z
-FFLib/*.7z
+Lib/*.7z
