@@ -5,7 +5,7 @@
 		<TargetFramework>net7.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
-		<BaseOutputPath>..\..\CandySugar.EntryUI\bin</BaseOutputPath>
+		<BaseOutputPath>..\..\CandySugar.MainUI\bin</BaseOutputPath>
 		<!--动态加载-->
 		<EnableDynamicLoading>true</EnableDynamicLoading>
 		<!--Aot发布-->
