@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	 <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\CandySugar.Com.Controls\CandySugar.Com.Controls.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\FontAwesome6Regular.otf" />
+    <Resource Include="Fonts\FontAwesome6Solid.otf" />
+    <Resource Include="Fonts\FontAwesome6Thin.otf" />
+    <Resource Include="Fonts\HappyZcool.ttf" />
+    <Resource Include="Resources\Backgroud.jpg" />
+  </ItemGroup>
+
+</Project>

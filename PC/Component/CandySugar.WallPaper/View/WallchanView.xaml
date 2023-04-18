@@ -1,0 +1,335 @@
+﻿<UserControl
+    x:Class="CandySugar.WallPaper.View.WallchanView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:lib="http://lib.candy.com"
+    xmlns:local="clr-namespace:CandySugar.WallPaper.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://github.com/canton7/Stylet"
+    xmlns:uc="http://ctrl.candy.com"
+    xmlns:vm="clr-namespace:CandySugar.WallPaper.ViewModels"
+    x:Name="HavCtrl"
+    d:DataContext="{d:DesignInstance vm:WallchanViewModel}"
+    d:DesignHeight="700"
+    d:DesignWidth="1200"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CandySugar.WallPaper;component/WallPaperTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Margin="20">
+            <ListBox Style="{DynamicResource ToggleListBox}">
+                <uc:CandyListboxItem
+                    Content="常规"
+                    IsSelected="True"
+                    MouseUp="MouseUpChanged"
+                    Tag="1" />
+                <uc:CandyListboxItem
+                    Content="一般"
+                    MouseUp="MouseUpChanged"
+                    Tag="2" />
+                <uc:CandyListboxItem
+                    Content="可疑"
+                    MouseUp="MouseUpChanged"
+                    Tag="3" />
+                <uc:CandyListboxItem
+                    Content="收藏"
+                    MouseUp="MouseUpChanged"
+                    Tag="4" />
+            </ListBox>
+        </Grid>
+        <Grid x:Name="ContentGird" Grid.Row="1">
+            <uc:CandyBorder
+                x:Name="X1"
+                Width="{c:Binding (Width*0.95),
+                                  ElementName=HavCtrl}"
+                Height="{c:Binding (Height-90),
+                                   ElementName=HavCtrl}"
+                BorderType="Info"
+                Style="{DynamicResource CandyBorderStyle}">
+                <uc:CandyBorder.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform />
+                    </TransformGroup>
+                </uc:CandyBorder.RenderTransform>
+                <Grid>
+                    <Rectangle Fill="#50fff0f5">
+                        <Rectangle.Effect>
+                            <DropShadowEffect
+                                BlurRadius="15"
+                                Direction="300"
+                                Opacity="1" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <ListBox
+                        uc:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
+                        ItemsSource="{Binding GeneralResult, IsAsync=True}"
+                        Style="{DynamicResource CandyListBoxStyle}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid>
+                                        <Image
+                                            uc:ImageAttach.RenderHeight="200"
+                                            uc:ImageAttach.RenderWidth="320"
+                                            uc:ImageAttach.SourceAsync="{Binding Preview}"
+                                            Tag="{x:Static lib:EDownload.Chan}" />
+                                        <Button
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
+                                            Command="{s:Action CollectCommand}"
+                                            CommandParameter="{Binding .}"
+                                            Content="{x:Static lib:FontIcon.Star}"
+                                            Cursor="Hand"
+                                            FontSize="17"
+                                            Foreground="#ffe4c4"
+                                            Style="{DynamicResource CandyFontButtonStyle}" />
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            Style="{DynamicResource TextBlockStyle}"
+                                            Text="{Binding Pixel}" />
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </uc:CandyBorder>
+            <uc:CandyBorder
+                x:Name="X2"
+                Width="{c:Binding (Width*0.95),
+                                  ElementName=HavCtrl}"
+                Height="{c:Binding (Height-90),
+                                   ElementName=HavCtrl}"
+                BorderType="Info"
+                Style="{DynamicResource CandyBorderStyle}"
+                Visibility="Hidden">
+                <uc:CandyBorder.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform />
+                    </TransformGroup>
+                </uc:CandyBorder.RenderTransform>
+                <Grid>
+                    <Rectangle Fill="#50fff0f5">
+                        <Rectangle.Effect>
+                            <DropShadowEffect
+                                BlurRadius="15"
+                                Direction="300"
+                                Opacity="1" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <ListBox
+                        uc:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
+                        ItemsSource="{Binding OrdinaryResult, IsAsync=True}"
+                        Style="{DynamicResource CandyListBoxStyle}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid>
+                                        <Image
+                                            uc:ImageAttach.RenderHeight="200"
+                                            uc:ImageAttach.RenderWidth="320"
+                                            uc:ImageAttach.SourceAsync="{Binding Preview}"
+                                            Tag="{x:Static lib:EDownload.Chan}" />
+                                        <Button
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
+                                            Command="{s:Action CollectCommand}"
+                                            CommandParameter="{Binding .}"
+                                            Content="{x:Static lib:FontIcon.Star}"
+                                            Cursor="Hand"
+                                            FontSize="17"
+                                            Foreground="#ffe4c4"
+                                            Style="{DynamicResource CandyFontButtonStyle}" />
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            Style="{DynamicResource TextBlockStyle}"
+                                            Text="{Binding Pixel}" />
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </uc:CandyBorder>
+            <uc:CandyBorder
+                x:Name="X3"
+                Width="{c:Binding (Width*0.95),
+                                  ElementName=HavCtrl}"
+                Height="{c:Binding (Height-90),
+                                   ElementName=HavCtrl}"
+                BorderType="Info"
+                Style="{DynamicResource CandyBorderStyle}"
+                Visibility="Hidden">
+                <uc:CandyBorder.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform />
+                    </TransformGroup>
+                </uc:CandyBorder.RenderTransform>
+                <Grid>
+                    <Rectangle Fill="#50fff0f5">
+                        <Rectangle.Effect>
+                            <DropShadowEffect
+                                BlurRadius="15"
+                                Direction="300"
+                                Opacity="1" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <ListBox
+                        uc:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
+                        ItemsSource="{Binding FishyResult, IsAsync=True}"
+                        Style="{DynamicResource CandyListBoxStyle}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid>
+                                        <Image
+                                            uc:ImageAttach.RenderHeight="200"
+                                            uc:ImageAttach.RenderWidth="320"
+                                            uc:ImageAttach.SourceAsync="{Binding Preview}"
+                                            Tag="{x:Static lib:EDownload.Chan}" />
+                                        <Button
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
+                                            Command="{s:Action CollectCommand}"
+                                            CommandParameter="{Binding .}"
+                                            Content="{x:Static lib:FontIcon.Star}"
+                                            Cursor="Hand"
+                                            FontSize="17"
+                                            Foreground="#ffe4c4"
+                                            Style="{DynamicResource CandyFontButtonStyle}" />
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            Style="{DynamicResource TextBlockStyle}"
+                                            Text="{Binding Pixel}" />
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </uc:CandyBorder>
+            <uc:CandyBorder
+                x:Name="X4"
+                Width="{c:Binding (Width*0.95),
+                                  ElementName=HavCtrl}"
+                Height="{c:Binding (Height-90),
+                                   ElementName=HavCtrl}"
+                BorderType="Info"
+                Style="{DynamicResource CandyBorderStyle}"
+                Visibility="Hidden">
+                <uc:CandyBorder.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform />
+                    </TransformGroup>
+                </uc:CandyBorder.RenderTransform>
+                <Grid>
+                    <Rectangle Fill="#50fff0f5">
+                        <Rectangle.Effect>
+                            <DropShadowEffect
+                                BlurRadius="15"
+                                Direction="300"
+                                Opacity="1" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <ListBox ItemsSource="{Binding CollectResult, IsAsync=True}" Style="{DynamicResource CandyListBoxStyle}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid>
+                                        <Image
+                                            uc:ImageAttach.RenderHeight="200"
+                                            uc:ImageAttach.RenderWidth="320"
+                                            uc:ImageAttach.SourceAsync="{Binding Preview}"
+                                            Tag="{x:Static lib:EDownload.Chan}" />
+                                        <CheckBox
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            Background="Transparent">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked">
+                                                    <i:InvokeCommandAction
+                                                        s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
+                                                        Command="{s:Action CheckCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked">
+                                                    <i:InvokeCommandAction
+                                                        s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
+                                                        Command="{s:Action UnCheckCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            Style="{DynamicResource TextBlockStyle}"
+                                            Text="{Binding Pixel}" />
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </uc:CandyBorder>
+        </Grid>
+    </Grid>
+</UserControl>

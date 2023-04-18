@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
+		<ApplicationIcon>favicon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="favicon.ico">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CandySugar.Com.Style\CandySugar.Com.Style.csproj" />
+	</ItemGroup>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		
+	</Target>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+	  <Exec Command="chcp 65001&#xD;&#xA;echo 开始预编译&#xD;&#xA; if &quot;$(Configuration)&quot;==&quot;Debug&quot; (  &#xD;&#xA; dotnet build ../Component/CandySugar.LightNovel/CandySugar.LightNovel.csproj --no-dependencies  -c $(Configuration)&#xD;&#xA; dotnet build ../Component/CandySugar.Music/CandySugar.Music.csproj --no-dependencies -c $(Configuration)&#xD;&#xA; dotnet build ../Component/CandySugar.WallPaper/CandySugar.WallPaper.csproj --no-dependencies  -c $(Configuration)&#xD;&#xA; dotnet build ../Component/CandySugar.Bilibili/CandySugar.Bilibili.csproj --no-dependencies  -c $(Configuration)&#xD;&#xA; )" />
+	</Target>
+
+
+</Project>

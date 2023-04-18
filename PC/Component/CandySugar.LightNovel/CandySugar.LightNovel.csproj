@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
+		<BaseOutputPath>..\..\CandySugar.EntryUI\bin</BaseOutputPath>
+		<!--动态加载-->
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<!--Aot发布-->
+		<!--<PublishAot>true</PublishAot>-->
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\CandySugar.Com.Style\CandySugar.Com.Style.csproj">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</ProjectReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Sdk.Component">
+	    <HintPath>..\..\..\Lib\Sdk.Component.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Sdk.Core">
+	    <HintPath>..\..\..\Lib\Sdk.Core.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+</Project>

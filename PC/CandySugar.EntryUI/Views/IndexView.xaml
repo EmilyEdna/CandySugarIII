@@ -1,0 +1,153 @@
+﻿<Window
+    x:Class="CandySugar.EntryUI.Views.IndexView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:lib="http://lib.candy.com"
+    xmlns:local="clr-namespace:CandySugar.EntryUI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://github.com/canton7/Stylet"
+    xmlns:taskbar="http://www.hardcodet.net/taskbar"
+    xmlns:uc="http://ctrl.candy.com"
+    xmlns:vm="clr-namespace:CandySugar.EntryUI.ViewModels"
+    x:Name="CandyWindow"
+    Title="{Binding Title}"
+    Width="1200"
+    Height="700"
+    d:DataContext="{d:DesignInstance vm:IndexViewModel}"
+    Style="{StaticResource CandyDefaultWindowStyle}"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Storyboard x:Key="Overly">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PopMenuContent" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Canvas x:Name="ContentCanvas">
+        <ContentControl x:Name="ItemComponent" Content="{Binding CandyControl}" />
+        <Button
+            x:Name="FloatBtn"
+            Panel.ZIndex="1"
+            Click="PopMenuEvent"
+            Style="{DynamicResource CandyFloatButtonStyle}" />
+        <Popup
+            x:Name="PopBox"
+            Width="300"
+            Height="40"
+            Panel.ZIndex="1"
+            AllowsTransparency="True"
+            Placement="Custom"
+            PlacementTarget="{Binding ElementName=ContentCanvas}"
+            StaysOpen="False">
+            <hc:SearchBar
+                hc:InfoElement.Placeholder="请输入查询内容"
+                hc:InfoElement.ShowClearButton="True"
+                Background="#40a7f6f6"
+                Command="{s:Action SearchCommand}"
+                CommandParameter="{Binding Text, RelativeSource={RelativeSource Self}}"
+                FontSize="18"
+                Foreground="#fffafa"
+                Style="{StaticResource SearchBarPlus}" />
+        </Popup>
+        <Popup
+            x:Name="PopMenu"
+            Width="100"
+            Height="200"
+            Panel.ZIndex="1"
+            AllowsTransparency="True"
+            HorizontalOffset="-25"
+            Placement="Top"
+            PlacementTarget="{Binding ElementName=FloatBtn}"
+            StaysOpen="False"
+            VerticalOffset="-10">
+            <Grid x:Name="PopMenuContent">
+                <Rectangle
+                    Margin="3"
+                    Fill="#60FDD3D3"
+                    RadiusX="3"
+                    RadiusY="3">
+                    <Rectangle.Effect>
+                        <DropShadowEffect
+                            BlurRadius="15"
+                            Direction="0"
+                            RenderingBias="Quality"
+                            ShadowDepth="1"
+                            Color="#FFBBBBBB" />
+                    </Rectangle.Effect>
+                </Rectangle>
+                <ListBox
+                    Margin="2"
+                    ItemsSource="{Binding MenuObj}"
+                    Style="{DynamicResource CandyListBoxStyle}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <uc:CandyButton
+                                Width="80"
+                                Height="25"
+                                Margin="1.5"
+                                s:View.ActionTarget="{Binding DataContext, ElementName=CandyWindow}"
+                                BorderThickness="0"
+                                ButtonType="Primary"
+                                Command="{s:Action ActiveCommand}"
+                                CommandParameter="{Binding InstanceType}"
+                                Content="{Binding Name}"
+                                Style="{DynamicResource CandyButtonStyle}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Popup>
+        <taskbar:TaskbarIcon x:Name="Tray">
+            <taskbar:TaskbarIcon.ContextMenu>
+                <ContextMenu FontFamily="{DynamicResource FontStyle}" Style="{DynamicResource CandyContextMenuStyle}">
+                    <MenuItem
+                        s:View.ActionTarget="{Binding DataContext, ElementName=CandyWindow}"
+                        Command="{s:Action SettingCommand}"
+                        CommandParameter="{x:Static lib:EMenu.About}"
+                        Header="关于作者"
+                        Style="{DynamicResource CandyMenuItemStyle}" />
+                    <MenuItem
+                        s:View.ActionTarget="{Binding DataContext, ElementName=CandyWindow}"
+                        Command="{s:Action SettingCommand}"
+                        CommandParameter="{x:Static lib:EMenu.AudioToHigh}"
+                        Header="音频转换"
+                        Style="{DynamicResource CandyMenuItemStyle}" />
+                    <MenuItem
+                        s:View.ActionTarget="{Binding DataContext, ElementName=CandyWindow}"
+                        Command="{s:Action SettingCommand}"
+                        CommandParameter="{x:Static lib:EMenu.ImgToVideo}"
+                        Header="图片视频"
+                        Style="{DynamicResource CandyMenuItemStyle}" />
+                    <MenuItem
+                        s:View.ActionTarget="{Binding DataContext, ElementName=CandyWindow}"
+                        Command="{s:Action SettingCommand}"
+                        CommandParameter="{x:Static lib:EMenu.ImgToAudio}"
+                        Header="图片音频"
+                        Style="{DynamicResource CandyMenuItemStyle}" />
+                    <MenuItem
+                        s:View.ActionTarget="{Binding DataContext, ElementName=CandyWindow}"
+                        Command="{s:Action SettingCommand}"
+                        CommandParameter="{x:Static lib:EMenu.SysOption}"
+                        Header="系统设置"
+                        Style="{DynamicResource CandyMenuItemStyle}" />
+                </ContextMenu>
+            </taskbar:TaskbarIcon.ContextMenu>
+            <taskbar:TaskbarIcon.TrayToolTip>
+                <Border
+                    Padding="1"
+                    Background="#FFF"
+                    BorderThickness="0"
+                    CornerRadius="5">
+                    <TextBlock
+                        x:Name="Version"
+                        FontFamily="{DynamicResource FontStyle}"
+                        Foreground="#e63995"
+                        Text="甜糖" />
+                </Border>
+            </taskbar:TaskbarIcon.TrayToolTip>
+        </taskbar:TaskbarIcon>
+    </Canvas>
+</Window>
