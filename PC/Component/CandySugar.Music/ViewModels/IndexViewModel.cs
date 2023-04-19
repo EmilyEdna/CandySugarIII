@@ -171,7 +171,7 @@ namespace CandySugar.Music.ViewModels
         /// <param name="input"></param>
         public void TrashCommand(MusicSongElementResult input)
         {
-            var FileName = $"{string.Join(",", input.SongArtistName)}-{input.SongName}";
+            var FileName = $"[High]{input.SongId}";
             DownUtil.FileDelete(FileName, FileTypes.Mp3, "Music");
             CollectResult.Remove(input);
             CollectResult.ToList().DeleteAndCreate("Music", FileTypes.Dat, "Music");
@@ -587,7 +587,6 @@ namespace CandySugar.Music.ViewModels
                         {
                             //删除文件
                             SyncStatic.DeleteFile(Path.Combine(catalog, fileName));
-                            File.Move(Path.Combine(catalog, $"[High]{fileName}"), Path.Combine(catalog, $"{string.Join(",", input.SongArtistName)}-{input.SongName}.mp3"));
                             new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show();
                         };
                         if (!CollectResult.Any(t => t.SongId == input.SongId))
@@ -662,7 +661,7 @@ namespace CandySugar.Music.ViewModels
                     });
                 });
         }
-        private string FileName() => $"{string.Join(",", CurrentPlay.SongArtistName)}-{CurrentPlay.SongName}";
+        private string FileName() => $"[High]{CurrentPlay.SongId}";
         #endregion
 
         #region ExternalCalls
