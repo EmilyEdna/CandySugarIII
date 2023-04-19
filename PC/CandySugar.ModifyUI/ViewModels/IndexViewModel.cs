@@ -67,7 +67,6 @@ namespace CandySugar.ModifyUI.ViewModels
                         try
                         {
                             Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CandySugar.exe"));
-
                         }
                         catch (Exception ex)
                         {
