@@ -1,4 +1,6 @@
-﻿using Serilog;
+﻿using CandySugar.Com.Controls.UIExtenControls;
+using CandySugar.Com.Library;
+using Serilog;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -10,9 +12,9 @@ using XExten.Advance.RestHttpFramework;
 using XExten.Advance.RestHttpFramework.Options;
 using XExten.Advance.StaticFramework;
 
-namespace CandySugar.Com.Library
+namespace CandySugar.MainUI
 {
-    public class Upgrade
+    public class Modify
     {
         public static void CandySugarModify()
         {
@@ -27,12 +29,12 @@ namespace CandySugar.Com.Library
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    Nofity(CommonHelper.ProgramErronInformation);
-                });
-                Task.Run(async () =>
-                {
-                    await Task.Delay(10000);
-                    Environment.Exit(0);
+                    new ScreenNotifyView(CommonHelper.ProgramErronInformation).Show();
+                    Task.Run(async () =>
+                    {
+                        await Task.Delay(3000);
+                        Environment.Exit(0);
+                    });
                 });
             }
 
@@ -49,8 +51,9 @@ namespace CandySugar.Com.Library
                 }).RunStringFirstAsync();
                 if (!ver.IsNullOrEmpty())
                 {
-                    var newVer = ver.Replace("\n", "");
-                    if (!newVer.Equals(CommonHelper.Version))
+                    if (ver.Contains("\n"))
+                        ver = ver.Replace("\n", "");
+                    if (!ver.Equals(CommonHelper.Version))
                     {
                         var exe = Path.Combine(CommonHelper.AppPath, "CandySugarModify.exe");
                         Process.Start(exe);
@@ -63,21 +66,14 @@ namespace CandySugar.Com.Library
                 Log.Logger.Error(ex, "");
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    Nofity(CommonHelper.VersionErronInformation);
-                });
-                Task.Run(async () =>
-                {
-                    await Task.Delay(10000);
-                    Environment.Exit(0);
+                    new ScreenNotifyView(CommonHelper.VersionErronInformation).Show();
+                    Task.Run(async () =>
+                    {
+                        await Task.Delay(3000);
+                        Environment.Exit(0);
+                    });
                 });
             }
-        }
-
-        private static void Nofity(string param)
-        {
-            var NofityView = SyncStatic.Assembly("CandySugar.Com.Controls").SelectMany(t => t.ExportedTypes.Where(x => x.BaseType == typeof(Window)))
-                   .Where(t => t.Name == "ScreenNotifyView").FirstOrDefault();
-            ((dynamic)Activator.CreateInstance(NofityView, new object[] { param })).Show();
         }
     }
 }

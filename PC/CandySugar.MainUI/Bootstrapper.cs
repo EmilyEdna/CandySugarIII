@@ -24,7 +24,10 @@ namespace CandySugar.MainUI
         /// </summary>
         protected override void OnStart()
         {
-           
+
+            #if RELEASE
+            Com.Library.Lnk.Shortcut.Instance.CreateLnk("Candy");
+            #endif
             //日志
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
@@ -97,11 +100,6 @@ namespace CandySugar.MainUI
         protected override void OnLaunch()
         {
             base.OnLaunch();
-#if RELEASE
-            Com.Library.Lnk.Shortcut.Instance.CreateLnk("Candy");
-            Upgrade.CandySugarModify();
-#endif
-
         }
 
         /// <summary>

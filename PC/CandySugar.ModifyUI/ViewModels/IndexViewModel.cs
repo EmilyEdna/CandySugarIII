@@ -38,9 +38,23 @@ namespace CandySugar.ModifyUI.ViewModels
         #endregion
 
         #region Method
+
+        private void ExtractFile()
+        {
+            try
+            {
+                ZipFile.ExtractToDirectory(TempFileZip, AppDomain.CurrentDomain.BaseDirectory, true);
+            }
+            catch (Exception ex)
+            {
+                ExtractFile();
+                Log.Logger.Error(ex, "");
+            }
+
+        }
         private void UpgradeFile()
         {
-        
+
             var progressMessageHandler = new ProgressMessageHandler(new HttpClientHandler());
             progressMessageHandler.HttpReceiveProgress += (obj, args) =>
             {
@@ -49,17 +63,20 @@ namespace CandySugar.ModifyUI.ViewModels
                 {
                     Task.Run(() =>
                     {
+                        ExtractFile();
                         try
                         {
-                            ZipFile.ExtractToDirectory(TempFileZip, AppDomain.CurrentDomain.BaseDirectory, true);
                             Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CandySugar.exe"));
-                            Environment.Exit(0);
+
                         }
                         catch (Exception ex)
                         {
                             Log.Logger.Error(ex, "");
                         }
-                       
+                        finally
+                        {
+                            Environment.Exit(0);
+                        }
                     });
                 }
             };
@@ -68,10 +85,10 @@ namespace CandySugar.ModifyUI.ViewModels
                 try
                 {
                     using var client = new HttpClient(progressMessageHandler);
-                    var bytes = await client.GetByteArrayAsync(Proxy + RealRoute);
+                    var stream = await client.GetStreamAsync(Proxy + RealRoute);
                     if (File.Exists(TempFileZip)) File.Delete(TempFileZip);
-                    File.Create(TempFileZip).Dispose();
-                    File.WriteAllBytes(TempFileZip, bytes);
+                    using FileStream fs = new FileStream(TempFileZip, FileMode.CreateNew);
+                    await stream.CopyToAsync(fs);
                 }
                 catch (Exception ex)
                 {
