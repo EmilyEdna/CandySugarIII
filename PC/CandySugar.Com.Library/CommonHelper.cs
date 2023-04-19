@@ -55,6 +55,10 @@ namespace CandySugar.Com.Library
         /// </summary>
         public static string VersionErronInformation => "版本检查异常，检查Raw配置!";
         /// <summary>
+        /// 升级提示
+        /// </summary>
+        public static string UpgradeInformation => "检测到新版本，3秒后开始是升级!";
+        /// <summary>
         /// 完整校验
         /// </summary>
         public static string ProgramErronInformation => "完成检验失败，3秒后退出!";
