@@ -587,7 +587,7 @@ namespace CandySugar.Music.ViewModels
                         {
                             //删除文件
                             SyncStatic.DeleteFile(Path.Combine(catalog, fileName));
-                            File.Move(Path.Combine(catalog, $"[High]{fileName}"), Path.Combine(catalog, $"{string.Join(",", input.SongArtistName)}-{input.SongName}"));
+                            File.Move(Path.Combine(catalog, $"[High]{fileName}"), Path.Combine(catalog, $"{string.Join(",", input.SongArtistName)}-{input.SongName}.mp3"));
                             new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show();
                         };
                         if (!CollectResult.Any(t => t.SongId == input.SongId))
