@@ -5,12 +5,10 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using XExten.Advance.LinqFramework;
-using XExten.Advance.RestHttpFramework;
-using XExten.Advance.RestHttpFramework.Options;
-using XExten.Advance.StaticFramework;
 
 namespace CandySugar.MainUI
 {
@@ -44,11 +42,7 @@ namespace CandySugar.MainUI
         {
             try
             {
-                var ver = await IRestHttpClient.Rest.UseNode(opt =>
-                {
-                    opt.Provider = RestProviderMethod.GET;
-                    opt.Route = $"{ComponentBinding.OptionObjectModels.Raw}/EmilyEdna/CandySugar/master/vers.txt";
-                }).RunStringFirstAsync();
+                var ver = await new HttpClient().GetStringAsync($"{ComponentBinding.OptionObjectModels.Raw}/EmilyEdna/CandySugar/master/vers.txt");
                 if (!ver.IsNullOrEmpty())
                 {
                     if (ver.Contains("\n"))
