@@ -31,7 +31,7 @@ namespace CandySugar.Com.Library
                 });
                 Task.Run(async () =>
                 {
-                    await Task.Delay(3000);
+                    await Task.Delay(10000);
                     Environment.Exit(0);
                 });
             }
@@ -67,7 +67,7 @@ namespace CandySugar.Com.Library
                 });
                 Task.Run(async () =>
                 {
-                    await Task.Delay(3000);
+                    await Task.Delay(10000);
                     Environment.Exit(0);
                 });
             }

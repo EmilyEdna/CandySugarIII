@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Serilog;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -39,16 +40,27 @@ namespace CandySugar.ModifyUI.ViewModels
         #region Method
         private void UpgradeFile()
         {
-            if (File.Exists(TempFileZip)) File.Delete(TempFileZip);
+        
             var progressMessageHandler = new ProgressMessageHandler(new HttpClientHandler());
             progressMessageHandler.HttpReceiveProgress += (obj, args) =>
             {
                 Result = args.ProgressPercentage + "%";
                 if (args.ProgressPercentage == 100)
                 {
-                    ZipFile.ExtractToDirectory(TempFileZip, AppDomain.CurrentDomain.BaseDirectory, true);
-                    Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CandySugar.exe"));
-                    Environment.Exit(0);
+                    Task.Run(() =>
+                    {
+                        try
+                        {
+                            ZipFile.ExtractToDirectory(TempFileZip, AppDomain.CurrentDomain.BaseDirectory, true);
+                            Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CandySugar.exe"));
+                            Environment.Exit(0);
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Logger.Error(ex, "");
+                        }
+                       
+                    });
                 }
             };
             Task.Run(async () =>
@@ -56,19 +68,21 @@ namespace CandySugar.ModifyUI.ViewModels
                 try
                 {
                     using var client = new HttpClient(progressMessageHandler);
-                    using var filestream = new FileStream(TempFileZip, FileMode.Create);
-                    var netstream = await client.GetStreamAsync(Proxy + RealRoute);
-                    await netstream.CopyToAsync(filestream);//写入文件
+                    var bytes = await client.GetByteArrayAsync(Proxy + RealRoute);
+                    if (File.Exists(TempFileZip)) File.Delete(TempFileZip);
+                    File.Create(TempFileZip).Dispose();
+                    File.WriteAllBytes(TempFileZip, bytes);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Log.Logger.Error(ex, "");
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         if (MessageBox.Show($" 升级异常！手动前往下载：\n {RealRoute}") == MessageBoxResult.OK)
                             Environment.Exit(0);
                     });
                 }
-             
+
             });
         }
         #endregion
