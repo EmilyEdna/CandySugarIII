@@ -22,8 +22,16 @@ namespace CandySugar.ModifyUI
                 .MinimumLevel.Information()
                 .WriteTo.File(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "Modify.log"), rollingInterval: RollingInterval.Day)
                 .CreateLogger();
-
-
+            if (string.IsNullOrEmpty(e.Args.FirstOrDefault()))
+            {
+                this.Shutdown(0);
+                return;
+            }
+            if (e.Args.FirstOrDefault() != "CandySugar")
+            {
+                this.Shutdown(0);
+                return;
+            }
             base.OnStartup(e);
 
         }

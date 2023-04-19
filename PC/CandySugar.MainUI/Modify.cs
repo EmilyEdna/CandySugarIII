@@ -56,7 +56,7 @@ namespace CandySugar.MainUI
                     if (!ver.Equals(CommonHelper.Version))
                     {
                         var exe = Path.Combine(CommonHelper.AppPath, "CandySugarModify.exe");
-                        Process.Start(exe);
+                        Process.Start(exe,"CandySugar");
                         Environment.Exit(0);
                     }
                 }
