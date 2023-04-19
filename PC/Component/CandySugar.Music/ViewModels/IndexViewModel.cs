@@ -171,7 +171,7 @@ namespace CandySugar.Music.ViewModels
         /// <param name="input"></param>
         public void TrashCommand(MusicSongElementResult input)
         {
-            var FileName = $"[High]{input.SongId}";
+            var FileName = $"{string.Join(",", input.SongArtistName)}-{input.SongName}";
             DownUtil.FileDelete(FileName, FileTypes.Mp3, "Music");
             CollectResult.Remove(input);
             CollectResult.ToList().DeleteAndCreate("Music", FileTypes.Dat, "Music");
