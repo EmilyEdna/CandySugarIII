@@ -1,12 +1,11 @@
 ﻿using CandySugar.Com.Library.ReadFile;
+using CandySugar.Com.Options.ComponentObject;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using XExten.Advance.LinqFramework;
 
-namespace CandySugar.Com.Options.ComponentObject
+namespace CandySugar.Com.Library
 {
     public class ComponentBinding
     {

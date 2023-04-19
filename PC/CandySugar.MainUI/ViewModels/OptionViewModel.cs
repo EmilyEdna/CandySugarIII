@@ -2,12 +2,8 @@
 using CandySugar.Com.Options.ComponentObject;
 using Stylet;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using XExten.Advance.LinqFramework;
@@ -62,7 +58,8 @@ namespace CandySugar.MainUI.ViewModels
             {
                 Cache = 5,
                 BackgroudLocation = Route,
-                Interval = Interval
+                Interval = Interval,
+                Raw= ComponentBinding.OptionObjectModels.Raw
             };
             var path = Path.Combine(CommonHelper.OptionPath, "SystemOption.json");
             SyncStatic.WriteFile(Encoding.Default.GetBytes(new { Option= Model }.ToJson()), path);

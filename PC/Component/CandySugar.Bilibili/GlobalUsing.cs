@@ -5,7 +5,6 @@ global using CandySugar.Com.Library;
 global using CandySugar.Com.Library.FFMPeg;
 global using CandySugar.Com.Library.FileWrite;
 global using CandySugar.Com.Options.ComponentGeneric;
-global using CandySugar.Com.Options.ComponentObject;
 global using CommunityToolkit.Mvvm.Messaging;
 global using DryIoc;
 global using Sdk.Component.Bilibili.sdk;

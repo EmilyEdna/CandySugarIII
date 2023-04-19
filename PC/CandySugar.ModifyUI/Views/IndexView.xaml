@@ -7,12 +7,55 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:CandySugar.ModifyUI.ViewModels"
     Title="甜糖自动升级"
-    Width="800"
-    Height="450"
+    Width="500"
+    Height="180"
     d:DataContext="{d:DesignInstance vm:IndexViewModel}"
+    Style="{DynamicResource CandyModifyUIStyle}"
     mc:Ignorable="d">
+    <Window.Resources>
+        <Storyboard x:Key="AnimeKey">
+            <DoubleAnimationUsingKeyFrames
+                RepeatBehavior="Forever"
+                Storyboard.TargetName="AnimePath"
+                Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.500" Value="90" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="180" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1.500" Value="270" />
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="360" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
     <Window.DataContext>
         <vm:IndexViewModel />
     </Window.DataContext>
-    <Grid />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Path
+            x:Name="AnimePath"
+            Width="60"
+            Height=" 60"
+            Data="{StaticResource ConfigSvg}"
+            Fill="#e63995"
+            RenderTransformOrigin="0.5,0.5"
+            SnapsToDevicePixels="True"
+            Stretch="Fill"
+            Stroke="#50f0fff0"
+            UseLayoutRounding="True">
+            <Path.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform />
+                </TransformGroup>
+            </Path.RenderTransform>
+        </Path>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+            <TextBlock
+                FontSize="40"
+                Style="{DynamicResource TextBlockStyle}"
+                Text="软件升级中，请稍后. . ." />
+        </StackPanel>
+    </Grid>
 </Window>

@@ -20,5 +20,9 @@ namespace CandySugar.Com.Options.ComponentObject
         /// 变换间隔时常
         /// </summary>
         public double Interval { get; set; }
+        /// <summary>
+        /// github访问加速
+        /// </summary>
+        public string Raw { get; set; }
     }
 }

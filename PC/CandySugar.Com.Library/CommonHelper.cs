@@ -9,6 +9,7 @@ namespace CandySugar.Com.Library
 {
     public class CommonHelper
     {
+        public static string Version => "1.0.0.1";
         /// <summary>
         /// 程序目录
         /// </summary>
@@ -49,6 +50,14 @@ namespace CandySugar.Com.Library
         /// 网络异常消息
         /// </summary>
         public static string InternetErrorInformation => "网络异常请检查当前网络是否连接成功!";
+        /// <summary>
+        /// 程序版本
+        /// </summary>
+        public static string VersionErronInformation => "版本检查异常，检查Raw配置!";
+        /// <summary>
+        /// 完整校验
+        /// </summary>
+        public static string ProgramErronInformation => "完成检验失败，3秒后退出!";
         /// <summary>
         /// 配置文件
         /// </summary>

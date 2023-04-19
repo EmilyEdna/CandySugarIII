@@ -1,7 +1,7 @@
 ﻿global using CandySugar.Com.Controls.UIExtenControls;
 global using CandySugar.Com.Library;
 global using CandySugar.Com.Library.FileWrite;
-global using CandySugar.Com.Options.ComponentObject;
+global using CandySugar.Com.Options.ComponentGeneric;
 global using CandySugar.LightNovel.View;
 global using CandySugar.LightNovel.ViewModels;
 global using CommunityToolkit.Mvvm.Input;
@@ -25,4 +25,3 @@ global using System.Windows;
 global using System.Windows.Controls;
 global using System.Windows.Data;
 global using XExten.Advance.LinqFramework;
-global using CandySugar.Com.Options.ComponentGeneric;
