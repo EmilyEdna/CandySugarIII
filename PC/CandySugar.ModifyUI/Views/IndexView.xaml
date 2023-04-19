@@ -11,6 +11,7 @@
     Height="180"
     d:DataContext="{d:DesignInstance vm:IndexViewModel}"
     Style="{DynamicResource CandyModifyUIStyle}"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
         <Storyboard x:Key="AnimeKey">
@@ -34,6 +35,9 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Result}" />
+        </Grid>
         <Path
             x:Name="AnimePath"
             Width="60"
@@ -55,7 +59,7 @@
             <TextBlock
                 FontSize="40"
                 Style="{DynamicResource TextBlockStyle}"
-                Text="软件升级中，请稍后. . ." />
+                Text="{Binding Tip}" />
         </StackPanel>
     </Grid>
 </Window>

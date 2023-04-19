@@ -7,7 +7,7 @@
 		<UseWPF>true</UseWPF>
 		<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
 		<ApplicationIcon>favicon.ico</ApplicationIcon>
-		<BaseOutputPath>\CandySugar.MainUI\bin</BaseOutputPath>
+		<BaseOutputPath>..\CandySugar.MainUI\bin</BaseOutputPath>
 	</PropertyGroup>
 	<ItemGroup>
 		<Content Include="favicon.ico">
@@ -16,5 +16,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
 	</ItemGroup>
 </Project>
