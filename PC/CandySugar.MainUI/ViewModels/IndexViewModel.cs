@@ -22,6 +22,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using XExten.Advance.LinqFramework;
+using XExten.Advance.ThreadFramework;
 
 namespace CandySugar.MainUI.ViewModels
 {
@@ -50,7 +51,7 @@ namespace CandySugar.MainUI.ViewModels
                 ViewModel = item.InstanceViewModel
             });
             MenuObj = new ObservableCollection<ComponentMenu>(dlls);
-            ThreadManage.Instance.StartLong(() =>
+            ThreadFactory.Instance.StartWithRestart(() =>
             {
                 if (!InternetWork.GetNetworkState)
                 {
