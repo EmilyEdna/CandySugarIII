@@ -701,7 +701,7 @@ namespace CandySugar.Music.ViewModels
             {
                 var PlayNum = CollectResult.Count;
                 //播放完成
-                if (Math.Truncate(Live.LiveSeconds * 10) / 10 >= Math.Truncate(AudioInfo.Seconds * 10) / 10)
+                if (Math.Truncate(Live.LiveSeconds)>= Math.Truncate(AudioInfo.Seconds))
                 {
                     PlayIndex += 1;
                     if (PlayIndex < PlayNum)
