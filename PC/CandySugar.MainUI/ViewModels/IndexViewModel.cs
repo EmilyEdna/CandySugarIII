@@ -5,7 +5,6 @@ using CandySugar.Com.Library.DLLoader;
 using CandySugar.Com.Library.Enums;
 using CandySugar.Com.Library.FFMPeg;
 using CandySugar.Com.Library.Internet;
-using CandySugar.Com.Library.Threads;
 using CandySugar.Com.Library.Transfers;
 using CandySugar.Com.Options.ComponentGeneric;
 using CandySugar.MainUI.Views;
