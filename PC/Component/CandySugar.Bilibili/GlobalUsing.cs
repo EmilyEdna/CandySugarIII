@@ -12,8 +12,6 @@ global using Sdk.Component.Bilibili.sdk.ViewModel;
 global using Sdk.Component.Bilibili.sdk.ViewModel.Enums;
 global using Sdk.Component.Bilibili.sdk.ViewModel.Request;
 global using Sdk.Component.Bilibili.sdk.ViewModel.Response;
-global using Sdk.Component.Plugins;
-global using Sdk.Core;
 global using Serilog;
 global using Stylet;
 global using System;

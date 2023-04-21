@@ -334,7 +334,6 @@ namespace CandySugar.Music.ViewModels
                         {
                             PlatformType = Platform,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             MusicType = MusicEnum.SheetDetail,
                             SheetDetail = new MusicSheetDetail
                             {
@@ -370,7 +369,6 @@ namespace CandySugar.Music.ViewModels
                         {
                             PlatformType = Platform,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             MusicType = MusicEnum.AlbumDetail,
                             AlbumDetail = new MusicAlbumDetail
                             {
@@ -405,7 +403,6 @@ namespace CandySugar.Music.ViewModels
                          {
                              PlatformType = Platform,
                              CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                             ImplType = SdkImpl.Rest,
                              MusicType = MusicEnum.Song,
                              Search = new MusicSearch
                              {
@@ -441,7 +438,6 @@ namespace CandySugar.Music.ViewModels
                         {
                             PlatformType = Platform,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             MusicType = MusicEnum.Song,
                             Search = new MusicSearch
                             {
@@ -483,7 +479,6 @@ namespace CandySugar.Music.ViewModels
                         {
                             PlatformType = Platform,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             MusicType = MusicEnum.Sheet,
                             Search = new MusicSearch
                             {
@@ -519,7 +514,6 @@ namespace CandySugar.Music.ViewModels
                         {
                             PlatformType = Platform,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             MusicType = MusicEnum.Sheet,
                             Search = new MusicSearch
                             {
@@ -562,7 +556,6 @@ namespace CandySugar.Music.ViewModels
                         {
                             PlatformType = Platform,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             MusicType = MusicEnum.Route,
                             Play = Platform == PlatformEnum.KuGouMusic ? new MusicPlaySearch
                             {
@@ -613,7 +606,6 @@ namespace CandySugar.Music.ViewModels
                         {
                             PlatformType = input.MusicPlatformType,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             MusicType = MusicEnum.Lyric,
                             Lyric = new MusicLyricSearch
                             {

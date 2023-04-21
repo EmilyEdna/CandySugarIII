@@ -3,6 +3,7 @@ using CandySugar.Com.Library;
 using CandySugar.Com.Library.DLLoader;
 using CandySugar.Com.Library.DownQueue;
 using CandySugar.Com.Library.ReadFile;
+using CandySugar.Com.Options;
 using CandySugar.Com.Options.ComponentObject;
 using CandySugar.MainUI.ViewModels;
 using RestSharp;
@@ -14,6 +15,7 @@ using System.Net.Http;
 using System.Windows;
 using System.Windows.Threading;
 using XExten.Advance;
+using XExten.Advance.NetFramework;
 
 namespace CandySugar.MainUI
 {
@@ -25,16 +27,17 @@ namespace CandySugar.MainUI
         protected override void OnStart()
         {
 
-            #if RELEASE
+#if RELEASE
             Com.Library.Lnk.Shortcut.Instance.CreateLnk("Candy");
-            #endif
+#endif
             //日志
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
                 .WriteTo.File(CommonHelper.LogPath, rollingInterval: RollingInterval.Day)
-                .CreateLogger();
+                .CreateLogger().AddSdkLogger();
             JsonReader.JsonRead(CommonHelper.OptionPath, CommonHelper.OptionFile);
             AssemblyLoader Loader = new(CommonHelper.AppPath);
+            NetFactoryExtension.RegisterNetFramework();
             ComponentBinding.ComponentObjectModels.ForEach(Dll =>
             {
                 Loader.Load(Dll.Plugin, Dll.Bootstrapper, Dll.Ioc, Dll.Description);

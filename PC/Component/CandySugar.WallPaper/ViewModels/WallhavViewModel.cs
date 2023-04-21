@@ -74,7 +74,6 @@ namespace CandySugar.WallPaper.ViewModels
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             WallhavType = WallhavEnum.Search,
                             Search = new WallhavSearch
                             {
@@ -107,7 +106,6 @@ namespace CandySugar.WallPaper.ViewModels
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             WallhavType = WallhavEnum.Search,
                             Search = new WallhavSearch
                             {
@@ -140,7 +138,6 @@ namespace CandySugar.WallPaper.ViewModels
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             WallhavType = WallhavEnum.Search,
                             Search = new WallhavSearch
                             {
@@ -173,7 +170,6 @@ namespace CandySugar.WallPaper.ViewModels
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             WallhavType = WallhavEnum.Search,
                             Search = new WallhavSearch
                             {
@@ -206,7 +202,6 @@ namespace CandySugar.WallPaper.ViewModels
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             WallhavType = WallhavEnum.Search,
                             Search = new WallhavSearch
                             {
@@ -239,7 +234,6 @@ namespace CandySugar.WallPaper.ViewModels
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             WallhavType = WallhavEnum.Search,
                             Search = new WallhavSearch
                             {

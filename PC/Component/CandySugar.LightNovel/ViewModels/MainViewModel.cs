@@ -16,11 +16,6 @@ namespace CandySugar.LightNovel.ViewModels
 
         public MainViewModel()
         {
-            SdkLicense.Register(new SdkLicenseModel
-            {
-                Account = "EmilyEdna",
-                Password = DateTime.Now.ToString("yyyyMMdd")
-            });
             ComponentControl = Module.IocModule.Resolve<IndexView>();
             WeakReferenceMessenger.Default.Register<MessageNotify>(this, (recip, notify) =>
             {

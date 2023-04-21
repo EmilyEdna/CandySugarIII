@@ -44,7 +44,6 @@
                         opt.RequestParam = new Input
                         {
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             LovelType = LovelEnum.Content,
                             Content = new LovelContent
                             {

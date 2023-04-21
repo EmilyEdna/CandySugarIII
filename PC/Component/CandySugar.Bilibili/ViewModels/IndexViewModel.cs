@@ -128,7 +128,6 @@
                     {
                         BiliType = BiliEnum.VideoData,
                         CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                        ImplType = SdkImpl.Rest,
                         VideoData = new BiliVideoData
                         {
                             Session = SessionCode,
@@ -155,7 +154,6 @@
                     {
                         BiliType = BiliEnum.VideoInfo,
                         CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                        ImplType = SdkImpl.Rest,
                         VideoInfo = new BiliVideoInfo
                         {
                             Route = Route,

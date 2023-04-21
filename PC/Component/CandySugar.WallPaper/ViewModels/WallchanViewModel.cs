@@ -75,7 +75,6 @@ namespace CandySugar.WallPaper.ViewModels
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             ImageType = ImageEnum.Search,
                             Search = new ImageSearch
                             {
@@ -107,7 +106,6 @@ namespace CandySugar.WallPaper.ViewModels
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             ImageType = ImageEnum.Search,
                             Search = new ImageSearch
                             {
@@ -140,7 +138,6 @@ namespace CandySugar.WallPaper.ViewModels
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             ImageType = ImageEnum.Search,
                             Search = new ImageSearch
                             {
@@ -173,7 +170,6 @@ namespace CandySugar.WallPaper.ViewModels
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             ImageType = ImageEnum.Search,
                             Search = new ImageSearch
                             {
@@ -206,7 +202,6 @@ namespace CandySugar.WallPaper.ViewModels
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             ImageType = ImageEnum.Search,
                             Search = new ImageSearch
                             {
@@ -239,7 +234,6 @@ namespace CandySugar.WallPaper.ViewModels
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             ImageType = ImageEnum.Search,
                             Search = new ImageSearch
                             {

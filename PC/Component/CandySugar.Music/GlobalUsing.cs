@@ -15,8 +15,6 @@ global using Sdk.Component.Music.sdk.ViewModel;
 global using Sdk.Component.Music.sdk.ViewModel.Enums;
 global using Sdk.Component.Music.sdk.ViewModel.Request;
 global using Sdk.Component.Music.sdk.ViewModel.Response;
-global using Sdk.Component.Plugins;
-global using Sdk.Core;
 global using Serilog;
 global using Stylet;
 global using System;

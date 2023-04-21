@@ -119,7 +119,6 @@
                         opt.RequestParam = new Input
                         {
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             LovelType = LovelEnum.Init,
                             Login = new()
                         };
@@ -148,7 +147,6 @@
                         opt.RequestParam = new Input
                         {
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             LovelType = LovelEnum.Category,
                             Category = new LovelCategory
                             {
@@ -183,7 +181,6 @@
                         opt.RequestParam = new Input
                         {
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             LovelType = LovelEnum.Category,
                             Category = new LovelCategory
                             {
@@ -224,7 +221,6 @@
                         opt.RequestParam = new Input
                         {
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             LovelType = LovelEnum.Search,
                             Search = new LovelSearch
                             {
@@ -260,7 +256,6 @@
                         opt.RequestParam = new Input
                         {
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             LovelType = LovelEnum.Search,
                             Search = new LovelSearch
                             {
@@ -303,7 +298,6 @@
                         opt.RequestParam = new Input
                         {
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             LovelType = LovelEnum.Detail,
                             Detail = new LovelDetail
                             {
@@ -317,7 +311,6 @@
                         opt.RequestParam = new Input
                         {
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             LovelType = LovelEnum.View,
                             View = new LovelView
                             {
@@ -351,7 +344,6 @@
                         opt.RequestParam = new Input
                         {
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImplType = SdkImpl.Rest,
                             LovelType = LovelEnum.Download,
                             Down = new LovelDown
                             {

@@ -19,9 +19,15 @@
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
 		<PackageReference Include="MQTTnet.Extensions.ManagedClient" Version="4.1.4.563" />
 		<PackageReference Include="NAudio" Version="2.1.0" />
-		<PackageReference Include="XExten.Advance" Version="1.2.5.1-preview" />
+		<PackageReference Include="XExten.Advance" Version="2.0.0.1" />
 		<PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.21.1-preview" />
 		<PackageReference Include="Hardcodet.Wpf.TaskbarNotification.Core" Version="2.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Sdk.Component">
+	    <HintPath>..\..\Lib\Sdk.Component.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 	<ItemGroup>

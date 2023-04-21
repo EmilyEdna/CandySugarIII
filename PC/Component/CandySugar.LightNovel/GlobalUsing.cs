@@ -12,8 +12,6 @@ global using Sdk.Component.Lovel.sdk.ViewModel;
 global using Sdk.Component.Lovel.sdk.ViewModel.Enums;
 global using Sdk.Component.Lovel.sdk.ViewModel.Request;
 global using Sdk.Component.Lovel.sdk.ViewModel.Response;
-global using Sdk.Component.Plugins;
-global using Sdk.Core;
 global using Serilog;
 global using Stylet;
 global using System;

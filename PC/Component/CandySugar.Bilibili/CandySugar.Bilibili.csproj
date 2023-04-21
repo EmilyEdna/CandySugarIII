@@ -23,9 +23,6 @@
 		<Reference Include="Sdk.Component">
 			<HintPath>..\..\..\Lib\Sdk.Component.dll</HintPath>
 		</Reference>
-		<Reference Include="Sdk.Core">
-			<HintPath>..\..\..\Lib\Sdk.Core.dll</HintPath>
-		</Reference>
 	</ItemGroup>
 
 </Project>

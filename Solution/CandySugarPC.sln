@@ -31,9 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Options", ".
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Style", "..\PC\CandySugar.Com.Style\CandySugar.Com.Style.csproj", "{39DA165A-E2B3-4B87-BE72-ADB716AD776F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.MainUI", "..\PC\CandySugar.MainUI\CandySugar.MainUI.csproj", "{7217086D-89AE-4F10-9543-C16FBABA6B72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.MainUI", "..\PC\CandySugar.MainUI\CandySugar.MainUI.csproj", "{7217086D-89AE-4F10-9543-C16FBABA6B72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.ModifyUI", "..\PC\CandySugar.ModifyUI\CandySugar.ModifyUI.csproj", "{9B451D77-C41B-484C-8922-82EE3ADD1EB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.ModifyUI", "..\PC\CandySugar.ModifyUI\CandySugar.ModifyUI.csproj", "{9B451D77-C41B-484C-8922-82EE3ADD1EB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

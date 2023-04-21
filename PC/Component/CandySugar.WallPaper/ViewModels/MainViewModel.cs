@@ -17,11 +17,6 @@ namespace CandySugar.WallPaper.ViewModels
         };
         public MainViewModel()
         {
-            SdkLicense.Register(new SdkLicenseModel
-            {
-                Account = "EmilyEdna",
-                Password = DateTime.Now.ToString("yyyyMMdd")
-            });
             ComponentControl = Module.IocModule.Resolve<WallhavView>();
             MenuIndex = new()
             {
