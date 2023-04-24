@@ -4,7 +4,6 @@ using CandySugar.Com.Library.DLLoader;
 using CandySugar.Com.Library.DownQueue;
 using CandySugar.Com.Library.ReadFile;
 using CandySugar.Com.Options;
-using CandySugar.Com.Options.ComponentObject;
 using CandySugar.MainUI.ViewModels;
 using RestSharp;
 using Serilog;
