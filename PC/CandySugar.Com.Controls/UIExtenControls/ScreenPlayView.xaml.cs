@@ -3,6 +3,7 @@ using LibVLCSharp.Shared;
 using LibVLCSharp.WPF;
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using XExten.Advance.LinqFramework;
@@ -58,7 +59,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 this.Height = 700;
                 this.Width = 1200;
             }
-            PlayBar.Width = this.Width;
+            PlayBar.Width = this.Width - 250 <= 0 ? 0d : this.Width - 250;
             VlcPlayer.AspectRatio = this.Width + ":" + this.Height;
         }
 

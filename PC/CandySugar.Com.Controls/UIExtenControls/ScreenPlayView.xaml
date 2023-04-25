@@ -28,39 +28,41 @@
                             Opacity="0.3" />
                     </Rectangle.Effect>
                 </Rectangle>
-                <StackPanel HorizontalAlignment="Left">
-                    <UniformGrid Margin="10,3" Columns="2">
-                        <TextBlock
-                            Margin="1,8"
-                            FontSize="18"
-                            Foreground="#fdf5e6"
-                            Text="The Drak Will Coming"
-                            TextTrimming="CharacterEllipsis" />
-                        <TextBlock
-                            Margin="1,10"
-                            HorizontalAlignment="Right"
-                            FontSize="15"
-                            Foreground="#fdf5e6">
-                            <Run x:Name="VideoTime" />
-                            <Run x:Name="Rates" />
-                        </TextBlock>
-                    </UniformGrid>
-                    <Slider
-                        x:Name="PlayBar"
-                        Width="{Binding Width, ElementName=InfoBar}"
-                        Margin="10,0"
-                        Maximum="1"
-                        Style="{DynamicResource VLCPlaySliderStyle}"
-                        Value="0" />
-                    <Grid Margin="0,5,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel
-                            Margin="100,0,0,0"
-                            HorizontalAlignment="Center"
-                            Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="200" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel HorizontalAlignment="Left">
+                        <UniformGrid Margin="10,3" Columns="2">
+                            <TextBlock
+                                Margin="1,8"
+                                FontSize="18"
+                                Foreground="#fdf5e6"
+                                Text="The Drak Will Coming"
+                                TextTrimming="CharacterEllipsis" />
+                            <TextBlock
+                                Margin="1,10"
+                                HorizontalAlignment="Right"
+                                FontSize="15"
+                                Foreground="#fdf5e6">
+                                <Run x:Name="VideoTime" />
+                                <Run x:Name="Rates" />
+                            </TextBlock>
+                        </UniformGrid>
+                        <Slider
+                            x:Name="PlayBar"
+                            Margin="10,0"
+                            Maximum="1"
+                            Style="{DynamicResource VLCPlaySliderStyle}"
+                            Value="0" />
+                    </StackPanel>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                             <Button
                                 x:Name="SkipPrevious"
                                 Width="50"
@@ -100,14 +102,19 @@
                                 Style="{DynamicResource CandyFontButtonStyle}" />
                         </StackPanel>
                         <StackPanel
-                            Grid.Column="1"
-                            Margin="0,0,10,0"
-                            HorizontalAlignment="Right"
+                            Grid.Row="1"
+                            HorizontalAlignment="Center"
                             Orientation="Horizontal">
                             <Button
                                 Width="30"
                                 Height="30"
                                 Content="{x:Static lib:FontIcon.Volume}"
+                                FontSize="20"
+                                Style="{DynamicResource CandyFontButtonStyle}" />
+                            <Button
+                                Width="30"
+                                Height="30"
+                                Content="{x:Static lib:FontIcon.ArrowsMaximize}"
                                 FontSize="20"
                                 Style="{DynamicResource CandyFontButtonStyle}" />
                             <Button
@@ -124,7 +131,7 @@
                                 Style="{DynamicResource CandyFontButtonStyle}" />
                         </StackPanel>
                     </Grid>
-                </StackPanel>
+                </Grid>
             </Grid>
         </vlc:VideoView>
     </Grid>
