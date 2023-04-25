@@ -15,7 +15,7 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
-        <vlc:VideoView Background="Black">
+        <vlc:VideoView x:Name="VideoPlayer" Background="Black">
             <Grid VerticalAlignment="Bottom">
                 <Rectangle Height="125" StrokeThickness="0">
                     <Rectangle.Fill>
@@ -40,14 +40,16 @@
                             Margin="1,10"
                             HorizontalAlignment="Right"
                             FontSize="15"
-                            Foreground="#fdf5e6"
-                            Text="00:00:00/02:15:19" />
+                            Foreground="#fdf5e6">
+                            <Run x:Name="VideoTime" />
+                            <Run x:Name="Rates" />
+                        </TextBlock>
                     </UniformGrid>
                     <Slider
                         x:Name="PlayBar"
                         Width="{Binding Width, ElementName=InfoBar}"
                         Margin="10,0"
-                        Maximum="500"
+                        Maximum="1"
                         Style="{DynamicResource VLCPlaySliderStyle}"
                         Value="0" />
                     <Grid Margin="0,5,0,0">
@@ -55,11 +57,16 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="100" />
                         </Grid.ColumnDefinitions>
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel
+                            Margin="100,0,0,0"
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal">
                             <Button
                                 x:Name="SkipPrevious"
                                 Width="50"
                                 Height="50"
+                                Click="PlayHandlerEvent"
+                                CommandParameter="1"
                                 Content="{x:Static lib:FontIcon.BackwardStep}"
                                 FontSize="50"
                                 Style="{DynamicResource CandyFontButtonStyle}" />
@@ -67,6 +74,8 @@
                                 x:Name="Play"
                                 Width="50"
                                 Height="50"
+                                Click="PlayHandlerEvent"
+                                CommandParameter="2"
                                 Content="{x:Static lib:FontIcon.Play}"
                                 FontSize="50"
                                 Style="{DynamicResource CandyFontButtonStyle}" />
@@ -74,6 +83,8 @@
                                 x:Name="Pause"
                                 Width="50"
                                 Height="50"
+                                Click="PlayHandlerEvent"
+                                CommandParameter="3"
                                 Content="{x:Static lib:FontIcon.Pause}"
                                 FontSize="50"
                                 Style="{DynamicResource CandyFontButtonStyle}"
@@ -82,6 +93,8 @@
                                 x:Name="SkipNext"
                                 Width="50"
                                 Height="50"
+                                Click="PlayHandlerEvent"
+                                CommandParameter="4"
                                 Content="{x:Static lib:FontIcon.ForwardStep}"
                                 FontSize="50"
                                 Style="{DynamicResource CandyFontButtonStyle}" />

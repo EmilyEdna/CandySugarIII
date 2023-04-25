@@ -9,8 +9,9 @@ namespace CandySugar.WallPaper
             IocModule = this;
             Container = new Container();
             Container.Register(typeof(WallhavView), Reuse.Singleton);
-            Container.Register(typeof(WallhavViewModel), Reuse.Singleton);
             Container.Register(typeof(WallchanView), Reuse.Singleton);
+
+            Container.Register(typeof(WallhavViewModel), Reuse.Singleton);
             Container.Register(typeof(WallchanViewModel), Reuse.Singleton);
         }
 
