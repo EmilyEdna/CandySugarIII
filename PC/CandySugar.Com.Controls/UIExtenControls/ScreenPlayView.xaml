@@ -14,9 +14,95 @@
     Style="{DynamicResource CandyDefaultWindowStyle}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.Resources>
+        <Storyboard x:Key="VolOpenKey">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="VolSetting" Storyboard.TargetProperty="RenderTransform.(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="VolSetting" Storyboard.TargetProperty="RenderTransform.(TransformGroup.Children)[1].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="VolSetting" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}" />
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="VolSetting" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="VolCloseKey">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="VolSetting" Storyboard.TargetProperty="RenderTransform.(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseIn" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseIn" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="VolSetting" Storyboard.TargetProperty="RenderTransform.(TransformGroup.Children)[1].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseIn" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="107.5">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseIn" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="VolSetting" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}" />
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="VolSetting" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="BarCloseKey">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="InfoBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="BarOpenKey">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="InfoBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
     <Grid>
         <vlc:VideoView x:Name="VideoPlayer" Background="Black">
-            <Grid VerticalAlignment="Bottom">
+            <Grid
+                x:Name="InfoBar"
+                Height="125"
+                VerticalAlignment="Bottom"
+                RenderTransformOrigin="1,1">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                    </TransformGroup>
+                </Grid.RenderTransform>
                 <Rectangle Height="125" StrokeThickness="0">
                     <Rectangle.Fill>
                         <SolidColorBrush Opacity=".3" Color="#FFF0F5" />
@@ -33,13 +119,13 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="200" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel HorizontalAlignment="Left">
-                        <UniformGrid Margin="10,3" Columns="2">
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <UniformGrid Margin="10,0,10,20" Columns="2">
                             <TextBlock
+                                x:Name="VedioTitle"
                                 Margin="1,8"
                                 FontSize="18"
                                 Foreground="#fdf5e6"
-                                Text="The Drak Will Coming"
                                 TextTrimming="CharacterEllipsis" />
                             <TextBlock
                                 Margin="1,10"
@@ -52,7 +138,7 @@
                         </UniformGrid>
                         <Slider
                             x:Name="PlayBar"
-                            Margin="10,0"
+                            Margin="10,0,10,20"
                             Maximum="1"
                             Style="{DynamicResource VLCPlaySliderStyle}"
                             Value="0" />
@@ -62,7 +148,10 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal">
                             <Button
                                 x:Name="SkipPrevious"
                                 Width="50"
@@ -105,27 +194,79 @@
                             Grid.Row="1"
                             HorizontalAlignment="Center"
                             Orientation="Horizontal">
+                            <Canvas>
+                                <SelectiveScrollingGrid
+                                    x:Name="VolSetting"
+                                    Canvas.Left="-20"
+                                    Canvas.Top="-200"
+                                    Width="75"
+                                    Height="220"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Visibility="Collapsed">
+                                    <SelectiveScrollingGrid.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform />
+                                            <TranslateTransform />
+                                        </TransformGroup>
+                                    </SelectiveScrollingGrid.RenderTransform>
+                                    <Rectangle
+                                        Width="75"
+                                        Height="215"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        Fill="#30FFFFFF"
+                                        RadiusX="14.5"
+                                        RadiusY="14.5"
+                                        Stroke="Pink" />
+                                    <Label
+                                        x:Name="VolumeShow"
+                                        Width="75"
+                                        Height="30"
+                                        Margin="0,185,0,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Content="100%"
+                                        FontSize="18" />
+                                    <Slider
+                                        Margin="27,20,21,35"
+                                        BorderBrush="Transparent"
+                                        Focusable="False"
+                                        Foreground="#FF63b3"
+                                        Maximum="100"
+                                        Minimum="1"
+                                        Orientation="Vertical"
+                                        SmallChange="1"
+                                        TickFrequency="5"
+                                        TickPlacement="BottomRight"
+                                        ValueChanged="VolChangeEvent"
+                                        Value="100" />
+                                </SelectiveScrollingGrid>
+                            </Canvas>
                             <Button
                                 Width="30"
                                 Height="30"
+                                Click="FuncHandlerEvent"
+                                CommandParameter="1"
                                 Content="{x:Static lib:FontIcon.Volume}"
                                 FontSize="20"
                                 Style="{DynamicResource CandyFontButtonStyle}" />
                             <Button
                                 Width="30"
                                 Height="30"
-                                Content="{x:Static lib:FontIcon.ArrowsMaximize}"
-                                FontSize="20"
-                                Style="{DynamicResource CandyFontButtonStyle}" />
-                            <Button
-                                Width="30"
-                                Height="30"
+                                Click="FuncHandlerEvent"
+                                CommandParameter="2"
                                 Content="{x:Static lib:FontIcon.FolderOpen}"
                                 FontSize="20"
                                 Style="{DynamicResource CandyFontButtonStyle}" />
                             <Button
                                 Width="30"
                                 Height="30"
+                                Click="FuncHandlerEvent"
+                                CommandParameter="3"
                                 Content="{x:Static lib:FontIcon.Bars}"
                                 FontSize="20"
                                 Style="{DynamicResource CandyFontButtonStyle}" />

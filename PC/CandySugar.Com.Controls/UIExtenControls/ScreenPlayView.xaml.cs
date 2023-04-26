@@ -1,11 +1,15 @@
 ﻿using CandySugar.Com.Library;
 using LibVLCSharp.Shared;
 using LibVLCSharp.WPF;
+using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media.Animation;
 using XExten.Advance.LinqFramework;
 using VLCPlayer = LibVLCSharp.Shared.MediaPlayer;
 
@@ -17,54 +21,58 @@ namespace CandySugar.Com.Controls.UIExtenControls
     public partial class ScreenPlayView : Window
     {
         private LibVLC VlcLibVLC;
-        private string MediaUri;
+        private Tuple<string, string> MediaInfo;
         private VLCPlayer VlcPlayer;
         private float Rate = 1;
         private int Playing = 0;
+        private bool IsOpen = false;
+        private Dictionary<string, string> Local = new Dictionary<string, string>();
         public ScreenPlayView()
         {
             InitializeComponent();
-            InitVideoPlayerEvent();
             StateChanged += Window_Stated;
             this.Rates.Text = $"X{Rate}";
             InitVLC();
             RelyLocation();
         }
 
-        public ScreenPlayView(string uri)
+        public ScreenPlayView(Tuple<string, string> MediaInfo)
         {
             InitializeComponent();
-            InitVideoPlayerEvent();
-            MediaUri = uri;
+            this.MediaInfo = MediaInfo;
             StateChanged += Window_Stated;
             this.Rates.Text = $"X{Rate}";
             InitVLC();
             RelyLocation();
         }
 
-        private void Window_Stated(object sender, EventArgs e)
+        void Window_Stated(object sender, EventArgs e)
         {
             RelyLocation();
         }
-        public void RelyLocation()
-        {
 
+        void RelyLocation()
+        {
             if (this.WindowState == WindowState.Maximized)
             {
                 this.Height = SystemParameters.PrimaryScreenHeight;
                 this.Width = SystemParameters.PrimaryScreenWidth;
+                FindAnime("BarCloseKey").Begin();
             }
             if (this.WindowState == WindowState.Normal)
             {
                 this.Height = 700;
                 this.Width = 1200;
+                FindAnime("BarOpenKey").Begin();
             }
             PlayBar.Width = this.Width - 250 <= 0 ? 0d : this.Width - 250;
             VlcPlayer.AspectRatio = this.Width + ":" + this.Height;
         }
 
+        Storyboard FindAnime(string Key) => (Storyboard)FindResource(Key);
+
         #region VLC
-        private void InitVLC()
+        void InitVLC()
         {
             Core.Initialize(Path.Combine(CommonHelper.AppPath, "vlclib"));
             VlcLibVLC = new LibVLC();
@@ -75,7 +83,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
             VlcPlayer.AspectRatio = this.Width + ":" + this.Height;
         }
 
-        private void PositionChanged(object sender, MediaPlayerPositionChangedEventArgs e)
+        void PositionChanged(object sender, MediaPlayerPositionChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -84,7 +92,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
 
         }
 
-        private void TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
+        void TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
             {
@@ -92,9 +100,9 @@ namespace CandySugar.Com.Controls.UIExtenControls
             });
         }
 
-        private void PlayHandlerEvent(object sender, RoutedEventArgs e)
+        void PlayHandlerEvent(object sender, RoutedEventArgs e)
         {
-            if (MediaUri.IsNullOrEmpty()) return;
+            if (MediaInfo == null) return;
             var Param = ((Button)sender).CommandParameter.ToString().AsInt();
             if (Param == 1)
             {
@@ -107,8 +115,9 @@ namespace CandySugar.Com.Controls.UIExtenControls
             {
                 if (Playing == 0)
                 {
-                    using Media media = new Media(VlcLibVLC, new Uri(MediaUri));
+                    using Media media = new Media(VlcLibVLC, new Uri(MediaInfo.Item1));
                     VideoPlayer.MediaPlayer.Play(media);
+                    VedioTitle.Text = MediaInfo.Item2;
                 }
                 if (Playing == 1)
                 {
@@ -135,18 +144,54 @@ namespace CandySugar.Com.Controls.UIExtenControls
         }
         #endregion
 
-
-
-        private void InitVideoPlayerEvent()
+        #region PageControl
+        void FuncHandlerEvent(object sender, RoutedEventArgs e)
         {
-            this.VideoPlayer.MouseLeftButtonDown += (sender, @event) =>
+            var Param = ((Button)sender).CommandParameter.ToString().AsInt();
+            if (Param == 1)
             {
-                if (VideoPlayer.MediaPlayer == null || MediaUri.IsNullOrEmpty()) return;
-                if (VideoPlayer.MediaPlayer.IsPlaying)
-                    VideoPlayer.MediaPlayer.Pause();
+                if (!IsOpen)
+                {
+                    FindAnime("VolOpenKey").Begin();
+                    IsOpen = true;
+                }
                 else
-                    VideoPlayer.MediaPlayer.Play();
-            };
+                {
+                    FindAnime("VolCloseKey").Begin();
+                    IsOpen = false;
+                }
+            }
+            if (Param == 2)
+            {
+                OpenFileDialog dialog = new OpenFileDialog()
+                {
+                    Filter = "视频|*.avi;*.mp4;*.flv;*.mkv;",
+                };
+                if (dialog.ShowDialog() == true)
+                {
+                    var FileName = Path.GetFileName(dialog.FileName);
+                    if (!Local.ContainsKey(FileName))
+                    {
+                        Local.Add(FileName, dialog.FileName);
+                        MediaInfo = Tuple.Create(dialog.FileName, FileName);
+                        PlayHandlerEvent(sender, e);
+                    }
+                }
+            }
+            if (Param == 3)
+            {
+                
+            }
         }
+        void VolChangeEvent(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var slider = (sender as Slider);
+            VolumeShow.Content = (int)slider.Value + "%";
+            if (VideoPlayer.MediaPlayer != null)
+                VideoPlayer.MediaPlayer.Volume = (int)slider.Value;
+        }
+        #endregion
+
+
     }
 }
