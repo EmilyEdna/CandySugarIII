@@ -1,4 +1,6 @@
 ﻿using CandySugar.Com.Library;
+using CandySugar.Com.Library.KeepOn;
+using CandySugar.Com.Library.VisualTree;
 using LibVLCSharp.Shared;
 using LibVLCSharp.WPF;
 using Microsoft.Win32;
@@ -26,24 +28,32 @@ namespace CandySugar.Com.Controls.UIExtenControls
         private float Rate = 1;
         private int Playing = 0;
         private bool IsOpen = false;
+        private bool IsNavOpen = false;
         private Dictionary<string, string> Local = new Dictionary<string, string>();
         public ScreenPlayView()
         {
             InitializeComponent();
-            StateChanged += Window_Stated;
+            Init();
+        }
+
+        public ScreenPlayView(Tuple<string, string> MediaInfo)
+        {
+            this.MediaInfo = MediaInfo;
+            InitializeComponent();
+            Init();
+        }
+
+        void Init()
+        {
+            ScreenKeep.PreventForCurrentThread();
             this.Rates.Text = $"X{Rate}";
             InitVLC();
             RelyLocation();
         }
 
-        public ScreenPlayView(Tuple<string, string> MediaInfo)
+        void Window_Closed(object sender, EventArgs e)
         {
-            InitializeComponent();
-            this.MediaInfo = MediaInfo;
-            StateChanged += Window_Stated;
-            this.Rates.Text = $"X{Rate}";
-            InitVLC();
-            RelyLocation();
+            ScreenKeep.RestoreForCurrentThread();
         }
 
         void Window_Stated(object sender, EventArgs e)
@@ -58,6 +68,8 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 this.Height = SystemParameters.PrimaryScreenHeight;
                 this.Width = SystemParameters.PrimaryScreenWidth;
                 FindAnime("BarCloseKey").Begin();
+                FindAnime("NavListBarCloseKey").Begin();
+                IsNavOpen = false;
             }
             if (this.WindowState == WindowState.Normal)
             {
@@ -65,6 +77,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 this.Width = 1200;
                 FindAnime("BarOpenKey").Begin();
             }
+            NavListBar.Height = this.Height - 160;
             PlayBar.Width = this.Width - 250 <= 0 ? 0d : this.Width - 250;
             VlcPlayer.AspectRatio = this.Width + ":" + this.Height;
         }
@@ -175,12 +188,22 @@ namespace CandySugar.Com.Controls.UIExtenControls
                         Local.Add(FileName, dialog.FileName);
                         MediaInfo = Tuple.Create(dialog.FileName, FileName);
                         PlayHandlerEvent(sender, e);
+                        ListBar.ItemsSource = Local;
                     }
                 }
             }
             if (Param == 3)
             {
-                
+                if (!IsNavOpen)
+                {
+                    FindAnime("NavListBarOpenKey").Begin();
+                    IsNavOpen = true;
+                }
+                else
+                {
+                    FindAnime("NavListBarCloseKey").Begin();
+                    IsNavOpen = false;
+                }
             }
         }
         void VolChangeEvent(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -190,8 +213,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
             if (VideoPlayer.MediaPlayer != null)
                 VideoPlayer.MediaPlayer.Volume = (int)slider.Value;
         }
+
         #endregion
-
-
     }
 }

@@ -27,7 +27,6 @@ namespace CandySugar.MainUI.Views
             Loaded += Window_Loaded;
             StateChanged += Window_Stated;
             Tray.Icon = new System.Drawing.Icon(new MemoryStream(Convert.FromBase64String(ICO.ICOBase64)));
-            new ScreenPlayView().Show();
         }
 
         private void Window_Stated(object sender, EventArgs e)

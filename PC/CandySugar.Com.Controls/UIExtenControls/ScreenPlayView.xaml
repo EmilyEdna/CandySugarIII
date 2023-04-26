@@ -6,11 +6,14 @@
     xmlns:lib="http://lib.candy.com"
     xmlns:local="clr-namespace:CandySugar.Com.Controls.UIExtenControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:CandySugar.Com.Controls.ExtenControls"
     xmlns:vlc="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
     x:Name="PlayView"
     Title="播放"
     Width="1200"
     Height="700"
+    Closed="Window_Closed"
+    StateChanged="Window_Stated"
     Style="{DynamicResource CandyDefaultWindowStyle}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -90,187 +93,235 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+
+        <Storyboard x:Key="NavListBarOpenKey">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="NavListBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.X)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="402" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="NavListBarCloseKey">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="NavListBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.X)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="402" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
     <Grid>
-        <vlc:VideoView x:Name="VideoPlayer" Background="Black">
-            <Grid
-                x:Name="InfoBar"
-                Height="125"
-                VerticalAlignment="Bottom"
-                RenderTransformOrigin="1,1">
-                <Grid.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform />
-                    </TransformGroup>
-                </Grid.RenderTransform>
-                <Rectangle Height="125" StrokeThickness="0">
-                    <Rectangle.Fill>
-                        <SolidColorBrush Opacity=".3" Color="#FFF0F5" />
-                    </Rectangle.Fill>
-                    <Rectangle.Effect>
-                        <DropShadowEffect
-                            BlurRadius="15"
-                            Direction="300"
-                            Opacity="0.3" />
-                    </Rectangle.Effect>
-                </Rectangle>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="200" />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <UniformGrid Margin="10,0,10,20" Columns="2">
-                            <TextBlock
-                                x:Name="VedioTitle"
-                                Margin="1,8"
-                                FontSize="18"
-                                Foreground="#fdf5e6"
-                                TextTrimming="CharacterEllipsis" />
-                            <TextBlock
-                                Margin="1,10"
-                                HorizontalAlignment="Right"
-                                FontSize="15"
-                                Foreground="#fdf5e6">
-                                <Run x:Name="VideoTime" />
-                                <Run x:Name="Rates" />
-                            </TextBlock>
-                        </UniformGrid>
-                        <Slider
-                            x:Name="PlayBar"
-                            Margin="10,0,10,20"
-                            Maximum="1"
-                            Style="{DynamicResource VLCPlaySliderStyle}"
-                            Value="0" />
-                    </StackPanel>
-                    <Grid Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <StackPanel
-                            Margin="0,10,0,0"
-                            HorizontalAlignment="Center"
-                            Orientation="Horizontal">
-                            <Button
-                                x:Name="SkipPrevious"
-                                Width="50"
-                                Height="50"
-                                Click="PlayHandlerEvent"
-                                CommandParameter="1"
-                                Content="{x:Static lib:FontIcon.BackwardStep}"
-                                FontSize="50"
-                                Style="{DynamicResource CandyFontButtonStyle}" />
-                            <Button
-                                x:Name="Play"
-                                Width="50"
-                                Height="50"
-                                Click="PlayHandlerEvent"
-                                CommandParameter="2"
-                                Content="{x:Static lib:FontIcon.Play}"
-                                FontSize="50"
-                                Style="{DynamicResource CandyFontButtonStyle}" />
-                            <Button
-                                x:Name="Pause"
-                                Width="50"
-                                Height="50"
-                                Click="PlayHandlerEvent"
-                                CommandParameter="3"
-                                Content="{x:Static lib:FontIcon.Pause}"
-                                FontSize="50"
-                                Style="{DynamicResource CandyFontButtonStyle}"
-                                Visibility="Collapsed" />
-                            <Button
-                                x:Name="SkipNext"
-                                Width="50"
-                                Height="50"
-                                Click="PlayHandlerEvent"
-                                CommandParameter="4"
-                                Content="{x:Static lib:FontIcon.ForwardStep}"
-                                FontSize="50"
-                                Style="{DynamicResource CandyFontButtonStyle}" />
+        <vlc:VideoView x:Name="VideoPlayer" Background="Transparent">
+            <Grid>
+                <Grid
+                    x:Name="NavListBar"
+                    Width="400"
+                    Margin="0,1,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top">
+                    <Grid.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform X="402" />
+                        </TransformGroup>
+                    </Grid.RenderTransform>
+                    <Rectangle Fill="#201e90ff" StrokeThickness="0">
+                        <Rectangle.Effect>
+                            <DropShadowEffect
+                                BlurRadius="15"
+                                Direction="300"
+                                Opacity="0.3" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <uc:CandyListBox x:Name="ListBar">
+                        <uc:CandyListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="2,3">
+                                    <Button
+                                        CommandParameter="{Binding Value}"
+                                        Content="{Binding Key}"
+                                        Style="{DynamicResource CandyTextBlockButtonStyle}" />
+                                </Grid>
+                            </DataTemplate>
+                        </uc:CandyListBox.ItemTemplate>
+                    </uc:CandyListBox>
+                </Grid>
+                <Grid
+                    x:Name="InfoBar"
+                    Height="125"
+                    VerticalAlignment="Bottom"
+                    RenderTransformOrigin="1,1">
+                    <Grid.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform />
+                        </TransformGroup>
+                    </Grid.RenderTransform>
+                    <Rectangle Height="125" StrokeThickness="0">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Opacity=".3" Color="#FFF0F5" />
+                        </Rectangle.Fill>
+                        <Rectangle.Effect>
+                            <DropShadowEffect
+                                BlurRadius="15"
+                                Direction="300"
+                                Opacity="0.3" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="200" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <UniformGrid Margin="10,0,10,20" Columns="2">
+                                <TextBlock
+                                    x:Name="VedioTitle"
+                                    Margin="1,8"
+                                    FontSize="18"
+                                    Foreground="#fdf5e6"
+                                    TextTrimming="CharacterEllipsis" />
+                                <TextBlock
+                                    Margin="1,10"
+                                    HorizontalAlignment="Right"
+                                    FontSize="15"
+                                    Foreground="#fdf5e6">
+                                    <Run x:Name="VideoTime" />
+                                    <Run x:Name="Rates" />
+                                </TextBlock>
+                            </UniformGrid>
+                            <Slider
+                                x:Name="PlayBar"
+                                Margin="10,0,10,20"
+                                Maximum="1"
+                                Style="{DynamicResource VLCPlaySliderStyle}"
+                                Value="0" />
                         </StackPanel>
-                        <StackPanel
-                            Grid.Row="1"
-                            HorizontalAlignment="Center"
-                            Orientation="Horizontal">
-                            <Canvas>
-                                <SelectiveScrollingGrid
-                                    x:Name="VolSetting"
-                                    Canvas.Left="-20"
-                                    Canvas.Top="-200"
-                                    Width="75"
-                                    Height="220"
-                                    RenderTransformOrigin="0.5,0.5"
-                                    Visibility="Collapsed">
-                                    <SelectiveScrollingGrid.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform />
-                                            <TranslateTransform />
-                                        </TransformGroup>
-                                    </SelectiveScrollingGrid.RenderTransform>
-                                    <Rectangle
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <StackPanel
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button
+                                    x:Name="SkipPrevious"
+                                    Width="50"
+                                    Height="50"
+                                    Click="PlayHandlerEvent"
+                                    CommandParameter="1"
+                                    Content="{x:Static lib:FontIcon.BackwardStep}"
+                                    FontSize="50"
+                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                <Button
+                                    x:Name="Play"
+                                    Width="50"
+                                    Height="50"
+                                    Click="PlayHandlerEvent"
+                                    CommandParameter="2"
+                                    Content="{x:Static lib:FontIcon.Play}"
+                                    FontSize="50"
+                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                <Button
+                                    x:Name="Pause"
+                                    Width="50"
+                                    Height="50"
+                                    Click="PlayHandlerEvent"
+                                    CommandParameter="3"
+                                    Content="{x:Static lib:FontIcon.Pause}"
+                                    FontSize="50"
+                                    Style="{DynamicResource CandyFontButtonStyle}"
+                                    Visibility="Collapsed" />
+                                <Button
+                                    x:Name="SkipNext"
+                                    Width="50"
+                                    Height="50"
+                                    Click="PlayHandlerEvent"
+                                    CommandParameter="4"
+                                    Content="{x:Static lib:FontIcon.ForwardStep}"
+                                    FontSize="50"
+                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Canvas>
+                                    <SelectiveScrollingGrid
+                                        x:Name="VolSetting"
+                                        Canvas.Left="-20"
+                                        Canvas.Top="-200"
                                         Width="75"
-                                        Height="215"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Fill="#30FFFFFF"
-                                        RadiusX="14.5"
-                                        RadiusY="14.5"
-                                        Stroke="Pink" />
-                                    <Label
-                                        x:Name="VolumeShow"
-                                        Width="75"
-                                        Height="30"
-                                        Margin="0,185,0,0"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Content="100%"
-                                        FontSize="18" />
-                                    <Slider
-                                        Margin="27,20,21,35"
-                                        BorderBrush="Transparent"
-                                        Focusable="False"
-                                        Foreground="#FF63b3"
-                                        Maximum="100"
-                                        Minimum="1"
-                                        Orientation="Vertical"
-                                        SmallChange="1"
-                                        TickFrequency="5"
-                                        TickPlacement="BottomRight"
-                                        ValueChanged="VolChangeEvent"
-                                        Value="100" />
-                                </SelectiveScrollingGrid>
-                            </Canvas>
-                            <Button
-                                Width="30"
-                                Height="30"
-                                Click="FuncHandlerEvent"
-                                CommandParameter="1"
-                                Content="{x:Static lib:FontIcon.Volume}"
-                                FontSize="20"
-                                Style="{DynamicResource CandyFontButtonStyle}" />
-                            <Button
-                                Width="30"
-                                Height="30"
-                                Click="FuncHandlerEvent"
-                                CommandParameter="2"
-                                Content="{x:Static lib:FontIcon.FolderOpen}"
-                                FontSize="20"
-                                Style="{DynamicResource CandyFontButtonStyle}" />
-                            <Button
-                                Width="30"
-                                Height="30"
-                                Click="FuncHandlerEvent"
-                                CommandParameter="3"
-                                Content="{x:Static lib:FontIcon.Bars}"
-                                FontSize="20"
-                                Style="{DynamicResource CandyFontButtonStyle}" />
-                        </StackPanel>
+                                        Height="220"
+                                        RenderTransformOrigin="0.5,0.5"
+                                        Visibility="Collapsed">
+                                        <SelectiveScrollingGrid.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform />
+                                                <TranslateTransform />
+                                            </TransformGroup>
+                                        </SelectiveScrollingGrid.RenderTransform>
+                                        <Rectangle
+                                            Width="75"
+                                            Height="215"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            Fill="#30FFFFFF"
+                                            RadiusX="14.5"
+                                            RadiusY="14.5"
+                                            Stroke="Pink" />
+                                        <Label
+                                            x:Name="VolumeShow"
+                                            Width="75"
+                                            Height="30"
+                                            Margin="0,185,0,0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="100%"
+                                            FontSize="18" />
+                                        <Slider
+                                            Margin="27,20,21,35"
+                                            BorderBrush="Transparent"
+                                            Focusable="False"
+                                            Foreground="#FF63b3"
+                                            Maximum="100"
+                                            Minimum="1"
+                                            Orientation="Vertical"
+                                            SmallChange="1"
+                                            TickFrequency="5"
+                                            TickPlacement="BottomRight"
+                                            ValueChanged="VolChangeEvent"
+                                            Value="100" />
+                                    </SelectiveScrollingGrid>
+                                </Canvas>
+                                <Button
+                                    Width="30"
+                                    Height="30"
+                                    Click="FuncHandlerEvent"
+                                    CommandParameter="1"
+                                    Content="{x:Static lib:FontIcon.Volume}"
+                                    FontSize="20"
+                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                <Button
+                                    Width="30"
+                                    Height="30"
+                                    Click="FuncHandlerEvent"
+                                    CommandParameter="2"
+                                    Content="{x:Static lib:FontIcon.FolderOpen}"
+                                    FontSize="20"
+                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                <Button
+                                    Width="30"
+                                    Height="30"
+                                    Click="FuncHandlerEvent"
+                                    CommandParameter="3"
+                                    Content="{x:Static lib:FontIcon.Bars}"
+                                    FontSize="20"
+                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
