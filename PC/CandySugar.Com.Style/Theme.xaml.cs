@@ -1,4 +1,5 @@
-﻿using CandySugar.Com.Library;
+﻿using CandySugar.Com.Controls.UIExtenControls;
+using CandySugar.Com.Library;
 using CandySugar.Com.Options.ComponentObject;
 using CandySugar.Com.Options.NotifyObject;
 using CommunityToolkit.Mvvm.Messaging;
@@ -119,7 +120,9 @@ namespace CandySugar.Com.Style
         public virtual void CloseEvent(object sender, RoutedEventArgs e)
         {
             Window win = (Window)((Button)sender).TemplatedParent;
-            win.Close();
+            if (win is ScreenPlayView) win.Close();
+            else Application.Current.Shutdown(0);
+
         }
         /// <summary>
         /// 搜索事件

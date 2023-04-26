@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -54,6 +55,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
 
         void Window_Closed(object sender, EventArgs e)
         {
+            this.VideoPlayer.MediaPlayer.Stop();
             ScreenKeep.RestoreForCurrentThread();
         }
 
@@ -248,6 +250,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
 
         public void SetHistory(string fileName, string route)
         {
+            if (History.Any(t => t.Key == fileName)) return;
             History his = new History
             {
                 Key = fileName,
