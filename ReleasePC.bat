@@ -29,6 +29,7 @@ rd /S /Q PC\Component\CandySugar.WallPaper\obj PC\Component\CandySugar.WallPaper
 rd /S /Q PC\Component\CandySugar.Bilibili\obj PC\Component\CandySugar.Bilibili\bin\Release
 
 xcopy PC\CandySugar.MainUI\bin\Debug\net7.0-windows\ffmpeg Release\ffmpeg /e /s
+xcopy PC\CandySugar.MainUI\bin\Debug\net7.0-windows\vlclib Release\vlclib /e /s
 
 cd Release
 del *.pdb *.json 
