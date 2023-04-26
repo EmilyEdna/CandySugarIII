@@ -118,7 +118,8 @@ namespace CandySugar.Com.Style
         /// <param name="e"></param>
         public virtual void CloseEvent(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown(0);
+            Window win = (Window)((Button)sender).TemplatedParent;
+            win.Close();
         }
         /// <summary>
         /// 搜索事件

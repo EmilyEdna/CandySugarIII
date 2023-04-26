@@ -12,12 +12,15 @@
     Title="视频播放器"
     Width="1200"
     Height="700"
+    d:DataContext="{d:DesignInstance local:ScreenPlayViewModel}"
     Closed="Window_Closed"
     StateChanged="Window_Stated"
     Style="{DynamicResource CandyDefaultWindowStyle}"
-    Topmost="True"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.DataContext>
+        <local:ScreenPlayViewModel />
+    </Window.DataContext>
     <Window.Resources>
         <Storyboard x:Key="VolOpenKey">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="VolSetting" Storyboard.TargetProperty="RenderTransform.(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
@@ -97,7 +100,7 @@
 
         <Storyboard x:Key="NavListBarOpenKey">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="NavListBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.X)">
-                <EasingDoubleKeyFrame KeyTime="0" Value="402" />
+                <EasingDoubleKeyFrame KeyTime="0" Value="310" />
                 <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
@@ -105,25 +108,25 @@
         <Storyboard x:Key="NavListBarCloseKey">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="NavListBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.X)">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="402" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="310" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
     <Grid>
-        <vlc:VideoView x:Name="VideoPlayer" Background="Transparent">
+        <vlc:VideoView x:Name="VideoPlayer" Background="Black">
             <Grid>
                 <Grid
                     x:Name="NavListBar"
-                    Width="400"
+                    Width="300"
                     Margin="0,1,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top">
                     <Grid.RenderTransform>
                         <TransformGroup>
-                            <TranslateTransform X="402" />
+                            <TranslateTransform X="310" />
                         </TransformGroup>
                     </Grid.RenderTransform>
-                    <Rectangle Fill="#201e90ff" StrokeThickness="0">
+                    <Rectangle Fill="#301e90ff" StrokeThickness="0">
                         <Rectangle.Effect>
                             <DropShadowEffect
                                 BlurRadius="15"
@@ -131,12 +134,13 @@
                                 Opacity="0.3" />
                         </Rectangle.Effect>
                     </Rectangle>
-                    <uc:CandyListBox x:Name="ListBar">
+                    <uc:CandyListBox ItemsSource="{Binding History}">
                         <uc:CandyListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="2,3">
                                     <Button
-                                        CommandParameter="{Binding Value}"
+                                        Click="HistoryPlayEvent"
+                                        CommandParameter="{Binding .}"
                                         Content="{Binding Key}"
                                         Style="{DynamicResource CandyTextBlockButtonStyle}" />
                                 </Grid>

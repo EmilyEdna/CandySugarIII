@@ -17,6 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -34,9 +35,9 @@ namespace CandySugar.MainUI.ViewModels
             this.Container = Container;
             this.WindowManager = WindowManager;
             this.Title = $"甜糖V{Assembly.GetExecutingAssembly().GetName().Version}";
-            #if RELEASE
+#if RELEASE
             Modify.CandySugarModify();
-            #endif
+#endif
         }
 
         protected override void OnActivate()
@@ -125,7 +126,16 @@ namespace CandySugar.MainUI.ViewModels
         public void SettingCommand(EMenu input)
         {
             if (input == EMenu.About) WindowManager.ShowWindow(Container.Get<AboutViewModel>());
-            if (input == EMenu.VLCPlayer) new ScreenPlayView() { Topmost = true, Width = 1200, Height = 700, Owner = (IndexView)View }.Show();
+            if (input == EMenu.VLCPlayer)
+            {
+                Task.Run(() =>
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        new ScreenPlayView() { Width = 1200, Height = 700, Owner = (IndexView)View }.Show();
+                    });
+                });
+            }
             if (input == EMenu.AudioToHigh) Application.Current.Dispatcher.Invoke(AudioToHighAudio);
             if (input == EMenu.ImgToVideo) Application.Current.Dispatcher.Invoke(ImageToVideo);
             if (input == EMenu.ImgToAudio) Application.Current.Dispatcher.Invoke(ImageToAudioVideo);

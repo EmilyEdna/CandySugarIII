@@ -3,8 +3,10 @@ using CandySugar.Com.Library.FileWrite;
 using CandySugar.Com.Library.KeepOn;
 using LibVLCSharp.Shared;
 using Microsoft.Win32;
+using Stylet;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -27,7 +29,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
         private int Playing = 0;
         private bool IsOpen = false;
         private bool IsNavOpen = false;
-        private Dictionary<string, string> Local = new Dictionary<string, string>();
+        private ScreenPlayViewModel Vm;
         public ScreenPlayView()
         {
             InitializeComponent();
@@ -43,7 +45,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
 
         void Init()
         {
-            ListBar.ItemsSource = DownUtil.ReadFile<Dictionary<string, string>>("Vlc", FileTypes.His, "VlcPlay") ?? Local;
+            Vm = this.DataContext as ScreenPlayViewModel;
             ScreenKeep.PreventForCurrentThread();
             this.Rates.Text = $"X{Rate}";
             InitVLC();
@@ -76,12 +78,21 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 this.Width = 1200;
                 FindAnime("BarOpenKey").Begin();
             }
-            NavListBar.Height = this.Height - 160;
+            NavListBar.Height = this.Height - 160 < 0 ? 0 : this.Height - 160;
             PlayBar.Width = this.Width - 250 <= 0 ? 0d : this.Width - 250;
             VlcPlayer.AspectRatio = this.Width + ":" + this.Height;
         }
 
         Storyboard FindAnime(string Key) => (Storyboard)FindResource(Key);
+
+        private void HistoryPlayEvent(object sender, RoutedEventArgs e)
+        {
+            var His = (sender as Button).CommandParameter as History;
+            MediaInfo = Tuple.Create(His.Value, His.Key);
+            using Media media = new Media(VlcLibVLC, new Uri(His.Value));
+            VideoPlayer.MediaPlayer.Play(media);
+            VedioTitle.Text = His.Key;
+        }
 
         #region VLC
         void InitVLC()
@@ -149,7 +160,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
             if (Param == 4)
             {
                 Rate *= 2f;
-                var Rates = Rate >= 16f ? 16f : Rate;
+                var Rates = Rate >= 4f ? 4f : Rate;
                 VideoPlayer.MediaPlayer.SetRate(Rates);
                 this.Rates.Text = $"X{Rates}";
             }
@@ -182,14 +193,9 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 if (dialog.ShowDialog() == true)
                 {
                     var FileName = Path.GetFileName(dialog.FileName);
-                    if (!Local.ContainsKey(FileName))
-                    {
-                        Local.Add(FileName, dialog.FileName);
-                        MediaInfo = Tuple.Create(dialog.FileName, FileName);
-                        PlayHandlerEvent(sender, e);
-                        ListBar.ItemsSource = Local;
-                        Encoding.Default.GetBytes(Local.ToJson()).FileCreate("Vlc", FileTypes.His, "VlcPlay");
-                    }
+                    Vm.SetHistory(FileName, dialog.FileName);
+                    MediaInfo = Tuple.Create(dialog.FileName, FileName);
+                    PlayHandlerEvent(sender, e);
                 }
             }
             if (Param == 3)
@@ -214,5 +220,42 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 VideoPlayer.MediaPlayer.Volume = (int)slider.Value;
         }
         #endregion
+
+    }
+
+    public class History 
+    {
+        public string Key { get; set; }
+       
+        public string Value { get; set; }
+     
+    }
+    public class ScreenPlayViewModel : PropertyChangedBase
+    {
+
+        public ScreenPlayViewModel()
+        {
+            var His = DownUtil.ReadFile<List<History>>("Vlc", FileTypes.His, "VlcPlay");
+            History = new ObservableCollection<History>(His ?? new List<History>());
+        }
+
+        private ObservableCollection<History> _History;
+        public ObservableCollection<History> History
+        {
+            get => _History;
+            set => SetAndNotify(ref _History, value);
+        }
+
+        public void SetHistory(string fileName, string route)
+        {
+            History his = new History
+            {
+                Key = fileName,
+                Value = route
+            };
+            History.Add(his);
+            var Data = History.ToJson();
+            Encoding.Default.GetBytes(Data).FileCreate("Vlc", FileTypes.His, "VlcPlay");
+        }
     }
 }
