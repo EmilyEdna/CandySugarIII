@@ -1,4 +1,5 @@
 ﻿using CandySugar.Com.Library;
+using CandySugar.Com.Library.FileWrite;
 using CandySugar.Com.Library.KeepOn;
 using CandySugar.Com.Library.VisualTree;
 using LibVLCSharp.Shared;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -45,6 +47,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
 
         void Init()
         {
+            ListBar.ItemsSource = DownUtil.ReadFile<Dictionary<string, string>>("Vlc", FileTypes.His, "VlcPlay") ?? Local;
             ScreenKeep.PreventForCurrentThread();
             this.Rates.Text = $"X{Rate}";
             InitVLC();
@@ -189,6 +192,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
                         MediaInfo = Tuple.Create(dialog.FileName, FileName);
                         PlayHandlerEvent(sender, e);
                         ListBar.ItemsSource = Local;
+                        Encoding.Default.GetBytes(Local.ToJson()).FileCreate("Vlc", FileTypes.His, "VlcPlay");
                     }
                 }
             }
@@ -213,7 +217,6 @@ namespace CandySugar.Com.Controls.UIExtenControls
             if (VideoPlayer.MediaPlayer != null)
                 VideoPlayer.MediaPlayer.Volume = (int)slider.Value;
         }
-
         #endregion
     }
 }

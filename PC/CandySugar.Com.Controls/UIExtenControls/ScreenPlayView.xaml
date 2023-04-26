@@ -15,6 +15,7 @@
     Closed="Window_Closed"
     StateChanged="Window_Stated"
     Style="{DynamicResource CandyDefaultWindowStyle}"
+    Topmost="True"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>

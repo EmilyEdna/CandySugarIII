@@ -14,5 +14,6 @@ namespace CandySugar.Com.Library.FileWrite
         public const string Dat = "dat";
         public const string Json = "json";
         public const string Jpg = "jpeg";
+        public const string His = "His";
     }
 }

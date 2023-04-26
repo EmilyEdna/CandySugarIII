@@ -67,6 +67,7 @@ namespace CandySugar.Com.Library.FileWrite
         /// <returns></returns>
         public static T ReadFile<T>(string fileName, string fileType, string component = "")
         {
+            if (!FileExists(fileName, fileType, component)) return default;
             var catalog = SyncStatic.CreateDir(Path.Combine(CommonHelper.DownloadPath, component));
             var files = Path.Combine(catalog, $"{fileName}.{fileType}");
             var data = SyncStatic.ReadFile(files);
