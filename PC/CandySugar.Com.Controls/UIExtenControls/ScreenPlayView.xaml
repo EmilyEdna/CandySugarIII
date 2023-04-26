@@ -9,7 +9,7 @@
     xmlns:uc="clr-namespace:CandySugar.Com.Controls.ExtenControls"
     xmlns:vlc="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
     x:Name="PlayView"
-    Title="播放"
+    Title="视频播放器"
     Width="1200"
     Height="700"
     Closed="Window_Closed"

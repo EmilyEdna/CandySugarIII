@@ -125,6 +125,7 @@ namespace CandySugar.MainUI.ViewModels
         public void SettingCommand(EMenu input)
         {
             if (input == EMenu.About) WindowManager.ShowWindow(Container.Get<AboutViewModel>());
+            if (input == EMenu.VLCPlayer) new ScreenPlayView() { Topmost = true, Width = 1200, Height = 700, Owner = (IndexView)View }.Show();
             if (input == EMenu.AudioToHigh) Application.Current.Dispatcher.Invoke(AudioToHighAudio);
             if (input == EMenu.ImgToVideo) Application.Current.Dispatcher.Invoke(ImageToVideo);
             if (input == EMenu.ImgToAudio) Application.Current.Dispatcher.Invoke(ImageToAudioVideo);

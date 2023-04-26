@@ -112,6 +112,12 @@
                     <MenuItem
                         s:View.ActionTarget="{Binding DataContext, ElementName=CandyWindow}"
                         Command="{s:Action SettingCommand}"
+                        CommandParameter="{x:Static lib:EMenu.VLCPlayer}"
+                        Header="视频播放"
+                        Style="{DynamicResource CandyMenuItemStyle}" />
+                    <MenuItem
+                        s:View.ActionTarget="{Binding DataContext, ElementName=CandyWindow}"
+                        Command="{s:Action SettingCommand}"
                         CommandParameter="{x:Static lib:EMenu.AudioToHigh}"
                         Header="音频转换"
                         Style="{DynamicResource CandyMenuItemStyle}" />

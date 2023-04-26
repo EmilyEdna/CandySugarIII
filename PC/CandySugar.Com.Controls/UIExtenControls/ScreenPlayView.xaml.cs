@@ -1,18 +1,14 @@
 ﻿using CandySugar.Com.Library;
 using CandySugar.Com.Library.FileWrite;
 using CandySugar.Com.Library.KeepOn;
-using CandySugar.Com.Library.VisualTree;
 using LibVLCSharp.Shared;
-using LibVLCSharp.WPF;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media.Animation;
 using XExten.Advance.LinqFramework;
 using VLCPlayer = LibVLCSharp.Shared.MediaPlayer;
