@@ -12,7 +12,7 @@ namespace CandySugar.Com.Library.Enums
         /// <summary>
         /// 视频播放器
         /// </summary>
-        VLCPlayer
+        VLCPlayer,
         /// <summary>
         /// 音频转高音质
         /// </summary>
@@ -28,6 +28,6 @@ namespace CandySugar.Com.Library.Enums
         /// <summary>
         /// 系统配置
         /// </summary>
-        SysOption,
+        SysOption
     }
 }
