@@ -6,6 +6,7 @@
     xmlns:lib="http://lib.candy.com"
     xmlns:local="clr-namespace:CandySugar.Com.Controls.UIExtenControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://github.com/canton7/Stylet"
     xmlns:uc="clr-namespace:CandySugar.Com.Controls.ExtenControls"
     xmlns:vlc="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
     x:Name="PlayView"
@@ -137,12 +138,26 @@
                     <uc:CandyListBox ItemsSource="{Binding History}">
                         <uc:CandyListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="2,3">
+                                <Grid Margin="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="20" />
+                                    </Grid.ColumnDefinitions>
                                     <Button
                                         Click="HistoryPlayEvent"
                                         CommandParameter="{Binding .}"
                                         Content="{Binding Key}"
                                         Style="{DynamicResource CandyTextBlockButtonStyle}" />
+                                    <Button
+                                        Grid.Column="1"
+                                        Width="20"
+                                        Height="20"
+                                        s:View.ActionTarget="{Binding DataContext, ElementName=PlayView}"
+                                        Command="{s:Action TrashCommand}"
+                                        CommandParameter="{Binding .}"
+                                        Content="{x:Static lib:FontIcon.Trash}"
+                                        FontSize="15"
+                                        Style="{DynamicResource CandyFontButtonStyle}" />
                                 </Grid>
                             </DataTemplate>
                         </uc:CandyListBox.ItemTemplate>

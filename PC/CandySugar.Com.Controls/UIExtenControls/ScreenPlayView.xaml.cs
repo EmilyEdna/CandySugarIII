@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
 using XExten.Advance.LinqFramework;
 using VLCPlayer = LibVLCSharp.Shared.MediaPlayer;
@@ -239,6 +240,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
         {
             var His = DownUtil.ReadFile<List<History>>("Vlc", FileTypes.His, "VlcPlay");
             History = new ObservableCollection<History>(His ?? new List<History>());
+
         }
 
         private ObservableCollection<History> _History;
@@ -257,6 +259,13 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 Value = route
             };
             History.Add(his);
+            var Data = History.ToJson();
+            Encoding.Default.GetBytes(Data).FileCreate("Vlc", FileTypes.His, "VlcPlay");
+        }
+
+        public void TrashCommand(History item) 
+        {
+            History.Remove(item);
             var Data = History.ToJson();
             Encoding.Default.GetBytes(Data).FileCreate("Vlc", FileTypes.His, "VlcPlay");
         }
