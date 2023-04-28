@@ -105,8 +105,14 @@ namespace CandySugar.Com.Controls.UIExtenControls
             VlcPlayer = new VLCPlayer(VlcLibVLC);
             VlcPlayer.TimeChanged += TimeChanged;
             VlcPlayer.PositionChanged += PositionChanged;
+            VlcPlayer.Stopped += Stopped;
             VideoPlayer.MediaPlayer = VlcPlayer;
             VlcPlayer.AspectRatio = this.Width + ":" + this.Height;
+        }
+
+        private void Stopped(object sender, EventArgs e)
+        {
+            
         }
 
         void PositionChanged(object sender, MediaPlayerPositionChangedEventArgs e)
