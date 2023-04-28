@@ -65,7 +65,7 @@ namespace CandySugar.Com.Library.FFMPeg
         /// <param name="audioTime">音频时常</param>
         /// <param name="catalog"></param>
         /// <returns></returns>
-        public static async Task<bool> ImageToVideo(this List<string> fileName,string audioFile,string audioTime,  string catalog)
+        public static async Task<bool> ImageToVideo(this List<string> fileName, string audioFile, string audioTime, string catalog)
         {
             var videoPath = Path.Combine(catalog, "Video");
             StringBuilder Info = new StringBuilder();
@@ -125,13 +125,14 @@ namespace CandySugar.Com.Library.FFMPeg
         /// <param name="file"></param>
         /// <param name="m4audio"></param>
         /// <param name="m4video"></param>
+        /// <param name="useDown"></param>
         /// <returns></returns>
-        public static async Task<bool> M4VAMerge(this string file, string m4audio, string m4video)
+        public static async Task<bool> M4VAMerge(this string file, string m4audio, string m4video, bool useDown = false)
         {
             StringBuilder Info = new StringBuilder();
 
             var cmd = await Cli.Wrap(CommonHelper.FFMPEG)
-                    .WithArguments($"-threads 5 -y {Cmd} -i {m4video} {Cmd} -i {m4audio} -codec copy -c:v libx264 {file}")
+                    .WithArguments($"-threads 5 -y {(useDown ? Cmd : "")} -i {m4video} {(useDown ? Cmd : "")} -i {m4audio} -codec copy -c:v libx264 {file}")
                      .WithStandardErrorPipe(PipeTarget.ToStringBuilder(Info))
                      .ExecuteAsync();
             Log.Logger.Information(Info.ToString());

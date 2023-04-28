@@ -5,14 +5,23 @@
 
         public IndexViewModel()
         {
-            SessionCode = string.Empty;
+            Progress = SessionCode = string.Empty;
+            Merge();
             ReadCookie();
         }
-
+        private double Counts = 0;
+        private string[] Special = { "|", "*", "?", ">", "<", ":", "\"", "/", "\\" };
+        private string Catalog = Path.Combine(CommonHelper.DownloadPath, "Bilibili");
         private string CookiePath = Path.Combine(CommonHelper.DownloadPath, "Bilibili", "Cookie.txt");
         private string SessionCode;
 
         #region Property
+        private string _Progress;
+        public string Progress
+        {
+            get => _Progress;
+            set => SetAndNotify(ref _Progress, value);
+        }
         private string _Route;
         public string Route
         {
@@ -70,12 +79,11 @@
             if (DataResult == null) return;
             Task.Run(async () =>
             {
-                var catalog = Path.Combine(CommonHelper.DownloadPath, "Bilibili");
-                var res = await DataResult.VideoDash.M4Video(Path.Combine(catalog, $"{InfoResult.BVID}.mp4"));
+                var res = await DataResult.VideoDash.M4Video(Path.Combine(Catalog, $"{InfoResult.BVID}.mp4"));
                 if (res)
                 {
-                    File.Move(Path.Combine(catalog, $"{InfoResult.BVID}.mp4"), Path.Combine(catalog, $"{InfoResult.Title}.mp4"));
-                    Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show());
+                    File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp4"), Path.Combine(Catalog, $"{InfoResult.Title}.mp4"));
+                    Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
                 }
             });
         }
@@ -84,12 +92,11 @@
             if (DataResult == null) return;
             Task.Run(async () =>
             {
-                var catalog = Path.Combine(CommonHelper.DownloadPath, "Bilibili");
-                var res = await DataResult.AudioDash.M4Audio(Path.Combine(catalog, $"{InfoResult.BVID}.mp3"));
+                var res = await DataResult.AudioDash.M4Audio(Path.Combine(Catalog, $"{InfoResult.BVID}.mp3"));
                 if (res)
                 {
-                    File.Move(Path.Combine(catalog, $"{InfoResult.BVID}.mp3"), Path.Combine(catalog, $"{InfoResult.Title}.mp3"));
-                    Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show());
+                    File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp3"), Path.Combine(Catalog, $"{InfoResult.Title}.mp3"));
+                    Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
                 }
             });
         }
@@ -98,13 +105,15 @@
             if (DataResult == null) return;
             Task.Run(async () =>
             {
-                var catalog = Path.Combine(CommonHelper.DownloadPath, "Bilibili");
-                var res = await Path.Combine(catalog, $"{InfoResult.BVID}.mp4").M4VAMerge(DataResult.AudioDash, DataResult.VideoDash);
-                if (res)
+                SyncStatic.CreateDir(Catalog);
+                var data = new Dictionary<string, string> {
+                        { Path.Combine(Catalog, $"mp4_{InfoResult.BVID}.m4s"),DataResult.VideoDash },
+                        { Path.Combine(Catalog, $"mp3_{InfoResult.BVID}.m4s"),DataResult.AudioDash }
+                    };
+                await HttpSchedule.HttpDownload(data, header =>
                 {
-                    File.Move(Path.Combine(catalog, $"{InfoResult.BVID}.mp4"), Path.Combine(catalog, $"{InfoResult.Title}.mp4"));
-                    Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show());
-                }
+                    header.Add(ConstDefault.Referer, "https://www.bilibili.com/");
+                });
             });
         }
         private void OnDownload()
@@ -169,11 +178,11 @@
                 ErrorNotify();
             }
         }
-        private void ReadCookie() 
+        private void ReadCookie()
         {
             if (File.Exists(CookiePath))
             {
-                SessionCode= File.ReadAllText(CookiePath);
+                SessionCode = File.ReadAllText(CookiePath);
             }
         }
         private void ErrorNotify()
@@ -181,6 +190,45 @@
             Application.Current.Dispatcher.Invoke(() =>
             {
                 new ScreenNotifyView(CommonHelper.ComponentErrorInformation).Show();
+            });
+        }
+        private void Merge()
+        {
+            HttpSchedule.ReceiveAction = new((item, num) =>
+            {
+                if (item == double.Parse((100 / num).ToString("F2")))
+                    Counts += item;
+                this.Progress = $"{Counts+ item}%";
+                if (Math.Ceiling(Counts) >= 100)
+                {
+                    Task.Run(async () =>
+                    {
+                        this.Progress = "Please Wait . . .";
+                        var res = await Path.Combine(Catalog, $"{InfoResult.BVID}.mp4").M4VAMerge(Path.Combine(Catalog, $"mp3_{InfoResult.BVID}.m4s"), Path.Combine(Catalog, $"mp4_{InfoResult.BVID}.m4s"));
+                        if (res)
+                        {
+                            this.Progress = string.Empty;
+                            Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
+                            await Task.Delay(1500);
+                            try
+                            {
+                                string SaleName = string.Empty;
+                                var Pattern = "[\\|/|*/|?/|</|>/|/|:/|\\\\/|//|\"]";
+                                if (InfoResult.Title.Any(t => Special.Contains(t.ToString())))
+                                    SaleName = Regex.Replace(InfoResult.Title, Pattern, "_");
+                                else
+                                    SaleName = InfoResult.Title;
+                                File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp4"), Path.Combine(Catalog, $"{SaleName}.mp4"));
+                                SyncStatic.DeleteFile(Path.Combine(Catalog, $"mp3_{InfoResult.BVID}.m4s"));
+                                SyncStatic.DeleteFile(Path.Combine(Catalog, $"mp4_{InfoResult.BVID}.m4s"));
+                            }
+                            catch (Exception ex)
+                            {
+                                Log.Logger.Error(ex, "");
+                            }
+                        }
+                    });
+                }
             });
         }
         #endregion

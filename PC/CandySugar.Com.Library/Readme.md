@@ -13,4 +13,5 @@
 1. <u>FFMPeg</u>FFMPEG操作功能。
 1. <u>Audios</u>NAudio播放功能。
 1. <u>Lnk</u>创建桌面快捷方式。
-1. <u>KeepOn</u>屏幕不休眠。
+1. <u>KeepOn</u>屏幕不休眠
+1. <u>DownPace</u>下载进度条。

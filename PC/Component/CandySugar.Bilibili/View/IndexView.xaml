@@ -49,7 +49,16 @@
                 Style="{DynamicResource CandyBorderStyle}"
                 Visibility="{c:Binding '(InfoResult!=null?true:false)',
                                        FalseToVisibility=Collapsed}">
-                <Image Source="{Binding InfoResult.Cover}" Stretch="Fill" />
+                <Grid>
+                    <Image Source="{Binding InfoResult.Cover}" Stretch="Fill" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="Microsoft YaHei"
+                        FontSize="50"
+                        Foreground="#e63995"
+                        Text="{Binding Progress}" />
+                </Grid>
             </uc:CandyBorder>
         </Grid>
         <StackPanel
