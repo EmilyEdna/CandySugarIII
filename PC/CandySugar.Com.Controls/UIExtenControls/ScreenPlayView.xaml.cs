@@ -1,6 +1,7 @@
 ﻿using CandySugar.Com.Library;
 using CandySugar.Com.Library.FileWrite;
 using CandySugar.Com.Library.KeepOn;
+using CommunityToolkit.Mvvm.Input;
 using LibVLCSharp.Shared;
 using Microsoft.Win32;
 using Stylet;
@@ -246,9 +247,10 @@ namespace CandySugar.Com.Controls.UIExtenControls
         {
             var His = DownUtil.ReadFile<List<History>>("Vlc", FileTypes.His, "VlcPlay");
             History = new ObservableCollection<History>(His ?? new List<History>());
+            TrashCommand =new RelayCommand<History>(TrashMethod);
 
         }
-
+  
         private ObservableCollection<History> _History;
         public ObservableCollection<History> History
         {
@@ -269,11 +271,14 @@ namespace CandySugar.Com.Controls.UIExtenControls
             Encoding.Default.GetBytes(Data).FileCreate("Vlc", FileTypes.His, "VlcPlay");
         }
 
-        public void TrashCommand(History item) 
+        private void TrashMethod(History item)
         {
             History.Remove(item);
             var Data = History.ToJson();
             Encoding.Default.GetBytes(Data).FileCreate("Vlc", FileTypes.His, "VlcPlay");
         }
+
+        public ICommand TrashCommand { get; }
+
     }
 }
