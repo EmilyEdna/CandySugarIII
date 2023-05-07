@@ -79,7 +79,7 @@
             if (DataResult == null) return;
             Task.Run(async () =>
             {
-                var res = await DataResult.VideoDash.M4Video(Path.Combine(Catalog, $"{InfoResult.BVID}.mp4"));
+                var res = await DataResult.VideoDash.M4Video(Path.Combine(SyncStatic.CreateDir(Catalog), $"{InfoResult.BVID}.mp4"));
                 if (res)
                 {
                     File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp4"), Path.Combine(Catalog, $"{InfoResult.Title}.mp4"));
@@ -92,7 +92,7 @@
             if (DataResult == null) return;
             Task.Run(async () =>
             {
-                var res = await DataResult.AudioDash.M4Audio(Path.Combine(Catalog, $"{InfoResult.BVID}.mp3"));
+                var res = await DataResult.AudioDash.M4Audio(Path.Combine(SyncStatic.CreateDir(Catalog), $"{InfoResult.BVID}.mp3"));
                 if (res)
                 {
                     File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp3"), Path.Combine(Catalog, $"{InfoResult.Title}.mp3"));
