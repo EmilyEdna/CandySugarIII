@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -58,7 +59,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
 
         void Window_Closed(object sender, EventArgs e)
         {
-            this.VideoPlayer.MediaPlayer.Stop();
+            this.VideoPlayer.MediaPlayer.Dispose();
             ScreenKeep.RestoreForCurrentThread();
         }
 
@@ -106,11 +107,11 @@ namespace CandySugar.Com.Controls.UIExtenControls
             var CK = ListItem.Tag.ToString().AsInt();
         }
 
-        private void ProgressChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void PositionChanged(object sender, MouseButtonEventArgs e)
         {
             if (VideoPlayer.MediaPlayer.IsPlaying)
             {
-                VideoPlayer.MediaPlayer.Position = (float)e.NewValue;
+                VideoPlayer.MediaPlayer.Position = (float)PlayBar.Value;
             }
         }
         #endregion
@@ -128,14 +129,21 @@ namespace CandySugar.Com.Controls.UIExtenControls
             VlcPlayer.AspectRatio = this.Width + ":" + this.Height;
         }
 
-        private void Stopped(object sender, EventArgs e)
+        private void PlayHandle()
         {
-            if (PlayModel == 1)
+            this.Dispatcher.Invoke(async () =>
             {
                 using Media media = new Media(VlcLibVLC, new Uri(MediaInfo.Item1));
-                VideoPlayer.MediaPlayer.Play(media);
                 VedioTitle.Text = MediaInfo.Item2;
-            }
+                await Task.Delay(500);
+                VideoPlayer.MediaPlayer.Play(media);
+            });
+        }
+
+        private void Stopped(object sender, EventArgs e)
+        {
+            if (MediaInfo == null) return;
+            if (PlayModel == 1) PlayHandle();
             if (PlayModel == 2)
             {
                 var LastIndex = Vm.History.Count - 1;
@@ -146,9 +154,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 {
                     var His = Vm.History[CurrentIndex + 1];
                     MediaInfo = Tuple.Create(His.Value, His.Key);
-                    using Media media = new Media(VlcLibVLC, new Uri(MediaInfo.Item1));
-                    VideoPlayer.MediaPlayer.Play(media);
-                    VedioTitle.Text = MediaInfo.Item2;
+                    PlayHandle();
                 }
             }
         }
@@ -184,11 +190,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
             if (Param == 2)
             {
                 if (Playing == 0)
-                {
-                    using Media media = new Media(VlcLibVLC, new Uri(MediaInfo.Item1));
-                    VideoPlayer.MediaPlayer.Play(media);
-                    VedioTitle.Text = MediaInfo.Item2;
-                }
+                    PlayHandle();
                 if (Playing == 1)
                 {
                     Playing = 0;

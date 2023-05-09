@@ -208,9 +208,9 @@
                             </UniformGrid>
                             <Slider
                                 x:Name="PlayBar"
-                                ValueChanged="ProgressChanged"
                                 Margin="10,0,10,20"
                                 Maximum="1"
+                                MouseDoubleClick="PositionChanged"
                                 Style="{DynamicResource VLCPlaySliderStyle}"
                                 Value="0" />
                         </StackPanel>
