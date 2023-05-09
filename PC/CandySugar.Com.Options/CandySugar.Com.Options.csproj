@@ -24,7 +24,7 @@
 		<!--<PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.18" />-->
 		<PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.21.1-preview" />
 		<PackageReference Include="Hardcodet.Wpf.TaskbarNotification.Core" Version="2.0.0" />
-		<PackageReference Include="XExten.Advance" Version="2.0.0.2" />
+		<PackageReference Include="XExten.Advance" Version="2.0.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
