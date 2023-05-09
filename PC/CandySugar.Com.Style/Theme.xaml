@@ -67,9 +67,9 @@
                                 x:Name="ImageBackgroud"
                                 Width="{TemplateBinding Width}"
                                 Height="{TemplateBinding Height}">
-                                <Grid.Background>
+                                <!--<Grid.Background>
                                     <ImageBrush ImageSource="/CandySugar.Com.Style;component/Resources/Backgroud.jpg" />
-                                </Grid.Background>
+                                </Grid.Background>-->
                             </Grid>
                             <Grid>
                                 <Rectangle
@@ -718,6 +718,61 @@
                             <Trigger.ExitActions>
                                 <RemoveStoryboard BeginStoryboardName="GradientAnimeMoveKey" />
                             </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="BorderElement" Property="Background" Value="#70E0E0DB" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                            <Setter TargetName="BorderElement" Property="Background" Value="#7080CBCC" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style
+        x:Key="ToggleListBoxIcon"
+        BasedOn="{StaticResource ToggleListBox}"
+        TargetType="ListBox">
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource ToggleListBoxItemIcon}" />
+        <Setter Property="Height" Value="35" />
+    </Style>
+
+    <Style
+        x:Key="ToggleListBoxItemIcon"
+        BasedOn="{StaticResource ToggleListBoxItem}"
+        TargetType="uc:CandyListboxItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="uc:CandyListboxItem">
+                    <Border
+                        Margin="{TemplateBinding Margin}"
+                        Background="#40B3B3B3"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        ClipToBounds="{TemplateBinding ClipToBounds}">
+                        <Grid>
+                            <Border x:Name="BorderElement" Background="Transparent" />
+                            <WrapPanel
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
+                                <TextBlock
+                                    Padding="10,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource Thin}"
+                                    FontSize="20"
+                                    Foreground="#fff0f5"
+                                    Text="{TemplateBinding Content}" />
+                            </WrapPanel>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="BorderElement" Property="Background" Value="#7080CBCC" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="BorderElement" Property="Background" Value="#70E0E0DB" />

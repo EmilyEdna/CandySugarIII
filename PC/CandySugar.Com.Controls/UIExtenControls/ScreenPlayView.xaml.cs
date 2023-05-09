@@ -32,6 +32,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
         private int Playing = 0;
         private bool IsOpen = false;
         private bool IsNavOpen = false;
+        private int PlayModel = 1;
         private ScreenPlayViewModel Vm;
         public ScreenPlayView()
         {
@@ -89,6 +90,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
 
         Storyboard FindAnime(string Key) => (Storyboard)FindResource(Key);
 
+        #region PageEvent
         private void HistoryPlayEvent(object sender, RoutedEventArgs e)
         {
             var His = (sender as Button).CommandParameter as History;
@@ -97,6 +99,21 @@ namespace CandySugar.Com.Controls.UIExtenControls
             VideoPlayer.MediaPlayer.Play(media);
             VedioTitle.Text = His.Key;
         }
+
+        private void MouseUpChanged(object sender, MouseButtonEventArgs e)
+        {
+            var ListItem = sender as ListBoxItem;
+            var CK = ListItem.Tag.ToString().AsInt();
+        }
+
+        private void ProgressChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (VideoPlayer.MediaPlayer.IsPlaying)
+            {
+                VideoPlayer.MediaPlayer.Position = (float)e.NewValue;
+            }
+        }
+        #endregion
 
         #region VLC
         void InitVLC()
@@ -113,7 +130,27 @@ namespace CandySugar.Com.Controls.UIExtenControls
 
         private void Stopped(object sender, EventArgs e)
         {
-            
+            if (PlayModel == 1)
+            {
+                using Media media = new Media(VlcLibVLC, new Uri(MediaInfo.Item1));
+                VideoPlayer.MediaPlayer.Play(media);
+                VedioTitle.Text = MediaInfo.Item2;
+            }
+            if (PlayModel == 2)
+            {
+                var LastIndex = Vm.History.Count - 1;
+                var CurrentIndex = Vm.History.ToList().FindIndex(t => t.Key == MediaInfo.Item2 && t.Value == MediaInfo.Item1);
+                //判断是否为最后一个
+                if (CurrentIndex + 1 > LastIndex) return;
+                else
+                {
+                    var His = Vm.History[CurrentIndex + 1];
+                    MediaInfo = Tuple.Create(His.Value, His.Key);
+                    using Media media = new Media(VlcLibVLC, new Uri(MediaInfo.Item1));
+                    VideoPlayer.MediaPlayer.Play(media);
+                    VedioTitle.Text = MediaInfo.Item2;
+                }
+            }
         }
 
         void PositionChanged(object sender, MediaPlayerPositionChangedEventArgs e)
@@ -230,15 +267,14 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 VideoPlayer.MediaPlayer.Volume = (int)slider.Value;
         }
         #endregion
-
     }
 
-    public class History 
+    public class History
     {
         public string Key { get; set; }
-       
+
         public string Value { get; set; }
-     
+
     }
     public class ScreenPlayViewModel : PropertyChangedBase
     {
@@ -247,10 +283,10 @@ namespace CandySugar.Com.Controls.UIExtenControls
         {
             var His = DownUtil.ReadFile<List<History>>("Vlc", FileTypes.His, "VlcPlay");
             History = new ObservableCollection<History>(His ?? new List<History>());
-            TrashCommand =new RelayCommand<History>(TrashMethod);
+            TrashCommand = new RelayCommand<History>(TrashMethod);
 
         }
-  
+
         private ObservableCollection<History> _History;
         public ObservableCollection<History> History
         {
