@@ -1,21 +1,21 @@
-﻿using Sdk.Component.Image.sdk.ViewModel;
-
+﻿
+using  Sdk.Component.Vip.Image.sdk.ViewModel;
 namespace CandySugar.WallPaper.ViewModels
 {
     public class WallchanViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
-        private List<ImageElementResult> Builder;
+        private List<WallkonElementResult> Builder;
         public WallchanViewModel()
         {
             GenericDelegate.SearchAction = new(SearchHandler);
-            var LocalDATA = DownUtil.ReadFile<List<ImageElementResult>>("Konachan", FileTypes.Dat, "WallPaper");
-            CollectResult = new ObservableCollection<ImageElementResult>();
+            var LocalDATA = DownUtil.ReadFile<List<WallkonElementResult>>("Konachan", FileTypes.Dat, "WallPaper");
+            CollectResult = new ObservableCollection<WallkonElementResult>();
             if (LocalDATA != null)
             {
                 LocalDATA.ForEach(CollectResult.Add);
             }
-            Builder = new List<ImageElementResult>();
+            Builder = new List<WallkonElementResult>();
         }
 
         #region Field
@@ -34,28 +34,28 @@ namespace CandySugar.WallPaper.ViewModels
         #endregion
 
         #region Property
-        private ObservableCollection<ImageElementResult> _GeneralResult;
-        public ObservableCollection<ImageElementResult> GeneralResult
+        private ObservableCollection<WallkonElementResult> _GeneralResult;
+        public ObservableCollection<WallkonElementResult> GeneralResult
         {
             get => _GeneralResult;
             set => SetAndNotify(ref _GeneralResult, value);
         }
 
-        private ObservableCollection<ImageElementResult> _OrdinaryResult;
-        public ObservableCollection<ImageElementResult> OrdinaryResult
+        private ObservableCollection<WallkonElementResult> _OrdinaryResult;
+        public ObservableCollection<WallkonElementResult> OrdinaryResult
         {
             get => _OrdinaryResult;
             set => SetAndNotify(ref _OrdinaryResult, value);
         }
 
-        private ObservableCollection<ImageElementResult> _FishyResult;
-        public ObservableCollection<ImageElementResult> FishyResult
+        private ObservableCollection<WallkonElementResult> _FishyResult;
+        public ObservableCollection<WallkonElementResult> FishyResult
         {
             get => _FishyResult;
             set => SetAndNotify(ref _FishyResult, value);
         }
-        private ObservableCollection<ImageElementResult> _CollectResult;
-        public ObservableCollection<ImageElementResult> CollectResult
+        private ObservableCollection<WallkonElementResult> _CollectResult;
+        public ObservableCollection<WallkonElementResult> CollectResult
         {
             get => _CollectResult;
             set => SetAndNotify(ref _CollectResult, value);
@@ -69,14 +69,14 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
-                    var result = (await ImageFactory.Image(opt =>
+                    var result = (await WallkonFactory.Image(opt =>
                     {
                         opt.RequestParam = new Input
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImageType = ImageEnum.Search,
-                            Search = new ImageSearch
+                            WallkonType = WallkonEnum.Search,
+                            Search = new WallkonSearch
                             {
                                 Limit = this.Limit,
                                 Page = 1,
@@ -85,7 +85,7 @@ namespace CandySugar.WallPaper.ViewModels
                         };
                     }).RunsAsync()).GlobalResult;
                     GeneralTotal = result.Total;
-                    GeneralResult = new ObservableCollection<ImageElementResult>(result.Result);
+                    GeneralResult = new ObservableCollection<WallkonElementResult>(result.Result);
                 }
                 catch (Exception ex)
                 {
@@ -100,14 +100,14 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
-                    var result = (await ImageFactory.Image(opt =>
+                    var result = (await WallkonFactory.Image(opt =>
                     {
                         opt.RequestParam = new Input
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImageType = ImageEnum.Search,
-                            Search = new ImageSearch
+                            WallkonType = WallkonEnum.Search,
+                            Search = new WallkonSearch
                             {
                                 Limit = this.Limit,
                                 Page = 1,
@@ -117,7 +117,7 @@ namespace CandySugar.WallPaper.ViewModels
                         };
                     }).RunsAsync()).GlobalResult;
                     OrdinaryTotal = result.Total;
-                    OrdinaryResult = new ObservableCollection<ImageElementResult>(result.Result);
+                    OrdinaryResult = new ObservableCollection<WallkonElementResult>(result.Result);
                 }
                 catch (Exception ex)
                 {
@@ -132,14 +132,14 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
-                    var result = (await ImageFactory.Image(opt =>
+                    var result = (await WallkonFactory.Image(opt =>
                     {
                         opt.RequestParam = new Input
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImageType = ImageEnum.Search,
-                            Search = new ImageSearch
+                            WallkonType = WallkonEnum.Search,
+                            Search = new WallkonSearch
                             {
                                 Limit = this.Limit,
                                 Page = 1,
@@ -149,7 +149,7 @@ namespace CandySugar.WallPaper.ViewModels
                         };
                     }).RunsAsync()).GlobalResult;
                     FishyTotal = result.Total;
-                    FishyResult = new ObservableCollection<ImageElementResult>(result.Result);
+                    FishyResult = new ObservableCollection<WallkonElementResult>(result.Result);
                 }
                 catch (Exception ex)
                 {
@@ -164,14 +164,14 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
-                    var result = (await ImageFactory.Image(opt =>
+                    var result = (await WallkonFactory.Image(opt =>
                     {
                         opt.RequestParam = new Input
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImageType = ImageEnum.Search,
-                            Search = new ImageSearch
+                            WallkonType = WallkonEnum.Search,
+                            Search = new WallkonSearch
                             {
                                 Limit = this.Limit,
                                 Page = GeneralPageIndex,
@@ -196,14 +196,14 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
-                    var result = (await ImageFactory.Image(opt =>
+                    var result = (await WallkonFactory.Image(opt =>
                     {
                         opt.RequestParam = new Input
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImageType = ImageEnum.Search,
-                            Search = new ImageSearch
+                            WallkonType = WallkonEnum.Search,
+                            Search = new WallkonSearch
                             {
                                 Limit = this.Limit,
                                 Page = OrdinaryPageIndex,
@@ -228,14 +228,14 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
-                    var result = (await ImageFactory.Image(opt =>
+                    var result = (await WallkonFactory.Image(opt =>
                     {
                         opt.RequestParam = new Input
                         {
 
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            ImageType = ImageEnum.Search,
-                            Search = new ImageSearch
+                            WallkonType = WallkonEnum.Search,
+                            Search = new WallkonSearch
                             {
                                 Limit = this.Limit,
                                 Page = FishyPageIndex,
@@ -320,18 +320,18 @@ namespace CandySugar.WallPaper.ViewModels
         /// 收藏
         /// </summary>
         /// <param name="element"></param>
-        public void CollectCommand(ImageElementResult element)
+        public void CollectCommand(WallkonElementResult element)
         {
             CollectResult.Add(element);
             CollectResult.ToList().DeleteAndCreate("Konachan", FileTypes.Dat, "WallPaper");
         }
 
-        public void CheckCommand(ImageElementResult element)
+        public void CheckCommand(WallkonElementResult element)
         {
             Builder.Add(element);
             GenericDelegate.HandleAction?.Invoke(Builder);
         }
-        public void UnCheckCommand(ImageElementResult element)
+        public void UnCheckCommand(WallkonElementResult element)
         {
             Builder.Remove(element);
             GenericDelegate.HandleAction?.Invoke(Builder);

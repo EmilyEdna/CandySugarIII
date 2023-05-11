@@ -1,13 +1,9 @@
-﻿using CandySugar.Com.Library.Audios;
-using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Win32;
-
-namespace CandySugar.WallPaper.ViewModels
+﻿namespace CandySugar.WallPaper.ViewModels
 {
     public class MainViewModel : PropertyChangedBase
     {
         private List<WallhavSearchElementResult> WallhavBuilder;
-        private List<ImageElementResult> KonachanBuilder;
+        private List<WallkonElementResult> KonachanBuilder;
         private List<string> RealLocal;
         private List<MenuInfo> Default = new List<MenuInfo> {
             new MenuInfo { Key = 3, Value = "下载选中" },
@@ -34,7 +30,7 @@ namespace CandySugar.WallPaper.ViewModels
                             Default.ForEach(item => MenuIndex.Add(item));
                     }
                 }
-                if (obj is List<ImageElementResult> chan)
+                if (obj is List<WallkonElementResult> chan)
                 {
                     KonachanBuilder = chan;
                     if (KonachanBuilder.Count >= 1)

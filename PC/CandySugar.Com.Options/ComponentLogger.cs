@@ -1,4 +1,4 @@
-﻿using Sdk.Component.Plugins;
+﻿using Sdk.Plugins;
 using Serilog.Core;
 using System;
 using System.Collections.Generic;

@@ -20,6 +20,9 @@
 		<Reference Include="Sdk.Component">
 			<HintPath>..\..\..\Lib\Sdk.Component.dll</HintPath>
 		</Reference>
+		<Reference Include="Sdk.Plugins">
+			<HintPath>..\..\..\Lib\Sdk.Plugins.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 	
 </Project>
