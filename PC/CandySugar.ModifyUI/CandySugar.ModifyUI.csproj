@@ -15,11 +15,11 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" >
+		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0">
 			<Private>false</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" >
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0">
 			<Private>false</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>
