@@ -26,9 +26,4 @@
 		</Reference>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="ViewModels\" />
-	  <Folder Include="View\" />
-	</ItemGroup>
-
 </Project>
