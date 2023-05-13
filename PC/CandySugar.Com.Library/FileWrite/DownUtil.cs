@@ -50,6 +50,7 @@ namespace CandySugar.Com.Library.FileWrite
             var catalog = Path.Combine(CommonHelper.DownloadPath, component);
             var files = Path.Combine(catalog, $"{fileName}.{fileType}");
             SyncStatic.DeleteFile(files);
+            SyncStatic.CreateDir(catalog);
             SyncStatic.CreateFile(files);
             SyncStatic.WriteFile(Encoding.UTF8.GetBytes(data.ToJson()), files);
             Application.Current.Dispatcher.Invoke(() =>

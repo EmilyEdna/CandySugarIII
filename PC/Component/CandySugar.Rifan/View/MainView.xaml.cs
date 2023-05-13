@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CandySugar.Anime.View
+namespace CandySugar.Rifan.View
 {
     /// <summary>
     /// MainView.xaml 的交互逻辑

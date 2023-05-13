@@ -10,6 +10,7 @@ namespace CandySugar.Com.Library.Enums
     {
         Light=1,
         Wallhav,
-        Chan
+        Chan,
+        Rifan
     }
 }

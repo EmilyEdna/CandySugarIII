@@ -261,7 +261,6 @@ namespace CandySugar.WallPaper.ViewModels
                 new ScreenNotifyView(Info.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : Info).Show();
             });
         }
-
         private string Expert(int type)
         {
             if (type == 1) return !this.Keyword.IsNullOrEmpty()? $"{this.Keyword} rating:safe": "rating:safe";

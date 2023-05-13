@@ -1,4 +1,4 @@
-﻿namespace CandySugar.Anime
+﻿namespace CandySugar.Rifan
 {
     public class Module
     {
@@ -8,7 +8,8 @@
         {
             IocModule = this;
             Container = new Container();
-
+            Container.Register(typeof(IndexView), Reuse.Singleton);
+            Container.Register(typeof(IndexViewModel), Reuse.Singleton);
         }
         public T Resolve<T>() where T : UserControl
         {
