@@ -1,4 +1,6 @@
-﻿namespace CandySugar.WallPaper.ViewModels
+﻿using CandySugar.WallPaper.ObjectEntity;
+
+namespace CandySugar.WallPaper.ViewModels
 {
     public class MainViewModel : PropertyChangedBase
     {

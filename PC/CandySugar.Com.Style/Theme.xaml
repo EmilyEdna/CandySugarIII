@@ -731,7 +731,6 @@
         </Setter>
     </Style>
 
-
     <Style
         x:Key="ToggleListBoxIcon"
         BasedOn="{StaticResource ToggleListBox}"

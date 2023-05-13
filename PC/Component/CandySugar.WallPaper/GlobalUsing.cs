@@ -3,7 +3,6 @@ global using CandySugar.Com.Library;
 global using CandySugar.Com.Library.FFMPeg;
 global using CandySugar.Com.Library.FileWrite;
 global using CandySugar.Com.Options.ComponentGeneric;
-global using CandySugar.WallPaper.MenuEntity;
 global using CandySugar.WallPaper.View;
 global using CandySugar.WallPaper.ViewModels;
 global using CommunityToolkit.Mvvm.Input;

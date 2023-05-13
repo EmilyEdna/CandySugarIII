@@ -532,5 +532,102 @@
                 </Grid>
             </uc:CandyBorder>
         </Grid>
+        <Grid
+            x:Name="NavListBar"
+            Grid.RowSpan="2"
+            Width="300"
+            Height="{Binding Height, ElementName=IndexCtrl}"
+            Margin="0,1,0,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform X="310" />
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Rectangle Fill="#301e90ff" StrokeThickness="0">
+                <Rectangle.Effect>
+                    <DropShadowEffect
+                        BlurRadius="15"
+                        Direction="300"
+                        Opacity="0.3" />
+                </Rectangle.Effect>
+            </Rectangle>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <ListBox
+                    Margin="12,0,0,0"
+                    ItemsSource="{Binding Current}"
+                    Style="{DynamicResource CandyListBoxStyle}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="5" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <uc:CandyButton
+                                Width="55"
+                                ButtonType="Info"
+                                Click="PlayClickEnvent"
+                                CommandParameter="{Binding .}"
+                                Content="{Binding Clarity}"
+                                Style="{DynamicResource CandyButtonStyle}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <uc:CandyListBox
+                    Grid.Row="1"
+                    Margin="-20,0,0,0"
+                    ItemsSource="{Binding LinkResult}">
+                    <uc:CandyListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Width="300" Margin="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Width="100"
+                                    uc:ImageAttach.RenderHeight="130"
+                                    uc:ImageAttach.RenderWidth="100"
+                                    uc:ImageAttach.SourceAsync="{Binding Cover}"
+                                    Stretch="Uniform"
+                                    Tag="{x:Static lib:EDownload.Rifan}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction
+                                                s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                Command="{s:Action WatchCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Image>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock
+                                        Margin="0,5"
+                                        Style="{DynamicResource TextBlockStyle}"
+                                        Text="{Binding Name}"
+                                        TextTrimming="CharacterEllipsis" />
+                                    <TextBlock
+                                        Margin="0,5"
+                                        FontSize="14"
+                                        Style="{DynamicResource TextBlockStyle}"
+                                        Text="{Binding Duration, StringFormat=时常：{0}}" />
+                                    <TextBlock
+                                        Margin="0,5"
+                                        FontSize="14"
+                                        Style="{DynamicResource TextBlockStyle}"
+                                        Text="{Binding Views, StringFormat=次数：{0}}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </uc:CandyListBox.ItemTemplate>
+                </uc:CandyListBox>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

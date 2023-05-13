@@ -370,4 +370,18 @@
             <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1" />
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
+
+    <Storyboard x:Key="NavListBarOpenKey">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="NavListBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.X)">
+            <EasingDoubleKeyFrame KeyTime="0" Value="310" />
+            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" />
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="NavListBarCloseKey">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="NavListBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.X)">
+            <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="310" />
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
 </ResourceDictionary>

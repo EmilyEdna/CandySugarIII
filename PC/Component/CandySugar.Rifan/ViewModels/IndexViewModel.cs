@@ -76,6 +76,20 @@
             get => _CollectResult;
             set => SetAndNotify(ref _CollectResult, value);
         }
+
+        private ObservableCollection<SearchElementResult> _LinkResult;
+        public ObservableCollection<SearchElementResult> LinkResult
+        {
+            get => _LinkResult;
+            set => SetAndNotify(ref _LinkResult, value);
+        }
+
+        private ObservableCollection<PlayInfo> _Current;
+        public ObservableCollection<PlayInfo> Current
+        {
+            get => _Current;
+            set => SetAndNotify(ref _Current, value);
+        }
         #endregion
 
         #region Method
@@ -88,7 +102,7 @@
             });
         }
 
-        private void OnAllInit() 
+        private void OnAllInit()
         {
             Task.Run(async () =>
             {
@@ -407,6 +421,41 @@
                 }
             });
         }
+
+        private void OnWatchInit(SearchElementResult element)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    var result = (await AnimeFactory.Anime(opt =>
+                    {
+                        opt.RequestParam = new Input
+                        {
+
+                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                            AnimeType = AnimeEnum.Watch,
+                            Watch = new AnimeWatch
+                            {
+                                Route = element.Route
+                            }
+                        };
+                    }).RunsAsync()).WatchResult;
+                    Current = new ObservableCollection<PlayInfo>(result.Current.Select(t => new PlayInfo
+                    {
+                        Clarity = $"{t.Key}P",
+                        Route = t.Value,
+                        Name = element.Name
+                    }));
+                    LinkResult = new ObservableCollection<SearchElementResult>(result.Results.ToMapest<List<SearchElementResult>>());
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, "");
+                    ErrorNotify();
+                }
+            });
+        }
         #endregion
 
         #region Command
@@ -487,8 +536,9 @@
         /// </summary>
         /// <param name="param"></param>
         public void WatchCommand(SearchElementResult element)
-        { 
-        
+        {
+            OnWatchInit(element);
+            WeakReferenceMessenger.Default.Send(new MessageNotify());
         }
         /// <summary>
         /// 删除

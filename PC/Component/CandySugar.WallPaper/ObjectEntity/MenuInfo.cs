@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CandySugar.WallPaper.MenuEntity
+﻿namespace CandySugar.WallPaper.ObjectEntity
 {
-    public class MenuInfo:PropertyChangedBase
+    public class MenuInfo : PropertyChangedBase
     {
         private int _Key;
         public int Key

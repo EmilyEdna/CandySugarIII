@@ -1,23 +1,4 @@
-﻿using CandySugar.Com.Options.ComponentGeneric;
-using CandySugar.Rifan.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using XExten.Advance.LinqFramework;
-
-namespace CandySugar.Rifan.View
+﻿namespace CandySugar.Rifan.View
 {
     /// <summary>
     /// IndexView.xaml 的交互逻辑
@@ -32,6 +13,8 @@ namespace CandySugar.Rifan.View
         private Storyboard AnimeX4;
         private Storyboard AnimeX5;
         private Storyboard AnimeX6;
+        private Storyboard BarOpen;
+        private Storyboard BarClose;
         private IndexViewModel ViewModel;
         public IndexView()
         {
@@ -43,6 +26,8 @@ namespace CandySugar.Rifan.View
             AnimeX4 = (Storyboard)FindResource("X4Key");
             AnimeX5 = (Storyboard)FindResource("X5Key");
             AnimeX6 = (Storyboard)FindResource("X6Key");
+            BarOpen = (Storyboard)FindResource("NavListBarOpenKey");
+            BarClose = (Storyboard)FindResource("NavListBarCloseKey");
             AnimeX1.Completed += CompletedEvent;
             AnimeX2.Completed += CompletedEvent;
             AnimeX3.Completed += CompletedEvent;
@@ -53,6 +38,10 @@ namespace CandySugar.Rifan.View
             {
                 this.Width = width;
                 this.Height = height - 35 <= 0 ? 0 : height - 35;
+            });
+            WeakReferenceMessenger.Default.Register<MessageNotify>(this, (recip, notify) =>
+            {
+                BarOpen.Begin();
             });
         }
 
@@ -95,6 +84,13 @@ namespace CandySugar.Rifan.View
                 ActiveAnime = CK;
                 AnimeX6.Begin();
             }
+        }
+
+        private void PlayClickEnvent(object sender, RoutedEventArgs e)
+        {
+            var Info = ((sender as CandyButton).CommandParameter as PlayInfo);
+            new ScreenPlayView(Tuple.Create(Info.Route, Info.Name)) { Width = 1200, Height = 700 }.Show();
+            BarClose.Begin();
         }
     }
 }
