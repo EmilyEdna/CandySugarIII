@@ -172,7 +172,7 @@
                                                     <i:InvokeCommandAction
                                                         s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
                                                         Command="{s:Action WatchCommand}"
-                                                        CommandParameter="{Binding .}" />
+                                                        CommandParameter="{Binding Route}" />
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </Image>
@@ -235,7 +235,10 @@
                     <uc:CandyButton
                         Width="55"
                         Margin="2,0"
+                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
                         ButtonType="Info"
+                        Click="ColseEvent"
+                        Command="{s:Action ViewCommand}"
                         Content="查看"
                         Style="{DynamicResource CandyButtonStyle}" />
                     <uc:CandyButton

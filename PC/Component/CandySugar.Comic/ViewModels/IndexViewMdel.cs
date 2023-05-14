@@ -1,19 +1,4 @@
-﻿using CandySugar.Com.Controls.UIExtenControls;
-using CandySugar.Com.Library;
-using CandySugar.Com.Library.FileWrite;
-using CandySugar.Com.Options.ComponentGeneric;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using Sdk.Component.Vip.Comic.sdk;
-using Sdk.Component.Vip.Comic.sdk.ViewModel;
-using Sdk.Component.Vip.Comic.sdk.ViewModel.Enums;
-using Sdk.Component.Vip.Comic.sdk.ViewModel.Request;
-using Sdk.Component.Vip.Comic.sdk.ViewModel.Response;
-using Serilog;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Data;
-using XExten.Advance.LinqFramework;
+﻿
 
 namespace CandySugar.Comic.ViewModels
 {
@@ -204,7 +189,19 @@ namespace CandySugar.Comic.ViewModels
         {
             this.Route = route;
             OnViewInit();
-            WeakReferenceMessenger.Default.Send(new MessageNotify());
+            WeakReferenceMessenger.Default.Send(new MessageNotify
+            {
+                NotifyType = NotifyType.Notify
+            });
+        }
+
+        public void ViewCommand() 
+        {
+            WeakReferenceMessenger.Default.Send(new MessageNotify
+            {
+                NotifyType = NotifyType.ChangeControl,
+                ControlParam = View
+            });
         }
         #endregion
 
