@@ -1,7 +1,4 @@
-﻿using DryIoc;
-using System.Windows.Controls;
-
-namespace CandySugar.Comic
+﻿namespace CandySugar.Comic
 {
     public class Module
     {
@@ -11,7 +8,8 @@ namespace CandySugar.Comic
         {
             IocModule = this;
             Container = new Container();
-
+            Container.Register(typeof(IndexView), Reuse.Singleton);
+            Container.Register(typeof(IndexViewModel), Reuse.Singleton);
         }
         public T Resolve<T>() where T : UserControl
         {

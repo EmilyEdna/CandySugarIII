@@ -31,6 +31,8 @@ namespace CandySugar.Com.Library.DownQueue
                         return await WallChan(route);
                     case EDownload.Rifan:
                         return await Rifan(route);
+                    case EDownload.Comic:
+                        return await Comic(route);
                     default:
                         break;
                 }
@@ -61,6 +63,17 @@ namespace CandySugar.Com.Library.DownQueue
             return res;
         }
         private static async Task<byte[]> Rifan(string route)
+        {
+            var key = route.ToMd5();
+            var cache = await Caches.RunTimeCacheGetAsync<byte[]>(key);
+            if (cache != null)
+                return cache;
+            RestClient client = new RestClient(new RestClientOptions { MaxTimeout = 50000 });
+            var res = await client.DownloadDataAsync(new RestRequest(route));
+            await Caches.RunTimeCacheSetAsync(key, res);
+            return res;
+        }
+        private static async Task<byte[]> Comic(string route)
         {
             var key = route.ToMd5();
             var cache = await Caches.RunTimeCacheGetAsync<byte[]>(key);

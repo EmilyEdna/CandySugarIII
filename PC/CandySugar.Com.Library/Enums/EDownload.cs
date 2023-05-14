@@ -11,6 +11,7 @@ namespace CandySugar.Com.Library.Enums
         Light=1,
         Wallhav,
         Chan,
-        Rifan
+        Rifan,
+        Comic
     }
 }

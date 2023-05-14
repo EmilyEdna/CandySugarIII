@@ -6,3 +6,5 @@ global using System.Text;
 global using System.Threading.Tasks;
 global using DryIoc;
 global using System.Windows.Controls;
+global using CandySugar.Comic.View;
+global using CandySugar.Comic.ViewModels;
