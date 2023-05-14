@@ -284,7 +284,11 @@
                         };
                     }).RunsAsync()).SearchResult;
                     BindingOperations.EnableCollectionSynchronization(AllResult, LockObject);
-                    Application.Current.Dispatcher.Invoke(() => result.Results.ForEach(AllResult.Add));
+                    Application.Current.Dispatcher.Invoke(() => result.Results.ForEach(item =>
+                    {
+                        if (!result.Results.Any(t => t.Name == item.Name))
+                            AllResult.Add(item);
+                    }));
                 }
                 catch (Exception ex)
                 {
@@ -316,7 +320,11 @@
                         };
                     }).RunsAsync()).SearchResult;
                     BindingOperations.EnableCollectionSynchronization(RifanResult, LockObject);
-                    Application.Current.Dispatcher.Invoke(() => result.Results.ForEach(RifanResult.Add));
+                    Application.Current.Dispatcher.Invoke(() => result.Results.ForEach(item =>
+                    {
+                        if (!result.Results.Any(t => t.Name == item.Name))
+                            RifanResult.Add(item);
+                    }));
                 }
                 catch (Exception ex)
                 {
@@ -348,7 +356,11 @@
                         };
                     }).RunsAsync()).SearchResult;
                     BindingOperations.EnableCollectionSynchronization(MotionResult, LockObject);
-                    Application.Current.Dispatcher.Invoke(() => result.Results.ForEach(MotionResult.Add));
+                    Application.Current.Dispatcher.Invoke(() => result.Results.ForEach(item =>
+                    {
+                        if (!result.Results.Any(t => t.Name == item.Name))
+                            MotionResult.Add(item);
+                    }));
                 }
                 catch (Exception ex)
                 {
@@ -380,7 +392,11 @@
                         };
                     }).RunsAsync()).SearchResult;
                     BindingOperations.EnableCollectionSynchronization(CubicResult, LockObject);
-                    Application.Current.Dispatcher.Invoke(() => result.Results.ForEach(CubicResult.Add));
+                    Application.Current.Dispatcher.Invoke(() => result.Results.ForEach(item =>
+                    {
+                        if (!result.Results.Any(t => t.Name == item.Name))
+                            CubicResult.Add(item);
+                    }));
                 }
                 catch (Exception ex)
                 {
@@ -412,7 +428,11 @@
                         };
                     }).RunsAsync()).SearchResult;
                     BindingOperations.EnableCollectionSynchronization(CosplayResult, LockObject);
-                    Application.Current.Dispatcher.Invoke(() => result.Results.ForEach(CosplayResult.Add));
+                    Application.Current.Dispatcher.Invoke(() => result.Results.ForEach(item =>
+                    {
+                        if (!result.Results.Any(t => t.Name == item.Name))
+                            CosplayResult.Add(item);
+                    }));
                 }
                 catch (Exception ex)
                 {
