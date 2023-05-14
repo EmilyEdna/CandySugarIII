@@ -596,7 +596,8 @@
                                     uc:ImageAttach.RenderWidth="100"
                                     uc:ImageAttach.SourceAsync="{Binding Cover}"
                                     Stretch="Uniform"
-                                    Tag="{x:Static lib:EDownload.Rifan}">
+                                    Tag="{x:Static lib:EDownload.Rifan}"
+                                    ToolTip="{Binding Name}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseLeftButtonDown">
                                             <i:InvokeCommandAction
@@ -622,6 +623,17 @@
                                         FontSize="14"
                                         Style="{DynamicResource TextBlockStyle}"
                                         Text="{Binding Views, StringFormat=次数：{0}}" />
+                                    <Button
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                        Command="{s:Action CollectCommand}"
+                                        CommandParameter="{Binding .}"
+                                        Content="{x:Static lib:FontIcon.Star}"
+                                        Cursor="Hand"
+                                        FontSize="17"
+                                        Foreground="#ffe4c4"
+                                        Style="{DynamicResource CandyFontButtonStyle}" />
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>

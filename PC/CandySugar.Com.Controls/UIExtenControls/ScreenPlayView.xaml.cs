@@ -4,6 +4,7 @@ using CandySugar.Com.Library.KeepOn;
 using CommunityToolkit.Mvvm.Input;
 using LibVLCSharp.Shared;
 using Microsoft.Win32;
+using NPOI.HPSF;
 using Stylet;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
             this.MediaInfo = MediaInfo;
             InitializeComponent();
             Init();
+            Vm.SetHistory(MediaInfo.Item2, MediaInfo.Item1);
         }
 
         void Init()

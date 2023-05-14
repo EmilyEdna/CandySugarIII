@@ -89,7 +89,7 @@
         private void PlayClickEnvent(object sender, RoutedEventArgs e)
         {
             var Info = ((sender as CandyButton).CommandParameter as PlayInfo);
-            new ScreenPlayView(Tuple.Create(Info.Route, Info.Name)) { Width = 1200, Height = 700 }.Show();
+            new ScreenPlayView(Tuple.Create(Info.Route, $"{Info.Name}_{Info.Clarity}")) { Width = 1200, Height = 700 }.Show();
             BarClose.Begin();
         }
     }
