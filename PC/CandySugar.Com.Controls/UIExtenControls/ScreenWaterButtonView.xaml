@@ -1,0 +1,272 @@
+﻿<UserControl
+    x:Class="CandySugar.Com.Controls.UIExtenControls.ScreenWaterButtonView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lib="http://lib.candy.com"
+    xmlns:local="clr-namespace:CandySugar.Com.Controls.UIExtenControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="WaterButton"
+    d:DesignHeight="100"
+    d:DesignWidth="100"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="MainBtn" TargetType="ToggleButton">
+            <Setter Property="Background" Value="DeepSkyBlue" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="{c:Binding (Height/2), ElementName=WaterButton}" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            <Path Fill="{TemplateBinding Background}" Stretch="Fill">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        <PathFigure x:Name="Main" StartPoint="50,0">
+                                            <BezierSegment
+                                                x:Name="M1"
+                                                Point1="78,0"
+                                                Point2="100,22"
+                                                Point3="100,50" />
+                                            <BezierSegment
+                                                x:Name="M2"
+                                                Point1="100,78"
+                                                Point2="78,100"
+                                                Point3="50,100" />
+                                            <BezierSegment
+                                                x:Name="M3"
+                                                Point1="22,100"
+                                                Point2="0,78"
+                                                Point3="0,50" />
+                                            <BezierSegment
+                                                x:Name="M4"
+                                                Point1="0,22"
+                                                Point2="22,0"
+                                                Point3="50,0" />
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="{DynamicResource Thin}"
+                                FontSize="{TemplateBinding FontSize}"
+                                Foreground="{TemplateBinding Foreground}"
+                                RenderTransformOrigin="0.5,0.5"
+                                Text="{x:Static lib:FontIcon.Plus}">
+                                <TextBlock.RenderTransform>
+                                    <RotateTransform x:Name="Icon" Angle="0" />
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="Checked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="Icon"
+                                            Storyboard.TargetProperty="Angle"
+                                            To="45"
+                                            Duration="0:0:0.5" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Unchecked">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="Icon"
+                                            Storyboard.TargetProperty="Angle"
+                                            To="0"
+                                            Duration="0:0:0.5" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Click">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <PointAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.7"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="5x"
+                                            Storyboard.TargetName="Main"
+                                            Storyboard.TargetProperty="StartPoint">
+                                            <EasingPointKeyFrame KeyTime="0:0:0.2" Value="40,0" />
+                                        </PointAnimationUsingKeyFrames>
+                                        <PointAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.7"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="5x"
+                                            Storyboard.TargetName="M1"
+                                            Storyboard.TargetProperty="Point1">
+                                            <EasingPointKeyFrame KeyTime="0:0:0.2" Value="68,-10" />
+                                        </PointAnimationUsingKeyFrames>
+                                        <PointAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.7"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="5x"
+                                            Storyboard.TargetName="M1"
+                                            Storyboard.TargetProperty="Point2">
+                                            <EasingPointKeyFrame KeyTime="0:0:0.2" Value="115,14" />
+                                        </PointAnimationUsingKeyFrames>
+                                        <PointAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.7"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="5x"
+                                            Storyboard.TargetName="M1"
+                                            Storyboard.TargetProperty="Point3">
+                                            <EasingPointKeyFrame KeyTime="0:0:0.2" Value="100,66" />
+                                        </PointAnimationUsingKeyFrames>
+                                        <PointAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.7"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="5x"
+                                            Storyboard.TargetName="M2"
+                                            Storyboard.TargetProperty="Point1">
+                                            <EasingPointKeyFrame KeyTime="0:0:0.2" Value="100,67" />
+                                        </PointAnimationUsingKeyFrames>
+                                        <PointAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.7"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="5x"
+                                            Storyboard.TargetName="M2"
+                                            Storyboard.TargetProperty="Point2">
+                                            <EasingPointKeyFrame KeyTime="0:0:0.2" Value="85,111" />
+                                        </PointAnimationUsingKeyFrames>
+                                        <PointAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.7"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="5x"
+                                            Storyboard.TargetName="M2"
+                                            Storyboard.TargetProperty="Point3">
+                                            <EasingPointKeyFrame KeyTime="0:0:0.2" Value="33,103" />
+                                        </PointAnimationUsingKeyFrames>
+                                        <PointAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.7"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="5x"
+                                            Storyboard.TargetName="M3"
+                                            Storyboard.TargetProperty="Point1">
+                                            <EasingPointKeyFrame KeyTime="0:0:0.2" Value="22,103" />
+                                        </PointAnimationUsingKeyFrames>
+                                        <PointAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.7"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="5x"
+                                            Storyboard.TargetName="M3"
+                                            Storyboard.TargetProperty="Point2">
+                                            <EasingPointKeyFrame KeyTime="0:0:0.2" Value="-15,85" />
+                                        </PointAnimationUsingKeyFrames>
+                                        <PointAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.7"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="5x"
+                                            Storyboard.TargetName="M3"
+                                            Storyboard.TargetProperty="Point3">
+                                            <EasingPointKeyFrame KeyTime="0:0:0.2" Value="-6,50" />
+                                        </PointAnimationUsingKeyFrames>
+                                        <PointAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.7"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="5x"
+                                            Storyboard.TargetName="M4"
+                                            Storyboard.TargetProperty="Point1">
+                                            <EasingPointKeyFrame KeyTime="0:0:0.2" Value="4,9" />
+                                        </PointAnimationUsingKeyFrames>
+                                        <PointAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.7"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="5x"
+                                            Storyboard.TargetName="M4"
+                                            Storyboard.TargetProperty="Point2">
+                                            <EasingPointKeyFrame KeyTime="0:0:0.2" Value="41,-1" />
+                                        </PointAnimationUsingKeyFrames>
+                                        <PointAnimationUsingKeyFrames
+                                            AutoReverse="True"
+                                            BeginTime="0:0:0.7"
+                                            FillBehavior="Stop"
+                                            RepeatBehavior="5x"
+                                            Storyboard.TargetName="M4"
+                                            Storyboard.TargetProperty="Point3">
+                                            <EasingPointKeyFrame KeyTime="0:0:0.2" Value="42,0" />
+                                        </PointAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ItemBtn" TargetType="Button">
+            <Setter Property="Background" Value="DeepSkyBlue" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="Chrome" SnapsToDevicePixels="true">
+                            <Ellipse Fill="{TemplateBinding Background}">
+                                <Ellipse.Effect>
+                                    <BlurEffect x:Name="Item" Radius="5" />
+                                </Ellipse.Effect>
+                            </Ellipse>
+                            <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="Item"
+                                            Storyboard.TargetProperty="Radius"
+                                            To="0"
+                                            Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="Item"
+                                            Storyboard.TargetProperty="Radius"
+                                            To="5"
+                                            Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="Layout" Button.Click="LayoutClickEvent">
+        <ToggleButton
+            x:Name="TBtn"
+            Checked="CheckedEvent"
+            Click="ClickEvent"
+            Style="{DynamicResource MainBtn}"
+            Unchecked="UncheckedEvent" />
+        <Grid x:Name="LayoutItem" />
+    </Grid>
+</UserControl>
