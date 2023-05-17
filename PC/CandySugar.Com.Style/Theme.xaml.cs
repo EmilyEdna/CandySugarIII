@@ -53,7 +53,8 @@ namespace CandySugar.Com.Style
             ((Dispatcher)sender).Invoke(() =>
             {
                 var style = this["CandyDefaultWindowStyle"] as System.Windows.Style;
-                var template = ((Setter)style.Setters.LastOrDefault()).Value as ControlTemplate;
+                var template = style.Setters.Where(t => ((Setter)t).Value.GetType() == typeof(ControlTemplate))
+                .Select(t => (Setter)t).FirstOrDefault().Value as ControlTemplate;
                 var win = Application.Current.MainWindow;
                 if (win.Name.Equals("CandyWindow"))
                 {
