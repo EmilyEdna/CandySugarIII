@@ -23,23 +23,29 @@ namespace CandySugar.WallPaper.ViewModels
             };
             GenericDelegate.HandleAction = new(obj =>
             {
+                //Wallhaven收藏勾选事件
                 if (obj is List<WallhavSearchElementResult> wallhav)
                 {
                     WallhavBuilder = wallhav;
                     if (WallhavBuilder.Count >= 1)
                     {
-                        if (!MenuIndex.Any(t => t.Key == 3 || t.Key == 4 || t.Key == 5))
+                        if (!MenuIndex.Any(t => t.Key == 3 || t.Key == 4 || t.Key == 5 || t.Key == 6))
                             Default.ForEach(item => MenuIndex.Add(item));
                     }
+                    else
+                        Default.ForEach(item => MenuIndex.Remove(item));
                 }
+                //Konachan收藏勾选事件
                 if (obj is List<WallkonElementResult> chan)
                 {
                     KonachanBuilder = chan;
                     if (KonachanBuilder.Count >= 1)
                     {
-                        if (!MenuIndex.Any(t => t.Key == 3 || t.Key == 4 || t.Key == 5))
+                        if (!MenuIndex.Any(t => t.Key == 3 || t.Key == 4 || t.Key == 5 || t.Key == 6))
                             Default.ForEach(item => MenuIndex.Add(item));
                     }
+                    else
+                        Default.ForEach(item => MenuIndex.Remove(item));
                 }
             });
         }
