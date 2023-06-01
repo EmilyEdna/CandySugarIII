@@ -4,7 +4,6 @@ using CandySugar.Com.Library.GenericAction;
 using CandySugar.Com.Library.OptionModel;
 using CandySugar.Com.Pages.ViewModels;
 using CandySugar.Com.Pages.Views;
-using Microsoft.Maui.Dispatching;
 using XExten.Advance.LinqFramework;
 
 namespace CandySugar.MainUI.ViewModels

@@ -3,6 +3,7 @@
     x:Class="CandySugar.Com.Pages.Views.Rifan"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sdk="clr-namespace:Sdk.Component.Vip.Anime.sdk.ViewModel.Response;assembly=Sdk.Component.Vip"
     xmlns:uc="clr-namespace:CandySugar.Com.Controls;assembly=CandySugar.Com.Controls"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels"
     x:DataType="vm:RifanViewModel">
@@ -33,27 +34,192 @@
         </uc:TabView.TabHeaderItemTemplate>
         <uc:TabItem Title="All" Args="1">
             <uc:TabItem.Content>
-                <Label Text="123123" />
+                <CollectionView
+                    ItemSizingStrategy="MeasureAllItems"
+                    ItemsSource="{Binding AllResult}"
+                    RemainingItemsThreshold="0"
+                    RemainingItemsThresholdReachedCommand="{Binding LoadCommand}"
+                    RemainingItemsThresholdReachedCommandParameter="1">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="sdk:SearchElementResult">
+                            <Border Stroke="{DynamicResource PotoBrushSafe}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:RifanViewModel}}}" CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto,*">
+                                    <Border
+                                        HeightRequest="130"
+                                        StrokeShape="RoundRectangle 0"
+                                        WidthRequest="90">
+                                        <Image Aspect="Fill" Source="{Binding Cover}" />
+                                    </Border>
+                                    <StackLayout Grid.Column="1" VerticalOptions="StartAndExpand">
+                                        <Label
+                                            Margin="10,0,0,0"
+                                            LineBreakMode="WordWrap"
+                                            Text="{Binding Name}"
+                                            TextColor="{DynamicResource Basic}" />
+                                    </StackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </uc:TabItem.Content>
         </uc:TabItem>
         <uc:TabItem Title="Rifan" Args="2">
             <uc:TabItem.Content>
-                <Label Text="123123" />
+                <CollectionView
+                    ItemSizingStrategy="MeasureAllItems"
+                    ItemsSource="{Binding RifanResult}"
+                    RemainingItemsThreshold="0"
+                    RemainingItemsThresholdReachedCommand="{Binding LoadCommand}"
+                    RemainingItemsThresholdReachedCommandParameter="2">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="sdk:SearchElementResult">
+                            <Border Stroke="{DynamicResource PotoBrushSafe}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:RifanViewModel}}}" CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto,*">
+                                    <Border
+                                        HeightRequest="130"
+                                        StrokeShape="RoundRectangle 0"
+                                        WidthRequest="90">
+                                        <Image Aspect="Fill" Source="{Binding Cover}" />
+                                    </Border>
+                                    <StackLayout Grid.Column="1" VerticalOptions="StartAndExpand">
+                                        <Label
+                                            Margin="10,0,0,0"
+                                            LineBreakMode="WordWrap"
+                                            Text="{Binding Name}"
+                                            TextColor="{DynamicResource Basic}" />
+                                    </StackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </uc:TabItem.Content>
         </uc:TabItem>
         <uc:TabItem Title="3D" Args="3">
             <uc:TabItem.Content>
-                <Label Text="3D" />
+                <CollectionView
+                    ItemSizingStrategy="MeasureAllItems"
+                    ItemsSource="{Binding CubicResult}"
+                    RemainingItemsThreshold="0"
+                    RemainingItemsThresholdReachedCommand="{Binding LoadCommand}"
+                    RemainingItemsThresholdReachedCommandParameter="3">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="sdk:SearchElementResult">
+                            <Border Stroke="{DynamicResource PotoBrushSafe}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:RifanViewModel}}}" CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto,*">
+                                    <Border
+                                        HeightRequest="130"
+                                        StrokeShape="RoundRectangle 0"
+                                        WidthRequest="90">
+                                        <Image Aspect="Fill" Source="{Binding Cover}" />
+                                    </Border>
+                                    <StackLayout Grid.Column="1" VerticalOptions="StartAndExpand">
+                                        <Label
+                                            Margin="10,0,0,0"
+                                            LineBreakMode="WordWrap"
+                                            Text="{Binding Name}"
+                                            TextColor="{DynamicResource Basic}" />
+                                    </StackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </uc:TabItem.Content>
         </uc:TabItem>
         <uc:TabItem Title="Motion" Args="4">
             <uc:TabItem.Content>
-                <Label Text="123123" />
+                <CollectionView
+                    ItemSizingStrategy="MeasureAllItems"
+                    ItemsSource="{Binding MotionResult}"
+                    RemainingItemsThreshold="0"
+                    RemainingItemsThresholdReachedCommand="{Binding LoadCommand}"
+                    RemainingItemsThresholdReachedCommandParameter="4">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="sdk:SearchElementResult">
+                            <Border Stroke="{DynamicResource PotoBrushSafe}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:RifanViewModel}}}" CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto,*">
+                                    <Border
+                                        HeightRequest="130"
+                                        StrokeShape="RoundRectangle 0"
+                                        WidthRequest="90">
+                                        <Image Aspect="Fill" Source="{Binding Cover}" />
+                                    </Border>
+                                    <StackLayout Grid.Column="1" VerticalOptions="StartAndExpand">
+                                        <Label
+                                            Margin="10,0,0,0"
+                                            LineBreakMode="WordWrap"
+                                            Text="{Binding Name}"
+                                            TextColor="{DynamicResource Basic}" />
+                                    </StackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </uc:TabItem.Content>
         </uc:TabItem>
         <uc:TabItem Title="Cosplay" Args="5">
             <uc:TabItem.Content>
-                <Label Text="123123" />
+                <CollectionView
+                    ItemSizingStrategy="MeasureAllItems"
+                    ItemsSource="{Binding CosplayResult}"
+                    RemainingItemsThreshold="0"
+                    RemainingItemsThresholdReachedCommand="{Binding LoadCommand}"
+                    RemainingItemsThresholdReachedCommandParameter="5">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="sdk:SearchElementResult">
+                            <Border Stroke="{DynamicResource PotoBrushSafe}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:RifanViewModel}}}" CommandParameter="{Binding .}" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto,*">
+                                    <Border
+                                        HeightRequest="130"
+                                        StrokeShape="RoundRectangle 0"
+                                        WidthRequest="90">
+                                        <Image Aspect="Fill" Source="{Binding Cover}" />
+                                    </Border>
+                                    <StackLayout Grid.Column="1" VerticalOptions="StartAndExpand">
+                                        <Label
+                                            Margin="10,0,0,0"
+                                            LineBreakMode="WordWrap"
+                                            Text="{Binding Name}"
+                                            TextColor="{DynamicResource Basic}" />
+                                    </StackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </uc:TabItem.Content>
         </uc:TabItem>
     </uc:TabView>

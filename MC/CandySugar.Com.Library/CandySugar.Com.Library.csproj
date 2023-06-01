@@ -18,6 +18,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="5.2.0" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
 	  <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
 	  <PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.21.2" />
 	  <PackageReference Include="Prism.DryIoc.Maui" Version="8.1.273-pre" />

@@ -39,7 +39,8 @@ namespace CandySugar.MainUI
                 {
                     fonts.AddFont("FontAwesome6Thin.otf", "Thin");
                 })
-                .AddControlMapping();
+                .AddControlMapping()
+                .AddControlHandler();
 
             return builder.Build();
         }

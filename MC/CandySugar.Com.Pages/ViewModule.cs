@@ -1,10 +1,5 @@
-﻿using CandySugar.Com.Pages.Views;
-using Prism.Ioc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CandySugar.Com.Pages.ViewModels.RifanViewModels;
+using CandySugar.Com.Pages.Views.RifanViews;
 
 namespace CandySugar.Com.Pages
 {
@@ -17,6 +12,8 @@ namespace CandySugar.Com.Pages
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<RifanInfo, RifanInfoViewModel>();
+            containerRegistry.RegisterForNavigation<RifanPlay, RifanPlayViewModel>();
         }
     }
 }
