@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0;net7.0-android;</TargetFrameworks>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">29.0</SupportedOSPlatformVersion>
+
+		<Platforms>AnyCPU</Platforms>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Folder Include="Platforms\Android\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Maui" Version="5.2.0" />
+	  <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
+	  <PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.21.2" />
+	  <PackageReference Include="Prism.DryIoc.Maui" Version="8.1.273-pre" />
+	  <PackageReference Include="Prism.Maui.Rx" Version="8.1.273-pre" />
+	  <PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.61" />
+	  <PackageReference Include="sqlite-net-pcl" Version="1.9.141-beta" />
+	  <PackageReference Include="UraniumUI.Blurs" Version="2.5.0" />
+	  <PackageReference Include="UraniumUI.Material" Version="2.5.0" />
+	  <PackageReference Include="XExten.Advance" Version="2.0.0.4" />
+	  <PackageReference Include="XExten.Advance.Maui.Bar" Version="1.0.0" />
+	  <PackageReference Include="XExten.Advance.Maui.Direction" Version="1.0.0" />
+	</ItemGroup>
+
+</Project>

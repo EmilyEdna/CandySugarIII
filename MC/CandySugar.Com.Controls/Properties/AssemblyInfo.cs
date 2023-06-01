@@ -1,0 +1,1 @@
+﻿[assembly: XmlnsDefinition("http://github.emilyedna.io", "CandySugar.Com.Controls")]

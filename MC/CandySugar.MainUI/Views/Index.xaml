@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uc:CandyUIPage
+    x:Class="CandySugar.MainUI.Views.Index"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lib="clr-namespace:CandySugar.Com.Library;assembly=CandySugar.Com.Library"
+    xmlns:uc="http://github.emilyedna.io"
+    xmlns:vm="clr-namespace:CandySugar.MainUI.ViewModels"
+    x:Name="IndexView"
+    x:DataType="vm:IndexViewModel"
+    Background="{DynamicResource BasicPage}">
+    <uc:CandyUIPage.Attachments>
+        <uc:LeftPage>
+            <uc:LeftPage.Body>
+                <VerticalStackLayout Background="{DynamicResource BasicPage}" HorizontalOptions="Start">
+                    <Label
+                        Margin="20,5,5,5"
+                        FontSize="18"
+                        Text="Rifan"
+                        TextColor="{DynamicResource Basic}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavCommand}" CommandParameter="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <BoxView StyleClass="Divider" />
+                    <Label
+                        Margin="20,5,5,5"
+                        FontSize="18"
+                        Text="Comic"
+                        TextColor="{DynamicResource Basic}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavCommand}" CommandParameter="2" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <BoxView StyleClass="Divider" />
+                    <Label
+                        Margin="20,5,5,5"
+                        FontSize="18"
+                        Text="Avgle"
+                        TextColor="{DynamicResource Basic}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavCommand}" CommandParameter="3" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <BoxView StyleClass="Divider" />
+                    <Label
+                        Margin="20,5,5,5"
+                        FontSize="18"
+                        Text="Index"
+                        TextColor="{DynamicResource Basic}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavCommand}" CommandParameter="4" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+            </uc:LeftPage.Body>
+        </uc:LeftPage>
+    </uc:CandyUIPage.Attachments>
+    <Grid RowDefinitions="45,*" RowSpacing="2">
+        <Grid Background="{DynamicResource BasicSafe}" ColumnDefinitions="50,*">
+            <Button
+                BackgroundColor="{StaticResource Platform}"
+                Command="{Binding NavShowCommand}"
+                CommandParameter="{Binding ., Source={x:Reference IndexView}}">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="Thin"
+                        Glyph="{Static lib:FontIcon.Bars}"
+                        Color="{DynamicResource BasicPrimary}" />
+                </Button.ImageSource>
+            </Button>
+            <uc:GroupElement Grid.Column="1" />
+        </Grid>
+        <ContentView Grid.Row="1" Content="{Binding Content}" />
+    </Grid>
+</uc:CandyUIPage>

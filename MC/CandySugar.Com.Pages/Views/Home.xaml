@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="CandySugar.Com.Pages.Views.Home"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels"
+    x:DataType="vm:HomeViewModel">
+    <VerticalStackLayout>
+        <Label
+            HorizontalOptions="Center"
+            Text="Home"
+            VerticalOptions="Center" />
+    </VerticalStackLayout>
+</ContentView>

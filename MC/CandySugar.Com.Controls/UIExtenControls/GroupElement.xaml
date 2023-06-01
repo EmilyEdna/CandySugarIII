@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="CandySugar.Com.Controls.GroupElement"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lib="clr-namespace:CandySugar.Com.Library;assembly=CandySugar.Com.Library">
+    <Border
+        x:Name="BorderHandler"
+        BackgroundColor="{DynamicResource Platform}"
+        Stroke="{DynamicResource BasicPrimary}"
+        StrokeShape="RoundRectangle 0"
+        StrokeThickness="1">
+        <Grid ColumnDefinitions="4*,10,*">
+            <Grid ColumnDefinitions="Auto,*">
+                <Image
+                    Margin="8,0"
+                    Aspect="AspectFill"
+                    HeightRequest="20"
+                    WidthRequest="20">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="Thin"
+                            Glyph="{Static lib:FontIcon.MagnifyingGlass}"
+                            Color="{DynamicResource BasicPrimary}" />
+                    </Image.Source>
+                </Image>
+                <Entry
+                    Grid.Column="1"
+                    Completed="EntryCompleted"
+                    IsTextPredictionEnabled="True"
+                    Placeholder="关键字"
+                    PlaceholderColor="{DynamicResource BasicContainer}"
+                    TextColor="{DynamicResource Basic}" />
+            </Grid>
+            <Line
+                Grid.Column="1"
+                HorizontalOptions="End"
+                Stroke="{DynamicResource BasicPrimary}"
+                X1="5"
+                X2="5"
+                Y1="0"
+                Y2="45" />
+            <Picker
+                x:Name="Category"
+                Title="类型"
+                Grid.Column="2"
+                SelectedIndexChanged="PickerChanged"
+                TitleColor="{DynamicResource BasicContainer}" />
+        </Grid>
+    </Border>
+</ContentView>

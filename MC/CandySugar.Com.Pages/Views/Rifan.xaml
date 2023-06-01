@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="CandySugar.Com.Pages.Views.Rifan"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:uc="clr-namespace:CandySugar.Com.Controls;assembly=CandySugar.Com.Controls"
+    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels"
+    x:DataType="vm:RifanViewModel">
+    <uc:TabView Command="{Binding ChangeCommand}" TabPlacement="Start">
+        <uc:TabView.TabHeaderItemTemplate>
+            <DataTemplate x:DataType="uc:TabItem">
+                <Button Command="{Binding Command}" Text="{Binding Title}">
+                    <Button.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsSelected}"
+                            TargetType="Button"
+                            Value="True">
+                            <Setter Property="Background" Value="{DynamicResource Platform}" />
+                            <Setter Property="BackgroundColor" Value="{DynamicResource Platform}" />
+                            <Setter Property="TextColor" Value="#FF73B3" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding IsSelected}"
+                            TargetType="Button"
+                            Value="False">
+                            <Setter Property="Background" Value="{DynamicResource Platform}" />
+                            <Setter Property="BackgroundColor" Value="{DynamicResource Platform}" />
+                            <Setter Property="TextColor" Value="#000000" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </DataTemplate>
+        </uc:TabView.TabHeaderItemTemplate>
+        <uc:TabItem Title="All" Args="1">
+            <uc:TabItem.Content>
+                <Label Text="123123" />
+            </uc:TabItem.Content>
+        </uc:TabItem>
+        <uc:TabItem Title="Rifan" Args="2">
+            <uc:TabItem.Content>
+                <Label Text="123123" />
+            </uc:TabItem.Content>
+        </uc:TabItem>
+        <uc:TabItem Title="3D" Args="3">
+            <uc:TabItem.Content>
+                <Label Text="3D" />
+            </uc:TabItem.Content>
+        </uc:TabItem>
+        <uc:TabItem Title="Motion" Args="4">
+            <uc:TabItem.Content>
+                <Label Text="123123" />
+            </uc:TabItem.Content>
+        </uc:TabItem>
+        <uc:TabItem Title="Cosplay" Args="5">
+            <uc:TabItem.Content>
+                <Label Text="123123" />
+            </uc:TabItem.Content>
+        </uc:TabItem>
+    </uc:TabView>
+</ContentView>

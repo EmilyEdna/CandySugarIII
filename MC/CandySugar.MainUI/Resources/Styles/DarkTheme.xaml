@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    x:Class="CandySugar.MainUI.Resources.Styles.DarkTheme"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Color x:Key="Platform">Transparent</Color>
+    <SolidColorBrush x:Key="PlatformBrush">Transparent</SolidColorBrush>
+
+    <Color x:Key="Basic">#FFFFFF</Color>
+    <Color x:Key="BasicPage">#000000</Color>
+    <Color x:Key="BasicSafe">#AFEEEE</Color>
+    <Color x:Key="BasicContainer">#666666</Color>
+    <Color x:Key="BasicPrimary">#FF9999</Color>
+
+    <SolidColorBrush x:Key="BasicBrush">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="BasicPageBrush">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="BasicBrushSafe">#AFEEEE</SolidColorBrush>
+    <SolidColorBrush x:Key="BasicBrushContainer">#666666</SolidColorBrush>
+    <SolidColorBrush x:Key="BasicBrushPrimary">#FF9999</SolidColorBrush>
+
+    <Color x:Key="Surface">#3CB371</Color>
+    <Color x:Key="SurfaceContainer">#FF8C00</Color>
+    <Color x:Key="SurfaceSafe">#FFD700</Color>
+    <Color x:Key="SurfacePrimary">#CD5C5C</Color>
+
+    <SolidColorBrush x:Key="SurfaceBrush">#3CB371</SolidColorBrush>
+    <SolidColorBrush x:Key="SurfaceBrushSafe">#FFD700</SolidColorBrush>
+    <SolidColorBrush x:Key="SurfaceBrushContainer">#FF8C00</SolidColorBrush>
+    <SolidColorBrush x:Key="SurfaceBrushPrimary">#CD5C5C</SolidColorBrush>
+
+    <Color x:Key="Poto">#BA55D3</Color>
+    <Color x:Key="PotoSafe">#E1FFFF</Color>
+    <Color x:Key="PotoContainer">#00FF7F</Color>
+    <Color x:Key="PotoPrimary">#BDB76B</Color>
+
+    <SolidColorBrush x:Key="PotoBrush">#BA55D3</SolidColorBrush>
+    <SolidColorBrush x:Key="PotoBrushContainer">#00FF7F</SolidColorBrush>
+    <SolidColorBrush x:Key="PotoBrushSafe">#E1FFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="PotoBrushPrimary">#BDB76B</SolidColorBrush>
+</ResourceDictionary>
