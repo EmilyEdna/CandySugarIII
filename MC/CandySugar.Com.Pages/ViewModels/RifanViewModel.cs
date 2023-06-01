@@ -1,5 +1,6 @@
 ﻿using CandySugar.Com.Library.BaseViewModel;
 using CandySugar.Com.Library.Extends;
+using CandySugar.Com.Library.MsgModel;
 using CandySugar.Com.Library.OptionModel;
 using CandySugar.Com.Pages.Views.RifanViews;
 using CommunityToolkit.Mvvm.Messaging;
@@ -313,13 +314,17 @@ namespace CandySugar.Com.Pages.ViewModels
                             }
                         };
                     }).RunsAsync()).WatchResult;
-                    var Data = Tuple.Create(result.Current.Select(t => new PlayInfo
+                    var WaitSend = new MessageModel
                     {
-                        Clarity = $"{t.Key}P",
-                        Route = t.Value,
-                        Name = element.Name
-                    }).ToList(), result.Results.ToMapest<List<SearchElementResult>>());
-                    WeakReferenceMessenger.Default.Send(Data, "PlayAndLink");
+                        PlayInfos = result.Current.Select(t => new PlayInfo
+                        {
+                            Clarity = $"{t.Key}P",
+                            Route = t.Value,
+                            Name = element.Name
+                        }).ToList(),
+                        RifanModels= result.Results.ToMapest<List<RifanSearchModel>>()
+                    };
+                    WeakReferenceMessenger.Default.Send(WaitSend);
                     await Nav.NavigateAsync(new Uri(nameof(RifanInfo), UriKind.Relative));
                 }
                 catch (Exception ex)
