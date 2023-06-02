@@ -54,9 +54,9 @@ namespace CandySugar.MainUI.ViewModels
         {
             NavCommonMethod(param.Hint, param.Description);
         }
-        private void NavCommonMethod(int param, string key = "")
+        private  void NavCommonMethod(int param, string key = "")
         {
-            IndexView.Dispatcher.DispatchAsync(() =>
+            Application.Current.Dispatcher.DispatchAsync(() =>
             {
                 if (param == 1)
                 {
@@ -65,7 +65,7 @@ namespace CandySugar.MainUI.ViewModels
                         BindingContext = new RifanViewModel(key, VM)
                     };
                 }
-             ((LeftPage)IndexView.Attachments.First()).IsPresented = false;
+                ((LeftPage)IndexView.Attachments.First()).IsPresented = false;
             });
         }
         #endregion

@@ -12,10 +12,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Folder Include="Platforms\Android\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\CandySugar.Com.Service\CandySugar.Com.Service.csproj" />
 	</ItemGroup>
 

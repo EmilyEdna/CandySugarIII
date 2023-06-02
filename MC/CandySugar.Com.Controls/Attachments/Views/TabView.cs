@@ -45,8 +45,6 @@ namespace CandySugar.Com.Controls
             BindableProperty.Create(nameof(TabPlacement), typeof(TabViewTabPlacement), typeof(TabView), defaultValue: TabViewTabPlacement.Top,
                 propertyChanged: (bo, ov, nv) => (bo as TabView).OnTabPlacementChanged());
 
-
-
         public ICommand Command
         {
             get { return (ICommand)GetValue(CommandProperty); }

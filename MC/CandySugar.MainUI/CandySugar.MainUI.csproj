@@ -28,12 +28,12 @@
 	  <AndroidLinkTool>r8</AndroidLinkTool>
 	  <RunAOTCompilation>true</RunAOTCompilation>
 	  <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-	  <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
+	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
 	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-	  <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
+	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -60,7 +60,16 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
-
+	
+	<ItemGroup>
+		<Reference Include="Sdk.Component.Vip">
+			<HintPath>..\..\Lib\Sdk.Component.Vip.dll</HintPath>
+		</Reference>
+		<Reference Include="Sdk.Plugins">
+			<HintPath>..\..\Lib\Sdk.Plugins.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	
 	<ItemGroup>
 	  <MauiXaml Update="Resources\Styles\DarkTheme.xaml">
 	    <Generator>MSBuild:Compile</Generator>

@@ -92,8 +92,9 @@ namespace CandySugar.Com.Pages.ViewModels
         #endregion
 
         #region Method
-        private void ChangeMethod(int param)
+        private void ChangeMethod(dynamic input)
         {
+            var param = (int)input;
             if (param == 1) OnAllInit();
             if (param == 2) OnRifanInit();
             if (param == 3) OnCubicInit();
@@ -133,16 +134,12 @@ namespace CandySugar.Com.Pages.ViewModels
                 OnLoadMoreCosplayInit();
             }
         }
-        private void WatchMethod(SearchElementResult param)
-        {
-
-        }
         #endregion
 
         #region Command
-        public DelegateCommand<int> ChangeCommand => new(ChangeMethod);
+        public DelegateCommand<dynamic> ChangeCommand => new(ChangeMethod);
         public DelegateCommand<string> LoadCommand => new(LoadMethod);
-        public DelegateCommand<SearchElementResult> WatchCommand => new(WatchMethod);
+        public DelegateCommand<SearchElementResult> WatchCommand => new(OnWatchInit);
         #endregion
 
         #region ExternalMethod
