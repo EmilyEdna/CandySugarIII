@@ -25,15 +25,15 @@
 
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
-	  <AndroidLinkTool>r8</AndroidLinkTool>
-	  <RunAOTCompilation>true</RunAOTCompilation>
-	  <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidLinkTool>r8</AndroidLinkTool>
+		<RunAOTCompilation>true</RunAOTCompilation>
+		<AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
-	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -54,13 +54,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Fonts\FontAwesome6Thin.otf" />
+		<None Remove="Resources\Fonts\FontAwesome6Thin.otf" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<Reference Include="Sdk.Component.Vip">
 			<HintPath>..\..\Lib\Sdk.Component.Vip.dll</HintPath>
@@ -69,26 +69,26 @@
 			<HintPath>..\..\Lib\Sdk.Plugins.dll</HintPath>
 		</Reference>
 	</ItemGroup>
-	
+
 	<ItemGroup>
-	  <MauiXaml Update="Resources\Styles\DarkTheme.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Resources\Styles\LightTheme.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Index.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Resources\Styles\DarkTheme.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\LightTheme.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Index.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Resources\Images\" />
-	  <Folder Include="Resources\Raw\" />
+		<Folder Include="Resources\Images\" />
+		<Folder Include="Resources\Raw\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\CandySugar.Com.Pages\CandySugar.Com.Pages.csproj" />
+		<ProjectReference Include="..\CandySugar.Com.Pages\CandySugar.Com.Pages.csproj" />
 	</ItemGroup>
 
 </Project>

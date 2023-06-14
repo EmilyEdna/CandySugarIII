@@ -1,10 +1,6 @@
 ﻿using CandySugar.Com.Library.BaseViewModel;
 using CandySugar.Com.Library.Extends;
-using CandySugar.Com.Library.MsgModel;
-using CandySugar.Com.Library.OptionModel;
 using CandySugar.Com.Pages.Views.RifanViews;
-using CommunityToolkit.Mvvm.Messaging;
-using NPOI.SS.Formula.Functions;
 using Sdk.Component.Vip.Anime.sdk;
 using Sdk.Component.Vip.Anime.sdk.ViewModel;
 using Sdk.Component.Vip.Anime.sdk.ViewModel.Enums;
@@ -139,7 +135,7 @@ namespace CandySugar.Com.Pages.ViewModels
         #region Command
         public DelegateCommand<dynamic> ChangeCommand => new(ChangeMethod);
         public DelegateCommand<string> LoadCommand => new(LoadMethod);
-        public DelegateCommand<SearchElementResult> WatchCommand => new(OnWatchInit);
+        public DelegateCommand<SearchElementResult> WatchCommand => new((element)=>Nav.NavigateAsync(new Uri(nameof(RifanInfo), UriKind.Relative), new NavigationParameters { { "Param", element }}));
         #endregion
 
         #region ExternalMethod
@@ -285,44 +281,6 @@ namespace CandySugar.Com.Pages.ViewModels
                     }).RunsAsync()).SearchResult;
                     CosplayTotal = result.Total;
                     CosplayResult = new ObservableCollection<SearchElementResult>(result.Results);
-                }
-                catch (Exception ex)
-                {
-                    ex.Message.Info();
-                }
-            });
-        }
-
-        private void OnWatchInit(SearchElementResult element)
-        {
-            Task.Run(async () =>
-            {
-                try
-                {
-                    var result = (await AnimeFactory.Anime(opt =>
-                    {
-                        opt.RequestParam = new Input
-                        {
-
-                            AnimeType = AnimeEnum.Watch,
-                            Watch = new AnimeWatch
-                            {
-                                Route = element.Route
-                            }
-                        };
-                    }).RunsAsync()).WatchResult;
-                    var WaitSend = new MessageModel
-                    {
-                        PlayInfos = result.Current.Select(t => new PlayInfo
-                        {
-                            Clarity = $"{t.Key}P",
-                            Route = t.Value,
-                            Name = element.Name
-                        }).ToList(),
-                        RifanModels= result.Results.ToMapest<List<RifanSearchModel>>()
-                    };
-                    WeakReferenceMessenger.Default.Send(WaitSend);
-                    await Nav.NavigateAsync(new Uri(nameof(RifanInfo), UriKind.Relative));
                 }
                 catch (Exception ex)
                 {

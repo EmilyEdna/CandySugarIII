@@ -10,11 +10,11 @@ namespace CandySugar.MainUI.ViewModels
 {
     public class IndexViewModel : BaseVMModule
     {
-        private BaseVMService VM;
+        private BaseVMService BaseServices;
         private CandyUIPage IndexView;
         public IndexViewModel(BaseVMService baseServices) : base(baseServices)
         {
-            VM = baseServices;
+            BaseServices = baseServices;
             this.Content = new Home
             {
                 BindingContext = new HomeViewModel(baseServices)
@@ -62,7 +62,7 @@ namespace CandySugar.MainUI.ViewModels
                 {
                     Content = new Rifan
                     {
-                        BindingContext = new RifanViewModel(key, VM)
+                        BindingContext = new RifanViewModel(key, this.BaseServices)
                     };
                 }
                 ((LeftPage)IndexView.Attachments.First()).IsPresented = false;

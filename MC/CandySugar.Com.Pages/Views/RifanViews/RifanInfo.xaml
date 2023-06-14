@@ -4,15 +4,96 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:dto="clr-namespace:CandySugar.Com.Library.OptionModel;assembly=CandySugar.Com.Library"
+    xmlns:sdk="clr-namespace:Sdk.Component.Vip.Anime.sdk.ViewModel.Response;assembly=Sdk.Component.Vip"
     xmlns:uc="clr-namespace:CandySugar.Com.Controls;assembly=CandySugar.Com.Controls"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels.RifanViewModels"
     Title="RifanInfo"
     x:DataType="vm:RifanInfoViewModel">
-    <uc:UniformGrid AutoColumns="True" ItemsSource="{Binding Info}">
-        <uc:UniformGrid.ItemTemplate>
-            <DataTemplate x:DataType="dto:PlayInfo">
-                <Label Text="{Binding Clarity}" />
-            </DataTemplate>
-        </uc:UniformGrid.ItemTemplate>
-    </uc:UniformGrid>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Btn1" TargetType="Button">
+                <Setter Property="TextColor" Value="{DynamicResource Basic}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource BasicPrimary}" />
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="Margin" Value="10,5" />
+                <Setter Property="Padding" Value="14,10" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
+        <Grid Margin="10,10">
+            <Label Text="{Binding Info[0].Name, StringFormat='当前影片：{0}'}" />
+            <Label
+                Margin="0,0,10,0"
+                HorizontalOptions="EndAndExpand"
+                Text="返回">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+        <uc:UniformGrid
+            Grid.Row="1"
+            AutoColumns="True"
+            ItemsSource="{Binding Info}">
+            <uc:UniformGrid.ItemTemplate>
+                <DataTemplate x:DataType="dto:PlayInfo">
+                    <Button
+                        Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:RifanInfoViewModel}}}"
+                        CommandParameter="{Binding Route}"
+                        Style="{DynamicResource Btn1}"
+                        Text="{Binding Clarity}" />
+                </DataTemplate>
+            </uc:UniformGrid.ItemTemplate>
+        </uc:UniformGrid>
+        <StackLayout Grid.Row="2" Margin="10,10">
+            <Label Text="关联影片：" />
+        </StackLayout>
+        <CollectionView
+            Grid.Row="3"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsSource="{Binding Link}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="sdk:WatchElementResult">
+                    <Border Stroke="{DynamicResource PotoBrushSafe}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:RifanInfoViewModel}}}" CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*">
+                            <Border
+                                HeightRequest="130"
+                                StrokeShape="RoundRectangle 0"
+                                WidthRequest="90">
+                                <Image Aspect="Fill" Source="{Binding Cover}" />
+                            </Border>
+                            <StackLayout
+                                Grid.Column="1"
+                                Margin="0,5,0,0"
+                                VerticalOptions="StartAndExpand">
+                                <Label
+                                    Margin="10,0,0,0"
+                                    LineBreakMode="WordWrap"
+                                    Text="{Binding Name, StringFormat='片名：{0}'}"
+                                    TextColor="{DynamicResource Basic}" />
+                                <Label
+                                    Margin="10,0,0,0"
+                                    LineBreakMode="WordWrap"
+                                    Text="{Binding Duration, StringFormat='时常：{0}'}"
+                                    TextColor="{DynamicResource Basic}" />
+                                <Label
+                                    Margin="10,0,0,0"
+                                    LineBreakMode="WordWrap"
+                                    Text="{Binding Views, StringFormat='播放量：{0}'}"
+                                    TextColor="{DynamicResource Basic}" />
+                            </StackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

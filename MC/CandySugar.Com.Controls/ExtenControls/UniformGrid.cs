@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Layouts;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
 namespace CandySugar.Com.Controls
@@ -28,7 +29,7 @@ namespace CandySugar.Com.Controls
         }
 
         public static readonly BindableProperty ItemTemplateProperty =
-            BindableProperty.Create(nameof(ItemTemplate), typeof(DataTemplate), typeof(UniformGrid), propertyChanged: (sender, oldValue, newValue) => ((UniformGrid)sender).Render());
+            BindableProperty.Create(nameof(ItemTemplate), typeof(DataTemplate), typeof(UniformGrid), defaultValue: DefualtTemplate, propertyChanged: (sender, oldValue, newValue) => ((UniformGrid)sender).Render());
 
         public bool AutoColumns
         {
@@ -47,6 +48,11 @@ namespace CandySugar.Com.Controls
 
         public static readonly BindableProperty AutoRowsProperty =
             BindableProperty.Create(nameof(AutoRows), typeof(bool), typeof(UniformGrid), false);
+
+
+        public static DataTemplate DefualtTemplate => new DataTemplate(() => {
+            return new Label { Text = "Defualt" };
+        });
 
 
         private void OnItemsSourceChanged(IList oldValue, IList newValue)
@@ -99,6 +105,11 @@ namespace CandySugar.Com.Controls
                 {
                     AddTemplate(item);
                 }
+            }
+            else
+            {
+                var view = ItemTemplate?.CreateContent() as View;
+                this.Children.Add(view);
             }
         }
 
