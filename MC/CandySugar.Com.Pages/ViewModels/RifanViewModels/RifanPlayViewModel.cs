@@ -12,5 +12,26 @@ namespace CandySugar.Com.Pages.ViewModels.RifanViewModels
         public RifanPlayViewModel(BaseVMService baseServices) : base(baseServices)
         {
         }
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            Route = parameters.GetValue<string>("Param");
+        }
+
+        #region Method
+        public void GoBack()
+        {
+            Nav.GoBackAsync();
+        }
+        #endregion
+
+        #region Property
+        private string _Route;
+        public string Route
+        {
+            get => _Route;
+            set=>SetProperty(ref _Route, value);
+        }
+        #endregion
     }
 }

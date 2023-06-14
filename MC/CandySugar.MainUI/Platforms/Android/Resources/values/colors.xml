@@ -3,4 +3,5 @@
 	<color name="colorPrimary">#00A5F2</color>
 	<color name="colorPrimaryDark">#7E7D81</color>
 	<color name="colorAccent">#7E7D81</color>
+	<dimen name="status_bar_height">18dp</dimen>
 </resources>

@@ -20,6 +20,7 @@ namespace CandySugar.MainUI
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseMauiCommunityToolkitMediaElement()
                 .UseUraniumUI()
                 .UseUraniumUIMaterial()
                 .UseUraniumUIBlurs()

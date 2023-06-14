@@ -1,5 +1,4 @@
 ﻿using CandySugar.Com.Library.BaseViewModel;
-using CandySugar.Com.Library.MsgModel;
 using CandySugar.Com.Library.OptionModel;
 using Sdk.Component.Vip.Anime.sdk;
 using CandySugar.Com.Library.Extends;
