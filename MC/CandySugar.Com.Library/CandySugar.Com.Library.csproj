@@ -13,10 +13,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Folder Include="Platforms\Android\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="5.2.0" />
 	  <PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="2.0.0" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
@@ -31,6 +27,10 @@
 	  <PackageReference Include="XExten.Advance" Version="2.0.0.4" />
 	  <PackageReference Include="XExten.Advance.Maui.Bar" Version="1.0.0" />
 	  <PackageReference Include="XExten.Advance.Maui.Direction" Version="1.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Platforms\" />
 	</ItemGroup>
 
 </Project>

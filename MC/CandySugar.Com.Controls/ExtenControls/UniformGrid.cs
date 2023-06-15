@@ -94,8 +94,18 @@ namespace CandySugar.Com.Controls
             }
         }
 
+        protected void InitRender() 
+        {
+            if (ItemsSource == null)
+            {
+                var view = ItemTemplate?.CreateContent() as View;
+                this.Children.Add(view);
+            }
+        }
+
         protected void Render()
         {
+            InitRender();
             if (ItemsSource?.Count > 0)
             {
                 this.Children.Clear();
@@ -105,11 +115,6 @@ namespace CandySugar.Com.Controls
                 {
                     AddTemplate(item);
                 }
-            }
-            else
-            {
-                var view = ItemTemplate?.CreateContent() as View;
-                this.Children.Add(view);
             }
         }
 
