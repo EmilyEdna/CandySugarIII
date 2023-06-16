@@ -27,9 +27,6 @@ public partial class RifanPlay : ContentPage
 
     private void PageUnloadEvent(object sender, EventArgs e)
     {
-#if ANDROID
-        IDirection.Instance.LockOrientation(OrientationEnum.Portrait);
-#endif
         Media.Handler?.DisconnectHandler();
     }
 

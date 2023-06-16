@@ -65,6 +65,13 @@ namespace CandySugar.MainUI.ViewModels
                         BindingContext = new RifanViewModel(key, this.BaseServices)
                     };
                 }
+                if (param == 2)
+                {
+                    Content = new Rifan
+                    {
+                        BindingContext = new ComicViewModel(key, this.BaseServices)
+                    };
+                }
                 ((LeftPage)IndexView.Attachments.First()).IsPresented = false;
             });
         }

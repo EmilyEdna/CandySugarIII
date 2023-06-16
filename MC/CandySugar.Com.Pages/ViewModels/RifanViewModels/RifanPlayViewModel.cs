@@ -5,10 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-#if ANDROID
-using XExten.Advance.Maui.Direction.Platforms.Android;
-using XExten.Advance.Maui.Direction;
-#endif
 
 namespace CandySugar.Com.Pages.ViewModels.RifanViewModels
 {
@@ -20,9 +16,6 @@ namespace CandySugar.Com.Pages.ViewModels.RifanViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-#if ANDROID
-            IDirection.Instance.LockOrientation(OrientationEnum.LandscapeFlipped);
-#endif
             Route = parameters.GetValue<string>("Param");
         }
 
@@ -30,12 +23,8 @@ namespace CandySugar.Com.Pages.ViewModels.RifanViewModels
         public RelayCommand BackCommand => new(() =>
         {
             Nav.GoBackAsync();
-#if ANDROID
-            IDirection.Instance.LockOrientation(OrientationEnum.Portrait);
-#endif
         });
         #endregion
-
 
         #region Method
         public void GoBack()
