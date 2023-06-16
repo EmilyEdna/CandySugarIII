@@ -67,7 +67,7 @@ namespace CandySugar.MainUI.ViewModels
                 }
                 if (param == 2)
                 {
-                    Content = new Rifan
+                    Content = new Comic
                     {
                         BindingContext = new ComicViewModel(key, this.BaseServices)
                     };

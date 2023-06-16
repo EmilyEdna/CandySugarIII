@@ -6,10 +6,37 @@
     xmlns:sdk="clr-namespace:Sdk.Component.Vip.Comic.sdk.ViewModel.Response;assembly=Sdk.Component.Vip"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels"
     x:DataType="vm:ComicViewModel">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+    <CollectionView
+        ItemSizingStrategy="MeasureAllItems"
+        ItemsSource="{Binding SearchResult}"
+        RemainingItemsThreshold="0"
+        RemainingItemsThresholdReachedCommand="{Binding LoadCommand}">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="sdk:SearchElementResult">
+                <Border Stroke="{DynamicResource PotoBrushSafe}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PreivewCommand, Source={RelativeSource AncestorType={x:Type vm:ComicViewModel}}}" CommandParameter="{Binding .}" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Border
+                            HeightRequest="130"
+                            StrokeShape="RoundRectangle 0"
+                            WidthRequest="90">
+                            <Image Aspect="Fill" Source="{Binding Cover}" />
+                        </Border>
+                        <StackLayout Grid.Column="1" VerticalOptions="StartAndExpand">
+                            <Label
+                                Margin="10,0,0,0"
+                                LineBreakMode="WordWrap"
+                                Text="{Binding Name}"
+                                TextColor="{DynamicResource Basic}" />
+                        </StackLayout>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentView>

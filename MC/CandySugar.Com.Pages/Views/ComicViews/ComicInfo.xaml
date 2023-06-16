@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CandySugar.Com.Pages.Views.ComicViews.ComicInfo"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels.ComicViewModels"
+    x:DataType="vm:ComicInfoViewModel">
+    <Grid RowDefinitions="Auto,*">
+        <Border Stroke="{DynamicResource PotoBrushSafe}">
+            <Grid ColumnDefinitions="Auto,*">
+                <Border
+                    HeightRequest="130"
+                    StrokeShape="RoundRectangle 0"
+                    WidthRequest="90">
+                    <Image Aspect="Fill" Source="{Binding Result.Cover}" />
+                </Border>
+                <StackLayout Grid.Column="1" VerticalOptions="StartAndExpand">
+                    <Label
+                        Margin="10,0,0,0"
+                        LineBreakMode="WordWrap"
+                        Text="{Binding Result.Name}"
+                        TextColor="{DynamicResource Basic}" />
+                    <Label
+                        Margin="10,10,0,0"
+                        LineBreakMode="WordWrap"
+                        Text="返回"
+                        TextColor="{DynamicResource Basic}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BackCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </Grid>
+        </Border>
+        <CollectionView ItemSizingStrategy="MeasureAllItems" ItemsSource="{Binding Preview}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    HorizontalItemSpacing="3"
+                    Orientation="Vertical"
+                    Span="3"
+                    VerticalItemSpacing="3" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        HeightRequest="130"
+                        StrokeShape="RoundRectangle 0"
+                        WidthRequest="90">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding WatchCommand}" CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+                        <Image Aspect="Fill" Source="{Binding .}" />
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
