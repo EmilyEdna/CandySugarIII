@@ -12,4 +12,9 @@
 	  <ProjectReference Include="..\CandySugar.Com.Library\CandySugar.Com.Library.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="IServiceImpl\" />
+	  <Folder Include="ServiceImpl\" />
+	</ItemGroup>
+
 </Project>

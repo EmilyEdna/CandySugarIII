@@ -39,9 +39,9 @@
             ItemsSource="{Binding Info}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout
-                    HorizontalItemSpacing="{Binding Info.Count}"
+                    HorizontalItemSpacing="3"
                     Orientation="Vertical"
-                    Span="3"
+                    Span="{Binding Info.Count}"
                     VerticalItemSpacing="3" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>

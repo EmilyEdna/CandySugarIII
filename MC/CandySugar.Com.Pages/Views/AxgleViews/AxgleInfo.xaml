@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CandySugar.Com.Pages.Views.AxgleViews.AxgleInfo"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sdk="clr-namespace:Sdk.Component.Vip.Axgle.sdk.ViewModel.Response;assembly=Sdk.Component.Vip"
+    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels.AxgleViewModels"
+    x:DataType="vm:AxgleInfoViewModel">
+    <Grid RowDefinitions="*,Auto">
+        <CollectionView
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsSource="{Binding SearchResult}"
+            RemainingItemsThreshold="0"
+            RemainingItemsThresholdReachedCommand="{Binding LoadCommand}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="sdk:AxgleSearchElementResult">
+                    <Border Grid.Row="1" Stroke="{DynamicResource PotoBrushSafe}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:AxgleInfoViewModel}}}" CommandParameter="{Binding Play}" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*">
+                            <Border
+                                HeightRequest="80"
+                                StrokeShape="RoundRectangle 0"
+                                WidthRequest="130">
+                                <Image Aspect="Fill" Source="{Binding Preview}" />
+                            </Border>
+                            <StackLayout Grid.Column="1" VerticalOptions="StartAndExpand">
+                                <Label
+                                    Margin="10,0,0,0"
+                                    LineBreakMode="MiddleTruncation"
+                                    Text="{Binding Title}"
+                                    TextColor="{DynamicResource Basic}" />
+                                <Label
+                                    Margin="10,0,0,0"
+                                    LineBreakMode="WordWrap"
+                                    Text="{Binding Duration, StringFormat='时常：{0}'}"
+                                    TextColor="{DynamicResource Basic}" />
+                                <Label
+                                    Margin="10,0,0,0"
+                                    LineBreakMode="WordWrap"
+                                    Text="{Binding Views, StringFormat='观看次数：{0}'}"
+                                    TextColor="{DynamicResource Basic}" />
+                            </StackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Border Grid.Row="1" BackgroundColor="{DynamicResource BasicPrimary}">
+            <Label
+                Margin="0,0,10,0"
+                Padding="0,10"
+                HorizontalOptions="CenterAndExpand"
+                Text="返回">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </Border>
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CandySugar.Com.Pages.Views.AxgleViews.AxglePlay"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lib="clr-namespace:CandySugar.Com.Library;assembly=CandySugar.Com.Library"
+    xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Layouts;assembly=CommunityToolkit.Maui"
+    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels.AxgleViewModels"
+    x:DataType="vm:AxglePlayViewModel">
+    <Grid>
+        <WebView x:Name="Web" />
+        <Grid ColumnDefinitions="*,*,*">
+            <Label
+                FontFamily="Thin"
+                HorizontalOptions="StartAndExpand"
+                Text="{Static lib:FontIcon.ArrowLeft}"
+                TextColor="{DynamicResource BasicPrimary}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BeginCommand}" CommandParameter="{x:Reference Web}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label
+                Grid.Column="2"
+                FontFamily="Thin"
+                HorizontalOptions="EndAndExpand"
+                Text="{Static lib:FontIcon.ArrowRight}"
+                TextColor="{DynamicResource BasicPrimary}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+
+    </Grid>
+</ContentPage>

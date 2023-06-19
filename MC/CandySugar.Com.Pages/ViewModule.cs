@@ -1,5 +1,7 @@
-﻿using CandySugar.Com.Pages.ViewModels.ComicViewModels;
+﻿using CandySugar.Com.Pages.ViewModels.AxgleViewModels;
+using CandySugar.Com.Pages.ViewModels.ComicViewModels;
 using CandySugar.Com.Pages.ViewModels.RifanViewModels;
+using CandySugar.Com.Pages.Views.AxgleViews;
 using CandySugar.Com.Pages.Views.ComicViews;
 using CandySugar.Com.Pages.Views.RifanViews;
 
@@ -19,6 +21,9 @@ namespace CandySugar.Com.Pages
 
             containerRegistry.RegisterForNavigation<ComicInfo, ComicInfoViewModel>();
             containerRegistry.RegisterForNavigation<ComicWatch, ComicWatchViewModel>();
+
+            containerRegistry.RegisterForNavigation<AxgleInfo, AxgleInfoViewModel>();
+            containerRegistry.RegisterForNavigation<AxglePlay, AxglePlayViewModel>();
         }
     }
 }
