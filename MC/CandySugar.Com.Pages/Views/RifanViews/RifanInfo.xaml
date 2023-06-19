@@ -33,11 +33,18 @@
                 </Label.GestureRecognizers>
             </Label>
         </Grid>
-        <uc:UniformGrid
+        <CollectionView
             Grid.Row="1"
-            AutoColumns="True"
+            ItemSizingStrategy="MeasureAllItems"
             ItemsSource="{Binding Info}">
-            <uc:UniformGrid.ItemTemplate>
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    HorizontalItemSpacing="{Binding Info.Count}"
+                    Orientation="Vertical"
+                    Span="3"
+                    VerticalItemSpacing="3" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="dto:PlayInfo">
                     <Button
                         Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:RifanInfoViewModel}}}"
@@ -45,8 +52,8 @@
                         Style="{DynamicResource Btn1}"
                         Text="{Binding Clarity}" />
                 </DataTemplate>
-            </uc:UniformGrid.ItemTemplate>
-        </uc:UniformGrid>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <StackLayout Grid.Row="2" Margin="10,10">
             <Label Text="关联影片：" />
         </StackLayout>

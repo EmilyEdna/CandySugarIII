@@ -1,19 +1,12 @@
 ﻿using CandySugar.Com.Library.BaseViewModel;
 using CandySugar.Com.Library.Extends;
 using CandySugar.Com.Pages.Views.ComicViews;
-using NPOI.SS.Formula.Functions;
 using Sdk.Component.Vip.Comic.sdk;
 using Sdk.Component.Vip.Comic.sdk.ViewModel;
 using Sdk.Component.Vip.Comic.sdk.ViewModel.Enums;
 using Sdk.Component.Vip.Comic.sdk.ViewModel.Request;
 using Sdk.Component.Vip.Comic.sdk.ViewModel.Response;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using XExten.Advance.LinqFramework;
 
 namespace CandySugar.Com.Pages.ViewModels
 {
