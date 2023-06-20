@@ -9,27 +9,52 @@
     x:DataType="vm:AxglePlayViewModel">
     <Grid>
         <WebView x:Name="Web" />
-        <Grid ColumnDefinitions="*,*,*">
+        <Grid ColumnDefinitions="*,*,*,*" VerticalOptions="EndAndExpand">
             <Label
+                Margin="10,0,0,0"
                 FontFamily="Thin"
+                FontSize="22"
                 HorizontalOptions="StartAndExpand"
-                Text="{Static lib:FontIcon.ArrowLeft}"
-                TextColor="{DynamicResource BasicPrimary}">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding BeginCommand}" CommandParameter="{x:Reference Web}" />
-                </Label.GestureRecognizers>
-            </Label>
-            <Label
-                Grid.Column="2"
-                FontFamily="Thin"
-                HorizontalOptions="EndAndExpand"
-                Text="{Static lib:FontIcon.ArrowRight}"
+                Text="{Static lib:FontIcon.ArrowRotateLeft}"
                 TextColor="{DynamicResource BasicPrimary}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding BackCommand}" />
                 </Label.GestureRecognizers>
             </Label>
+            <Label
+                Grid.Column="1"
+                FontFamily="Thin"
+                FontSize="22"
+                HorizontalOptions="CenterAndExpand"
+                Text="{Static lib:FontIcon.RectangleAd}"
+                TextColor="{DynamicResource BasicPrimary}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClearCommand}" CommandParameter="{x:Reference Web}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label
+                Grid.Column="2"
+                FontFamily="Thin"
+                FontSize="22"
+                HorizontalOptions="CenterAndExpand"
+                Text="{Static lib:FontIcon.Bahai}"
+                TextColor="{DynamicResource BasicPrimary}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LoadCommand}" CommandParameter="{x:Reference Web}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label
+                Grid.Column="3"
+                Margin="0,0,10,0"
+                FontFamily="Thin"
+                FontSize="22"
+                HorizontalOptions="EndAndExpand"
+                Text="{Static lib:FontIcon.ArrowRotateRight}"
+                TextColor="{DynamicResource BasicPrimary}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ReloadCommand}" CommandParameter="{x:Reference Web}" />
+                </Label.GestureRecognizers>
+            </Label>
         </Grid>
-
     </Grid>
 </ContentPage>

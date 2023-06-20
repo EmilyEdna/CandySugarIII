@@ -23,12 +23,4 @@ public partial class AxglePlay : ContentPage
         };
         Web.Source = Source;
     }
-
-    private async void Test(object sender, EventArgs e)
-    {
-        var Height = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density);
-        var Width = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density);
-        var ViewModel = (AxglePlayViewModel)this.BindingContext;
-        await Web.EvaluateJavaScriptAsync($"Play('{ViewModel.Route}','{Width}','{Height}')");
-    }
 }
