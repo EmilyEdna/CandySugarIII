@@ -15,6 +15,8 @@ using CandySugar.Com.Library.Extends;
 using XExten.Advance.LinqFramework;
 using CommunityToolkit.Mvvm.Input;
 using CandySugar.Com.Pages.Views.AxgleViews;
+using CandySugar.Com.Service.IServiceImpl;
+using CandySugar.Com.Service.Model;
 
 namespace CandySugar.Com.Pages.ViewModels.AxgleViewModels
 {
@@ -113,7 +115,7 @@ namespace CandySugar.Com.Pages.ViewModels.AxgleViewModels
             }
         }
 
-        private async void OnPlay(string Route)
+        private async void OnPlay(AxgleSearchElementResult element)
         {
             var result = (await AxgleFactory.Axgle(opt =>
             {
@@ -122,12 +124,12 @@ namespace CandySugar.Com.Pages.ViewModels.AxgleViewModels
                     AxgleType = AxgleEnum.Detail,
                     Detail = new AxgleDetail
                     {
-                        FrameURL = Route
+                        FrameURL = element.Play
                     }
                 };
             }).RunsAsync()).DetailResult;
-
-           await Nav.NavigateAsync(new Uri(nameof(AxglePlay), UriKind.Relative), new NavigationParameters { { "Param", result.Route } });
+            Insert(element, result.Route);
+            await Nav.NavigateAsync(new Uri(nameof(AxglePlay), UriKind.Relative), new NavigationParameters { { "Param", result.Route } });
         }
         #endregion
 
@@ -156,7 +158,8 @@ namespace CandySugar.Com.Pages.ViewModels.AxgleViewModels
             }
         }
 
-        private async void OnInfoMore() {
+        private async void OnInfoMore()
+        {
             try
             {
                 var result = (await AxgleFactory.Axgle(opt =>
@@ -179,10 +182,8 @@ namespace CandySugar.Com.Pages.ViewModels.AxgleViewModels
                 ex.Message.Info();
             }
         }
-        #endregion
 
-        #region Method
-        private void OnLoadMore() 
+        private void OnLoadMore()
         {
             if (Keyword.IsNullOrEmpty())
             {
@@ -199,12 +200,25 @@ namespace CandySugar.Com.Pages.ViewModels.AxgleViewModels
         }
         #endregion
 
+        #region Method
+        private async void Insert(AxgleSearchElementResult result, string Route)
+        {
+            await Container.Resolve<ICandyService>().Add(new CollectModel
+            {
+                Category = 1,
+                Cover = result.Preview,
+                Name = result.Title,
+                Route = Route,
+            });
+        }
+        #endregion
+
         #region Command
         public RelayCommand LoadCommand => new(OnLoadMore);
 
         public RelayCommand BackCommand => new(() => Nav.GoBackAsync());
 
-        public RelayCommand<string> WatchCommand => new(OnPlay);
+        public RelayCommand<AxgleSearchElementResult> WatchCommand => new(OnPlay);
         #endregion
     }
 }

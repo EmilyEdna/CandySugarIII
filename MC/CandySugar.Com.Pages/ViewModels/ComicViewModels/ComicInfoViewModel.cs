@@ -1,6 +1,8 @@
 ﻿using CandySugar.Com.Library.BaseViewModel;
 using CandySugar.Com.Library.Extends;
 using CandySugar.Com.Pages.Views.ComicViews;
+using CandySugar.Com.Service.IServiceImpl;
+using CandySugar.Com.Service.Model;
 using Sdk.Component.Vip.Comic.sdk;
 using Sdk.Component.Vip.Comic.sdk.ViewModel;
 using Sdk.Component.Vip.Comic.sdk.ViewModel.Enums;
@@ -19,6 +21,7 @@ namespace CandySugar.Com.Pages.ViewModels.ComicViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             Result = parameters.GetValue<SearchElementResult>("Param");
+            Insert(Result);
             OnViewInit();
         }
 
@@ -77,6 +80,19 @@ namespace CandySugar.Com.Pages.ViewModels.ComicViewModels
             {
                 ex.Message.Info();
             }
+        }
+        #endregion
+
+        #region Method
+        private async void Insert(SearchElementResult result)
+        {
+            await Container.Resolve<ICandyService>().Add(new CollectModel
+            {
+                Category = 1,
+                Cover = result.Cover,
+                Name = result.Name,
+                Route = result.Route,
+            });
         }
         #endregion
     }

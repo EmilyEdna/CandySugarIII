@@ -10,6 +10,8 @@ using System.Collections.ObjectModel;
 using XExten.Advance.LinqFramework;
 using CommunityToolkit.Mvvm.Input;
 using CandySugar.Com.Pages.Views.RifanViews;
+using CandySugar.Com.Service.IServiceImpl;
+using CandySugar.Com.Service.Model;
 
 namespace CandySugar.Com.Pages.ViewModels.RifanViewModels
 {
@@ -21,7 +23,9 @@ namespace CandySugar.Com.Pages.ViewModels.RifanViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-            OnWatchInit(parameters.GetValue<SearchElementResult>("Param"));
+            var result = parameters.GetValue<SearchElementResult>("Param");
+            OnWatchInit(result);
+            Insert(result);
         }
 
         #region Property
@@ -82,5 +86,17 @@ namespace CandySugar.Com.Pages.ViewModels.RifanViewModels
         }
         #endregion
 
+        #region Method
+        private async void Insert(SearchElementResult result)
+        {
+            await Container.Resolve<ICandyService>().Add(new CollectModel
+            {
+                Category = 2,
+                Cover = result.Cover,
+                Name = result.Name,
+                Route = result.Route,
+            });
+        }
+        #endregion
     }
 }

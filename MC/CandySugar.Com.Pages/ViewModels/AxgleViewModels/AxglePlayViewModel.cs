@@ -1,10 +1,5 @@
 ﻿using CandySugar.Com.Library.BaseViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace CandySugar.Com.Pages.ViewModels.AxgleViewModels
 {

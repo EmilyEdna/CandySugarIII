@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CandySugar.Com.Service.IServiceImpl;
+using CandySugar.Com.Service.ServiceImpl;
 
 namespace CandySugar.Com.Service
 {
@@ -10,10 +7,12 @@ namespace CandySugar.Com.Service
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
+            DbContext.InitTabel();
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<ICandyService, CandyService>();
         }
     }
 }
