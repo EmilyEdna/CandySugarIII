@@ -10,8 +10,7 @@ using System.Collections.ObjectModel;
 using XExten.Advance.LinqFramework;
 using CommunityToolkit.Mvvm.Input;
 using CandySugar.Com.Pages.Views.RifanViews;
-using CandySugar.Com.Service.IServiceImpl;
-using CandySugar.Com.Service.Model;
+using CandySugar.Com.Service;
 
 namespace CandySugar.Com.Pages.ViewModels.RifanViewModels
 {

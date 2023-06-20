@@ -3,11 +3,11 @@
     x:Class="CandySugar.Com.Pages.Views.Home"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:dto="clr-namespace:CandySugar.Com.Service.Model;assembly=CandySugar.Com.Service"
+    xmlns:model="clr-namespace:CandySugar.Com.Service;assembly=CandySugar.Com.Service"
     xmlns:uc="clr-namespace:CandySugar.Com.Controls;assembly=CandySugar.Com.Controls"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels"
     x:DataType="vm:HomeViewModel">
-    <uc:TabView Command="{Binding ChangeCommand}" TabPlacement="Start">
+    <uc:TabView Command="{Binding ChangeCommand}" TabPlacement="Top">
         <uc:TabView.TabHeaderItemTemplate>
             <DataTemplate x:DataType="uc:TabItem">
                 <Button Command="{Binding Command}" Text="{Binding Title}">
@@ -45,7 +45,7 @@
                             <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="dto:CollectModel">
+                            <DataTemplate x:DataType="model:CollectModel">
                                 <Border Stroke="{DynamicResource PotoBrushSafe}">
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}" CommandParameter="{Binding .}" />
@@ -101,7 +101,7 @@
                             <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="dto:CollectModel">
+                            <DataTemplate x:DataType="model:CollectModel">
                                 <Border Stroke="{DynamicResource PotoBrushSafe}">
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}" CommandParameter="{Binding .}" />
@@ -157,7 +157,7 @@
                             <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="dto:CollectModel">
+                            <DataTemplate x:DataType="model:CollectModel">
                                 <Border Stroke="{DynamicResource PotoBrushSafe}">
                                     <Border.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}" CommandParameter="{Binding .}" />

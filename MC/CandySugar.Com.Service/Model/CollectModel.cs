@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CandySugar.Com.Service.Model
+namespace CandySugar.Com.Service
 {
     public class CollectModel : BasicEntity
     {

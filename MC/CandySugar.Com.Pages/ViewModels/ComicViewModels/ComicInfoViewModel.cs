@@ -1,8 +1,7 @@
 ﻿using CandySugar.Com.Library.BaseViewModel;
 using CandySugar.Com.Library.Extends;
 using CandySugar.Com.Pages.Views.ComicViews;
-using CandySugar.Com.Service.IServiceImpl;
-using CandySugar.Com.Service.Model;
+using CandySugar.Com.Service;
 using Sdk.Component.Vip.Comic.sdk;
 using Sdk.Component.Vip.Comic.sdk.ViewModel;
 using Sdk.Component.Vip.Comic.sdk.ViewModel.Enums;

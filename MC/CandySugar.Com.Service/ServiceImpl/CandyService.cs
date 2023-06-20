@@ -1,14 +1,6 @@
-﻿using CandySugar.Com.Service.IServiceImpl;
-using CandySugar.Com.Service.Model;
-using Microsoft.Extensions.Logging.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using XExten.Advance.LinqFramework;
+﻿using XExten.Advance.LinqFramework;
 
-namespace CandySugar.Com.Service.ServiceImpl
+namespace CandySugar.Com.Service
 {
     public class CandyService : ICandyService
     {

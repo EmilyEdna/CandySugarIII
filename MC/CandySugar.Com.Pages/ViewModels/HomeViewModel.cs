@@ -2,16 +2,9 @@
 using CandySugar.Com.Pages.Views.AxgleViews;
 using CandySugar.Com.Pages.Views.ComicViews;
 using CandySugar.Com.Pages.Views.RifanViews;
-using CandySugar.Com.Service.IServiceImpl;
-using CandySugar.Com.Service.Model;
-using System;
-using System.Collections.Generic;
+using CandySugar.Com.Service;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using XExten.Advance.LinqFramework;
-using static SQLite.SQLite3;
 
 namespace CandySugar.Com.Pages.ViewModels
 {

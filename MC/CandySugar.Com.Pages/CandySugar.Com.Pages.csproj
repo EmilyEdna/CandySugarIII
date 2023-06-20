@@ -11,6 +11,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\CandySugar.Com.Controls\CandySugar.Com.Controls.csproj" />
+	  <ProjectReference Include="..\CandySugar.Com.Service\CandySugar.Com.Service.csproj" />
 		<Reference Include="Sdk.Component.Vip">
 			<HintPath>..\..\Lib\Sdk.Component.Vip.dll</HintPath>
 		</Reference>

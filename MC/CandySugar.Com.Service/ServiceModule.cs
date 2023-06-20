@@ -1,6 +1,4 @@
-﻿using CandySugar.Com.Service.IServiceImpl;
-using CandySugar.Com.Service.ServiceImpl;
-
+﻿
 namespace CandySugar.Com.Service
 {
     public class ServiceModule : IModule
