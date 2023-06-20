@@ -63,6 +63,11 @@
                                                 LineBreakMode="WordWrap"
                                                 Text="{Binding Name}"
                                                 TextColor="{DynamicResource Basic}" />
+                                            <Label Text="删除" VerticalTextAlignment="End">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding DeleteCommand, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}" CommandParameter="{Binding .}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
                                         </StackLayout>
                                     </Grid>
                                 </Border>
@@ -114,6 +119,11 @@
                                                 LineBreakMode="WordWrap"
                                                 Text="{Binding Name}"
                                                 TextColor="{DynamicResource Basic}" />
+                                            <Label Text="删除" VerticalTextAlignment="End">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding DeleteCommand, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}" CommandParameter="{Binding .}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
                                         </StackLayout>
                                     </Grid>
                                 </Border>
@@ -165,6 +175,11 @@
                                                 LineBreakMode="WordWrap"
                                                 Text="{Binding Name}"
                                                 TextColor="{DynamicResource Basic}" />
+                                            <Label Text="删除" VerticalTextAlignment="End">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding DeleteCommand, Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}}" CommandParameter="{Binding .}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
                                         </StackLayout>
                                     </Grid>
                                 </Border>

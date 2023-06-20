@@ -63,6 +63,11 @@ namespace CandySugar.Com.Pages.ViewModels
         public DelegateCommand<dynamic> ChangeCommand => new(ChangeMethod);
         public DelegateCommand<CollectModel> WatchCommand => new(WatchMethod);
         public DelegateCommand<string> ClearCommand => new(ClearMethod);
+        public DelegateCommand<CollectModel> DeleteCommand => new(async element =>
+        {
+            await Container.Resolve<ICandyService>().Delete(element.Id);
+            ChangeMethod(element.Category);
+        });
         #endregion
 
         #region Method
