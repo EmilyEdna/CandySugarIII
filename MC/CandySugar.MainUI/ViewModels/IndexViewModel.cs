@@ -79,6 +79,13 @@ namespace CandySugar.MainUI.ViewModels
                         BindingContext = new AxgleViewModel(key, this.BaseServices)
                     };
                 }
+                if (param == 4)
+                {
+                    Content = new Home
+                    {
+                        BindingContext = new HomeViewModel(this.BaseServices)
+                    };
+                }
                 ((LeftPage)IndexView.Attachments.First()).IsPresented = false;
             });
         }

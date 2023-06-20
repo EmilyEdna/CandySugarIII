@@ -28,12 +28,14 @@ namespace CandySugar.Com.Service.ServiceImpl
             await DbContext.Lite.DeleteAsync<CollectModel>(Id);
         }
 
-        public async Task<List<CollectModel>> Get(int Category, int PageIndex)
+        public async Task<Tuple<int, List<CollectModel>>> Get(int Category, int PageIndex)
         {
-            return await DbContext.Lite.Table<CollectModel>().Where(t => t.Category == Category)
-                  .OrderByDescending(t => t.Span)
-                  .Skip((PageIndex - 1) * 15)
-                  .Take(15).ToListAsync();
+            var query = DbContext.Lite.Table<CollectModel>().Where(t => t.Category == Category)
+                  .OrderByDescending(t => t.Span);
+
+            var Count = await query.CountAsync();
+            var Data = await query.Skip((PageIndex - 1) * 15).Take(15).ToListAsync();
+            return Tuple.Create(Count, Data);
         }
 
         public async Task Remove(int Category)
