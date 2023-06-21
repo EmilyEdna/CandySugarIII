@@ -1,8 +1,10 @@
 ﻿using CandySugar.Com.Pages.ViewModels.AxgleViewModels;
 using CandySugar.Com.Pages.ViewModels.ComicViewModels;
+using CandySugar.Com.Pages.ViewModels.HomeViewModels;
 using CandySugar.Com.Pages.ViewModels.RifanViewModels;
 using CandySugar.Com.Pages.Views.AxgleViews;
 using CandySugar.Com.Pages.Views.ComicViews;
+using CandySugar.Com.Pages.Views.HomeViews;
 using CandySugar.Com.Pages.Views.RifanViews;
 
 namespace CandySugar.Com.Pages

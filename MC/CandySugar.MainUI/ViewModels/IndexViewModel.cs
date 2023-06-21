@@ -54,7 +54,7 @@ namespace CandySugar.MainUI.ViewModels
         {
             NavCommonMethod(param.Hint, param.Description);
         }
-        private  void NavCommonMethod(int param, string key = "")
+        private void NavCommonMethod(int param, string key = "")
         {
             Application.Current.Dispatcher.DispatchAsync(() =>
             {
