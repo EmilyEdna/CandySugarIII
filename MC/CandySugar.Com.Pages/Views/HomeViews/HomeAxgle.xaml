@@ -6,7 +6,7 @@
     xmlns:model="clr-namespace:CandySugar.Com.Service;assembly=CandySugar.Com.Service"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels.HomeViewModels"
     x:DataType="vm:HomeAxgleViewModel">
-    <Grid RowDefinitions="*,40">
+    <Grid RowDefinitions="*,Auto">
         <CollectionView
             ItemSizingStrategy="MeasureAllItems"
             ItemsSource="{Binding AxgleCollect}"
