@@ -1,4 +1,5 @@
 using CandySugar.Com.Pages.ViewModels;
+using Microsoft.Maui.Platform;
 using XExten.Advance.ThreadFramework;
 
 namespace CandySugar.Com.Pages.Views;
@@ -21,7 +22,6 @@ public partial class Home : ContentView
             int Index = 0;
             foreach (var item in ItemSource)
             {
-                Index++;
                 var btn = new ImageButton
                 {
                     CornerRadius = 30,
@@ -38,12 +38,13 @@ public partial class Home : ContentView
                         Glyph = item.ToString()
                     }
                 };
-                btn.Clicked += (sender, e) => {
+                btn.Clicked += (sender, e) =>
+                {
                     var btn = (sender as ImageButton);
-                    (this.BindingContext as HomeViewModel).SetContent((int)btn.CommandParameter);
+                    (this.BindingContext as HomeViewModel).SetContent((int)btn.CommandParameter+1);
                 };
                 this.FloatContainer.Add(btn);
-
+                Index++;
             }
         };
     }
@@ -74,17 +75,15 @@ public partial class Home : ContentView
         {
             if (tk == 1)
             {
-                int factor = Convert.ToInt32(tk * 10);
-                var buttom = Rotated ? -(factor + 50) * (int)btn.CommandParameter : 0;
-                return buttom;
+                var buttom = Rotated ? -45+(int)btn.CommandParameter*120 : 16;
+                return new Thickness(16, 16, 16, buttom);
             }
             else
-                return 0;
-        }, ntk => btn.TranslationY = ntk, finished: (_, _) =>
+                return new Thickness(16);
+        }, ntk => btn.Margin = ntk, finished: (_, _) =>
         {
             if (ImageBtn.Count > 0)
             {
-
                 var bt = FloatContainer.Children.OfType<ImageButton>().Where(t => !ImageBtn.Select(t => t.CommandParameter.ToString()).Contains(t.CommandParameter.ToString())).FirstOrDefault();
                 if (!ImageBtn.Any(t => t.CommandParameter == bt.CommandParameter))
                 {

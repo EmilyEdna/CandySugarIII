@@ -11,7 +11,7 @@
 
     <AbsoluteLayout>
         <ContentView
-            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutBounds="0,0"
             AbsoluteLayout.LayoutFlags="All"
             Content="{Binding Views}" />
         <Grid
