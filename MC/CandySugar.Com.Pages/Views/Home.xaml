@@ -8,10 +8,9 @@
     xmlns:uc="clr-namespace:CandySugar.Com.Controls;assembly=CandySugar.Com.Controls"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels"
     x:DataType="vm:HomeViewModel">
-
     <AbsoluteLayout>
         <ContentView
-            AbsoluteLayout.LayoutBounds="0,0"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
             AbsoluteLayout.LayoutFlags="All"
             Content="{Binding Views}" />
         <Grid
