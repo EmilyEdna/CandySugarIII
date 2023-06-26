@@ -6,8 +6,12 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">29.0</SupportedOSPlatformVersion>
+		<AndroidSdkDirectory>D:\Android\android-sdk</AndroidSdkDirectory>
 	</PropertyGroup>
-
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\CandySugar.Com.Library\CandySugar.Com.Library.csproj" />
 	</ItemGroup>
