@@ -61,7 +61,7 @@ namespace CandySugar.Com.Library
         /// <summary>
         /// 完整校验
         /// </summary>
-        public static string ProgramErronInformation => "完成检验失败，3秒后退出!";
+        public static string ProgramErronInformation => "程序完整检验失败，3秒后退出!";
         /// <summary>
         /// 配置文件
         /// </summary>

@@ -560,6 +560,7 @@
             OnWatchInit(element);
             WeakReferenceMessenger.Default.Send(new MessageNotify());
         }
+
         /// <summary>
         /// 删除
         /// </summary>
