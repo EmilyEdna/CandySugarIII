@@ -122,7 +122,8 @@ namespace CandySugar.Com.Controls.UIExtenControls
         void InitVLC()
         {
             Core.Initialize(Path.Combine(CommonHelper.AppPath, "vlclib"));
-            VlcLibVLC = new LibVLC();
+            VlcLibVLC = new LibVLC("--network-caching=5000");
+            
             VlcPlayer = new VLCPlayer(VlcLibVLC);
             VlcPlayer.TimeChanged += TimeChanged;
             VlcPlayer.PositionChanged += PositionChanged;
@@ -185,9 +186,9 @@ namespace CandySugar.Com.Controls.UIExtenControls
             if (Param == 1)
             {
                 Rate /= 2;
-                var Rates = Rate <= 1f ? 1f : Rate;
-                VideoPlayer.MediaPlayer.SetRate(Rates);
-                this.Rates.Text = $"X{Rates}";
+                Rate = Rate <= 1f ? 1f : Rate;
+                VideoPlayer.MediaPlayer.SetRate(Rate);
+                this.Rates.Text = $"X{Rate}";
             }
             if (Param == 2)
             {
@@ -211,9 +212,9 @@ namespace CandySugar.Com.Controls.UIExtenControls
             if (Param == 4)
             {
                 Rate *= 2f;
-                var Rates = Rate >= 4f ? 4f : Rate;
-                VideoPlayer.MediaPlayer.SetRate(Rates);
-                this.Rates.Text = $"X{Rates}";
+                Rate = Rate >= 4f ? 4f : Rate;
+                VideoPlayer.MediaPlayer.SetRate(Rate);
+                this.Rates.Text = $"X{Rate}";
             }
         }
         #endregion
