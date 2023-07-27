@@ -8,7 +8,9 @@
             Progress = SessionCode = string.Empty;
             Merge();
             ReadCookie();
+            ReadClipboradContent();
         }
+
         private double Counts = 0;
         private string[] Special = { "|", "*", "?", ">", "<", ":", "\"", "/", "\\" };
         private string Catalog = Path.Combine(CommonHelper.DownloadPath, "Bilibili");
@@ -229,6 +231,13 @@
                         }
                     });
                 }
+            });
+        }
+        private void ReadClipboradContent() 
+        {
+            GenericDelegate.ClipboardAction = new(data =>
+            {
+                this.Route = data.ToString();
             });
         }
         #endregion

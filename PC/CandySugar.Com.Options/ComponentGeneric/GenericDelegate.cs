@@ -23,5 +23,9 @@ namespace CandySugar.Com.Options.ComponentGeneric
         /// 操作委托
         /// </summary>
         public static Action<object> HandleAction { get; set; }
+        /// <summary>
+        /// 剪切板内容通知
+        /// </summary>
+        public static Action<object> ClipboardAction { get; set; }
     }
 }

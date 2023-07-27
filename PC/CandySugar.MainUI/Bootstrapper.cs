@@ -37,6 +37,7 @@ namespace CandySugar.MainUI
             JsonReader.JsonRead(CommonHelper.OptionPath, CommonHelper.OptionFile);
             AssemblyLoader Loader = new(CommonHelper.AppPath);
             NetFactoryExtension.RegisterNetFramework();
+            ClipboardUtil.InitClipBoard();
             ComponentBinding.ComponentObjectModels.ForEach(Dll =>
             {
                 Loader.Load(Dll.Plugin, Dll.Bootstrapper, Dll.Ioc, Dll.Description);
