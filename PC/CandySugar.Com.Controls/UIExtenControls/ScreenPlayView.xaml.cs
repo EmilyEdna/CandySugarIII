@@ -281,6 +281,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
         public string Value { get; set; }
 
     }
+
     public class ScreenPlayViewModel : PropertyChangedBase
     {
 
