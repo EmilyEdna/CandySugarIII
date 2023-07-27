@@ -1,14 +1,14 @@
 chcp 65001
 @echo 开始自动化发布
 cd /d %~dp0
-dotnet publish PC\CandySugar.MainUI\CandySugar.MainUI.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
-dotnet publish PC\CandySugar.ModifyUI\CandySugar.ModifyUI.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
-dotnet publish PC\Component\CandySugar.LightNovel\CandySugar.LightNovel.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
-dotnet publish PC\Component\CandySugar.Music\CandySugar.Music.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
-dotnet publish PC\Component\CandySugar.WallPaper\CandySugar.WallPaper.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
-dotnet publish PC\Component\CandySugar.Bilibili\CandySugar.Bilibili.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
-dotnet publish PC\Component\CandySugar.Rifan\CandySugar.Rifan.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
-dotnet publish PC\Component\CandySugar.Comic\CandySugar.Comic.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64
+dotnet publish PC\CandySugar.MainUI\CandySugar.MainUI.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
+dotnet publish PC\CandySugar.ModifyUI\CandySugar.ModifyUI.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
+dotnet publish PC\Component\CandySugar.LightNovel\CandySugar.LightNovel.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
+dotnet publish PC\Component\CandySugar.Music\CandySugar.Music.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
+dotnet publish PC\Component\CandySugar.WallPaper\CandySugar.WallPaper.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
+dotnet publish PC\Component\CandySugar.Bilibili\CandySugar.Bilibili.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
+dotnet publish PC\Component\CandySugar.Rifan\CandySugar.Rifan.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
+dotnet publish PC\Component\CandySugar.Comic\CandySugar.Comic.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
 
 rd /S /Q PC\CandySugar.MainUI\obj PC\CandySugar.MainUI\bin\Release
 
