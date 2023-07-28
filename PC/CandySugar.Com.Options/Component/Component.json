@@ -25,6 +25,12 @@
       "Description": "B站"
     },
     {
+      "Plugin": "CandySugar.Anime.dll",
+      "Bootstrapper": "MainView",
+      "Ioc": "Module",
+      "Description": "动漫"
+    },
+    {
       "Plugin": "CandySugar.Comic.dll",
       "Bootstrapper": "MainView",
       "Ioc": "Module",
