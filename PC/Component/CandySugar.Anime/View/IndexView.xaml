@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:CandySugar.Anime.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://github.com/canton7/Stylet"
@@ -64,6 +65,20 @@
                                     Width="220"
                                     Height="300"
                                     Source="{Binding Cover}" />
+                                <StackPanel
+                                    Margin="10,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom">
+                                    <TextBlock
+                                        HorizontalAlignment="Right"
+                                        Foreground="Black"
+                                        Style="{DynamicResource TextBlockStyle}"
+                                        Text="{Binding Year}" />
+                                    <TextBlock
+                                        Foreground="Black"
+                                        Style="{DynamicResource TextBlockStyle}"
+                                        Text="{Binding Update}" />
+                                </StackPanel>
                             </Grid>
                             <Grid Grid.Row="1">
                                 <TextBlock

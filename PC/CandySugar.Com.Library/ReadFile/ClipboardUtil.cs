@@ -17,7 +17,6 @@ namespace CandySugar.Com.Library.ReadFile
                     if (Clipboard.ContainsText())
                         if (Clipboard.GetText().Contains("www.bilibili.com/video"))
                             GenericDelegate.ClipboardAction?.Invoke(Clipboard.GetText());
-                    Clipboard.Clear();
                 });
                 Thread.Sleep(300);
             }, "ClipBoardCheck", true);
