@@ -7,6 +7,7 @@ dotnet publish PC\Component\CandySugar.LightNovel\CandySugar.LightNovel.csproj -
 dotnet publish PC\Component\CandySugar.Music\CandySugar.Music.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
 dotnet publish PC\Component\CandySugar.WallPaper\CandySugar.WallPaper.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
 dotnet publish PC\Component\CandySugar.Bilibili\CandySugar.Bilibili.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
+dotnet publish PC\Component\CandySugar.Anime\CandySugar.Anime.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
 dotnet publish PC\Component\CandySugar.Rifan\CandySugar.Rifan.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
 dotnet publish PC\Component\CandySugar.Comic\CandySugar.Comic.csproj -c Release -o ..\CandySugar\Release -f net7.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
 
@@ -29,6 +30,8 @@ rd /S /Q PC\Component\CandySugar.Music\obj PC\Component\CandySugar.Music\bin\Rel
 rd /S /Q PC\Component\CandySugar.WallPaper\obj PC\Component\CandySugar.WallPaper\bin\Release
 
 rd /S /Q PC\Component\CandySugar.Bilibili\obj PC\Component\CandySugar.Bilibili\bin\Release
+
+rd /S /Q PC\Component\CandySugar.Anime\obj PC\Component\CandySugar.Anime\bin\Release
 
 rd /S /Q PC\Component\CandySugar.Comic\obj PC\Component\CandySugar.Comic\bin\Release
 
