@@ -5,12 +5,13 @@
     xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:CandySugar.Anime.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://github.com/canton7/Stylet"
     xmlns:uc="http://ctrl.candy.com"
     xmlns:vm="clr-namespace:CandySugar.Anime.ViewModels"
-    x:Name="IndexViewCtrl"
+    x:Name="AnimeIndexCtrl"
     d:DataContext="{d:DesignInstance vm:IndexViewModel}"
     d:DesignHeight="700"
     d:DesignWidth="1200"
@@ -22,75 +23,157 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <uc:CandyBorder
-        x:Name="X1"
-        Width="{c:Binding (Width*0.95),
-                          ElementName=IndexViewCtrl}"
-        Height="{c:Binding (Height-90),
-                           ElementName=IndexViewCtrl}"
-        BorderType="Info"
-        Style="{DynamicResource CandyBorderStyle}">
-        <uc:CandyBorder.RenderTransform>
-            <TransformGroup>
-                <TranslateTransform />
-            </TransformGroup>
-        </uc:CandyBorder.RenderTransform>
-        <Grid>
-            <Rectangle Fill="#50fff0f5">
+    <Grid>
+        <uc:CandyBorder
+            Width="{c:Binding (Width*0.95),
+                              ElementName=AnimeIndexCtrl}"
+            Height="{c:Binding (Height-90),
+                               ElementName=AnimeIndexCtrl}"
+            BorderType="Info"
+            Style="{DynamicResource CandyBorderStyle}">
+            <uc:CandyBorder.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform />
+                </TransformGroup>
+            </uc:CandyBorder.RenderTransform>
+            <Grid>
+                <Rectangle Fill="#50fff0f5">
+                    <Rectangle.Effect>
+                        <DropShadowEffect
+                            BlurRadius="15"
+                            Direction="300"
+                            Opacity="1" />
+                    </Rectangle.Effect>
+                </Rectangle>
+                <ListBox
+                    uc:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
+                    ItemsSource="{Binding InitResult, IsAsync=True}"
+                    Style="{DynamicResource CandyListBoxStyle}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="{Binding Columns, ElementName=AnimeIndexCtrl, Mode=TwoWay}" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Image
+                                        Width="220"
+                                        Height="300"
+                                        Source="{Binding Cover}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=AnimeIndexCtrl}"
+                                                    Command="{s:Action DetailCommand}"
+                                                    CommandParameter="{Binding Route}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
+                                    <StackPanel
+                                        Margin="10,0"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom">
+                                        <TextBlock
+                                            HorizontalAlignment="Right"
+                                            Foreground="Black"
+                                            Style="{DynamicResource TextBlockStyle}"
+                                            Text="{Binding Year}" />
+                                        <TextBlock
+                                            Foreground="Black"
+                                            Style="{DynamicResource TextBlockStyle}"
+                                            Text="{Binding Update}" />
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <TextBlock
+                                        Width="220"
+                                        HorizontalAlignment="Center"
+                                        Style="{DynamicResource TextBlockStyle}"
+                                        Text="{Binding Title}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </uc:CandyBorder>
+        <Grid
+            x:Name="NavListBar"
+            Width="300"
+            Height="{Binding Height, ElementName=AnimeIndexCtrl}"
+            Margin="0,1,0,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform X="310" />
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Rectangle Fill="#301e90ff" StrokeThickness="0">
                 <Rectangle.Effect>
                     <DropShadowEffect
                         BlurRadius="15"
                         Direction="300"
-                        Opacity="1" />
+                        Opacity="0.3" />
                 </Rectangle.Effect>
             </Rectangle>
-            <ListBox
-                uc:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
-                ItemsSource="{Binding InitResult, IsAsync=True}"
-                Style="{DynamicResource CandyListBoxStyle}">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="5" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="8">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid>
-                                <Image
-                                    Width="220"
-                                    Height="300"
-                                    Source="{Binding Cover}" />
-                                <StackPanel
-                                    Margin="10,0"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Bottom">
-                                    <TextBlock
-                                        HorizontalAlignment="Right"
-                                        Foreground="Black"
-                                        Style="{DynamicResource TextBlockStyle}"
-                                        Text="{Binding Year}" />
-                                    <TextBlock
-                                        Foreground="Black"
-                                        Style="{DynamicResource TextBlockStyle}"
-                                        Text="{Binding Update}" />
-                                </StackPanel>
-                            </Grid>
-                            <Grid Grid.Row="1">
-                                <TextBlock
-                                    HorizontalAlignment="Center"
-                                    Style="{DynamicResource TextBlockStyle}"
-                                    Text="{Binding Title}"
-                                    TextTrimming="CharacterEllipsis" />
-                            </Grid>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Margin="12,12,0,0" HorizontalAlignment="Left">
+                    <Image
+                        Width="220"
+                        Height="300"
+                        Source="{Binding DetailResult.Cover}" />
+                    <TextBlock
+                        Padding="5"
+                        Style="{DynamicResource TextBlockStyle}"
+                        Text="{Binding DetailResult.Title, StringFormat=名称：{0}}"
+                        TextTrimming="CharacterEllipsis" />
+                    <TextBlock
+                        Padding="5"
+                        Style="{DynamicResource TextBlockStyle}"
+                        Text="{Binding DetailResult.Alias, StringFormat=别名：{0}}"
+                        TextTrimming="CharacterEllipsis" />
+                    <TextBlock
+                        Padding="5"
+                        Style="{DynamicResource TextBlockStyle}"
+                        Text="{Binding DetailResult.Tag, StringFormat=标签：{0}}"
+                        TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+                <ListBox
+                    Grid.Row="1"
+                    Margin="12,5,0,0"
+                    ItemsSource="{Binding DetailResult.ElementResults}"
+                    Style="{DynamicResource CandyListBoxStyle}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="5" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <uc:CandyButton
+                                Width="55"
+                                s:View.ActionTarget="{Binding DataContext, ElementName=AnimeIndexCtrl}"
+                                ButtonType="Info"
+                                Command="{s:Action WatchCommand}"
+                                CommandParameter="{Binding .}"
+                                Content="{Binding Collect}"
+                                Style="{DynamicResource CandyButtonStyle}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
         </Grid>
-    </uc:CandyBorder>
+    </Grid>
 </UserControl>
