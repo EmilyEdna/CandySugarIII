@@ -156,6 +156,13 @@ namespace CandySugar.Anime.ViewModels
         public void WatchCommand(CartDetailElementResult element)
         {
             WeakReferenceMessenger.Default.Send(new MessageNotify { ControlParam = false });
+            new ScreenWebPlayView
+            {
+                DataContext = new ScreenWebPlayViewModel
+                {
+                    Route = element.Play
+                }
+            }.Show();
         }
         #endregion
     }

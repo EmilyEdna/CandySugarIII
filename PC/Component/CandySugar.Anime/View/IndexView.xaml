@@ -92,7 +92,6 @@
                                 </Grid>
                                 <Grid Grid.Row="1">
                                     <TextBlock
-                                        Width="220"
                                         HorizontalAlignment="Center"
                                         Style="{DynamicResource TextBlockStyle}"
                                         Text="{Binding Title}"
