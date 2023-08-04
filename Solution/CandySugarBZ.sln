@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "启动", "启动", "{1287EB47-B8CB-4A7D-8440-B3C88983D043}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.MainUI", "..\BZ\CandySugar.MainUI\CandySugar.MainUI.csproj", "{F17637E1-9D76-420E-B324-FB7FD1BDD3DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "视图", "视图", "{E239F7AD-A9D0-4154-8231-6F1C8D136C8F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.MainUI.Views", "..\BZ\CandySugar.MainUI.Views\CandySugar.MainUI.Views.csproj", "{CFA3FE9C-EC09-4E31-B5B4-02DEEA97102B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F17637E1-9D76-420E-B324-FB7FD1BDD3DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F17637E1-9D76-420E-B324-FB7FD1BDD3DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F17637E1-9D76-420E-B324-FB7FD1BDD3DD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F17637E1-9D76-420E-B324-FB7FD1BDD3DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F17637E1-9D76-420E-B324-FB7FD1BDD3DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F17637E1-9D76-420E-B324-FB7FD1BDD3DD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{CFA3FE9C-EC09-4E31-B5B4-02DEEA97102B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFA3FE9C-EC09-4E31-B5B4-02DEEA97102B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFA3FE9C-EC09-4E31-B5B4-02DEEA97102B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFA3FE9C-EC09-4E31-B5B4-02DEEA97102B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F17637E1-9D76-420E-B324-FB7FD1BDD3DD} = {1287EB47-B8CB-4A7D-8440-B3C88983D043}
+		{CFA3FE9C-EC09-4E31-B5B4-02DEEA97102B} = {E239F7AD-A9D0-4154-8231-6F1C8D136C8F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {89F8C4A7-54E2-471E-A1C9-1F8FBC403F81}
+	EndGlobalSection
+EndGlobal

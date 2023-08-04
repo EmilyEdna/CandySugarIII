@@ -25,8 +25,7 @@ namespace CandySugar.Com.Library.BitConvert
                 BmpBitmapEncoder enc = new BmpBitmapEncoder();
                 enc.Frames.Add(BitmapFrame.Create(bitmapSource));
                 enc.Save(outStream);
-                Bitmap bitmap = new Bitmap(outStream);
-                return new Bitmap(bitmap);
+                return new Bitmap(outStream);
             }
         }
         /// <summary>
@@ -41,9 +40,7 @@ namespace CandySugar.Com.Library.BitConvert
                 BitmapEncoder enc = new BmpBitmapEncoder();
                 enc.Frames.Add(BitmapFrame.Create(bitmapImage));
                 enc.Save(outStream);
-                Bitmap bitmap = new Bitmap(outStream);
-
-                return new Bitmap(bitmap);
+                return new Bitmap(outStream);
             }
         }
         /// <summary>
