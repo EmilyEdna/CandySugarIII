@@ -1,4 +1,5 @@
-﻿using BlazorComponent;
+﻿using System.Text;
+using BlazorComponent;
 using Masa.Blazor;
 using Masa.Blazor.Presets;
 using Microsoft.AspNetCore.Components;
@@ -8,7 +9,7 @@ using Sdk.Component.Cart.sdk.ViewModel.Enums;
 using Sdk.Component.Cart.sdk.ViewModel.Request;
 using Sdk.Component.Cart.sdk.ViewModel.Response;
 using XExten.Advance.LinqFramework;
-using XExten.Advance.NetFramework.Enums;
+using XP = XExten.Advance.NetFramework.Enums.Platform;
 
 namespace CandySugar.MainUI.Views.ViewMdeols
 {
@@ -16,6 +17,8 @@ namespace CandySugar.MainUI.Views.ViewMdeols
     {
         [Inject]
         public IPopupService PopupService { get; set; }
+        [Inject]
+        public NavigationManager Navigation { get; set; }
         protected MContainer Row { get; set; }
         protected string MCVisible;
         protected string PCVisible;
@@ -23,7 +26,7 @@ namespace CandySugar.MainUI.Views.ViewMdeols
         public string Loading { get; set; }
         public AnimeVM()
         {
-            if (Module.Platforms == Platform.Windows)
+            if (Module.Platforms == XP.Windows)
             {
                 MCVisible = "visibility:hidden;overflow:hidden;display:none;";
                 PCVisible = "visibility:visible;overflow:hidden";
@@ -59,7 +62,7 @@ namespace CandySugar.MainUI.Views.ViewMdeols
         {
             try
             {
-              
+
                 var result = (await CartFactory.Car(opt =>
                 {
                     opt.RequestParam = new Input
@@ -78,7 +81,7 @@ namespace CandySugar.MainUI.Views.ViewMdeols
                         InitResults.Add(new List<CartResult>());
                     }
                     InitResults[index / 8].Add(InitResult[index]);
-                } 
+                }
             }
             catch (Exception Ex)
             {
@@ -124,7 +127,7 @@ namespace CandySugar.MainUI.Views.ViewMdeols
                     };
                 }).RunsAsync()).InitResult;
                 result.ElementResults.ToMapest<List<CartResult>>().ForEach(InitResult.Add);
-                for (int index = 72 * (PageIndex-1); index < InitResult.Count; index++)
+                for (int index = 72 * (PageIndex - 1); index < InitResult.Count; index++)
                 {
                     if (InitResults.ElementAtOrDefault(index / 8) == null)
                     {
@@ -141,6 +144,12 @@ namespace CandySugar.MainUI.Views.ViewMdeols
         #endregion
 
         #region Event
+        public void PlayEvent(string route)
+        {
+            var b64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(route));
+            Module.HistoryUri = Navigation.Uri;
+            Navigation.NavigateTo($"/Watch/{b64}");
+        }
         public void DetailEvent(CartResult cart)
         {
             cart.IsExtend = !cart.IsExtend;

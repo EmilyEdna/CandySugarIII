@@ -1,24 +1,36 @@
 ﻿@page "/Anime"
 @inherits AnimeVM
+
+<style>
+    .Full {
+        width:100%;
+    }
+</style>
 <div>
 
-    <MContainer @ref="Row">
+    <MContainer @ref="Row" Class="Full">
+
+        <div class="text-center" style="@Loading">
+            <MProgressCircular Size="40" Indeterminate Color="red"></MProgressCircular>
+        </div>
 
         <MList Style="@MCVisible">
             <MListItemGroup Color="primary">
                 @foreach (var item in InitResult)
                 {
                     <MListItem>
-                        <MImage Src="@item.Cover" Height="200" Width="120">
-                        </MImage>
+                        <MRow Style="margin-top:-10px;margin-left:-10px;margin-bottom:5px">
+                            <MCol Cols="6">
+                                <MImage Src="@item.Cover" @onclick="()=>DetailEvent(item)" AspectRatio=0.7 MaxHeight="350" MaxWidth="250">
+
+                                </MImage>
+                            </MCol>
+                            <MCol Cols="6"></MCol>
+                        </MRow>
                     </MListItem>
                 }
             </MListItemGroup>
         </MList>
-
-        <div class="text-center" style="@Loading">
-            <MProgressCircular Size="40" Indeterminate Color="red"></MProgressCircular>
-        </div>
 
         @foreach (var item in InitResults)
         {
@@ -34,7 +46,7 @@
                             <MRow Class="fill-height ma-0"
                                   Align="@AlignTypes.Center"
                                   Justify="@JustifyTypes.Center">
-                                <MProgressCircular Indeterminate></MProgressCircular>
+                                 <MProgressCircular Indeterminate/>
                                 </MRow>
                             </PlaceholderContent>
                         </MImage>
@@ -45,8 +57,8 @@
                                 <span class="font-weight-medium text-sm-left text-truncate d-inline-block">更新：@items.Update</span>
                                 <MVirtualScroll Height=100 OverscanCount=0 ItemHeight=64 Items="DetailResult">
                                     <ItemContent>
-                                        <MButton Class="blue lighten-3 d-flex justify-center" Style="margin:5px"><span>@context.Collect</span></MButton>
-                                        <MDivider></MDivider>
+                                        <MButton Class="blue lighten-3 d-flex justify-center" Style="margin:5px" OnClick="_=>PlayEvent(context.Play)"><span>@context.Collect</span></MButton>
+                                        <MDivider/>
                                     </ItemContent>
                                 </MVirtualScroll>
                             </MCard>

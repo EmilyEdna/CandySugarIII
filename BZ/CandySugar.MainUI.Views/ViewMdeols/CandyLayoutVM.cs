@@ -27,7 +27,8 @@ namespace CandySugar.MainUI.Views.ViewMdeols
                 if (SelectIndex == 0) return "#B79CFF";
                 else if (SelectIndex == 1) return "#FF4441";
                 else if (SelectIndex == 2) return "#0089AD";
-                else return "#FF8080";
+                else if (SelectIndex == 3) return "#FF8080";
+                else return "#000000";
             }
         }
     }
