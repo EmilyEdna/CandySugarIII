@@ -13,7 +13,7 @@ namespace CandySugar.MainUI
 
         private void WindowSizeChanged(object sender, EventArgs e)
         {
-           
+            Module.HeightAction?.Invoke((sender as MainPage).Bounds.Height);
         }
     }
 }

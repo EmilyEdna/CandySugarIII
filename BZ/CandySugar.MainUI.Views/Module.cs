@@ -12,6 +12,7 @@ namespace CandySugar.MainUI.Views
         public static string HistoryUri { get; set; }
         public static Action<Exception> Handle { get; set; }
         public static XP Platforms { get; set; }
+        public static Action<double> HeightAction { get; set; }
         public static IServiceCollection AddControlHandler(this IServiceCollection builder, XP platform)
         {
             Platforms = platform;
