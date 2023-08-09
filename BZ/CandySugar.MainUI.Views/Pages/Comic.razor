@@ -14,10 +14,6 @@
                     Outlined OnAppendClick="SearchEvent"></MTextField>
 
     <MContainer @ref="Row" Class="Full">
-        <div class="text-center" style="@Loading">
-            <MProgressCircular Size="40" Indeterminate Color="red"></MProgressCircular>
-        </div>
-
         <MList Style="@MCVisible">
             <MListItemGroup Color="primary">
                 @foreach (var item in InitResult)
@@ -44,16 +40,7 @@
                     <MCol Cols="1.5">
                         <div style="border:dashed #FF8888;margin:5px;">
                             <MImage Src="@items.Cover" @onclick="()=>DetailEvent(items)" AspectRatio=0.75
-                                    MaxHeight="350" MaxWidth="250"
-                                    LazySrc="https://picsum.photos/id/11/100/60"
-                                        Contain Dark>
-                            <PlaceholderContent>
-                                <MRow Class="fill-height ma-0"
-                                      Align="@AlignTypes.Center"
-                                      Justify="@JustifyTypes.Center">
-                                    <MProgressCircular Indeterminate />
-                                    </MRow>
-                                </PlaceholderContent>
+                                    MaxHeight="350" MaxWidth="250" Contain Dark>
                             </MImage>
                             <span class="font-weight-medium text-sm-left text-truncate d-inline-block" style="max-width:190px">标题：@items.Name</span>
                         </div>

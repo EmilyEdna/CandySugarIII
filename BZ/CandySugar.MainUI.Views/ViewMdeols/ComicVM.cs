@@ -173,12 +173,9 @@ namespace CandySugar.MainUI.Views.ViewMdeols
                 PageIndex = 1;
         }
 
-        public async void SearchEvent()
+        public void SearchEvent()
         {
-            Loading = "display:block;visibility:visible";
-            Task.Run(OnInit);
-            await Task.Delay(3000);
-            Loading = "display:none;visibility:hidden;";
+            OnInit();
         }
         #endregion
     }
