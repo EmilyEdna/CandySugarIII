@@ -9,13 +9,12 @@ using XExten.Advance.ThreadFramework;
 namespace CandySugar.Com.Library.ReadFile
 {
     public class ClipboardUtil
-    {
-     
+    {  
         public static void InitClipBoard()
         {
             ThreadFactory.Instance.StartWithRestart(() =>
             {
-                try
+                if (Application.Current != null)
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
@@ -24,9 +23,6 @@ namespace CandySugar.Com.Library.ReadFile
                                 GenericDelegate.ClipboardAction?.Invoke(Clipboard.GetText());
                     });
                     Thread.Sleep(300);
-                }
-                catch
-                {
                 }
             }, "ClipBoardCheck", true);
 
