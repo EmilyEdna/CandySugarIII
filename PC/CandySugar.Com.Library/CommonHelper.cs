@@ -9,7 +9,7 @@ namespace CandySugar.Com.Library
 {
     public class CommonHelper
     {
-        public static string Version => "1.0.0.1";
+        public static string Version => "2.0.0.0";
         /// <summary>
         /// 程序目录
         /// </summary>

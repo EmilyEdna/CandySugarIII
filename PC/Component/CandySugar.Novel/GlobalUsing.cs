@@ -3,6 +3,7 @@ global using CandySugar.Com.Library;
 global using CommunityToolkit.Mvvm.Input;
 global using DryIoc;
 global using Sdk.Component.Novel.sdk;
+global using Sdk.Component.Novel.sdk.ViewModel;
 global using Sdk.Component.Novel.sdk.ViewModel.Enums;
 global using Sdk.Component.Novel.sdk.ViewModel.Request;
 global using Sdk.Component.Novel.sdk.ViewModel.Response;
@@ -24,3 +25,5 @@ global using CandySugar.Com.Library.Audios;
 global using CommunityToolkit.Mvvm.Messaging;
 global using CandySugar.Novel.View;
 global using CandySugar.Novel.ViewModels;
+global using CandySugar.Com.Options.ComponentGeneric;
+
