@@ -7,6 +7,12 @@
       "Description": "轻小说"
     },
     {
+      "Plugin": "CandySugar.Novel.dll",
+      "Bootstrapper": "MainView",
+      "Ioc": "Module",
+      "Description": "小说"
+    },
+    {
       "Plugin": "CandySugar.Music.dll",
       "Bootstrapper": "MainView",
       "Ioc": "Module",

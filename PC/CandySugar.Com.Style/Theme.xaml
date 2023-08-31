@@ -67,9 +67,9 @@
                                 x:Name="ImageBackgroud"
                                 Width="{TemplateBinding Width}"
                                 Height="{TemplateBinding Height}">
-                                <Grid.Background>
+                                <!--<Grid.Background>
                                     <ImageBrush ImageSource="/CandySugar.Com.Style;component/Resources/Backgroud.jpg" />
-                                </Grid.Background>
+                                </Grid.Background>-->
                             </Grid>
                             <Grid>
                                 <Rectangle
@@ -602,6 +602,7 @@
     <!--#endregion-->
 
     <!--#region  ListBox-->
+
     <Style x:Key="CandyListBoxStyle" TargetType="ListBox">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="Transparent" />
@@ -788,6 +789,7 @@
     <!--#endregion-->
 
     <!--#region Border-->
+
     <Style x:Key="CandyBorderStyle" TargetType="uc:CandyBorder">
         <Setter Property="BorderThickness" Value="1" />
         <Style.Triggers>
@@ -831,6 +833,7 @@
     <!--#endregion-->
 
     <!--#region ContextMenu-->
+
     <Style x:Key="CandyContextMenuStyle" TargetType="ContextMenu">
         <Setter Property="Padding" Value="0" />
         <Setter Property="Background" Value="#faf0e6" />
@@ -901,6 +904,7 @@
     <!--#endregion-->
 
     <!--#region TextBox-->
+
     <Style x:Key="CandyTextboxStyle" TargetType="TextBox">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
@@ -946,6 +950,7 @@
     <!--#endregion-->
 
     <!--#region Silder-->
+
     <Style x:Key="VLCPlaySliderStyle" TargetType="{x:Type Slider}">
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="False" />
         <Setter Property="Background" Value="{x:Null}" />
