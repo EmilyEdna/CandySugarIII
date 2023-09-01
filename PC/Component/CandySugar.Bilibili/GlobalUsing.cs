@@ -7,7 +7,7 @@ global using CandySugar.Com.Library.FFMPeg;
 global using CandySugar.Com.Library.FileWrite;
 global using CandySugar.Com.Options.ComponentGeneric;
 global using CommunityToolkit.Mvvm.Messaging;
-global using DryIoc;
+global using XExten.Advance.IocFramework;
 global using Sdk.Component.Bilibili.sdk;
 global using Sdk.Component.Bilibili.sdk.ViewModel;
 global using Sdk.Component.Bilibili.sdk.ViewModel.Enums;

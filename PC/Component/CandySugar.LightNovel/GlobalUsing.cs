@@ -6,7 +6,7 @@ global using CandySugar.LightNovel.View;
 global using CandySugar.LightNovel.ViewModels;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Mvvm.Messaging;
-global using DryIoc;
+global using XExten.Advance.IocFramework;
 global using Sdk.Component.Lovel.sdk;
 global using Sdk.Component.Lovel.sdk.ViewModel;
 global using Sdk.Component.Lovel.sdk.ViewModel.Enums;

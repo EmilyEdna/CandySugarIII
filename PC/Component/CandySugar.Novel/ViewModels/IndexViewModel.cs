@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CandySugar.Com.Library.FileWrite;
-using CandySugar.Com.Options.ComponentGeneric;
-using ImTools;
-
-
-namespace CandySugar.Novel.ViewModels
+﻿namespace CandySugar.Novel.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {

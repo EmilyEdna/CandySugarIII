@@ -8,7 +8,7 @@ global using CandySugar.Rifan.View;
 global using CandySugar.Rifan.ViewModels;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Mvvm.Messaging;
-global using DryIoc;
+global using XExten.Advance.IocFramework;
 global using Sdk.Component.Vip.Anime.sdk;
 global using Sdk.Component.Vip.Anime.sdk.ViewModel;
 global using Sdk.Component.Vip.Anime.sdk.ViewModel.Enums;

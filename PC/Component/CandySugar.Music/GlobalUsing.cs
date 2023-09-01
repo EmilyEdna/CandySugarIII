@@ -8,7 +8,7 @@ global using CandySugar.Music.View;
 global using CandySugar.Music.ViewModels;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Mvvm.Messaging;
-global using DryIoc;
+global using XExten.Advance.IocFramework;
 global using NAudio.Wave;
 global using Sdk.Component.Music.sdk;
 global using Sdk.Component.Music.sdk.ViewModel;

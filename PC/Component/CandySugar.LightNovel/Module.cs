@@ -3,22 +3,20 @@
     public class Module
     {
         public static Module IocModule { get; set; }
-        private static IContainer Container { get; set; }
         public Module()
         {
             IocModule = this;
-            Container = new Container();
-            Container.Register(typeof(IndexView), Reuse.Singleton);
-            Container.Register(typeof(ReaderView), Reuse.Transient);
+            IocDependency.Register(typeof(IndexView));
+            IocDependency.Register(typeof(ReaderView),1);
 
-            Container.Register(typeof(IndexViewModel), Reuse.Singleton);
-            Container.Register(typeof(ReaderViewModel), Reuse.Transient);
+            IocDependency.Register(typeof(IndexViewModel));
+            IocDependency.Register(typeof(ReaderViewModel),1);
         }
         public T Resolve<T>() where T : UserControl
         {
-            var Ctrl = (UserControl)Container.Resolve(typeof(T));
+            var Ctrl = (UserControl)IocDependency.Resolve(typeof(T));
             var VM = this.GetType().Assembly.GetTypes().FirstOrDefault(t => t.Name == $"{typeof(T).Name}Model");
-            Ctrl.DataContext = Container.Resolve(VM);
+            Ctrl.DataContext = IocDependency.Resolve(VM);
             return (T)Ctrl;
         }
     }
