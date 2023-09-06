@@ -12,7 +12,7 @@
     x:Name="OptView"
     Title="系统设置"
     Width="400"
-    Height="160"
+    Height="200"
     d:DataContext="{d:DesignInstance vm:OptionViewModel}"
     Style="{DynamicResource CandyDefaultSettingWindowStyle}"
     mc:Ignorable="d">
@@ -98,6 +98,21 @@
                     FontSize="18"
                     Foreground="#fdf5e6"
                     Text="秒" />
+            </WrapPanel>
+            <WrapPanel Margin="10">
+                <TextBlock
+                    Margin="1,2"
+                    VerticalAlignment="Bottom"
+                    FontSize="18"
+                    Foreground="#fdf5e6"
+                    Text="启用代理地址：" />
+                <CheckBox
+                    Background="Transparent"
+                    BorderBrush="#fdf5e6"
+                    Content="{Binding ProxyState}"
+                    FontSize="18"
+                    Foreground="#fdf5e6"
+                    IsChecked="{Binding UseProxy}" />
             </WrapPanel>
         </StackPanel>
     </Grid>

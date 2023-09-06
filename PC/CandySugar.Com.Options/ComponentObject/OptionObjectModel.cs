@@ -24,5 +24,9 @@ namespace CandySugar.Com.Options.ComponentObject
         /// github访问加速
         /// </summary>
         public string Raw { get; set; }
+        /// <summary>
+        /// 启用代理地址
+        /// </summary>
+        public bool UseProxy { get; set; }
     }
 }

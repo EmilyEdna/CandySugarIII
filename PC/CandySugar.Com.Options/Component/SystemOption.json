@@ -3,6 +3,7 @@
     "Cache": 5,
     "BackgroudLocation": "",
     "Interval": 30,
-    "Raw": "https://raw.gitmirror.com"
+    "Raw": "https://raw.gitmirror.com",
+    "UseProxy": false
   }
 }

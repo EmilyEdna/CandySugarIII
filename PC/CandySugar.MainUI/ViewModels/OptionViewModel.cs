@@ -18,6 +18,7 @@ namespace CandySugar.MainUI.ViewModels
         {
             Route = ComponentBinding.OptionObjectModels.BackgroudLocation;
             Interval = ComponentBinding.OptionObjectModels.Interval;
+            UseProxy = ComponentBinding.OptionObjectModels.UseProxy;
         }
 
         #region Property
@@ -32,6 +33,23 @@ namespace CandySugar.MainUI.ViewModels
         {
             get => _Interval;
             set => SetAndNotify(ref _Interval, value);
+        }
+        private bool _UseProxy;
+        public bool UseProxy
+        {
+            get => _UseProxy;
+            set
+            {
+                SetAndNotify(ref _UseProxy, value);
+                ProxyState = value ? "启用" : "禁用";
+            }
+                    
+        }
+        private string _ProxyState;
+        public string ProxyState
+        {
+            get => _ProxyState;
+            set => SetAndNotify(ref _ProxyState, value);
         }
         #endregion
 
@@ -59,10 +77,11 @@ namespace CandySugar.MainUI.ViewModels
                 Cache = 5,
                 BackgroudLocation = Route,
                 Interval = Interval,
-                Raw= ComponentBinding.OptionObjectModels.Raw
+                Raw = ComponentBinding.OptionObjectModels.Raw,
+                UseProxy = UseProxy
             };
             var path = Path.Combine(CommonHelper.OptionPath, "SystemOption.json");
-            SyncStatic.WriteFile(Encoding.Default.GetBytes(new { Option= Model }.ToJson()), path);
+            SyncStatic.WriteFile(Encoding.Default.GetBytes(new { Option = Model }.ToJson()), path);
             ComponentBinding.ForceRefresh = true;
             window.Close();
         }
