@@ -108,11 +108,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await AnimeFactory.Anime(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             AnimeType = AnimeEnum.Search,
                             Search = new AnimeSearch
@@ -140,11 +142,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await AnimeFactory.Anime(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             AnimeType = AnimeEnum.Search,
                             Search = new AnimeSearch
@@ -172,11 +176,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await AnimeFactory.Anime(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             AnimeType = AnimeEnum.Search,
                             Search = new AnimeSearch
@@ -204,11 +210,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await AnimeFactory.Anime(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             AnimeType = AnimeEnum.Search,
                             Search = new AnimeSearch
@@ -236,11 +244,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await AnimeFactory.Anime(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             AnimeType = AnimeEnum.Search,
                             Search = new AnimeSearch
@@ -268,11 +278,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await AnimeFactory.Anime(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             AnimeType = AnimeEnum.Search,
                             Search = new AnimeSearch
@@ -304,11 +316,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await AnimeFactory.Anime(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             AnimeType = AnimeEnum.Search,
                             Search = new AnimeSearch
@@ -340,11 +354,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await AnimeFactory.Anime(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             AnimeType = AnimeEnum.Search,
                             Search = new AnimeSearch
@@ -376,11 +392,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await AnimeFactory.Anime(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             AnimeType = AnimeEnum.Search,
                             Search = new AnimeSearch
@@ -412,11 +430,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await AnimeFactory.Anime(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             AnimeType = AnimeEnum.Search,
                             Search = new AnimeSearch
@@ -448,11 +468,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await AnimeFactory.Anime(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             AnimeType = AnimeEnum.Watch,
                             Watch = new AnimeWatch

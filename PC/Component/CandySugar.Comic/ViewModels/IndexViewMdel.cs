@@ -60,11 +60,13 @@ namespace CandySugar.Comic.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await ComicFactory.Comic(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             ComicType = ComicEnum.Search,
                             Search = new ComicSearch
@@ -91,11 +93,13 @@ namespace CandySugar.Comic.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await ComicFactory.Comic(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             ComicType = ComicEnum.View,
                             Preview = new ComicPreview 
@@ -121,11 +125,13 @@ namespace CandySugar.Comic.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await ComicFactory.Comic(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             ComicType = ComicEnum.Search,
                             Search = new ComicSearch
