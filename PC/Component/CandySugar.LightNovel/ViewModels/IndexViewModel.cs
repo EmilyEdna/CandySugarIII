@@ -114,10 +114,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await LovelFactory.Lovel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             LovelType = LovelEnum.Init,
                             Login = new()
@@ -142,10 +145,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await LovelFactory.Lovel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             LovelType = LovelEnum.Category,
                             Category = new LovelCategory
@@ -176,10 +182,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await LovelFactory.Lovel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             LovelType = LovelEnum.Category,
                             Category = new LovelCategory
@@ -216,10 +225,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await LovelFactory.Lovel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             LovelType = LovelEnum.Search,
                             Search = new LovelSearch
@@ -251,10 +263,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await LovelFactory.Lovel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             LovelType = LovelEnum.Search,
                             Search = new LovelSearch
@@ -293,10 +308,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var ChapterResult = (await LovelFactory.Lovel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             LovelType = LovelEnum.Detail,
                             Detail = new LovelDetail
@@ -310,6 +328,8 @@
                     {
                         opt.RequestParam = new Input
                         {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             LovelType = LovelEnum.View,
                             View = new LovelView
@@ -339,10 +359,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await LovelFactory.Lovel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             LovelType = LovelEnum.Download,
                             Down = new LovelDown

@@ -39,10 +39,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await LovelFactory.Lovel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             LovelType = LovelEnum.Content,
                             Content = new LovelContent

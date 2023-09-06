@@ -133,10 +133,13 @@
         {
             try
             {
+                var Proxy = Module.IocModule.Proxy;
                 var result = (await BilibiliFactory.Bili(opt =>
                 {
                     opt.RequestParam = new Input
                     {
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
                         BiliType = BiliEnum.VideoData,
                         CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                         VideoData = new BiliVideoData
@@ -159,10 +162,13 @@
         {
             try
             {
+                var Proxy = Module.IocModule.Proxy;
                 var result = (await BilibiliFactory.Bili(opt =>
                 {
                     opt.RequestParam = new Input
                     {
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
                         BiliType = BiliEnum.VideoInfo,
                         CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                         VideoInfo = new BiliVideoInfo

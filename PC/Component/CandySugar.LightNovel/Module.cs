@@ -3,6 +3,9 @@
     public class Module
     {
         public static Module IocModule { get; set; }
+
+        public ProxyObjectModel Proxy => GlobalProxy.Instance.Proxy();
+
         public Module()
         {
             IocModule = this;
@@ -12,6 +15,7 @@
             IocDependency.Register(typeof(IndexViewModel));
             IocDependency.Register(typeof(ReaderViewModel),1);
         }
+
         public T Resolve<T>() where T : UserControl
         {
             var Ctrl = (UserControl)IocDependency.Resolve(typeof(T));

@@ -13,7 +13,9 @@ global using CandySugar.Com.Library;
 global using CandySugar.Com.Library.Audios;
 global using CandySugar.Com.Library.FFMPeg;
 global using CandySugar.Com.Library.FileWrite;
+global using CandySugar.Com.Options;
 global using CandySugar.Com.Options.ComponentGeneric;
+global using CandySugar.Com.Options.ComponentObject;
 global using CandySugar.WallPaper.View;
 global using CandySugar.WallPaper.ViewModels;
 global using CommunityToolkit.Mvvm.Input;
@@ -32,6 +34,3 @@ global using Stylet;
 global using XExten.Advance.IocFramework;
 global using XExten.Advance.LinqFramework;
 global using XExten.Advance.StaticFramework;
-global using CandySugar.Com.Options.ComponentObject;
-global using CandySugar.Com.Options;
-

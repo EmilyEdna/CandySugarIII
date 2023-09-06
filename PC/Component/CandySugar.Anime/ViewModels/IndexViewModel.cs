@@ -44,10 +44,13 @@ namespace CandySugar.Anime.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await CartFactory.Car(opt =>
                     {
                         opt.RequestParam = new Input
                         {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             CartType = CartEnum.Init,
                             Init = new CartInit()
@@ -72,10 +75,13 @@ namespace CandySugar.Anime.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await CartFactory.Car(opt =>
                     {
                         opt.RequestParam = new Input
                         {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             CartType = CartEnum.Init,
                             Init = new CartInit
@@ -104,10 +110,13 @@ namespace CandySugar.Anime.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     DetailResult = (await CartFactory.Car(opt =>
                     {
                         opt.RequestParam = new Input
                         {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             CartType = CartEnum.Detail,
                             Detail = new CartDetail
