@@ -24,7 +24,7 @@
 	  <PackageReference Include="sqlite-net-pcl" Version="1.9.141-beta" />
 	  <PackageReference Include="UraniumUI.Blurs" Version="2.5.0" />
 	  <PackageReference Include="UraniumUI.Material" Version="2.5.0" />
-	  <PackageReference Include="XExten.Advance" Version="2.1.1" />
+	  <PackageReference Include="XExten.Advance" Version="2.2.0.1" />
 	  <PackageReference Include="XExten.Advance.Maui.Bar" Version="1.0.0" />
 	  <PackageReference Include="XExten.Advance.Maui.Direction" Version="1.0.0" />
 	</ItemGroup>
