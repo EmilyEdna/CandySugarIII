@@ -32,3 +32,6 @@ global using Stylet;
 global using XExten.Advance.IocFramework;
 global using XExten.Advance.LinqFramework;
 global using XExten.Advance.StaticFramework;
+global using CandySugar.Com.Options.ComponentObject;
+global using CandySugar.Com.Options;
+

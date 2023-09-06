@@ -31,6 +31,9 @@
 		<Reference Include="Sdk.Plugins">
 			<HintPath>..\..\Lib\Sdk.Plugins.dll</HintPath>
 		</Reference>
+		<Reference Include="Sdk.Proxy">
+			<HintPath>..\..\Lib\Sdk.Proxy.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using CandySugar.Com.Library.ReadFile;
 using CandySugar.Com.Options.ComponentObject;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Threading;
@@ -46,6 +47,7 @@ namespace CandySugar.Com.Library
                         OptionObjectModel Model = new();
                         JsonReader.Configuration.Bind("Option", Model);
                         _OptionObjectModels = Model;
+                        WeakReferenceMessenger.Default.Send(Model);
                         return _OptionObjectModels;
                     }
                 }

@@ -1,4 +1,6 @@
-﻿namespace CandySugar.Novel.ViewModels
+﻿using StackExchange.Redis;
+
+namespace CandySugar.Novel.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
@@ -61,11 +63,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await NovelFactory.Novel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Search,
                             Search = new NovelSearch
@@ -91,11 +95,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await NovelFactory.Novel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP= Proxy.IP,
+                            ProxyPort= Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Init
                         };
@@ -115,11 +121,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await NovelFactory.Novel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Category,
                             Category = new NovelCategory
@@ -145,11 +153,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await NovelFactory.Novel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Detail,
                             Detail = new NovelDetail
@@ -174,11 +184,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await NovelFactory.Novel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Category,
                             Category = new NovelCategory
@@ -204,11 +216,13 @@
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await NovelFactory.Novel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Search,
                             Search = new NovelSearch

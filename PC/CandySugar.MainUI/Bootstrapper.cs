@@ -34,6 +34,7 @@ namespace CandySugar.MainUI
                 .MinimumLevel.Information()
                 .WriteTo.File(CommonHelper.LogPath, rollingInterval: RollingInterval.Day)
                 .CreateLogger().AddSdkLogger();
+            GlobalProxy.Instance.ChangeUseProxy();
             JsonReader.JsonRead(CommonHelper.OptionPath, CommonHelper.OptionFile);
             AssemblyLoader Loader = new(CommonHelper.AppPath);
             NetFactoryExtension.RegisterNetFramework();

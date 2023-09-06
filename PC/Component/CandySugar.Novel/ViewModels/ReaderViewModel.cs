@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StackExchange.Redis;
 
 namespace CandySugar.Novel.ViewModels
 {
@@ -35,11 +36,13 @@ namespace CandySugar.Novel.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await NovelFactory.Novel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Content,
                             Content = new NovelContent

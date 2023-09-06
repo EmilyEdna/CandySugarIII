@@ -27,3 +27,6 @@ global using System.Windows.Data;
 global using System.Windows.Input;
 global using System.Windows.Media.Animation;
 global using XExten.Advance.LinqFramework;
+global using CandySugar.Com.Options.ComponentObject;
+global using CandySugar.Com.Options;
+

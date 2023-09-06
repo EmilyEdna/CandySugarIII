@@ -68,11 +68,13 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await WallhavFactory.Wall(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallhavType = WallhavEnum.Search,
                             Search = new WallhavSearch
@@ -81,7 +83,6 @@ namespace CandySugar.WallPaper.ViewModels
                                 PageIndex = 1,
                                 QueryType = QueryEnum.General
                             }
-
                         };
                     }).RunsAsync()).SearchResult;
                     GeneralTotal = result.Total;
@@ -100,11 +101,13 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await WallhavFactory.Wall(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallhavType = WallhavEnum.Search,
                             Search = new WallhavSearch
@@ -113,7 +116,6 @@ namespace CandySugar.WallPaper.ViewModels
                                 PageIndex = 1,
                                 QueryType = QueryEnum.Anime
                             }
-
                         };
                     }).RunsAsync()).SearchResult;
                     AnimeTotal = result.Total;
@@ -132,11 +134,13 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await WallhavFactory.Wall(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallhavType = WallhavEnum.Search,
                             Search = new WallhavSearch
@@ -145,7 +149,6 @@ namespace CandySugar.WallPaper.ViewModels
                                 PageIndex = 1,
                                 QueryType = QueryEnum.People
                             }
-
                         };
                     }).RunsAsync()).SearchResult;
                     PeopleTotal = result.Total;
@@ -164,11 +167,13 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await WallhavFactory.Wall(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallhavType = WallhavEnum.Search,
                             Search = new WallhavSearch
@@ -177,7 +182,6 @@ namespace CandySugar.WallPaper.ViewModels
                                 PageIndex = this.GeneralPageIndex,
                                 QueryType = QueryEnum.General
                             }
-
                         };
                     }).RunsAsync()).SearchResult;
                     BindingOperations.EnableCollectionSynchronization(GeneralResult, LockObject);
@@ -196,11 +200,13 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await WallhavFactory.Wall(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallhavType = WallhavEnum.Search,
                             Search = new WallhavSearch
@@ -228,11 +234,13 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await WallhavFactory.Wall(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallhavType = WallhavEnum.Search,
                             Search = new WallhavSearch

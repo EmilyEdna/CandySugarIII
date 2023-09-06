@@ -3,6 +3,9 @@ namespace CandySugar.WallPaper
     public class Module
     {
         public static Module IocModule { get; set; }
+
+        public ProxyObjectModel Proxy => GlobalProxy.Instance.Proxy();
+
         public Module()
         {
             IocModule = this;

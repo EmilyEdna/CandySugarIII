@@ -1,5 +1,7 @@
 ﻿
 using  Sdk.Component.Vip.Image.sdk.ViewModel;
+using StackExchange.Redis;
+
 namespace CandySugar.WallPaper.ViewModels
 {
     public class WallchanViewModel : PropertyChangedBase
@@ -69,11 +71,13 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await WallkonFactory.Image(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallkonType = WallkonEnum.Search,
                             Search = new WallkonSearch
@@ -100,11 +104,13 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await WallkonFactory.Image(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallkonType = WallkonEnum.Search,
                             Search = new WallkonSearch
@@ -132,11 +138,13 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await WallkonFactory.Image(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallkonType = WallkonEnum.Search,
                             Search = new WallkonSearch
@@ -164,11 +172,13 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await WallkonFactory.Image(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallkonType = WallkonEnum.Search,
                             Search = new WallkonSearch
@@ -196,11 +206,13 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await WallkonFactory.Image(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallkonType = WallkonEnum.Search,
                             Search = new WallkonSearch
@@ -228,11 +240,13 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 try
                 {
+                    var Proxy = Module.IocModule.Proxy;
                     var result = (await WallkonFactory.Image(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallkonType = WallkonEnum.Search,
                             Search = new WallkonSearch
