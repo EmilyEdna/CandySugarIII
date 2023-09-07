@@ -1,6 +1,4 @@
-﻿using StackExchange.Redis;
-
-namespace CandySugar.Novel.ViewModels
+﻿namespace CandySugar.Novel.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
@@ -195,7 +193,7 @@ namespace CandySugar.Novel.ViewModels
                             NovelType = NovelEnum.Category,
                             Category = new NovelCategory
                             {
-                                Page = 1,
+                                Page = CatePageIndex,
                                 Route = CategoryRoute
                             }
                         };

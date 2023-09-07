@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StackExchange.Redis;
-
-namespace CandySugar.Novel.ViewModels
+﻿namespace CandySugar.Novel.ViewModels
 {
     public class ReaderViewModel : PropertyChangedBase
     {
@@ -80,6 +73,7 @@ namespace CandySugar.Novel.ViewModels
                 ControlType = 1
             });
         }
+
         #endregion
     }
 }
