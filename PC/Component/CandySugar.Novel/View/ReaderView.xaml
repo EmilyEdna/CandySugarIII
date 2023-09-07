@@ -28,7 +28,10 @@
             Style="{DynamicResource FloatButtonStyle}" />
         <Grid Width="{Binding Width, ElementName=ReaderViewCtrl}" Height="{Binding Height, ElementName=ReaderViewCtrl}">
             <WrapPanel HorizontalAlignment="Center">
-                <ListBox ItemsSource="{Binding Words, IsAsync=True}" Style="{DynamicResource CandyListBoxStyle}">
+                <ListBox
+                    uc:ScrollViewAttach.PressCommand="Arrow"
+                    ItemsSource="{Binding Words, IsAsync=True}"
+                    Style="{DynamicResource CandyListBoxStyle}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel />
@@ -38,7 +41,7 @@
                         <DataTemplate>
                             <TextBlock
                                 x:Name="Word"
-                                Margin="10"
+                                Margin="10,10,0,10"
                                 Foreground="Black"
                                 Style="{DynamicResource TextBlockStyle}"
                                 Text="{Binding .}"

@@ -1,4 +1,6 @@
-﻿namespace CandySugar.Novel.ViewModels
+﻿using System.Collections.Generic;
+
+namespace CandySugar.Novel.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
@@ -79,6 +81,7 @@
                     }).RunsAsync()).SearchResult;
                     SearchTotal=result.Total;
                     SearchResult = new ObservableCollection<NovelSearchElementResult>(result.ElementResults);
+                    CateElementResult = new ObservableCollection<NovelCategoryElementResult>(SearchResult.ToList().ToMapest<List<NovelCategoryElementResult>>());
                 }
                 catch (Exception ex)
                 {
@@ -232,6 +235,7 @@
                     }).RunsAsync()).SearchResult;
                     BindingOperations.EnableCollectionSynchronization(SearchResult, LockObject);
                     Application.Current.Dispatcher.Invoke(() => result.ElementResults.ForEach(SearchResult.Add));
+                    CateElementResult = new ObservableCollection<NovelCategoryElementResult>(SearchResult.ToList().ToMapest<List<NovelCategoryElementResult>>());
                 }
                 catch (Exception ex)
                 {

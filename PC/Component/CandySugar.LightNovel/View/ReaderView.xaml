@@ -54,7 +54,6 @@
                                     uc:ImageAttach.SourceAsync="{Binding .}"
                                     Tag="{x:Static lib:EDownload.Light}" />
                             </uc:CandyBorder>
-
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
