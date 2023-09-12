@@ -1,4 +1,4 @@
-﻿using Sdk.Component.Wallhav.sdk.ViewModel;
+﻿using Input = Sdk.Component.Vip.Wallhav.sdk.ViewModel.Input;
 
 namespace CandySugar.WallPaper.ViewModels
 {

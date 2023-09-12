@@ -1,6 +1,4 @@
-﻿
-using  Sdk.Component.Vip.Image.sdk.ViewModel;
-using StackExchange.Redis;
+﻿using Input = Sdk.Component.Vip.Image.sdk.ViewModel.Input;
 
 namespace CandySugar.WallPaper.ViewModels
 {
