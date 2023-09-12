@@ -1,4 +1,5 @@
 ﻿using Input = Sdk.Component.Vip.Image.sdk.ViewModel.Input;
+using QueryEnum = Sdk.Component.Vip.Wallkon.sdk.ViewModel.Enums.QueryEnum;
 
 namespace CandySugar.WallPaper.ViewModels
 {
@@ -82,7 +83,8 @@ namespace CandySugar.WallPaper.ViewModels
                             {
                                 Limit = this.Limit,
                                 Page = 1,
-                                KeyWord = Expert(1)
+                                KeyWord = this.Keyword,
+                                QueryType= QueryEnum.SFW
                             }
                         };
                     }).RunsAsync()).GlobalResult;
@@ -115,7 +117,8 @@ namespace CandySugar.WallPaper.ViewModels
                             {
                                 Limit = this.Limit,
                                 Page = 1,
-                                KeyWord = Expert(2)
+                                KeyWord = this.Keyword,
+                                QueryType = QueryEnum.Sketchy
                             }
 
                         };
@@ -149,9 +152,9 @@ namespace CandySugar.WallPaper.ViewModels
                             {
                                 Limit = this.Limit,
                                 Page = 1,
-                                KeyWord = Expert(3)
+                                KeyWord = this.Keyword,
+                                QueryType = QueryEnum.NSFW
                             }
-
                         };
                     }).RunsAsync()).GlobalResult;
                     FishyTotal = result.Total;
@@ -183,9 +186,9 @@ namespace CandySugar.WallPaper.ViewModels
                             {
                                 Limit = this.Limit,
                                 Page = GeneralPageIndex,
-                                KeyWord = Expert(1)
+                                KeyWord = this.Keyword,
+                                QueryType = QueryEnum.SFW
                             }
-
                         };
                     }).RunsAsync()).GlobalResult;
                     BindingOperations.EnableCollectionSynchronization(GeneralResult, LockObject);
@@ -217,9 +220,9 @@ namespace CandySugar.WallPaper.ViewModels
                             {
                                 Limit = this.Limit,
                                 Page = OrdinaryPageIndex,
-                                KeyWord = Expert(2)
+                                KeyWord = this.Keyword,
+                                QueryType = QueryEnum.Sketchy
                             }
-
                         };
                     }).RunsAsync()).GlobalResult;
                     BindingOperations.EnableCollectionSynchronization(OrdinaryResult, LockObject);
@@ -251,9 +254,9 @@ namespace CandySugar.WallPaper.ViewModels
                             {
                                 Limit = this.Limit,
                                 Page = FishyPageIndex,
-                                KeyWord = Expert(3)
+                                KeyWord = this.Keyword,
+                                QueryType = QueryEnum.NSFW
                             }
-
                         };
                     }).RunsAsync()).GlobalResult;
                     BindingOperations.EnableCollectionSynchronization(FishyResult, LockObject);
@@ -272,12 +275,6 @@ namespace CandySugar.WallPaper.ViewModels
             {
                 new ScreenNotifyView(Info.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : Info).Show();
             });
-        }
-        private string Expert(int type)
-        {
-            if (type == 1) return !this.Keyword.IsNullOrEmpty()? $"{this.Keyword} rating:safe": "rating:safe";
-            else if (type == 2) return  !this.Keyword.IsNullOrEmpty() ? $"{this.Keyword} rating:questionable": "rating:questionable";
-            else return  !this.Keyword.IsNullOrEmpty() ? $"{this.Keyword} rating:explicit": "rating:explicit";
         }
         #endregion
 

@@ -4,9 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:lib="http://lib.candy.com"
-    xmlns:local="clr-namespace:CandySugar.WallPaper.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://github.com/canton7/Stylet"
     xmlns:uc="http://ctrl.candy.com"
@@ -29,6 +29,39 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid Margin="20">
+            <UniformGrid
+                Width="200"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Columns="3">
+                <hc:ClockRadioButton
+                    s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
+                    BorderBrush="#48D1CC"
+                    Command="{s:Action ChangeTypeCommand}"
+                    CommandParameter="0"
+                    Content="常规"
+                    Foreground="#FF8080"
+                    GroupName="Category"
+                    IsChecked="{c:Binding '(Purity==0)?true:false'}" />
+                <hc:ClockRadioButton
+                    s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
+                    BorderBrush="#48D1CC"
+                    Command="{s:Action ChangeTypeCommand}"
+                    CommandParameter="1"
+                    Content="一般"
+                    Foreground="#FF8080"
+                    GroupName="Category"
+                    IsChecked="{c:Binding '(Purity==1)?true:false'}" />
+                <hc:ClockRadioButton
+                    s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
+                    BorderBrush="#48D1CC"
+                    Command="{s:Action ChangeTypeCommand}"
+                    CommandParameter="2"
+                    Content="可疑"
+                    Foreground="#FF8080"
+                    GroupName="Category"
+                    IsChecked="{c:Binding '(Purity==2)?true:false'}" />
+            </UniformGrid>
             <ListBox Style="{DynamicResource ToggleListBox}">
                 <uc:CandyListboxItem
                     Content="常规"

@@ -8,6 +8,7 @@ namespace CandySugar.WallPaper.ViewModels
         private List<WallhavSearchElementResult> Builder;
         public WallhavViewModel()
         {
+            Purity = (int)PurityEnum.SFW;
             GenericDelegate.SearchAction = new(SearchHandler);
             var LocalDATA = DownUtil.ReadFile<List<WallhavSearchElementResult>>("Wallhaven", FileTypes.Dat, "WallPaper");
             CollectResult = new ObservableCollection<WallhavSearchElementResult>();
@@ -53,11 +54,21 @@ namespace CandySugar.WallPaper.ViewModels
             get => _PeopleResult;
             set => SetAndNotify(ref _PeopleResult, value);
         }
+
         private ObservableCollection<WallhavSearchElementResult> _CollectResult;
         public ObservableCollection<WallhavSearchElementResult> CollectResult
         {
             get => _CollectResult;
             set => SetAndNotify(ref _CollectResult, value);
+        }
+
+        private int _Purity;
+        /// <summary>
+        /// 0：常规 1：一般 2：可疑
+        /// </summary>
+        public int Purity {
+            get => _Purity;
+            set => SetAndNotify(ref _Purity, value);
         }
         #endregion
 
@@ -81,7 +92,8 @@ namespace CandySugar.WallPaper.ViewModels
                             {
                                 KeyWord = this.Keyword,
                                 PageIndex = 1,
-                                QueryType = QueryEnum.General
+                                QueryType = QueryEnum.General,
+                                PurityType=(PurityEnum)Purity
                             }
                         };
                     }).RunsAsync()).SearchResult;
@@ -114,7 +126,8 @@ namespace CandySugar.WallPaper.ViewModels
                             {
                                 KeyWord = this.Keyword,
                                 PageIndex = 1,
-                                QueryType = QueryEnum.Anime
+                                QueryType = QueryEnum.Anime,
+                                PurityType = (PurityEnum)Purity
                             }
                         };
                     }).RunsAsync()).SearchResult;
@@ -147,7 +160,8 @@ namespace CandySugar.WallPaper.ViewModels
                             {
                                 KeyWord = this.Keyword,
                                 PageIndex = 1,
-                                QueryType = QueryEnum.People
+                                QueryType = QueryEnum.People,
+                                PurityType = (PurityEnum)Purity
                             }
                         };
                     }).RunsAsync()).SearchResult;
@@ -180,7 +194,8 @@ namespace CandySugar.WallPaper.ViewModels
                             {
                                 KeyWord = this.Keyword,
                                 PageIndex = this.GeneralPageIndex,
-                                QueryType = QueryEnum.General
+                                QueryType = QueryEnum.General,
+                                PurityType = (PurityEnum)Purity
                             }
                         };
                     }).RunsAsync()).SearchResult;
@@ -213,7 +228,8 @@ namespace CandySugar.WallPaper.ViewModels
                             {
                                 KeyWord = this.Keyword,
                                 PageIndex = this.AnimePageIndex,
-                                QueryType = QueryEnum.Anime
+                                QueryType = QueryEnum.Anime,
+                                PurityType = (PurityEnum)Purity
                             }
 
                         };
@@ -247,9 +263,9 @@ namespace CandySugar.WallPaper.ViewModels
                             {
                                 KeyWord = this.Keyword,
                                 PageIndex = this.PeoplePageIndex,
-                                QueryType = QueryEnum.People
+                                QueryType = QueryEnum.People,
+                                PurityType = (PurityEnum)Purity
                             }
-
                         };
                     }).RunsAsync()).SearchResult;
                     BindingOperations.EnableCollectionSynchronization(PeopleResult, LockObject);
@@ -326,7 +342,6 @@ namespace CandySugar.WallPaper.ViewModels
             CollectResult.Add(element);
             CollectResult.ToList().DeleteAndCreate("Wallhaven", FileTypes.Dat, "WallPaper");
         }
-
         public void CheckCommand(WallhavSearchElementResult wallhav)
         {
             Builder.Add(wallhav);
@@ -337,6 +352,7 @@ namespace CandySugar.WallPaper.ViewModels
             Builder.Remove(wallhav);
             GenericDelegate.HandleAction?.Invoke(Builder);
         }
+        public void ChangeTypeCommand(string type) => Purity = type.AsInt();
         #endregion
 
         #region ExternalCalls
