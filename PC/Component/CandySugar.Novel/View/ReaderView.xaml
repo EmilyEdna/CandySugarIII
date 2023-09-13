@@ -27,10 +27,20 @@
             Command="{s:Action BackCommand}"
             Style="{DynamicResource FloatButtonStyle}" />
         <Grid Width="{Binding Width, ElementName=ReaderViewCtrl}" Height="{Binding Height, ElementName=ReaderViewCtrl}">
-            <WrapPanel HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource TextBlockStyle}"
+                    Text="{Binding Element.ChapterName}" />
+            </StackPanel>
+            <WrapPanel Grid.Row="1" HorizontalAlignment="Center">
                 <ListBox
                     uc:ScrollViewAttach.PressCommand="Arrow"
-                    ItemsSource="{Binding Words, IsAsync=True}"
+                    ItemsSource="{Binding Element.Content, IsAsync=True}"
                     Style="{DynamicResource CandyListBoxStyle}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>

@@ -8,6 +8,7 @@
     xmlns:uc="http://ctrl.candy.com">
 
     <uc:NullConverter x:Key="NullConverter" />
+    <uc:MultiConverter x:Key="MultiConverter" />
 
     <FontFamily x:Key="FontStyle">/CandySugar.Com.Style;component/Fonts/#HappyZcool-2016</FontFamily>
     <FontFamily x:Key="Regular">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Regular</FontFamily>

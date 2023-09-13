@@ -1,4 +1,6 @@
-﻿namespace CandySugar.Novel.ViewModels
+﻿using System.Collections.Generic;
+
+namespace CandySugar.Novel.ViewModels
 {
     public class ReaderViewModel : PropertyChangedBase
     {
@@ -8,14 +10,14 @@
         }
 
         #region Property
-        private ObservableCollection<string> _Words;
+        private NovelContentElementResult _Element;
         /// <summary>
         /// 文本内容
         /// </summary>
-        public ObservableCollection<string> Words
+        public NovelContentElementResult Element
         {
-            get => _Words;
-            set => SetAndNotify(ref _Words, value);
+            get => _Element;
+            set => SetAndNotify(ref _Element, value);
         }
         #endregion
 
@@ -23,29 +25,30 @@
         /// <summary>
         /// 初始化内容
         /// </summary>
-        private void OnInitContent( )
+        private void OnInitContent()
         {
+            var Param = ((Dictionary<string, object>)ModuleEnv.GlobalTempParam);
+            var Platform = Enum.Parse<PlatformEnum>(Param["Key1"].AsString());
             Task.Run(async () =>
             {
                 try
                 {
                     var Proxy = Module.IocModule.Proxy;
-                    var result = (await NovelFactory.Novel(opt =>
+                    Element = (await NovelFactory.Novel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
+                            PlatformType = Platform,
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Content,
                             Content = new NovelContent
                             {
-                                Route = ModuleEnv.GlobalTempParam.ToString()
+                                Route = Param["Key2"].ToString()
                             }
                         };
-                    }).RunsAsync()).ContentResult;
-
-                    Words = new ObservableCollection<string>(result.Content);
+                    }).RunsAsync()).ContentResult.ElementResult;
                 }
                 catch (Exception ex)
                 {

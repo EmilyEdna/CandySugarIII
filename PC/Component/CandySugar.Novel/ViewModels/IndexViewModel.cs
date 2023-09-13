@@ -35,23 +35,23 @@ namespace CandySugar.Novel.ViewModels
             get => _SearchResult;
             set => SetAndNotify(ref _SearchResult, value);
         }
-        private ObservableCollection<NovelInitResult> _InitResult;
-        public ObservableCollection<NovelInitResult> InitResult
+        private NovelInitRootResult _InitResult;
+        public NovelInitRootResult InitResult
         {
             get => _InitResult;
             set => SetAndNotify(ref _InitResult, value);
         }
-        private ObservableCollection<NovelCategoryElementResult> _CateElementResult;
-        public ObservableCollection<NovelCategoryElementResult> CateElementResult
+        private ObservableCollection<NovelCategoryElementResult> _CategoryResult;
+        public ObservableCollection<NovelCategoryElementResult> CategoryResult
         {
-            get => _CateElementResult;
-            set => SetAndNotify(ref _CateElementResult, value);
+            get => _CategoryResult;
+            set => SetAndNotify(ref _CategoryResult, value);
         }
-        private ObservableCollection<NovelDetailResult> _ChapterResult;
-        public ObservableCollection<NovelDetailResult> ChapterResult
+        private NovelDetailRootResult _DetailResult;
+        public NovelDetailRootResult DetailResult
         {
-            get => _ChapterResult;
-            set => SetAndNotify(ref _ChapterResult, value);
+            get => _DetailResult;
+            set => SetAndNotify(ref _DetailResult, value);
         }
 
         #endregion
@@ -72,16 +72,12 @@ namespace CandySugar.Novel.ViewModels
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Search,
-                            Search = new NovelSearch
-                            {
-                                Keyword = Keyword,
-                                Page = 1
-                            }
+                            Search = new NovelSearch { SearchKey = Keyword }
                         };
                     }).RunsAsync()).SearchResult;
-                    SearchTotal=result.Total;
-                    SearchResult = new ObservableCollection<NovelSearchElementResult>(result.ElementResults);
-                    CateElementResult = new ObservableCollection<NovelCategoryElementResult>(SearchResult.ToList().ToMapest<List<NovelCategoryElementResult>>());
+                    SearchTotal = result.Total;
+                    var Model = result.ElementResults.ToMapest<List<NovelCategoryElementResult>>();
+                    CategoryResult = new ObservableCollection<NovelCategoryElementResult>(Model);
                 }
                 catch (Exception ex)
                 {
@@ -97,17 +93,17 @@ namespace CandySugar.Novel.ViewModels
                 try
                 {
                     var Proxy = Module.IocModule.Proxy;
-                    var result = (await NovelFactory.Novel(opt =>
+                    InitResult = (await NovelFactory.Novel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
-                            ProxyIP= Proxy.IP,
-                            ProxyPort= Proxy.Port,
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
+                            PlatformType = PlatformEnum.Pencil,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Init
                         };
-                    }).RunsAsync()).InitResults;
-                    InitResult = new ObservableCollection<NovelInitResult>(result);
+                    }).RunsAsync()).InitResult;
                 }
                 catch (Exception ex)
                 {
@@ -129,17 +125,14 @@ namespace CandySugar.Novel.ViewModels
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
+                            PlatformType = PlatformEnum.Pencil,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Category,
-                            Category = new NovelCategory
-                            {
-                                Page = 1,
-                                Route = CategoryRoute
-                            }
+                            Category = new NovelCategory { Route = CategoryRoute }
                         };
                     }).RunsAsync()).CategoryResult;
                     CateTotal = result.Total;
-                    CateElementResult = new ObservableCollection<NovelCategoryElementResult>(result.ElementResults);
+                    CategoryResult = new ObservableCollection<NovelCategoryElementResult>(result.ElementResults);
                 }
                 catch (Exception ex)
                 {
@@ -148,28 +141,30 @@ namespace CandySugar.Novel.ViewModels
                 }
             });
         }
-        private void OnInitChapter(string route)
+        private void OnInitChapter(Dictionary<string,object> element)
         {
+            var Key = element["Key1"].AsString().AsInt();
             Task.Run(async () =>
             {
                 try
                 {
                     var Proxy = Module.IocModule.Proxy;
-                    var result = (await NovelFactory.Novel(opt =>
+                    DetailResult = (await NovelFactory.Novel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
                             ProxyIP = Proxy.IP,
+                            PlatformType = Key == 1 ? PlatformEnum.Pencil : PlatformEnum.Pendown,
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Detail,
                             Detail = new NovelDetail
                             {
-                                Route = route
+                                BookName= element["Key2"].AsString(),
+                                Route = element["Key3"].AsString()
                             }
                         };
-                    }).RunsAsync()).DetailResults;
-                    ChapterResult = new ObservableCollection<NovelDetailResult>(result);
+                    }).RunsAsync()).DetailResult;
                     WeakReferenceMessenger.Default.Send(new MessageNotify { SliderStatus = 1 });
                 }
                 catch (Exception ex)
@@ -192,6 +187,7 @@ namespace CandySugar.Novel.ViewModels
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
+                            PlatformType = PlatformEnum.Pencil,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Category,
                             Category = new NovelCategory
@@ -201,8 +197,8 @@ namespace CandySugar.Novel.ViewModels
                             }
                         };
                     }).RunsAsync()).CategoryResult;
-                    BindingOperations.EnableCollectionSynchronization(CateElementResult, LockObject);
-                    Application.Current.Dispatcher.Invoke(() => result.ElementResults.ForEach(CateElementResult.Add));
+                    BindingOperations.EnableCollectionSynchronization(CategoryResult, LockObject);
+                    Application.Current.Dispatcher.Invoke(() => result.ElementResults.ForEach(CategoryResult.Add));
                 }
                 catch (Exception ex)
                 {
@@ -211,7 +207,7 @@ namespace CandySugar.Novel.ViewModels
                 }
             });
         }
-         private void OnLoadMoreSearch()
+        private void OnLoadMoreSearch()
         {
             Task.Run(async () =>
             {
@@ -224,18 +220,19 @@ namespace CandySugar.Novel.ViewModels
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
+                            PlatformType = PlatformEnum.Pencil,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Search,
                             Search = new NovelSearch
                             {
-                                Keyword = Keyword,
+                                SearchKey = Keyword,
                                 Page = SearchPageIndex
                             }
                         };
                     }).RunsAsync()).SearchResult;
                     BindingOperations.EnableCollectionSynchronization(SearchResult, LockObject);
-                    Application.Current.Dispatcher.Invoke(() => result.ElementResults.ForEach(SearchResult.Add));
-                    CateElementResult = new ObservableCollection<NovelCategoryElementResult>(SearchResult.ToList().ToMapest<List<NovelCategoryElementResult>>());
+                    var Model = result.ElementResults.ToMapest<List<NovelCategoryElementResult>>();
+                    Application.Current.Dispatcher.Invoke(() => Model.ForEach(CategoryResult.Add));
                 }
                 catch (Exception ex)
                 {
@@ -282,20 +279,20 @@ namespace CandySugar.Novel.ViewModels
             OnInitCategory();
         }
 
-        public void ChapterCommand(string route)
+        public void ChapterCommand(Dictionary<string,object> element)
         {
             if (SliderStatus == 1)
                 WeakReferenceMessenger.Default.Send(new MessageNotify { SliderStatus = 2 });
-            OnInitChapter(route);
+            OnInitChapter(element);
         }
 
-        public void ViewCommand(string route)
+        public void ViewCommand(Dictionary<string,object> element)
         {
             WeakReferenceMessenger.Default.Send(new MessageNotify
             {
                 NotifyType = NotifyType.ChangeControl,
                 ControlType = 2,
-                ControlParam = route
+                ControlParam = element
             });
         }
         #endregion

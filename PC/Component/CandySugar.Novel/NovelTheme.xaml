@@ -5,7 +5,7 @@
 
     <Style x:Key="TextBlockStyle" TargetType="TextBlock">
         <Setter Property="Margin" Value="1,2" />
-        <Setter Property="FontSize" Value="32" />
+        <Setter Property="FontSize" Value="15" />
         <Setter Property="Foreground" Value="#fdf5e6" />
     </Style>
 

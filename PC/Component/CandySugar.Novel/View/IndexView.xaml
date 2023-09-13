@@ -27,7 +27,7 @@
         <Grid Width="{Binding Width, ElementName=IndexViewCtrl}" Height="{Binding Height, ElementName=IndexViewCtrl}">
             <ListBox
                 uc:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
-                ItemsSource="{Binding CateElementResult, IsAsync=True}"
+                ItemsSource="{Binding CategoryResult, IsAsync=True}"
                 Style="{DynamicResource CandyListBoxStyle}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -36,33 +36,73 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <uc:CandyBorder
-                            Margin="50,5,5,5"
-                            BorderType="Info"
-                            Style="{DynamicResource CandyBorderStyle}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
-                                    <i:InvokeCommandAction
-                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
-                                        Command="{s:Action ChapterCommand}"
-                                        CommandParameter="{Binding Route}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <uc:CandyBorder
+                                Margin="5"
+                                BorderType="Primary"
+                                Style="{DynamicResource CandyBorderStyle}">
+                                <Image
+                                    Width="160"
+                                    Height="240"
+                                    Source="{Binding Cover}"
+                                    Stretch="Fill" />
+                            </uc:CandyBorder>
+                            <WrapPanel
+                                Grid.Column="1"
+                                Width="600"
+                                Margin="0,10,0,0"
+                                Orientation="Vertical">
                                 <TextBlock
                                     Style="{DynamicResource TextBlockStyle}"
                                     Text="{Binding BookName, StringFormat=书名：{0}}"
                                     TextWrapping="Wrap" />
+                                <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Author, StringFormat=作者：{0}}" />
+                                <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Type, StringFormat=类别:{0}}" />
+                                <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Status, StringFormat=状态:{0}}" />
                                 <TextBlock
                                     Style="{DynamicResource TextBlockStyle}"
-                                    Text="{Binding Author, StringFormat=作者：{0}}"
+                                    Text="{Binding Tips, StringFormat=简介:{0}}"
                                     TextWrapping="Wrap" />
-                                <TextBlock
-                                    Style="{DynamicResource TextBlockStyle}"
-                                    Text="{Binding Status, StringFormat=状态：{0}}"
-                                    TextWrapping="Wrap" />
-                            </StackPanel>
-                        </uc:CandyBorder>
+                                <StackPanel Orientation="Horizontal">
+                                    <uc:CandyButton
+                                        Margin="3"
+                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                                        ButtonType="Primary"
+                                        Command="{s:Action ChapterCommand}"
+                                        Content="地址一"
+                                        Style="{DynamicResource CandyButtonStyle}"
+                                        Tag="1">
+                                        <uc:CandyButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource MultiConverter}">
+                                                <Binding Path="Tag" RelativeSource="{RelativeSource Mode=Self}" />
+                                                <Binding Path="BookName" />
+                                                <Binding Path="Route" />
+                                            </MultiBinding>
+                                        </uc:CandyButton.CommandParameter>
+                                    </uc:CandyButton>
+                                    <uc:CandyButton
+                                        Margin="3"
+                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                                        ButtonType="Primary"
+                                        Command="{s:Action ChapterCommand}"
+                                        Content="地址二"
+                                        Style="{DynamicResource CandyButtonStyle}"
+                                        Tag="2">
+                                        <uc:CandyButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource MultiConverter}">
+                                                <Binding Path="Tag" RelativeSource="{RelativeSource Mode=Self}" />
+                                                <Binding Path="BookName" />
+                                                <Binding Path="Route" />
+                                            </MultiBinding>
+                                        </uc:CandyButton.CommandParameter>
+                                    </uc:CandyButton>
+                                </StackPanel>
+                            </WrapPanel>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -92,7 +132,7 @@
                     Style="{DynamicResource CandyFontButtonStyle}" />
                 <ListBox
                     Grid.Column="1"
-                    ItemsSource="{Binding ChapterResult}"
+                    ItemsSource="{Binding DetailResult.ElementResults}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Visible"
                     Style="{DynamicResource CandyListBoxStyle}">
@@ -102,9 +142,15 @@
                                 <Button
                                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
                                     Command="{s:Action ViewCommand}"
-                                    CommandParameter="{Binding Route}"
                                     Content="{Binding Chapter}"
-                                    Style="{DynamicResource CandyTextBlockButtonStyle}" />
+                                    Style="{DynamicResource CandyTextBlockButtonStyle}">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource MultiConverter}">
+                                            <Binding ElementName="IndexViewCtrl" Path="DataContext.DetailResult.NovelPlatformType" />
+                                            <Binding Path="Route" />
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
+                                </Button>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -144,7 +190,7 @@
                 </Rectangle>
                 <ListBox
                     Margin="2"
-                    ItemsSource="{Binding InitResult}"
+                    ItemsSource="{Binding InitResult.ElementResults}"
                     Style="{DynamicResource CandyListBoxStyle}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
