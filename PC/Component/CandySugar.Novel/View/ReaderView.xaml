@@ -50,10 +50,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock
-                                x:Name="Word"
-                                Margin="10,10,0,10"
-                                Foreground="Black"
-                                Style="{DynamicResource TextBlockStyle}"
+                                Style="{DynamicResource TextBlockReaderStyle}"
                                 Text="{Binding .}"
                                 TextWrapping="Wrap" />
                         </DataTemplate>
