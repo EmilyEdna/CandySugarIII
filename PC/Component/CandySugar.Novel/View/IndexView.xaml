@@ -42,6 +42,8 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <uc:CandyBorder
+                                Width="160"
+                                Height="240"
                                 Margin="5"
                                 BorderType="Primary"
                                 Style="{DynamicResource CandyBorderStyle}">
