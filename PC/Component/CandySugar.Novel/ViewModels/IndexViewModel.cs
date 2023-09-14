@@ -70,6 +70,7 @@ namespace CandySugar.Novel.ViewModels
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
+                            PlatformType= PlatformEnum.Pencil,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Search,
                             Search = new NovelSearch { SearchKey = Keyword }
