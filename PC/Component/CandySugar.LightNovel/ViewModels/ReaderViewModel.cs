@@ -8,11 +8,11 @@
         }
 
         #region Property
-        private string _Words;
+        private ObservableCollection<string> _Words;
         /// <summary>
         /// 文本内容
         /// </summary>
-        public string Words
+        public ObservableCollection<string> Words
         {
             get => _Words;
             set => SetAndNotify(ref _Words, value);
@@ -61,7 +61,7 @@
                             ErrorNotify("因版权问题，请前往下载!");
                             return;
                         }
-                        Words = result.Content;
+                        Words = new ObservableCollection<string>(result.Content);
                         Picture = new ObservableCollection<string>(result.Image ?? new List<string>());
                     }
                 }

@@ -32,15 +32,24 @@
             Style="{DynamicResource FloatButtonStyle}" />
         <Grid Width="{Binding Width, ElementName=ReaderViewCtrl}" Height="{Binding Height, ElementName=ReaderViewCtrl}">
             <WrapPanel Margin="50,0,50,35" HorizontalAlignment="Center">
-                <hc:ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <TextBlock
-                        x:Name="Word"
-                        Foreground="Black"
-                        ScrollViewer.CanContentScroll="True"
-                        Style="{DynamicResource TextBlockStyle}"
-                        Text="{Binding Words, IsAsync=True}"
-                        TextWrapping="Wrap" />
-                </hc:ScrollViewer>
+                <ListBox
+                    uc:ScrollViewAttach.PressCommand="Arrow"
+                    ItemsSource="{Binding Words}"
+                    Style="{DynamicResource CandyListBoxStyle}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                Style="{DynamicResource TextBlockReaderStyle}"
+                                Text="{Binding .}"
+                                TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
                 <ListBox ItemsSource="{Binding Picture, IsAsync=True}" Style="{DynamicResource CandyListBoxStyle}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
