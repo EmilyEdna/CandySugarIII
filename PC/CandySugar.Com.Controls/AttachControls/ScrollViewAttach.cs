@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Xml.Linq;
 using CandySugar.Com.Library.Enums;
 using CandySugar.Com.Library.VisualTree;
+using XExten.Advance.ThreadFramework;
 
 namespace CandySugar.Com.Controls.AttachControls
 {
@@ -30,8 +29,18 @@ namespace CandySugar.Com.Controls.AttachControls
             ListBox element = target as ListBox;
             if (element != null)
             {
-                element.Focus();
-                element.KeyDown += PressEvent;
+                ThreadFactory.Instance.StartWithRestart(() =>
+                {
+                    element.Dispatcher.Invoke(() =>
+                    {
+                        if (element.Items.Count > 0)
+                        {
+                            element.Focus();
+                            element.KeyDown += PressEvent;
+                            ThreadFactory.Instance.StopTask("绑定事件");
+                        }
+                    });
+                }, "绑定事件",true);
             }
         }
 
@@ -45,7 +54,7 @@ namespace CandySugar.Com.Controls.AttachControls
             if (e.Key == Key.Down && (press == EDirection.Bottom || press == EDirection.Arrow))
             {
                 scrollViewer.ScrollToVerticalOffset(5d);
-               if(scrollViewer.VerticalOffset + scrollViewer.ViewportHeight >= scrollViewer.ExtentHeight)
+                if (scrollViewer.VerticalOffset + scrollViewer.ViewportHeight >= scrollViewer.ExtentHeight)
                     scrollViewer.ScrollToEnd();
             }
         }
