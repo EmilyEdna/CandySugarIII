@@ -1,12 +1,9 @@
-﻿using CandySugar.Com.Library.FFMPegFactory;
-using CandySugar.Com.Library.FileWrite;
-using CliWrap;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
+using CandySugar.Com.Library.FFMPegFactory;
+using CandySugar.Com.Library.FileWrite;
 
 
 namespace CandySugar.Com.Library.FFMPeg
@@ -23,14 +20,8 @@ namespace CandySugar.Com.Library.FFMPeg
         /// <returns></returns>
         public static async Task<bool> Mp3ToHighMP3(this string mp3File, string catalog)
         {
-            StringBuilder Info = new StringBuilder();
-
-            var cmd = await Cli.Wrap(CommonHelper.FFMPEG)
-                    .WithArguments($"-threads 5 -i {Path.Combine(catalog, mp3File)} -ab 320k -acodec libmp3lame  -y {Path.Combine(catalog, $"[High]{mp3File}")}")
-                     .WithStandardErrorPipe(PipeTarget.ToStringBuilder(Info))
-                     .ExecuteAsync();
-            Log.Logger.Information(Info.ToString());
-            return cmd.ExitCode == 0;
+            return await FMFactory.Default(opt => opt.Thread(5).InputFile(Path.Combine(catalog, mp3File)).Quality(320).AudioCodec("libmp3lame"))
+                .Output(Path.Combine(catalog, $"[High]{mp3File}")).RunAsync();
         }
         /// <summary>
         /// 图片转视频
@@ -54,17 +45,6 @@ namespace CandySugar.Com.Library.FFMPeg
                 opt.FrameRate(0.3).Thread(5).ConCat(fileName).VideoCodec("libx264")
                 .VideoFormat("yuvj420p").Aspect(16, 9).Rate(60).Sreen(1920, 1080).Args("-b:v 5000k");
             }).Output(Path.Combine(videoPath, $"{Guid.NewGuid()}.{FileTypes.Mp4}")).RunAsync();
-
-            //StringBuilder Info = new StringBuilder();
-            //if (!Directory.Exists(videoPath)) Directory.CreateDirectory(videoPath);
-          
-            //var args = $"-f image2pipe -framerate 0.3 -threads 5 -y -i \"concat:{string.Join("|", fileName)}\" -c:v libx264 -pix_fmt yuvj420p -aspect 16:9 -b:v 5000K -r 60 -s 1920*1080 {Path.Combine(videoPath, $"{Guid.NewGuid()}.{FileTypes.Mp4}")}";
-            //var cmd = await Cli.Wrap(CommonHelper.FFMPEG)
-            //    .WithArguments(args)
-            //         .WithStandardErrorPipe(PipeTarget.ToStringBuilder(Info))
-            //         .ExecuteAsync();
-            //Log.Logger.Information(Info.ToString());
-            //return cmd.ExitCode == 0;
         }
         /// <summary>
         /// 图片转视频带音频
@@ -77,7 +57,6 @@ namespace CandySugar.Com.Library.FFMPeg
         public static async Task<bool> ImageToVideo(this List<string> fileName, string audioFile, string audioTime, string catalog)
         {
             var videoPath = Path.Combine(catalog, "Video");
-            StringBuilder Info = new StringBuilder();
             if (!Directory.Exists(videoPath)) Directory.CreateDirectory(videoPath);
             //-framerate 0.3 设置帧率(控制每张图片播放时长 相当于每张图片播放3秒)
             //-f image2 1 指定的格式(图片合成视频用以下参数)
@@ -86,13 +65,12 @@ namespace CandySugar.Com.Library.FFMPeg
             //-y 关闭询问
             //-threads 4 多线程
             //-c:v libx264 -pix_fmt yuv420p 解码
-            var args = $"-loop 1 -f image2pipe -framerate 0.3 -threads 5 -y -i \"concat:{string.Join("|", fileName)}\" -i {audioFile} -ab 320k -acodec libmp3lame -t {audioTime} -c:v libx264 -pix_fmt yuvj420p -aspect 16:9 -b:v 5000K -r 60 -s 1920*1080 {Path.Combine(videoPath, $"{Guid.NewGuid()}.{FileTypes.Mp4}")}";
-            var cmd = await Cli.Wrap(CommonHelper.FFMPEG)
-                .WithArguments(args)
-                     .WithStandardErrorPipe(PipeTarget.ToStringBuilder(Info))
-                     .ExecuteAsync();
-            Log.Logger.Information(Info.ToString());
-            return cmd.ExitCode == 0;
+            return await FMFactory.ImagePipe(opt =>
+            {
+                opt.Loop(1).FrameRate(0.3).Thread(5).ConCat(fileName).InputFile(audioFile).Quality(320)
+                .AudioCodec("libmp3lame").AudioTime(audioTime).VideoCodec("libx264")
+                .VideoFormat("yuvj420p").Aspect(16, 9).Rate(60).Sreen(1920, 1080).Args("-b:v 5000k");
+            }).Output(Path.Combine(videoPath, $"{Guid.NewGuid()}.{FileTypes.Mp4}")).RunAsync();
         }
         /// <summary>
         /// 下载M4S流转视频无声音
@@ -102,14 +80,7 @@ namespace CandySugar.Com.Library.FFMPeg
         /// <returns></returns>
         public static async Task<bool> M4Video(this string m4path, string file)
         {
-            StringBuilder Info = new StringBuilder();
-
-            var cmd = await Cli.Wrap(CommonHelper.FFMPEG)
-                    .WithArguments($"-threads 5 -y {Cmd} -i {m4path} {file}")
-                     .WithStandardErrorPipe(PipeTarget.ToStringBuilder(Info))
-                     .ExecuteAsync();
-            Log.Logger.Information(Info.ToString());
-            return cmd.ExitCode == 0;
+            return await FMFactory.Default(opt => opt.Thread(5).Args(Cmd).InputFile(m4path)) .Output(file).RunAsync();
         }
         /// <summary>
         /// 下载M4S流转音频无画面
@@ -119,14 +90,7 @@ namespace CandySugar.Com.Library.FFMPeg
         /// <returns></returns>
         public static async Task<bool> M4Audio(this string m4path, string file)
         {
-            StringBuilder Info = new StringBuilder();
-
-            var cmd = await Cli.Wrap(CommonHelper.FFMPEG)
-                    .WithArguments($"-threads 5 -y {Cmd} -i {m4path} -ab 320k -acodec libmp3lame {file}")
-                     .WithStandardErrorPipe(PipeTarget.ToStringBuilder(Info))
-                     .ExecuteAsync();
-            Log.Logger.Information(Info.ToString());
-            return cmd.ExitCode == 0;
+            return await FMFactory.Default(opt => opt.Thread(5).Args(Cmd).InputFile(m4path).Quality(320).AudioCodec("libmp3lame")).Output(file).RunAsync();
         }
         /// <summary>
         /// M4S流音频画面合并
@@ -138,14 +102,11 @@ namespace CandySugar.Com.Library.FFMPeg
         /// <returns></returns>
         public static async Task<bool> M4VAMerge(this string file, string m4audio, string m4video, bool useDown = false)
         {
-            StringBuilder Info = new StringBuilder();
-
-            var cmd = await Cli.Wrap(CommonHelper.FFMPEG)
-                    .WithArguments($"-threads 5 -y {(useDown ? Cmd : "")} -i {m4video} {(useDown ? Cmd : "")} -i {m4audio} -codec copy -c:v libx264 {file}")
-                     .WithStandardErrorPipe(PipeTarget.ToStringBuilder(Info))
-                     .ExecuteAsync();
-            Log.Logger.Information(Info.ToString());
-            return cmd.ExitCode == 0;
+            return await FMFactory.Default(opt => {
+                opt.Thread(5).Args(useDown ? Cmd : "").InputFile(m4video)
+                .Args(useDown ? Cmd : "").InputFile(m4audio)
+                .VideoCodec("libx264").Codec("copy");
+            }).Output(file).RunAsync();
         }
     }
 }

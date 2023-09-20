@@ -81,7 +81,10 @@ namespace CandySugar.Com.Library.FFMPegFactory
         public FMArgs Args(params string[] args)
         {
             if (args.Length > 0)
-                args.ForArrayEach<string>(item => sb.Append($" {item} "));
+                args.ForArrayEach<string>(item =>
+                {
+                    if (item.IsNullOrEmpty()) sb.Append($" {item} ");
+                });
             return this;
         }
         internal string Build() => sb.ToString();
