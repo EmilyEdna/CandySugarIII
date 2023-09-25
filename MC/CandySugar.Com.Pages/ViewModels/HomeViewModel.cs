@@ -39,7 +39,7 @@ namespace CandySugar.Com.Pages.ViewModels
                     {
                         BindingContext = new HomeRifanViewModel(BaseServices)
                     };
-                if (Parameter == 1)
+                if (Parameter == 3)
                     Views = new HomeAxgle
                     {
                         BindingContext = new HomeAxgleViewModel(BaseServices)
