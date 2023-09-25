@@ -6,14 +6,14 @@ namespace CandySugar.Com.Pages.ViewModels.ComicViewModels
     {
         public ComicWatchViewModel(BaseVMService baseServices) : base(baseServices)
         {
-            Height = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density);
-            Width = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density);
+            Height = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density)-250;
+            Width = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density)-25;
         }
 
         public override void Initialize(INavigationParameters parameters)
         {
-            Views = parameters.GetValue<List<string>>("Param");
             Index = parameters.GetValue<int>("Index");
+            Views = parameters.GetValue<List<string>>("Data");
             Current = Views[Index];
         }
 

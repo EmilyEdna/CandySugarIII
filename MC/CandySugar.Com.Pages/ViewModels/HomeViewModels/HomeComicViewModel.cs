@@ -74,7 +74,11 @@ namespace CandySugar.Com.Pages.ViewModels.HomeViewModels
             ComicIndex += 1;
             if (ComicIndex > ComicTotal) return;
             var result = await Container.Resolve<ICandyService>().Get(1, ComicIndex);
-            result.Item2.ForEach(ComicCollect.Add);
+            result.Item2.ForEach(item =>
+            {
+                if (!ComicCollect.Any(t => t.Hash == item.Hash))
+                    ComicCollect.Add(item);
+            });
         }
 
 

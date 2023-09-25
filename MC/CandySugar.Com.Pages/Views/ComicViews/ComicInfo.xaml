@@ -32,22 +32,25 @@
                 </StackLayout>
             </Grid>
         </Border>
-        <CollectionView ItemSizingStrategy="MeasureAllItems" ItemsSource="{Binding Preview}">
+        <CollectionView
+            Grid.Row="1"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsSource="{Binding Preview}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout
-                    HorizontalItemSpacing="3"
+                    HorizontalItemSpacing="1"
                     Orientation="Vertical"
-                    Span="3"
-                    VerticalItemSpacing="3" />
+                    Span="4"
+                    VerticalItemSpacing="1" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border
-                        HeightRequest="130"
+                        HeightRequest="120"
                         StrokeShape="RoundRectangle 0"
-                        WidthRequest="90">
+                        WidthRequest="80">
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding WatchCommand}" CommandParameter="{Binding .}" />
+                            <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:ComicInfoViewModel}}}" CommandParameter="{Binding .}" />
                         </Border.GestureRecognizers>
                         <Image Aspect="Fill" Source="{Binding .}" />
                     </Border>

@@ -57,7 +57,11 @@ namespace CandySugar.Com.Pages.ViewModels.HomeViewModels
             AxgleIndex += 1;
             if (AxgleIndex > AxgleTotal) return;
             var result = await Container.Resolve<ICandyService>().Get(3, AxgleIndex);
-            result.Item2.ForEach(AxgleCollect.Add);
+            result.Item2.ForEach(item =>
+            {
+                if (!AxgleCollect.Any(t => t.Hash == item.Hash))
+                    AxgleCollect.Add(item);
+            });
 
         }
 

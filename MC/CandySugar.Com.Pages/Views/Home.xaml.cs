@@ -85,10 +85,13 @@ public partial class Home : ContentView
             if (ImageBtn.Count > 0)
             {
                 var bt = FloatContainer.Children.OfType<ImageButton>().Where(t => !ImageBtn.Select(t => t.CommandParameter.ToString()).Contains(t.CommandParameter.ToString())).FirstOrDefault();
-                if (!ImageBtn.Any(t => t.CommandParameter == bt.CommandParameter))
+                if (bt != null)
                 {
-                    ImageBtn.Add(bt);
-                    ExcutorAnime(bt);
+                    if (!ImageBtn.Any(t => t.CommandParameter == bt.CommandParameter))
+                    {
+                        ImageBtn.Add(bt);
+                        ExcutorAnime(bt);
+                    }
                 }
             }
         });

@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels.ComicViewModels"
     x:DataType="vm:ComicWatchViewModel">
-    <Grid>
+    <Grid BackgroundColor="{DynamicResource Basic}">
         <Grid.GestureRecognizers>
             <SwipeGestureRecognizer Command="{Binding NextCommand}" Direction="Left" />
             <SwipeGestureRecognizer Command="{Binding PreCommand}" Direction="Right" />

@@ -51,7 +51,7 @@ namespace CandySugar.Com.Pages.ViewModels.ComicViewModels
         public DelegateCommand<string> WatchCommand => new(element =>
         {
             var Index = Preview.ToList().FindIndex(t => t.Equals(element));
-            Nav.NavigateAsync(new Uri(nameof(ComicWatch), UriKind.Relative), new NavigationParameters { { "Param", View }, { "Index", Index } });
+            Nav.NavigateAsync(new Uri(nameof(ComicWatch), UriKind.Relative), new NavigationParameters { { "Data", View.ToList() }, { "Index", Index } });
         });
         #endregion
 

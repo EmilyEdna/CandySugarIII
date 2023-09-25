@@ -59,7 +59,11 @@ namespace CandySugar.Com.Pages.ViewModels.HomeViewModels
             RifanIndex += 1;
             if (RifanIndex > RifanTotal) return;
             var result = await Container.Resolve<ICandyService>().Get(2, RifanIndex);
-            result.Item2.ForEach(RifanCollect.Add);
+            result.Item2.ForEach(item =>
+            {
+                if (!RifanCollect.Any(t => t.Hash == item.Hash))
+                    RifanCollect.Add(item);
+            });
 
         }
 
