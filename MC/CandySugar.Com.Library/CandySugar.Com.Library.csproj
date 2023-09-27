@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0;net7.0-android;</TargetFrameworks>
@@ -13,24 +13,17 @@
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
-	  <PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="2.0.0" />
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-	  <PackageReference Include="HtmlAgilityPack" Version="1.11.52" />
-	  <PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.21.6" />
-	  <PackageReference Include="Prism.DryIoc.Maui" Version="8.1.273-pre" />
-	  <PackageReference Include="Prism.Maui.Rx" Version="8.1.273-pre" />
-	  <PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.61" />
-	  <PackageReference Include="sqlite-net-pcl" Version="1.9.141-beta" />
-	  <PackageReference Include="UraniumUI.Blurs" Version="2.5.0" />
-	  <PackageReference Include="UraniumUI.Material" Version="2.5.0" />
-	  <PackageReference Include="XExten.Advance" Version="2.2.0.1" />
-	  <PackageReference Include="XExten.Advance.Maui.Bar" Version="1.0.0" />
-	  <PackageReference Include="XExten.Advance.Maui.Direction" Version="1.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
+		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="2.0.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.52" />
+		<PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.21.6" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.141-beta" />
+		<PackageReference Include="XExten.Advance" Version="2.2.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Platforms\" />
+		<Folder Include="Platforms\" />
 	</ItemGroup>
 
 </Project>

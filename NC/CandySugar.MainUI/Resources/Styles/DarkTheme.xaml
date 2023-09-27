@@ -7,9 +7,9 @@
     <SolidColorBrush x:Key="PlatformBrush">Transparent</SolidColorBrush>
 
     <Color x:Key="Basic">#FFFFFF</Color>
-    <Color x:Key="BasicPage">#404040</Color>
+    <Color x:Key="BasicPage">#000000</Color>
     <Color x:Key="BasicSafe">#AFEEEE</Color>
-    <Color x:Key="BasicContainer">#696969</Color>
+    <Color x:Key="BasicContainer">#666666</Color>
     <Color x:Key="BasicPrimary">#FF9999</Color>
 
     <SolidColorBrush x:Key="BasicBrush">#FFFFFF</SolidColorBrush>

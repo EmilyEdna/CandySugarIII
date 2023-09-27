@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <style>
+        html, body {
+            margin: auto;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+        }
+
+        #content {
+            flex: auto;
+        }
+    </style>
+    <script type="text/javascript">
+        function Play(uri, w, h) {
+            var ele = document.getElementById('content');
+            ele.src = uri;
+            ele.width = w;
+            ele.height = h;
+        }
+    </script>
+</head>
+<body>
+    <iframe id="content" frameborder="0"  ></iframe>
+</body>
+</html>

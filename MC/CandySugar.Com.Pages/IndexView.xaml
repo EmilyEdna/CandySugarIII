@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell
+    x:Class="CandySugar.Com.Pages.IndexView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:om="clr-namespace:CandySugar.Com.Library.Model;assembly=CandySugar.Com.Library"
+    xmlns:page="clr-namespace:CandySugar.Com.Pages.Views"
+    x:Name="shell"
+    FlyoutBackgroundColor="{DynamicResource BasicPage}"
+    FlyoutFooterTemplate="{DynamicResource ShellFlyoutFoot}"
+    FlyoutHeaderTemplate="{DynamicResource ShellFlyoutHead}"
+    ItemTemplate="{DynamicResource ShellFlyoutItem}"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.FlyoutWidth="250"
+    Shell.TabBarIsVisible="False">
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
+            Title="首页"
+            ContentTemplate="{DataTemplate page:RootView}"
+            Route="RootView" />
+        <ShellContent
+            Title="小说"
+            ContentTemplate="{DataTemplate page:NovelView}"
+            Route="NovelView" />
+        <ShellContent
+            Title="漫画"
+            ContentTemplate="{DataTemplate page:ComicView}"
+            Route="ComicView" />
+        <ShellContent
+            Title="里番"
+            ContentTemplate="{DataTemplate page:RifanView}"
+            Route="RifanView" />
+    </FlyoutItem>
+
+</Shell>

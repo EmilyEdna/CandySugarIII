@@ -1,5 +1,5 @@
-﻿using CandySugar.MainUI.Resources.Styles;
-using CandySugar.MainUI.ViewModels;
+﻿using CandySugar.Com.Pages;
+using CandySugar.MainUI.Resources.Styles;
 
 namespace CandySugar.MainUI
 {
@@ -8,18 +8,9 @@ namespace CandySugar.MainUI
         public App()
         {
             InitializeComponent();
-            Current.Resources.MergedDictionaries.Add(new LightTheme());
-        }
-        protected override Window CreateWindow(IActivationState activationState)
-        {
-            if (Windows.Count >= 1)
-                return base.CreateWindow(activationState);
-            else
-            {
-               activationState.Context.Services.GetService<INavigationService>().CreateBuilder().AddSegment<IndexViewModel>().Navigate();
-                Thread.Sleep(2000);
-                return base.CreateWindow(activationState);
-            }
+            Current.Resources.MergedDictionaries.Add(new DarkTheme());
+            Current.Resources.MergedDictionaries.Add(new ControlStyle());
+            MainPage = new IndexView();
         }
     }
 }

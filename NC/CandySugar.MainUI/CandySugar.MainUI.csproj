@@ -20,7 +20,7 @@
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">29.0</SupportedOSPlatformVersion>
-
+		
 		<AndroidSdkDirectory>D:\Android\android-sdk</AndroidSdkDirectory>
 	</PropertyGroup>
 
@@ -60,7 +60,6 @@
 
 	<ItemGroup>
 		<None Remove="Resources\Fonts\FontAwesome6Thin.otf" />
-		<None Remove="Resources\Images\head.png" />
 		<None Remove="Resources\Raw\Inner.html" />
 	</ItemGroup>
 
@@ -72,9 +71,6 @@
 		<Reference Include="Sdk.Component.Vip">
 			<HintPath>..\..\Lib\Sdk.Component.Vip.dll</HintPath>
 		</Reference>
-		<Reference Include="Sdk.Component">
-			<HintPath>..\..\Lib\Sdk.Component.dll</HintPath>
-		</Reference>
 		<Reference Include="Sdk.Plugins">
 			<HintPath>..\..\Lib\Sdk.Plugins.dll</HintPath>
 		</Reference>
@@ -83,9 +79,6 @@
 	<ItemGroup>
 		<MauiXaml Update="Resources\Styles\DarkTheme.xaml">
 			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Resources\Styles\ControlStyle.xaml">
-		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Resources\Styles\LightTheme.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -96,13 +89,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\CandySugar.Com.Pages\CandySugar.Com.Pages.csproj" />
+		<Folder Include="Resources\Images\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Resources\Styles\ControlStyle.xaml.cs">
-	    <DependentUpon>ControlStyle.xaml</DependentUpon>
-	  </Compile>
+		<ProjectReference Include="..\CandySugar.Com.Pages\CandySugar.Com.Pages.csproj" />
 	</ItemGroup>
 
 </Project>
