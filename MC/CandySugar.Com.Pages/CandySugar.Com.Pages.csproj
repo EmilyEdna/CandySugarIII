@@ -19,13 +19,26 @@
 	  <ProjectReference Include="..\CandySugar.Com.Library\CandySugar.Com.Library.csproj" />
 	</ItemGroup>
 
+
 	<ItemGroup>
-	  <Compile Update="Views\ComicView.xaml.cs">
-	    <DependentUpon>ComicView.xaml</DependentUpon>
-	  </Compile>
+		<Reference Include="Sdk.Component.Vip">
+			<HintPath>..\..\Lib\Sdk.Component.Vip.dll</HintPath>
+		</Reference>
+		<Reference Include="Sdk.Component">
+			<HintPath>..\..\Lib\Sdk.Component.dll</HintPath>
+		</Reference>
+		<Reference Include="Sdk.Plugins">
+			<HintPath>..\..\Lib\Sdk.Plugins.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="ChildViews\Novels\ChapterView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ChildViews\Novels\ReaderView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="IndexView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

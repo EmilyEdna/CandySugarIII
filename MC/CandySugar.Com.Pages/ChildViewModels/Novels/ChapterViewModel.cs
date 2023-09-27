@@ -1,0 +1,70 @@
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Sdk.Component.Novel.sdk;
+using Sdk.Component.Novel.sdk.ViewModel;
+using CandySugar.Com.Library;
+using Sdk.Component.Novel.sdk.ViewModel.Enums;
+using Sdk.Component.Novel.sdk.ViewModel.Request;
+using Sdk.Component.Novel.sdk.ViewModel.Response;
+using XExten.Advance.LinqFramework;
+using System.Web;
+using CommunityToolkit.Mvvm.Input;
+using CandySugar.Com.Pages.ChildViews.Novels;
+
+namespace CandySugar.Com.Pages.ChildViewModels.Novels
+{
+    public partial class ChapterViewModel : ObservableObject, IQueryAttributable
+    {
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            Platform = (PlatformEnum)query["Type"].ToString().AsInt();
+            BookName = HttpUtility.UrlDecode(query["Name"].ToString());
+            Route = query["Route"].ToString();
+            ChapterAsync();
+        }
+        #region Field
+        private PlatformEnum Platform;
+        private string Route;
+        #endregion
+
+        #region Property
+        [ObservableProperty]
+        private string _BookName;
+        [ObservableProperty]
+        private NovelDetailRootResult _DetailResult;
+        #endregion
+
+        #region Method
+        private async void ChapterAsync()
+        {
+            try
+            {
+                DetailResult = (await NovelFactory.Novel(opt =>
+                {
+                    opt.RequestParam = new Input
+                    {
+                        PlatformType = Platform,
+                        CacheSpan = 5,
+                        NovelType = NovelEnum.Detail,
+                        Detail = new NovelDetail
+                        {
+                            BookName = BookName,
+                            Route = Route
+                        }
+                    };
+                }).RunsAsync()).DetailResult;
+            }
+            catch (Exception ex)
+            {
+                ex.Message.Info();
+            }
+        }
+        #endregion
+
+        #region Command
+        public RelayCommand<string> ReaderCommand => new(async input =>
+        {
+            await Shell.Current.GoToAsync($"{nameof(ReaderView)}?Type={(int)Platform}&Route={input}");
+        });
+        #endregion
+    }
+}

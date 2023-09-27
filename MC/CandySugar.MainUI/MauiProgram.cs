@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui;
+﻿using CandySugar.Com.Library;
+using CommunityToolkit.Maui;
 
 namespace CandySugar.MainUI
 {
@@ -11,6 +12,7 @@ namespace CandySugar.MainUI
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
                 .UseMauiCommunityToolkitMediaElement()
+                .AddControlHandler()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("FontAwesome6Thin.otf", "Thin");

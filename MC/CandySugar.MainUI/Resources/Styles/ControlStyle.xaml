@@ -2,7 +2,22 @@
 <ResourceDictionary
     x:Class="CandySugar.MainUI.Resources.Styles.ControlStyle"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lib="clr-namespace:CandySugar.Com.Library;assembly=CandySugar.Com.Library">
+
+    <FontImage
+        x:Key="Search"
+        FontFamily="Thin"
+        Glyph="{Static lib:FontIcon.MagnifyingGlass}"
+        Size="15"
+        Color="{StaticResource BasicPage}" />
+    <FontImage
+        x:Key="Clear"
+        FontFamily="Thin"
+        Glyph="{Static lib:FontIcon.CircleXmark}"
+        Size="15"
+        Color="{StaticResource BasicPage}" />
+
     <DataTemplate x:Key="ShellFlyoutItem" x:DataType="FlyoutItem">
         <VerticalStackLayout>
             <Label
@@ -50,4 +65,13 @@
                 VerticalTextAlignment="Center" />
         </VerticalStackLayout>
     </DataTemplate>
+
+    <Style x:Key="ButtonStyle" TargetType="Button">
+        <Setter Property="Margin" Value="10,0,0,0" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="HeightRequest" Value="32" />
+        <Setter Property="WidthRequest" Value="68" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+
 </ResourceDictionary>
