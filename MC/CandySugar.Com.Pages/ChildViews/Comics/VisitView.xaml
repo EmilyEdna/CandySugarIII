@@ -4,12 +4,19 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Comics"
-    Title="ReaderView"
-    x:DataType="vm:VisitViewModel">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+    x:DataType="vm:VisitViewModel"
+    BackgroundColor="{DynamicResource BasicPage}"
+    Shell.NavBarIsVisible="False">
+    <Grid BackgroundColor="{DynamicResource Basic}">
+        <Grid.GestureRecognizers>
+            <SwipeGestureRecognizer Command="{Binding NextCommand}" Direction="Left" />
+            <SwipeGestureRecognizer Command="{Binding PreCommand}" Direction="Right" />
+        </Grid.GestureRecognizers>
+        <Border
+            HeightRequest="{Binding Height}"
+            StrokeShape="RoundRectangle 0"
+            WidthRequest="{Binding Width}">
+            <Image Aspect="Fill" Source="{Binding Current}" />
+        </Border>
+    </Grid>
 </ContentPage>

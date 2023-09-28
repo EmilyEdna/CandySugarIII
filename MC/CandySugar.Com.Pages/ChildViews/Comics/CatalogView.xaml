@@ -4,10 +4,52 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Comics"
-    Title="CatalogView"
-    x:DataType="vm:CatalogViewModel">
-    <VerticalStackLayout>
-        <Label Text="预览页" />
-        <Button Command="{Binding Next}" Text="下一页" />
-    </VerticalStackLayout>
+    Title="预览"
+    x:DataType="vm:CatalogViewModel"
+    BackgroundColor="{DynamicResource BasicContainer}"
+    Shell.BackgroundColor="{DynamicResource BasicPage}">
+    <Grid RowDefinitions="Auto,*">
+        <Border Stroke="{DynamicResource PotoBrushSafe}">
+            <Grid ColumnDefinitions="Auto,*">
+                <Border
+                    HeightRequest="130"
+                    StrokeShape="RoundRectangle 0"
+                    WidthRequest="90">
+                    <Image Aspect="Fill" Source="{Binding Result.Cover}" />
+                </Border>
+                <StackLayout Grid.Column="1" VerticalOptions="StartAndExpand">
+                    <Label
+                        Margin="10,0,0,0"
+                        LineBreakMode="WordWrap"
+                        Text="{Binding Result.Name}"
+                        TextColor="{DynamicResource Basic}" />
+                </StackLayout>
+            </Grid>
+        </Border>
+        <CollectionView
+            Grid.Row="1"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsSource="{Binding Preview}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    HorizontalItemSpacing="1"
+                    Orientation="Vertical"
+                    Span="4"
+                    VerticalItemSpacing="1" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        HeightRequest="120"
+                        StrokeShape="RoundRectangle 0"
+                        WidthRequest="80">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:CatalogViewModel}}}" CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+                        <Image Aspect="Fill" Source="{Binding .}" />
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

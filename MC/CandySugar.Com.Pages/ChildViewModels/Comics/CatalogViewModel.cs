@@ -1,21 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using CandySugar.Com.Library;
 using CandySugar.Com.Pages.ChildViews.Comics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Sdk.Component.Vip.Comic.sdk;
+using Sdk.Component.Vip.Comic.sdk.ViewModel;
+using Sdk.Component.Vip.Comic.sdk.ViewModel.Enums;
+using Sdk.Component.Vip.Comic.sdk.ViewModel.Request;
+using Sdk.Component.Vip.Comic.sdk.ViewModel.Response;
 
 namespace CandySugar.Com.Pages.ChildViewModels.Comics
 {
-    public class CatalogViewModel : ObservableObject
+    public partial class CatalogViewModel : ObservableObject, IQueryAttributable
     {
-        public RelayCommand Next => new(NextF);
-        async void NextF()
+
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VisitView)]);
+            Result = (SearchElementResult)query["Param"];
+            PreviewAsync();
         }
+        #region Field
+
+        #endregion
+
+        #region Property
+        [ObservableProperty]
+        private SearchElementResult _Result;
+        [ObservableProperty]
+        private ObservableCollection<string> _Preview;
+        [ObservableProperty]
+        private ObservableCollection<string> _View;
+        #endregion
+
+        #region Method
+        private async void PreviewAsync()
+        {
+            try
+            {
+                var result = (await ComicFactory.Comic(opt =>
+                {
+                    opt.RequestParam = new Input
+                    {
+
+                        ComicType = ComicEnum.View,
+                        Preview = new ComicPreview
+                        {
+                            Route = Result.Route
+                        }
+                    };
+                }).RunsAsync()).ViewResult;
+                View = new ObservableCollection<string>(result.Views);
+                Preview = new ObservableCollection<string>(result.Previews);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.Info();
+            }
+        }
+        private async void Next(string input)
+        {
+            var Index = Preview.ToList().FindIndex(t => t.Equals(input));
+            await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(VisitView)]}?Index={Index}&Param={View.ToList()}");
+        }
+        #endregion
+
+        #region Command
+        public RelayCommand<string> WatchCommand => new(Next);
+        #endregion
     }
 }
