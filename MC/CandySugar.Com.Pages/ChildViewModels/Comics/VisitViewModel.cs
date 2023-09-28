@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace CandySugar.Com.Pages.ViewModels
+namespace CandySugar.Com.Pages.ChildViewModels.Comics
 {
-    public class RootViewModel: ObservableObject
+    public class VisitViewModel: ObservableObject
     {
     }
 }

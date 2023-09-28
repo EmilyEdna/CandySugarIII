@@ -32,7 +32,20 @@
 		</Reference>
 	</ItemGroup>
 
+
 	<ItemGroup>
+	  <Compile Update="ChildViews\Comics\VisitView.xaml.cs">
+	    <DependentUpon>VisitView.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="ChildViews\Comics\CatalogView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ChildViews\Comics\VisitView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ChildViews\Novels\ChapterView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

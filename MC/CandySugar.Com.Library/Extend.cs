@@ -32,5 +32,19 @@ namespace CandySugar.Com.Library
             HttpEvent.HttpActionEvent = new((Client, Ex) => Ex.Message.Info());
             return builder;
         }
+
+        public static Dictionary<string, string> RouteMap = new()
+        {
+             {"RootView","//RootView" },
+             {"RifanView","//RifanView" },
+             {"NovelView","//NovelView" },
+             {"ComicView","//ComicView" },
+
+             {"ChapterView","//NovelView/ChapterView" },
+             {"ReaderView","//NovelView/ChapterView/ReaderView" },
+
+             {"CatalogView","//ComicView/CatalogView" },
+             {"VisitView","//ComicView/CatalogView/VisitView" },
+         };
     }
 }

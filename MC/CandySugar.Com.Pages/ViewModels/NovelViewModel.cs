@@ -123,7 +123,7 @@ namespace CandySugar.Com.Pages.ViewModels
         }
         private async void GotoChapter(string Name, string Route, int Type)
         {
-            await Shell.Current.GoToAsync($"{nameof(ChapterView)}?Type={Type}&Name={Name}&Route={Route}");
+            await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(ChapterView)]}?Type={Type}&Name={Name}&Route={Route}");
         }
         #endregion
 

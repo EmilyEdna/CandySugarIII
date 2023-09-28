@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CandySugar.Com.Pages.Views.ComicView"
+    x:Class="CandySugar.Com.Pages.ChildViews.Comics.CatalogView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels"
-    Title="Comic"
-    x:DataType="vm:ComicViewModel">
+    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Comics"
+    Title="CatalogView"
+    x:DataType="vm:CatalogViewModel">
     <VerticalStackLayout>
-        <Label Text="首页" />
+        <Label Text="预览页" />
         <Button Command="{Binding Next}" Text="下一页" />
     </VerticalStackLayout>
 </ContentPage>

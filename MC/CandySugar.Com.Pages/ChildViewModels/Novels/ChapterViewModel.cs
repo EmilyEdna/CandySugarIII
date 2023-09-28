@@ -63,7 +63,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
         #region Command
         public RelayCommand<string> ReaderCommand => new(async input =>
         {
-            await Shell.Current.GoToAsync($"{nameof(ReaderView)}?Type={(int)Platform}&Route={input}");
+            await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(ReaderView)]}?Type={(int)Platform}&Route={input}");
         });
         #endregion
     }
