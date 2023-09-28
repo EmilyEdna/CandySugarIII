@@ -16,7 +16,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\CandySugar.Com.Library\CandySugar.Com.Library.csproj" />
+	  <ProjectReference Include="..\CandySugar.Com.Service\CandySugar.Com.Service.csproj" />
 	</ItemGroup>
 
 

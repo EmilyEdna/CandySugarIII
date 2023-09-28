@@ -14,7 +14,6 @@ namespace CandySugar.Com.Pages.ViewModels
 {
     public partial class ComicViewModel : ObservableObject
     {
-
         public ComicViewModel()
         {
             Page = 1;

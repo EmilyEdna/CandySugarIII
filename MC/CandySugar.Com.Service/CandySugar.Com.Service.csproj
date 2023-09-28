@@ -13,13 +13,7 @@
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
-		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="2.0.0" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.52" />
-		<PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.21.6" />
-		<PackageReference Include="sqlite-net-pcl" Version="1.9.141-beta" />
-		<PackageReference Include="XExten.Advance" Version="2.2.0.1" />
+	  <ProjectReference Include="..\CandySugar.Com.Library\CandySugar.Com.Library.csproj" />
 	</ItemGroup>
 
 </Project>
