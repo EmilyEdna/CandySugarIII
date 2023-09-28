@@ -64,7 +64,7 @@ namespace CandySugar.Com.Pages.ViewModels
         }
         private async void Next(SearchElementResult Model)
         {
-            await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(CatalogView)]}?Param={Model}");
+            await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CatalogView)], new Dictionary<string, object> { { "Param", Model } });
         }
         #endregion
 
@@ -80,7 +80,7 @@ namespace CandySugar.Com.Pages.ViewModels
             if (Page <= Total)
                 SearchAsync();
         });
-        public RelayCommand<SearchElementResult> PreivewCommand =>new (Next);
+        public RelayCommand<SearchElementResult> PreivewCommand => new(Next);
         #endregion
 
 

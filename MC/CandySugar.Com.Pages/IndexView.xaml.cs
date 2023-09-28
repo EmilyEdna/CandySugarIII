@@ -12,5 +12,13 @@ public partial class IndexView : Shell
         {
             Routing.RegisterRoute(Extend.RouteMap[item.Name], item);
         });
+
+        this.Appearing += InitEvent;
+    }
+
+    private async void InitEvent(object sender, EventArgs e)
+    {
+        await Permissions.RequestAsync<Permissions.StorageWrite>();
+        await Permissions.RequestAsync<Permissions.StorageRead>();
     }
 }

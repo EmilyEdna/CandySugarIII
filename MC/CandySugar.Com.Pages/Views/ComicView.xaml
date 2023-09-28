@@ -33,7 +33,7 @@
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding PreivewCommand, Source={RelativeSource AncestorType={x:Type vm:ComicViewModel}}}" CommandParameter="{Binding .}" />
                     </Border.GestureRecognizers>
-                    <Grid ColumnDefinitions="Auto,*">
+                    <Grid BackgroundColor="{DynamicResource BasicContainer}" ColumnDefinitions="Auto,*">
                         <Border
                             HeightRequest="130"
                             StrokeShape="RoundRectangle 0"

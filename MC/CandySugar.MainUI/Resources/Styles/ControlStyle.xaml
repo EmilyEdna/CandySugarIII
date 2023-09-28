@@ -22,7 +22,7 @@
         <VerticalStackLayout>
             <Label
                 Margin="30,10,0,0"
-                FontSize="25"
+                FontSize="20"
                 HorizontalOptions="Start"
                 Text="{Binding Title}"
                 TextColor="{DynamicResource Basic}" />

@@ -7,7 +7,7 @@
     x:DataType="vm:VisitViewModel"
     BackgroundColor="{DynamicResource BasicPage}"
     Shell.NavBarIsVisible="False">
-    <Grid BackgroundColor="{DynamicResource Basic}">
+    <Grid BackgroundColor="{DynamicResource BasicPage}">
         <Grid.GestureRecognizers>
             <SwipeGestureRecognizer Command="{Binding NextCommand}" Direction="Left" />
             <SwipeGestureRecognizer Command="{Binding PreCommand}" Direction="Right" />

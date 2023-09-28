@@ -61,7 +61,9 @@ namespace CandySugar.Com.Pages.ChildViewModels.Comics
         private async void Next(string input)
         {
             var Index = Preview.ToList().FindIndex(t => t.Equals(input));
-            await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(VisitView)]}?Index={Index}&Param={View.ToList()}");
+            await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VisitView)], new Dictionary<string, object> {
+                { "Index",Index},{"Param" ,Preview.ToList() }
+            });
         }
         private async void Insert(SearchElementResult result)
         {

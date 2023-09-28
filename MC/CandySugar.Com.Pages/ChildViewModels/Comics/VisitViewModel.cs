@@ -12,10 +12,17 @@ namespace CandySugar.Com.Pages.ChildViewModels.Comics
 {
     public partial class VisitViewModel : ObservableObject, IQueryAttributable
     {
+        public VisitViewModel()
+        {
+            Height = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 250;
+            Width = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 25;
+        }
+
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             Index = query["Index"].ToString().AsInt();
             Views = new ObservableCollection<string>((List<string>)query["Param"]);
+            Current = Views[Index];
         }
 
         #region Property

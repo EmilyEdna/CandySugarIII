@@ -10,7 +10,7 @@
     Shell.BackgroundColor="{DynamicResource BasicPage}">
     <Grid RowDefinitions="Auto,*">
         <Border Stroke="{DynamicResource PotoBrushSafe}">
-            <Grid ColumnDefinitions="Auto,*">
+            <Grid BackgroundColor="{DynamicResource BasicContainer}" ColumnDefinitions="Auto,*">
                 <Border
                     HeightRequest="130"
                     StrokeShape="RoundRectangle 0"
