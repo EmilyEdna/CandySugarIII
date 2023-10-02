@@ -30,7 +30,7 @@ namespace CandySugar.Com.Library.FFMPegFactory
         }
         public FMArgs InputFile(string args)
         {
-            sb.Append($" -i {args} ");
+            sb.Append($" -i \"{args}\" ");
             return this;
         }
         public FMArgs AudioCodec(string args)
