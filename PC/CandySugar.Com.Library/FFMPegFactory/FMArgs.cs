@@ -83,7 +83,7 @@ namespace CandySugar.Com.Library.FFMPegFactory
             if (args.Length > 0)
                 args.ForArrayEach<string>(item =>
                 {
-                    if (item.IsNullOrEmpty()) sb.Append($" {item} ");
+                    if (!item.IsNullOrEmpty()) sb.Append($" {item} ");
                 });
             return this;
         }

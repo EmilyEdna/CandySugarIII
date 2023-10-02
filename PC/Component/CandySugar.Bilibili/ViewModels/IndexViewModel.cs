@@ -84,6 +84,11 @@
                 var res = await DataResult.VideoDash.M4Video(Path.Combine(SyncStatic.CreateDir(Catalog), $"{InfoResult.BVID}.mp4"));
                 if (res)
                 {
+                    var Pattern = "[\\|/|*/|?/|</|>/|/|:/|\\\\/|//|\"]";
+                    if (InfoResult.Title.Any(t => Special.Contains(t.ToString())))
+                        InfoResult.Title = Regex.Replace(InfoResult.Title, Pattern, "_");
+                    else
+                        InfoResult.Title = InfoResult.Title;
                     File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp4"), Path.Combine(Catalog, $"{InfoResult.Title}.mp4"));
                     Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
                 }
@@ -97,6 +102,11 @@
                 var res = await DataResult.AudioDash.M4Audio(Path.Combine(SyncStatic.CreateDir(Catalog), $"{InfoResult.BVID}.mp3"));
                 if (res)
                 {
+                    var Pattern = "[\\|/|*/|?/|</|>/|/|:/|\\\\/|//|\"]";
+                    if (InfoResult.Title.Any(t => Special.Contains(t.ToString())))
+                        InfoResult.Title = Regex.Replace(InfoResult.Title, Pattern, "_");
+                    else
+                        InfoResult.Title = InfoResult.Title;
                     File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp3"), Path.Combine(Catalog, $"{InfoResult.Title}.mp3"));
                     Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
                 }
