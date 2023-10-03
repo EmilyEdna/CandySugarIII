@@ -28,7 +28,7 @@ namespace CandySugar.Anime.View
             {
                 this.Width = width;
                 this.Height = height - 35 <= 0 ? 0 : height - 35;
-                if (width >= SystemParameters.PrimaryScreenWidth) Columns = 8;
+                if (width >= SystemParameters.PrimaryScreenWidth) Columns = 6;
                 else Columns = 5;
             });
             WeakReferenceMessenger.Default.Register<MessageNotify>(this, (recip, notify) =>
