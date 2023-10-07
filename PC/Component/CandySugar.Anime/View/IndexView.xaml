@@ -79,15 +79,11 @@
                                         Margin="10,0"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Bottom">
-                                        <TextBlock
+                                        <Label
                                             HorizontalAlignment="Right"
-                                            Foreground="Black"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Year}" />
-                                        <TextBlock
-                                            Foreground="Black"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Update}" />
+                                            Content="{Binding Year}"
+                                            Style="{DynamicResource LabelStyle}" />
+                                        <Label Content="{Binding Update}" Style="{DynamicResource LabelStyle}" />
                                     </StackPanel>
                                 </Grid>
                                 <Grid Grid.Row="1">
@@ -115,7 +111,7 @@
                     <TranslateTransform X="310" />
                 </TransformGroup>
             </Grid.RenderTransform>
-            <Rectangle Fill="#301e90ff" StrokeThickness="0">
+            <Rectangle Fill="#50bddfff">
                 <Rectangle.Effect>
                     <DropShadowEffect
                         BlurRadius="15"
@@ -125,10 +121,15 @@
             </Rectangle>
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="35" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <StackPanel Margin="12,12,0,0" HorizontalAlignment="Left">
+                <Button Click="CloseNavEvent" Style="{DynamicResource Close}" />
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="12,0,0,0"
+                    HorizontalAlignment="Left">
                     <Image
                         Width="220"
                         Height="300"
@@ -150,7 +151,7 @@
                         TextTrimming="CharacterEllipsis" />
                 </StackPanel>
                 <ListBox
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Margin="12,5,0,0"
                     ItemsSource="{Binding DetailResult.ElementResults}"
                     Style="{DynamicResource CandyListBoxStyle}">

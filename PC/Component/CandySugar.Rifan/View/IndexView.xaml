@@ -545,7 +545,7 @@
                     <TranslateTransform X="310" />
                 </TransformGroup>
             </Grid.RenderTransform>
-            <Rectangle Fill="#301e90ff" StrokeThickness="0">
+            <Rectangle Fill="#50bddfff" StrokeThickness="0">
                 <Rectangle.Effect>
                     <DropShadowEffect
                         BlurRadius="15"

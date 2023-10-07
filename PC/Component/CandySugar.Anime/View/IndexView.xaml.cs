@@ -37,5 +37,10 @@ namespace CandySugar.Anime.View
                 else BarClose.Begin();
             });
         }
+
+        private void CloseNavEvent(object sender, RoutedEventArgs e)
+        {
+            BarClose.Begin();
+        }
     }
 }

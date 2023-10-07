@@ -1,6 +1,8 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
+using CommunityToolkit.Mvvm.Input;
+using XExten.Advance.LinqFramework;
 
 namespace CandySugar.Anime.ViewModels
 {
@@ -9,13 +11,18 @@ namespace CandySugar.Anime.ViewModels
         private object LockObject = new object();
         public IndexViewModel()
         {
-            OnInit();
+            GenericDelegate.SearchAction = new(SearchHandler);
+            if (this.Keyword.IsNullOrEmpty())
+                OnInit();
         }
 
         #region Field
         private int Total;
         private int PageIndex = 1;
         private string Route;
+        private string Keyword;
+        private int SearchPageIndex = 1;
+        private int SearchTotal;
         #endregion
 
         #region Property
@@ -133,6 +140,74 @@ namespace CandySugar.Anime.ViewModels
                 }
             });
         }
+        /// <summary>
+        /// 搜索
+        /// </summary>
+        private void OnSearch()
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    var Proxy = Module.IocModule.Proxy;
+                    var result = (await CartFactory.Car(opt =>
+                     {
+                         opt.RequestParam = new Input
+                         {
+                             ProxyIP = Proxy.IP,
+                             ProxyPort = Proxy.Port,
+                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                             CartType = CartEnum.Search,
+                             Search = new CartSearch
+                             {
+                                 Keyword = this.Keyword
+                             }
+                         };
+                     }).RunsAsync()).SearchResult;
+                    SearchTotal = result.Total;
+                    InitResult = new ObservableCollection<CartInitElementResult>(result.ElementResults.ToMapest<List<CartInitElementResult>>());
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, "");
+                    ErrorNotify();
+                }
+            });
+        }
+        /// <summary>
+        /// 加载更多检索结果
+        /// </summary>
+        private void OnLoadMoreSearch()
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    var Proxy = Module.IocModule.Proxy;
+                    var result = (await CartFactory.Car(opt =>
+                    {
+                        opt.RequestParam = new Input
+                        {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
+                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                            CartType = CartEnum.Search,
+                            Search = new CartSearch
+                            {
+                                Keyword = this.Keyword
+                            }
+                        };
+                    }).RunsAsync()).SearchResult;
+                    BindingOperations.EnableCollectionSynchronization(InitResult, LockObject);
+                    Application.Current.Dispatcher.Invoke(() => result.ElementResults.ToMapest<List<CartInitElementResult>>().ForEach(InitResult.Add));
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, "");
+                    ErrorNotify();
+                }
+            });
+        }
         private void ErrorNotify()
         {
             Application.Current.Dispatcher.Invoke(() =>
@@ -146,12 +221,23 @@ namespace CandySugar.Anime.ViewModels
         /// <summary>
         /// 加载更多
         /// </summary>
-        public RelayCommand<ScrollChangedEventArgs> ScrollCommand => new(obj=>
+        public RelayCommand<ScrollChangedEventArgs> ScrollCommand => new(obj =>
         {
-            if (PageIndex <= Total && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+            if (this.Keyword.IsNullOrEmpty())
             {
-                PageIndex += 1;
-                OnLoadMoreInit();
+                if (PageIndex <= Total && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+                {
+                    PageIndex += 1;
+                    OnLoadMoreInit();
+                }
+            }
+            else
+            {
+                if (SearchPageIndex <= SearchTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+                {
+                    SearchPageIndex += 1;
+                    OnLoadMoreSearch();
+                }
             }
         });
 
@@ -159,7 +245,7 @@ namespace CandySugar.Anime.ViewModels
         {
             Route = route;
             OnDetail();
-            WeakReferenceMessenger.Default.Send(new MessageNotify { ControlParam=true});
+            WeakReferenceMessenger.Default.Send(new MessageNotify { ControlParam = true });
         }
 
         public void WatchCommand(CartDetailElementResult element)
@@ -172,6 +258,20 @@ namespace CandySugar.Anime.ViewModels
                     Route = element.Play
                 }
             }.Show();
+        }
+        #endregion
+
+        #region ExternalCalls
+        /// <summary>
+        /// 检索数据
+        /// </summary>
+        /// <param name="keyword"></param>
+        private void SearchHandler(string keyword)
+        {
+            this.Keyword = keyword;
+            SearchPageIndex = 1;
+            if (!this.Keyword.IsNullOrEmpty())
+                OnSearch();
         }
         #endregion
     }

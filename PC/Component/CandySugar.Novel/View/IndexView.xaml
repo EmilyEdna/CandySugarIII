@@ -178,16 +178,14 @@
             <Grid x:Name="PopMenuContent">
                 <Rectangle
                     Margin="3"
-                    Fill="#60FDD3D3"
+                    Fill="#50bddfff"
                     RadiusX="3"
                     RadiusY="3">
                     <Rectangle.Effect>
                         <DropShadowEffect
                             BlurRadius="15"
-                            Direction="0"
-                            RenderingBias="Quality"
-                            ShadowDepth="1"
-                            Color="#FFBBBBBB" />
+                            Direction="300"
+                            Opacity="0.3" />
                     </Rectangle.Effect>
                 </Rectangle>
                 <ListBox

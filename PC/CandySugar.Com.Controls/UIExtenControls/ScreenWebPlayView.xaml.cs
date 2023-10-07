@@ -19,6 +19,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
         private void Window_Closed(object sender, EventArgs e)
         {
             ScreenKeep.RestoreForCurrentThread();
+            this.WebPlayer.Dispose();
             this.Close();
         }
     }

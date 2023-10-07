@@ -16,6 +16,6 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
-        <vw:WebView2 Source="{Binding Route}" />
+        <vw:WebView2 x:Name="WebPlayer" Source="{Binding Route}" />
     </Grid>
 </Window>
