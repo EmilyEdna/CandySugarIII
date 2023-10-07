@@ -55,6 +55,9 @@
 	  <MauiXaml Update="IndexView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\AnimeView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\ComicView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

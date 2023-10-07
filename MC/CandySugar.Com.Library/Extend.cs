@@ -39,6 +39,7 @@ namespace CandySugar.Com.Library
              {"RifanView","//RifanView" },
              {"NovelView","//NovelView" },
              {"ComicView","//ComicView" },
+             {"AnimeView","//AnimeView" },
 
              {"ChapterView","//NovelView/ChapterView" },
              {"ReaderView","//NovelView/ChapterView/ReaderView" },
