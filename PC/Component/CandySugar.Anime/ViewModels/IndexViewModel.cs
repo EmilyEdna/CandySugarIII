@@ -175,6 +175,48 @@ namespace CandySugar.Anime.ViewModels
             });
         }
         /// <summary>
+        /// 获取真实播放地址
+        /// </summary>
+        private void OnPlay(string args) {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    var Proxy = Module.IocModule.Proxy;
+                    var result = (await CartFactory.Car(opt =>
+                    {
+                        opt.RequestParam = new Input
+                        {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
+                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                            CartType = CartEnum.Play,
+                            Play = new CartPlay
+                            { 
+                              Route= args
+                            }
+                        };
+                    }).RunsAsync()).PlayResult.PlayRoute;
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        WeakReferenceMessenger.Default.Send(new MessageNotify { ControlParam = false });
+                        new ScreenWebPlayView
+                        {
+                            DataContext = new ScreenWebPlayViewModel
+                            {
+                                Route = result
+                            }
+                        }.Show();
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, "");
+                    ErrorNotify();
+                }
+            });
+        }
+        /// <summary>
         /// 加载更多检索结果
         /// </summary>
         private void OnLoadMoreSearch()
@@ -248,17 +290,8 @@ namespace CandySugar.Anime.ViewModels
             WeakReferenceMessenger.Default.Send(new MessageNotify { ControlParam = true });
         }
 
-        public void WatchCommand(CartDetailElementResult element)
-        {
-            WeakReferenceMessenger.Default.Send(new MessageNotify { ControlParam = false });
-            new ScreenWebPlayView
-            {
-                DataContext = new ScreenWebPlayViewModel
-                {
-                    Route = element.Play
-                }
-            }.Show();
-        }
+        public void WatchCommand(CartDetailElementResult element) => OnPlay(element.Play);
+
         #endregion
 
         #region ExternalCalls
