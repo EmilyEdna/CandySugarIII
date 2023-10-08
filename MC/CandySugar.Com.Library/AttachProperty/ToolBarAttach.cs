@@ -36,7 +36,7 @@ namespace CandySugar.Com.Library
                         CommandParameter = RouteProperty.GetValue(item).ToString(),
                         Command = ((dynamic)page.BindingContext).CatalogCommand
                     });
-                }
+                }        
             }
         }
     }
