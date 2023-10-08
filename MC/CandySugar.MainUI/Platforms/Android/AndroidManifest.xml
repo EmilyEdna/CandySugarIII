@@ -1,12 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="github.emilyedna.candy" android:versionCode="1">
-	<application android:allowBackup="true"  android:requestLegacyExternalStorage="true"	android:icon="@mipmap/appicon" android:supportsRtl="true" android:label="Candy"  android:usesCleartextTraffic="true">
-		<provider  android:name="androidx.core.content.FileProvider"
-		   android:authorities="github.emilyedna.fileprovider"
-		   android:exported="false"
-		   android:grantUriPermissions="true">
-			<meta-data android:name="android.support.FILE_PROVIDER_PATHS"
-							 android:resource="@drawable/filepaths" />
+	<application android:allowBackup="true" android:requestLegacyExternalStorage="true" android:icon="@mipmap/appicon" android:supportsRtl="true" android:label="Candy" android:usesCleartextTraffic="true">
+		<provider android:name="androidx.core.content.FileProvider" android:authorities="github.emilyedna.fileprovider" android:exported="false" android:grantUriPermissions="true">
+			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@drawable/filepaths" />
 		</provider>
 	</application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -18,5 +14,5 @@
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 	<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-	<uses-sdk android:minSdkVersion="29" android:targetSdkVersion="29" />
+	<uses-sdk android:minSdkVersion="33" android:targetSdkVersion="33" />
 </manifest>
