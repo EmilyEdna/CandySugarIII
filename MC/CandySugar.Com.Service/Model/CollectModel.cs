@@ -16,5 +16,9 @@ namespace CandySugar.Com.Service
         public string Name { get; set; }
         public string Route { get; set; }
         public string Hash { get; set; }
+        /// <summary>
+        /// 公用参数字段
+        /// </summary>
+        public string Commom { get; set; }
     }
 }

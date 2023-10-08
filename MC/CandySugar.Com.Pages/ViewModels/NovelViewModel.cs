@@ -121,9 +121,9 @@ namespace CandySugar.Com.Pages.ViewModels
                 ex.Message.Info();
             }
         }
-        private async void Next(string Name, string Route, int Type)
+        private async void Next(string Name, string Route,string Cover, int Type)
         {
-            await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(ChapterView)]}?Type={Type}&Name={Name}&Route={Route}");
+            await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(ChapterView)]}?Type={Type}&Name={Name}&Route={Route}&Cover={Cover}");
         }
         #endregion
 
@@ -153,8 +153,8 @@ namespace CandySugar.Com.Pages.ViewModels
             if (QueryKey.IsNullOrEmpty()) return;
             Application.Current.Dispatcher.DispatchAsync(SearchAsync);
         });
-        public RelayCommand<NovelCategoryElementResult> TypeOneCommand => new(input => Next(input.BookName, input.Route, 1));
-        public RelayCommand<NovelCategoryElementResult> TypeTwoCommand => new(input => Next(input.BookName, input.Route, 2));
+        public RelayCommand<NovelCategoryElementResult> TypeOneCommand => new(input => Next(input.BookName, input.Route, input.Cover, 1));
+        public RelayCommand<NovelCategoryElementResult> TypeTwoCommand => new(input => Next(input.BookName, input.Route, input.Cover, 2));
         #endregion
 
     }

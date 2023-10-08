@@ -9,6 +9,9 @@ using XExten.Advance.LinqFramework;
 using System.Web;
 using CommunityToolkit.Mvvm.Input;
 using CandySugar.Com.Pages.ChildViews.Novels;
+using XExten.Advance.IocFramework;
+using CandySugar.Com.Service;
+using static Android.Provider.Contacts.Intents;
 
 namespace CandySugar.Com.Pages.ChildViewModels.Novels
 {
@@ -19,6 +22,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
             Platform = (PlatformEnum)query["Type"].ToString().AsInt();
             BookName = HttpUtility.UrlDecode(query["Name"].ToString());
             Route = query["Route"].ToString();
+            Insert(BookName, Route, query["Cover"].ToString(), ((int)Platform).ToString());
             Application.Current.Dispatcher.DispatchAsync(ChapterAsync);
         }
         #region Field
@@ -34,6 +38,18 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
         #endregion
 
         #region Method
+        private async void Insert(string Name,string Route,string Cover,string Common)
+        {
+            await IocDependency.Resolve<ICandyService>().Add(new CollectModel
+            {
+                Category = 3,
+                Cover = Cover,
+                Name = Name,
+                Route = Route,
+                Commom= Common
+            });
+        }
+
         private async void ChapterAsync()
         {
             try
