@@ -96,7 +96,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Animes
         #endregion
 
         #region Command
-        public RelayCommand<string> PlayCommand => new(PlayAsync);
+        public RelayCommand<string> PlayCommand => new(args=>Application.Current.Dispatcher.DispatchAsync(()=>PlayAsync(args)));
         #endregion
     }
 }
