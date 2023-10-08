@@ -48,22 +48,24 @@
             ItemSizingStrategy="MeasureAllItems"
             ItemsSource="{Binding DetailResult.ElementResults}">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+                <GridItemsLayout
+                    HorizontalItemSpacing="1"
+                    Orientation="Vertical"
+                    Span="4"
+                    VerticalItemSpacing="1" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="sdk:CartDetailElementResult">
                     <Grid>
-                        <Label
+                        <Button
+                            Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:CollectViewModel}}}"
+                            CommandParameter="{Binding Play}"
                             FontSize="18"
                             HorizontalOptions="StartAndExpand"
                             LineBreakMode="WordWrap"
                             Text="{Binding Collect}"
                             TextColor="{DynamicResource Basic}"
-                            VerticalOptions="CenterAndExpand">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:CollectViewModel}}}" CommandParameter="{Binding Play}" />
-                            </Label.GestureRecognizers>
-                        </Label>
+                            VerticalOptions="CenterAndExpand" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

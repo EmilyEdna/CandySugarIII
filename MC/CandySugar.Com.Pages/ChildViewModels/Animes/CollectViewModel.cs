@@ -64,6 +64,31 @@ namespace CandySugar.Com.Pages.ChildViewModels.Animes
             }
         }
 
+        public async void PlayAsync(string input)
+        {
+            try
+            {
+                var Route = (await CartFactory.Car(opt =>
+                {
+                    opt.RequestParam = new Input
+                    {
+
+                        CartType = CartEnum.Play,
+                        CacheSpan = 5,
+                        Play = new CartPlay
+                        {
+                            Route = input,
+                        }
+                    };
+                }).RunsAsync()).PlayResult.PlayRoute;
+                Next(Route);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.Info();
+            }
+        }
+
         private async void Next(string input)
         {
             await Shell.Current.GoToAsync(Extend.RouteMap[nameof(PlayView)], new Dictionary<string, object> { { "Route", input } });
@@ -71,7 +96,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Animes
         #endregion
 
         #region Command
-        public RelayCommand<string> PlayCommand => new(Next);
+        public RelayCommand<string> PlayCommand => new(PlayAsync);
         #endregion
     }
 }
