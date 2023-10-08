@@ -72,13 +72,13 @@ namespace CandySugar.Com.Pages.ViewModels
         public RelayCommand QueryCommand => new(() =>
         {
             if (QueryKey.IsNullOrEmpty()) return;
-            SearchAsync();
+            Application.Current.Dispatcher.DispatchAsync(SearchAsync);
         });
         public RelayCommand MoreCommand => new(() =>
         {
             Page += 1;
             if (Page <= Total)
-                SearchAsync();
+                Application.Current.Dispatcher.DispatchAsync(SearchAsync);
         });
         public RelayCommand<SearchElementResult> PreivewCommand => new(Next);
         #endregion

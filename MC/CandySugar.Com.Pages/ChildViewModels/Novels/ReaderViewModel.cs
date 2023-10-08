@@ -15,7 +15,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
         {
             Platform = (PlatformEnum)query["Type"].ToString().AsInt();
             Route = query["Route"].ToString();
-            ReaderAsync();
+            Application.Current.Dispatcher.DispatchAsync(ReaderAsync);
         }
 
         #region Field

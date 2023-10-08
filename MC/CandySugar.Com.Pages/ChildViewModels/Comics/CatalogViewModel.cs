@@ -21,7 +21,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Comics
         {
             Result = (SearchElementResult)query["Param"];
             Insert(Result);
-            PreviewAsync();
+            Application.Current.Dispatcher.DispatchAsync(PreviewAsync);
         }
 
         #region Property

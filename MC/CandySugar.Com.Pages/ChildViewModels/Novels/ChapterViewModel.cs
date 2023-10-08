@@ -19,7 +19,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
             Platform = (PlatformEnum)query["Type"].ToString().AsInt();
             BookName = HttpUtility.UrlDecode(query["Name"].ToString());
             Route = query["Route"].ToString();
-            ChapterAsync();
+            Application.Current.Dispatcher.DispatchAsync(ChapterAsync);
         }
         #region Field
         private PlatformEnum Platform;

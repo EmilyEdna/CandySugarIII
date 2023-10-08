@@ -17,7 +17,7 @@ namespace CandySugar.Com.Pages.ViewModels
         public NovelViewModel()
         {
             QueryIndex = CateIndex = 1;
-            InitAsync();
+            Application.Current.Dispatcher.DispatchAsync(InitAsync);
         }
 
         #region Field
@@ -131,7 +131,7 @@ namespace CandySugar.Com.Pages.ViewModels
         public RelayCommand<string> CatalogCommand => new(Input =>
         {
             CateRoute = Input;
-            CategoryAsync();
+            Application.Current.Dispatcher.DispatchAsync(CategoryAsync);
         });
         public RelayCommand MoreCommand => new(() =>
         {
@@ -139,19 +139,19 @@ namespace CandySugar.Com.Pages.ViewModels
             {
                 CateIndex += 1;
                 if (CateIndex <= CateTotal)
-                    CategoryAsync();
+                    Application.Current.Dispatcher.DispatchAsync(CategoryAsync);
             }
             else
             {
                 QueryIndex += 1;
                 if (QueryIndex <= QueryTotal)
-                    SearchAsync();
+                    Application.Current.Dispatcher.DispatchAsync(SearchAsync);
             }
         });
         public RelayCommand QueryCommand => new(() =>
         {
             if (QueryKey.IsNullOrEmpty()) return;
-            SearchAsync();
+            Application.Current.Dispatcher.DispatchAsync(SearchAsync);
         });
         public RelayCommand<NovelCategoryElementResult> TypeOneCommand => new(input => Next(input.BookName, input.Route, 1));
         public RelayCommand<NovelCategoryElementResult> TypeTwoCommand => new(input => Next(input.BookName, input.Route, 2));
