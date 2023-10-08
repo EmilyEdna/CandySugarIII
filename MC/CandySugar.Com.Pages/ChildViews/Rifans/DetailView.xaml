@@ -10,7 +10,7 @@
     x:DataType="vm:DetailViewModel"
     BackgroundColor="{DynamicResource BasicContainer}"
     Shell.BackgroundColor="{DynamicResource BasicPage}">
-    <Grid RowDefinitions="Auto,10,*">
+    <Grid RowDefinitions="Auto,20,*">
         <Border Stroke="{DynamicResource PotoBrushSafe}">
             <Grid BackgroundColor="{DynamicResource BasicContainer}" ColumnDefinitions="Auto,*">
                 <Border
@@ -20,7 +20,7 @@
                     <Image Aspect="Fill" Source="{Binding Result.Cover}" />
                 </Border>
                 <CollectionView
-                    Grid.Row="1"
+                    Grid.Column="1"
                     Margin="2"
                     ItemSizingStrategy="MeasureAllItems"
                     ItemsSource="{Binding Current}">
@@ -54,6 +54,7 @@
         </Border>
         <Label
             Grid.Row="1"
+            Margin="5,0,0,0"
             Text="关联视频"
             TextColor="{DynamicResource Basic}" />
         <CollectionView

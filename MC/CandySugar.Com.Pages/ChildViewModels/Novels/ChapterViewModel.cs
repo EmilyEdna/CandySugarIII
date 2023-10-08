@@ -11,7 +11,6 @@ using CommunityToolkit.Mvvm.Input;
 using CandySugar.Com.Pages.ChildViews.Novels;
 using XExten.Advance.IocFramework;
 using CandySugar.Com.Service;
-using static Android.Provider.Contacts.Intents;
 
 namespace CandySugar.Com.Pages.ChildViewModels.Novels
 {
