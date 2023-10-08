@@ -46,6 +46,9 @@ namespace CandySugar.Com.Library
 
              {"CatalogView","//ComicView/CatalogView" },
              {"VisitView","//ComicView/CatalogView/VisitView" },
+
+             {"CollectView","//AnimeView/CollectView" },
+             {"PlayView","//AnimeView/CollectView/PlayView" },
          };
     }
 }

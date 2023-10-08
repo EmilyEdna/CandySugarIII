@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0;net7.0-android;</TargetFrameworks>
@@ -40,6 +40,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="ChildViews\Animes\CollectView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ChildViews\Animes\PlayView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ChildViews\Comics\CatalogView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

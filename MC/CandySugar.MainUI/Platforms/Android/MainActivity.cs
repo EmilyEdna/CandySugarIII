@@ -2,7 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
-using Android.Util;
+using XExten.Advance.Maui.MainActivity;
 
 namespace CandySugar.MainUI
 {
@@ -13,7 +13,7 @@ namespace CandySugar.MainUI
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            //CrossCurrentActivity.Current.Init(this, savedInstanceState);
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
 
             AndroidEnvironment.UnhandledExceptionRaiser += AndroidException;
         }

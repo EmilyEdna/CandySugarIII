@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Pages", "..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Library", "..\MC\CandySugar.Com.Library\CandySugar.Com.Library.csproj", "{90B75364-5BBD-4206-8276-66A113C301BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Service", "..\MC\CandySugar.Com.Service\CandySugar.Com.Service.csproj", "{6DD69B0F-98FC-46A7-A7F6-87D6F7B4B79A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Service", "..\MC\CandySugar.Com.Service\CandySugar.Com.Service.csproj", "{6DD69B0F-98FC-46A7-A7F6-87D6F7B4B79A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
