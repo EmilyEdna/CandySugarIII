@@ -14,7 +14,9 @@ namespace CandySugar.MainUI
         {
             base.OnCreate(savedInstanceState);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
-
+#if DEBUG
+            Android.Webkit.WebView.SetWebContentsDebuggingEnabled(true);
+#endif
             AndroidEnvironment.UnhandledExceptionRaiser += AndroidException;
         }
         protected override async void OnResume()

@@ -80,7 +80,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Animes
                         }
                     };
                 }).RunsAsync()).PlayResult.PlayRoute;
-                Next(Route.Trim());
+                Next(Route.Trim().Replace("https","http"));
             }
             catch (Exception ex)
             {
