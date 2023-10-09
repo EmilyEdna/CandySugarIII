@@ -64,7 +64,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Animes
             }
         }
 
-        public async void PlayAsync(string input)
+        public async  void PlayAsync(string input)
         {
             try
             {
@@ -72,7 +72,6 @@ namespace CandySugar.Com.Pages.ChildViewModels.Animes
                 {
                     opt.RequestParam = new Input
                     {
-
                         CartType = CartEnum.Play,
                         CacheSpan = 5,
                         Play = new CartPlay
@@ -81,7 +80,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Animes
                         }
                     };
                 }).RunsAsync()).PlayResult.PlayRoute;
-                Next(Route);
+                Next(Route.Trim());
             }
             catch (Exception ex)
             {
@@ -96,7 +95,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Animes
         #endregion
 
         #region Command
-        public RelayCommand<string> PlayCommand => new(args=>Application.Current.Dispatcher.DispatchAsync(()=>PlayAsync(args)));
+        public RelayCommand<string> PlayCommand => new(PlayAsync);
         #endregion
     }
 }
