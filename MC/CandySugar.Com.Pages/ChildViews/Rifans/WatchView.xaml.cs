@@ -14,6 +14,7 @@ public partial class WatchView : ContentPage
 		this.BindingContext = new WatchViewModel();
         this.Disappearing += delegate
         {
+            Media.Handler?.DisconnectHandler();
 #if ANDROID
             IBarStatus.Instance.ShowStatusBar();
             IDirection.Instance.LockOrientation(OrientationEnum.Portrait);

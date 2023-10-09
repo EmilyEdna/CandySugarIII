@@ -18,7 +18,7 @@
         Size="15"
         Color="{StaticResource BasicPage}" />
 
-    <DataTemplate x:Key="ShellFlyoutItem" x:DataType="FlyoutItem">
+    <DataTemplate x:Key="ShellFlyoutItem">
         <VerticalStackLayout>
             <Label
                 Margin="30,10,0,0"
