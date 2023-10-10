@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
 using CandySugar.Com.Library;
 using CandySugar.Com.Pages.ChildViews.Comics;
+using CandySugar.Com.Pages.Views;
 using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -10,6 +10,7 @@ using Sdk.Component.Vip.Comic.sdk.ViewModel;
 using Sdk.Component.Vip.Comic.sdk.ViewModel.Enums;
 using Sdk.Component.Vip.Comic.sdk.ViewModel.Request;
 using Sdk.Component.Vip.Comic.sdk.ViewModel.Response;
+
 using XExten.Advance.IocFramework;
 
 namespace CandySugar.Com.Pages.ChildViewModels.Comics
@@ -31,6 +32,8 @@ namespace CandySugar.Com.Pages.ChildViewModels.Comics
         private ObservableCollection<string> _Preview;
         [ObservableProperty]
         private ObservableCollection<string> _View;
+        [ObservableProperty]
+        private ObservableCollection<ViewTagRootResult> _Tags;
         #endregion
 
         #region Method
@@ -50,6 +53,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Comics
                         }
                     };
                 }).RunsAsync()).ViewResult;
+                Tags = new ObservableCollection<ViewTagRootResult>(result.TagResult);
                 View = new ObservableCollection<string>(result.Views);
                 Preview = new ObservableCollection<string>(result.Previews);
             }
@@ -75,10 +79,16 @@ namespace CandySugar.Com.Pages.ChildViewModels.Comics
                 Route = result.Route,
             });
         }
+        private async void Query(ViewTagElementResult input)
+        {
+            if (!input.Valid) return;
+            await Shell.Current.GoToAsync(Extend.RouteMap[nameof(ComicView)], new Dictionary<string, object> { {"Tag" ,input.Tag } });
+        }
         #endregion
 
         #region Command
         public RelayCommand<string> WatchCommand => new(Next);
+        public RelayCommand<ViewTagElementResult> LinkCommand => new(Query);
         #endregion
     }
 }

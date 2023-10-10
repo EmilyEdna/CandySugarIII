@@ -12,7 +12,7 @@ using XExten.Advance.LinqFramework;
 
 namespace CandySugar.Com.Pages.ViewModels
 {
-    public partial class ComicViewModel : ObservableObject
+    public partial class ComicViewModel : ObservableObject, IQueryAttributable
     {
         public ComicViewModel()
         {
@@ -65,6 +65,14 @@ namespace CandySugar.Com.Pages.ViewModels
         private async void Next(SearchElementResult Model)
         {
             await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CatalogView)], new Dictionary<string, object> { { "Param", Model } });
+        }
+
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            if (query.Count == 0) return;
+            QueryKey = query["Tag"].ToString();
+            Page = 1;
+            Application.Current.Dispatcher.DispatchAsync(SearchAsync);
         }
         #endregion
 
