@@ -12,7 +12,9 @@
     <CollectionView
         Margin="5"
         ItemSizingStrategy="MeasureAllItems"
-        ItemsSource="{Binding DetailResult.ElementResults}">
+        ItemsSource="{Binding ElementResult}"
+        RemainingItemsThreshold="0"
+        RemainingItemsThresholdReachedCommand="{Binding MoreCommand}">
         <CollectionView.ItemsLayout>
             <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
         </CollectionView.ItemsLayout>

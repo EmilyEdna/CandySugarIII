@@ -35,17 +35,11 @@
                         <DataTemplate x:DataType="model:PlayInfo">
                             <Grid Margin="2">
                                 <Button
-                                    BackgroundColor="Black"
+                                    Margin="0"
                                     Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:DetailViewModel}}}"
                                     CommandParameter="{Binding Route}"
-                                    FontSize="8"
-                                    HeightRequest="30"
-                                    HorizontalOptions="StartAndExpand"
-                                    LineBreakMode="WordWrap"
-                                    Text="{Binding Clarity}"
-                                    TextColor="{DynamicResource Basic}"
-                                    VerticalOptions="CenterAndExpand"
-                                    WidthRequest="80" />
+                                    Style="{DynamicResource ButtonStyle}"
+                                    Text="{Binding Clarity}" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

@@ -68,10 +68,14 @@
 
     <Style x:Key="ButtonStyle" TargetType="Button">
         <Setter Property="Margin" Value="10,0,0,0" />
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="HeightRequest" Value="32" />
-        <Setter Property="WidthRequest" Value="68" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontSize" Value="8" />
+        <Setter Property="HeightRequest" Value="30" />
+        <Setter Property="WidthRequest" Value="80" />
+        <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+        <Setter Property="BackgroundColor" Value="Black" />
+        <Setter Property="LineBreakMode" Value="WordWrap" />
+        <Setter Property="TextColor" Value="{DynamicResource Basic}" />
     </Style>
 
 </ResourceDictionary>

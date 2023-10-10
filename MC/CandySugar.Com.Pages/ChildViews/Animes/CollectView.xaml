@@ -58,17 +58,11 @@
                 <DataTemplate x:DataType="sdk:CartDetailElementResult">
                     <Grid Margin="2">
                         <Button
-                            BackgroundColor="Black"
+                            Margin="0"
                             Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:CollectViewModel}}}"
                             CommandParameter="{Binding Play}"
-                            FontSize="8"
-                            HeightRequest="30"
-                            HorizontalOptions="StartAndExpand"
-                            LineBreakMode="WordWrap"
-                            Text="{Binding Collect}"
-                            TextColor="{DynamicResource Basic}"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="80" />
+                            Style="{DynamicResource ButtonStyle}"
+                            Text="{Binding Collect}" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
