@@ -4,14 +4,14 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Novels"
-    Title="{Binding Element.ChapterName}"
+    Title="{Binding ChapterTitle}"
     x:DataType="vm:ReaderViewModel"
     BackgroundColor="{DynamicResource BasicContainer}"
     Shell.BackgroundColor="{DynamicResource BasicPage}">
     <CollectionView
         Margin="5"
         ItemSizingStrategy="MeasureAllItems"
-        ItemsSource="{Binding Element.Content}">
+        ItemsSource="{Binding Element}">
         <CollectionView.ItemsLayout>
             <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
         </CollectionView.ItemsLayout>

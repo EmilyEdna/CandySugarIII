@@ -6,6 +6,7 @@ using Sdk.Component.Novel.sdk;
 using XExten.Advance.LinqFramework;
 using Sdk.Component.Novel.sdk.ViewModel;
 using Sdk.Component.Novel.sdk.ViewModel.Response;
+using System.Collections.ObjectModel;
 
 namespace CandySugar.Com.Pages.ChildViewModels.Novels
 {
@@ -25,7 +26,9 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
 
         #region Property
         [ObservableProperty]
-        private NovelContentElementResult _Element;
+        private ObservableCollection<string> _Element;
+        [ObservableProperty]
+        private string _ChapterTitle;
         #endregion
 
         #region Method
@@ -33,7 +36,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
         {
             try
             {
-                Element = (await NovelFactory.Novel(opt =>
+                var result = (await NovelFactory.Novel(opt =>
                 {
                     opt.RequestParam = new Input
                     {
@@ -46,6 +49,8 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
                         }
                     };
                 }).RunsAsync()).ContentResult.ElementResult;
+                ChapterTitle = result.ChapterName;
+                Element = new ObservableCollection<string>(result.Content);
             }
             catch (Exception ex)
             {

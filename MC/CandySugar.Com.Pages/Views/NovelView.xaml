@@ -62,17 +62,17 @@
                             TextColor="{DynamicResource Basic}" />
                         <HorizontalStackLayout>
                             <Button
-                                Margin="0"
                                 Command="{Binding TypeOneCommand, Source={RelativeSource AncestorType={x:Type vm:NovelViewModel}}}"
                                 CommandParameter="{Binding .}"
                                 Style="{StaticResource ButtonStyle}"
-                                Text="铅笔源" />
+                                Text="铅笔源"
+                                WidthRequest="60" />
                             <Button
-                                Margin="0"
                                 Command="{Binding TypeTwoCommand, Source={RelativeSource AncestorType={x:Type vm:NovelViewModel}}}"
                                 CommandParameter="{Binding .}"
                                 Style="{StaticResource ButtonStyle}"
-                                Text="笔下源" />
+                                Text="笔下源"
+                                WidthRequest="60" />
                         </HorizontalStackLayout>
                     </StackLayout>
                 </Grid>
