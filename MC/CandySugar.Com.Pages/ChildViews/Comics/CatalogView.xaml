@@ -3,6 +3,7 @@
     x:Class="CandySugar.Com.Pages.ChildViews.Comics.CatalogView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Comics"
     Title="{Binding Result.Name}"
     x:DataType="vm:CatalogViewModel"
@@ -38,15 +39,16 @@
                     VerticalItemSpacing="1" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="sys:String">
                     <Border
                         HeightRequest="120"
                         StrokeShape="RoundRectangle 0"
                         WidthRequest="80">
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:CatalogViewModel}}}" CommandParameter="{Binding .}" />
-                        </Border.GestureRecognizers>
-                        <Image Aspect="Fill" Source="{Binding .}" />
+                        <Image Aspect="Fill" Source="{Binding .}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding WatchCommand, Source={RelativeSource AncestorType={x:Type vm:CatalogViewModel}}}" CommandParameter="{Binding .}" />
+                            </Image.GestureRecognizers>
+                        </Image>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

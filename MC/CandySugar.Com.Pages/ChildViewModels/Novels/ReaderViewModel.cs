@@ -16,7 +16,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
         {
             Platform = (PlatformEnum)query["Type"].ToString().AsInt();
             Route = query["Route"].ToString();
-            Application.Current.Dispatcher.DispatchAsync(ReaderAsync);
+            ReaderAsync();
         }
 
         #region Field
@@ -26,9 +26,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
 
         #region Property
         [ObservableProperty]
-        private ObservableCollection<string> _Element;
-        [ObservableProperty]
-        private string _ChapterTitle;
+        private NovelContentElementResult _Element;
         #endregion
 
         #region Method
@@ -36,7 +34,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
         {
             try
             {
-                var result = (await NovelFactory.Novel(opt =>
+                Element = (await NovelFactory.Novel(opt =>
                 {
                     opt.RequestParam = new Input
                     {
@@ -49,8 +47,6 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
                         }
                     };
                 }).RunsAsync()).ContentResult.ElementResult;
-                ChapterTitle = result.ChapterName;
-                Element = new ObservableCollection<string>(result.Content);
             }
             catch (Exception ex)
             {

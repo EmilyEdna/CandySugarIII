@@ -3,30 +3,38 @@
     x:Class="CandySugar.Com.Pages.ChildViews.Novels.ReaderView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Novels"
-    Title="{Binding ChapterTitle}"
     x:DataType="vm:ReaderViewModel"
     BackgroundColor="{DynamicResource BasicContainer}"
-    Shell.BackgroundColor="{DynamicResource BasicPage}">
-    <CollectionView
-        Margin="5"
-        ItemSizingStrategy="MeasureAllItems"
-        ItemsSource="{Binding Element}">
-        <CollectionView.ItemsLayout>
-            <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
-        </CollectionView.ItemsLayout>
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Grid Margin="0,5">
+    Shell.BackgroundColor="{DynamicResource BasicPage}"
+    Shell.NavBarIsVisible="False">
+    <Grid RowDefinitions="25,*">
+        <Label
+            FontSize="20"
+            HorizontalOptions="CenterAndExpand"
+            Text="{Binding Element.ChapterName}"
+            TextColor="{DynamicResource Basic}" />
+        <CollectionView
+            Grid.Row="1"
+            Margin="5"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsSource="{Binding Element.Content}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="sys:String">
                     <Label
+                        Margin="0,5"
                         FontSize="18"
                         HorizontalOptions="StartAndExpand"
                         LineBreakMode="WordWrap"
                         Text="{Binding .}"
                         TextColor="{DynamicResource Basic}"
                         VerticalOptions="CenterAndExpand" />
-                </Grid>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

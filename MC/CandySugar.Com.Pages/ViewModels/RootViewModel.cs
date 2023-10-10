@@ -68,7 +68,7 @@ namespace CandySugar.Com.Pages.ViewModels
             if (Model.Category == 2)
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(DetailView)], new Dictionary<string, object> { { "Param", new RifanSearch { Cover = Model.Cover, Name = Model.Name, Route = Model.Route } } });
             if (Model.Category == 3)
-                await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(ChapterView)]}?Type={Model.Commom}&Name={Model.Cover}&Route={Model.Route}&Cover={Model.Cover}");
+                await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(ChapterView)]}?Type={Model.Commom}&Name={Model.Name}&Route={Model.Route}&Cover={Model.Cover}");
             if (Model.Category == 4)
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CollectView)], new Dictionary<string, object> { { "Param", new CartInitElementResult { Title = Model.Name, Route = Model.Route, Cover = Model.Cover } } });
         }
