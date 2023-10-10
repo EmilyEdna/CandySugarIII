@@ -26,6 +26,9 @@ namespace CandySugar.Novel.ViewModels
         private int CatePageIndex = 1;
         private int SearchTotal;
         private int SearchPageIndex = 1;
+        private NovelDetailRootResult RootDetail;
+        private int RootChapterTotal;
+        private int RootChapterPageIndex = 1;
         #endregion
 
         #region Property
@@ -47,13 +50,12 @@ namespace CandySugar.Novel.ViewModels
             get => _CategoryResult;
             set => SetAndNotify(ref _CategoryResult, value);
         }
-        private NovelDetailRootResult _DetailResult;
-        public NovelDetailRootResult DetailResult
+        private ObservableCollection<NovelDetailElementResult> _DetailResult;
+        public ObservableCollection<NovelDetailElementResult> DetailResult
         {
             get => _DetailResult;
             set => SetAndNotify(ref _DetailResult, value);
         }
-
         #endregion
 
         #region Method
@@ -70,7 +72,7 @@ namespace CandySugar.Novel.ViewModels
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
-                            PlatformType= PlatformEnum.Pencil,
+                            PlatformType = PlatformEnum.Pencil,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Search,
                             Search = new NovelSearch { SearchKey = Keyword }
@@ -142,15 +144,16 @@ namespace CandySugar.Novel.ViewModels
                 }
             });
         }
-        private void OnInitChapter(Dictionary<string,object> element)
+        private void OnInitChapter(Dictionary<string, object> element)
         {
+            RootChapterPageIndex = 1;
             var Key = element["Key1"].AsString().AsInt();
             Task.Run(async () =>
             {
                 try
                 {
                     var Proxy = Module.IocModule.Proxy;
-                    DetailResult = (await NovelFactory.Novel(opt =>
+                    RootDetail = (await NovelFactory.Novel(opt =>
                     {
                         opt.RequestParam = new Input
                         {
@@ -161,11 +164,13 @@ namespace CandySugar.Novel.ViewModels
                             NovelType = NovelEnum.Detail,
                             Detail = new NovelDetail
                             {
-                                BookName= element["Key2"].AsString(),
+                                BookName = element["Key2"].AsString(),
                                 Route = element["Key3"].AsString()
                             }
                         };
                     }).RunsAsync()).DetailResult;
+                    RootChapterTotal = RootDetail.Total;
+                    DetailResult = new ObservableCollection<NovelDetailElementResult>(RootDetail.ElementResults);
                     WeakReferenceMessenger.Default.Send(new MessageNotify { SliderStatus = 1 });
                 }
                 catch (Exception ex)
@@ -242,6 +247,36 @@ namespace CandySugar.Novel.ViewModels
                 }
             });
         }
+        private async void OnLoadMoreChapter()
+        {
+            try
+            {
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await NovelFactory.Novel(opt =>
+                {
+                    opt.RequestParam = new Input
+                    {
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        PlatformType = PlatformEnum.Pendown,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        NovelType = NovelEnum.Chapter,
+                        Chapter = new NovelChapter
+                        {
+                            BookCode = RootDetail.BookCode,
+                            Page = RootChapterPageIndex
+                        }
+                    };
+                }).RunsAsync()).DetailResult.ElementResults;
+                BindingOperations.EnableCollectionSynchronization(DetailResult, LockObject);
+                Application.Current.Dispatcher.Invoke(() => result.ForEach(DetailResult.Add));
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
+        }
         private void ErrorNotify(string Info = "")
         {
             Application.Current.Dispatcher.Invoke(() =>
@@ -253,10 +288,22 @@ namespace CandySugar.Novel.ViewModels
 
         #region Command
 
+        public RelayCommand<ScrollChangedEventArgs> ChapterScrollCommand => new(obj =>
+        {
+            if (!RootDetail.BookCode.IsNullOrEmpty() && RootDetail.NovelPlatformType == PlatformEnum.Pendown)
+            {
+                if (RootChapterPageIndex <= RootChapterTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+                {
+                    RootChapterPageIndex += 1;
+                    Application.Current.Dispatcher.InvokeAsync(OnLoadMoreChapter);
+                }
+            }
+        });
+
         /// <summary>
         /// 加载更多
         /// </summary>
-        public RelayCommand<ScrollChangedEventArgs> ScrollCommand => new((obj) =>
+        public RelayCommand<ScrollChangedEventArgs> ScrollCommand => new(obj =>
         {
             if (HandleType == 1)
                 if (CatePageIndex <= CateTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
@@ -280,14 +327,14 @@ namespace CandySugar.Novel.ViewModels
             OnInitCategory();
         }
 
-        public void ChapterCommand(Dictionary<string,object> element)
+        public void ChapterCommand(Dictionary<string, object> element)
         {
             if (SliderStatus == 1)
                 WeakReferenceMessenger.Default.Send(new MessageNotify { SliderStatus = 2 });
             OnInitChapter(element);
         }
 
-        public void ViewCommand(Dictionary<string,object> element)
+        public void ViewCommand(Dictionary<string, object> element)
         {
             WeakReferenceMessenger.Default.Send(new MessageNotify
             {
