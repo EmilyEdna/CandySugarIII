@@ -1,5 +1,4 @@
 ﻿
-
 namespace CandySugar.Comic.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
@@ -50,6 +49,13 @@ namespace CandySugar.Comic.ViewModels
         {
             get => _View;
             set => SetAndNotify(ref _View, value);
+        }
+
+        private ObservableCollection<ViewTagRootResult> _TagResult;
+        public ObservableCollection<ViewTagRootResult> TagResult 
+        {
+            get => _TagResult;
+            set => SetAndNotify(ref _TagResult, value);
         }
         #endregion
 
@@ -108,6 +114,7 @@ namespace CandySugar.Comic.ViewModels
                             }
                         };
                     }).RunsAsync()).ViewResult;
+                    TagResult = new ObservableCollection<ViewTagRootResult>(result.TagResult);
                     View = new ObservableCollection<string>(result.Views);
                     Preview= new ObservableCollection<string>(result.Previews);
                 }
@@ -208,6 +215,12 @@ namespace CandySugar.Comic.ViewModels
                 NotifyType = NotifyType.ChangeControl,
                 ControlParam = View
             });
+        }
+
+        public void LinkCommand(ViewTagElementResult input)
+        {
+            if (!input.Valid) return;
+            SearchHandler(input.Tag);
         }
         #endregion
 

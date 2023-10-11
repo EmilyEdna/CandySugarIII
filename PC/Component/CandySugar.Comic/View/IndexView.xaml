@@ -226,6 +226,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <StackPanel
@@ -249,7 +250,53 @@
                         Content="关闭"
                         Style="{DynamicResource CandyButtonStyle}" />
                 </StackPanel>
-                <uc:CandyListBox Grid.Row="1" ItemsSource="{Binding Preview}">
+                <ListBox
+                    Grid.Row="1"
+                    ItemsSource="{Binding TagResult}"
+                    Style="{DynamicResource CandyListBoxStyle}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    VerticalAlignment="Top"
+                                    Style="{DynamicResource TextBlockStyle}"
+                                    Text="{Binding Category}" />
+                                <ListBox
+                                    Grid.Column="1"
+                                    ItemsSource="{Binding ElementResults}"
+                                    Style="{DynamicResource CandyListBoxStyle}">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="3" />
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Margin="0,0,0,5"
+                                                Style="{DynamicResource TextBlockStyle}"
+                                                Text="{Binding Tag}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                        <i:InvokeCommandAction
+                                                            s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                            Command="{s:Action LinkCommand}"
+                                                            CommandParameter="{Binding .}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <uc:CandyListBox Grid.Row="2" ItemsSource="{Binding Preview}">
                     <uc:CandyListBox.ItemTemplate>
                         <DataTemplate>
                             <uc:CandyBorder
