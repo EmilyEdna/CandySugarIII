@@ -151,6 +151,7 @@ namespace CandySugar.Com.Pages.ViewModels
         public RelayCommand QueryCommand => new(() =>
         {
             if (QueryKey.IsNullOrEmpty()) return;
+            QueryIndex = 1;
             Application.Current.Dispatcher.DispatchAsync(SearchAsync);
         });
         public RelayCommand<NovelCategoryElementResult> TypeOneCommand => new(input => Next(input.BookName, input.Route, input.Cover, 1));

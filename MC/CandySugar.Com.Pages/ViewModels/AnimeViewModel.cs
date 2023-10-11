@@ -106,6 +106,7 @@ namespace CandySugar.Com.Pages.ViewModels
         public RelayCommand QueryCommand => new(() =>
         {
             if (QueryKey.IsNullOrEmpty()) return;
+            QPage = 1;
             Application.Current.Dispatcher.DispatchAsync(SearchAsync);
         });
         public RelayCommand MoreCommand => new(() =>

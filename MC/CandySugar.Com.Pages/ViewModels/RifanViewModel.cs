@@ -89,6 +89,7 @@ namespace CandySugar.Com.Pages.ViewModels
         });
         public RelayCommand QueryCommand => new(() =>
         {
+            if (QueryKey.IsNullOrEmpty()) return;
             Page = 1;
             Application.Current.Dispatcher.DispatchAsync(InitAsync);
         });
