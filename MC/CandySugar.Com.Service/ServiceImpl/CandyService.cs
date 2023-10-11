@@ -1,4 +1,5 @@
-﻿using XExten.Advance.LinqFramework;
+﻿using CandySugar.Com.Library;
+using XExten.Advance.LinqFramework;
 
 namespace CandySugar.Com.Service
 {
@@ -12,7 +13,10 @@ namespace CandySugar.Com.Service
             var Db = DbContext.Lite;
             var check = await Db.Table<CollectModel>().FirstOrDefaultAsync(t => t.Hash == model.Hash);
             if (check == null)
+            {
                 await DbContext.Lite.InsertAsync(model);
+                "加入收藏成功".Info();
+            }
         }
 
         public async Task Delete(Guid Id)
