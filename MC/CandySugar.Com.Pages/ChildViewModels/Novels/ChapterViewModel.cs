@@ -23,10 +23,11 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
             Platform = (PlatformEnum)query["Type"].ToString().AsInt();
             BookName = HttpUtility.UrlDecode(query["Name"].ToString());
             Route = query["Route"].ToString();
-            Insert(BookName, Route, query["Cover"].ToString(), ((int)Platform).ToString());
+            Cover = query["Cover"].ToString();
             Application.Current.Dispatcher.DispatchAsync(ChapterAsync);
         }
         #region Field
+        private string Cover;
         private PlatformEnum Platform;
         private string Code = string.Empty;
         private string Route;
@@ -119,10 +120,12 @@ namespace CandySugar.Com.Pages.ChildViewModels.Novels
             if (!Code.IsNullOrEmpty() && Platform == PlatformEnum.Pendown)
             {
                 Page += 1;
-                if(Page<=Total)
+                if (Page <= Total)
                     Application.Current.Dispatcher.DispatchAsync(MoreChapterAsync);
             }
         });
+
+        public RelayCommand LoveCommand => new(()=>Insert(BookName, Route, Cover, ((int)Platform).ToString()));
         #endregion
     }
 }

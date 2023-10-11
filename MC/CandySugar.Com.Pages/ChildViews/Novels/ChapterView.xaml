@@ -9,31 +9,43 @@
     x:DataType="vm:ChapterViewModel"
     BackgroundColor="{DynamicResource BasicContainer}"
     Shell.BackgroundColor="{DynamicResource BasicPage}">
-    <CollectionView
-        Margin="5"
-        ItemSizingStrategy="MeasureAllItems"
-        ItemsSource="{Binding ElementResult}"
-        RemainingItemsThreshold="0"
-        RemainingItemsThresholdReachedCommand="{Binding MoreCommand}">
-        <CollectionView.ItemsLayout>
-            <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
-        </CollectionView.ItemsLayout>
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="sdk:NovelDetailElementResult">
-                <Grid>
-                    <Label
-                        FontSize="18"
-                        HorizontalOptions="StartAndExpand"
-                        LineBreakMode="WordWrap"
-                        Text="{Binding Chapter}"
-                        TextColor="{DynamicResource Basic}"
-                        VerticalOptions="CenterAndExpand">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ReaderCommand, Source={RelativeSource AncestorType={x:Type vm:ChapterViewModel}}}" CommandParameter="{Binding Route}" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </Grid>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+    <AbsoluteLayout>
+        <CollectionView
+            Margin="5"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsSource="{Binding ElementResult}"
+            RemainingItemsThreshold="0"
+            RemainingItemsThresholdReachedCommand="{Binding MoreCommand}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="sdk:NovelDetailElementResult">
+                    <Grid>
+                        <Label
+                            FontSize="18"
+                            HorizontalOptions="StartAndExpand"
+                            LineBreakMode="WordWrap"
+                            Text="{Binding Chapter}"
+                            TextColor="{DynamicResource Basic}"
+                            VerticalOptions="CenterAndExpand">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ReaderCommand, Source={RelativeSource AncestorType={x:Type vm:ChapterViewModel}}}" CommandParameter="{Binding Route}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <ImageButton
+            AbsoluteLayout.LayoutBounds="0.95,0.98"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            Command="{Binding LoveCommand}"
+            HeightRequest="30"
+            Source="heart.png"
+            WidthRequest="30" />
+    </AbsoluteLayout>
+
 </ContentPage>

@@ -19,31 +19,39 @@
                     WidthRequest="90">
                     <Image Aspect="Fill" Source="{Binding Result.Cover}" />
                 </Border>
-                <CollectionView
-                    Grid.Column="1"
-                    Margin="2"
-                    ItemSizingStrategy="MeasureAllItems"
-                    ItemsSource="{Binding Current}">
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout
-                            HorizontalItemSpacing="1"
-                            Orientation="Vertical"
-                            Span="3"
-                            VerticalItemSpacing="1" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:PlayInfo">
-                            <Grid Margin="2">
-                                <Button
-                                    Margin="0"
-                                    Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:DetailViewModel}}}"
-                                    CommandParameter="{Binding Route}"
-                                    Style="{DynamicResource ButtonStyle}"
-                                    Text="{Binding Clarity}" />
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                <StackLayout Grid.Column="1">
+                    <CollectionView
+                        Margin="2"
+                        ItemSizingStrategy="MeasureAllItems"
+                        ItemsSource="{Binding Current}">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout
+                                HorizontalItemSpacing="1"
+                                Orientation="Vertical"
+                                Span="3"
+                                VerticalItemSpacing="1" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:PlayInfo">
+                                <Grid Margin="2">
+                                    <Button
+                                        Margin="0"
+                                        Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:DetailViewModel}}}"
+                                        CommandParameter="{Binding Route}"
+                                        Style="{DynamicResource ButtonStyle}"
+                                        Text="{Binding Clarity}" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <ImageButton
+                        Margin="10,5,0,0"
+                        Command="{Binding LoveCommand}"
+                        HeightRequest="30"
+                        HorizontalOptions="StartAndExpand"
+                        Source="heart.png"
+                        WidthRequest="30" />
+                </StackLayout>
             </Grid>
         </Border>
         <Label

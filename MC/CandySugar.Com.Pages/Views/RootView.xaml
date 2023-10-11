@@ -6,7 +6,7 @@
     xmlns:lib="clr-namespace:CandySugar.Com.Library;assembly=CandySugar.Com.Library"
     xmlns:model="clr-namespace:CandySugar.Com.Service;assembly=CandySugar.Com.Service"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels"
-    Title="首页"
+    Title="收藏"
     lib:ToolBarAttach.BarSource="{Binding Bar}"
     x:DataType="vm:RootViewModel"
     BackgroundColor="{DynamicResource BasicContainer}"

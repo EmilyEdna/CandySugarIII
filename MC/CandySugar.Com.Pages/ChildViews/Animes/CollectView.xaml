@@ -39,6 +39,13 @@
                         LineBreakMode="WordWrap"
                         Text="{Binding DetailResult.Tag}"
                         TextColor="{DynamicResource Basic}" />
+                    <ImageButton
+                        Margin="10,5,0,0"
+                        Command="{Binding LoveCommand}"
+                        HeightRequest="30"
+                        HorizontalOptions="StartAndExpand"
+                        Source="heart.png"
+                        WidthRequest="30" />
                 </StackLayout>
             </Grid>
         </Border>

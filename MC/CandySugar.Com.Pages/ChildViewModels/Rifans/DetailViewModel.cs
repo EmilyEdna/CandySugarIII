@@ -20,7 +20,6 @@ namespace CandySugar.Com.Pages.ChildViewModels.Rifans
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             Result = (SearchElementResult)query["Param"];
-            Insert(Result);
             Application.Current.Dispatcher.DispatchAsync(PreviewAsync);
         }
         #region Property
@@ -87,6 +86,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Rifans
             Insert(Result);
             Application.Current.Dispatcher.DispatchAsync(PreviewAsync);
         });
+        public RelayCommand LoveCommand => new(() => Insert(Result));
         #endregion
     }
 }

@@ -10,7 +10,6 @@ using Sdk.Component.Vip.Comic.sdk.ViewModel;
 using Sdk.Component.Vip.Comic.sdk.ViewModel.Enums;
 using Sdk.Component.Vip.Comic.sdk.ViewModel.Request;
 using Sdk.Component.Vip.Comic.sdk.ViewModel.Response;
-
 using XExten.Advance.IocFramework;
 
 namespace CandySugar.Com.Pages.ChildViewModels.Comics
@@ -21,7 +20,6 @@ namespace CandySugar.Com.Pages.ChildViewModels.Comics
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             Result = (SearchElementResult)query["Param"];
-            Insert(Result);
             Application.Current.Dispatcher.DispatchAsync(PreviewAsync);
         }
 
@@ -89,6 +87,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Comics
         #region Command
         public RelayCommand<string> WatchCommand => new(Next);
         public RelayCommand<ViewTagElementResult> LinkCommand => new(Query);
+        public RelayCommand LoveCommand => new(() => Insert(Result));
         #endregion
     }
 }

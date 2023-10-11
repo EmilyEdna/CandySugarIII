@@ -16,7 +16,7 @@
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent
-            Title="首页"
+            Title="收藏"
             ContentTemplate="{DataTemplate page:RootView}"
             Route="RootView" />
         <ShellContent

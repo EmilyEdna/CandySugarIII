@@ -17,7 +17,6 @@ namespace CandySugar.Com.Pages.ChildViewModels.Animes
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             Result = (CartInitElementResult)query["Param"];
-            Insert(Result);
             Application.Current.Dispatcher.DispatchAsync(PreviewAsync);
         }
 
@@ -96,6 +95,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Animes
 
         #region Command
         public RelayCommand<string> PlayCommand => new(PlayAsync);
+        public RelayCommand LoveCommand => new(() => Insert(Result));
         #endregion
     }
 }
