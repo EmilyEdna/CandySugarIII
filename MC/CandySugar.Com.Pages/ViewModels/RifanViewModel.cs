@@ -23,7 +23,7 @@ namespace CandySugar.Com.Pages.ViewModels
                 new BarModel{ Name="里番",Route="2" },
                 new BarModel{ Name="Motion Anime",Route="3" },
                 new BarModel{ Name="3D动画",Route="4" },
-                new BarModel{ Name="Cosplay",Route="2" },
+                new BarModel{ Name="Cosplay",Route="5" },
             };
         }
         #region Field

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CandySugar.Com.Library;
+using CandySugar.Com.Library.Model;
 using CandySugar.Com.Pages.ChildViews.Animes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -17,12 +18,26 @@ namespace CandySugar.Com.Pages.ViewModels
         public AnimeViewModel()
         {
             Application.Current.Dispatcher.DispatchAsync(InitAsync);
+            Bar = new ObservableCollection<BarModel> { 
+             new BarModel{ Route="",Name="ALL" }
+            };
+            for (int Index = 0; Index <= 10; Index++)
+            {
+                var Year = (DateTime.Now.Year - Index).AsString();
+                Bar.Add(new BarModel
+                {
+                    Name = Year,
+                    Route= Year
+                });
+            }
+
         }
         #region Field
         private int Page = 1;
         private int Total;
         private int QPage = 1;
         private int QTotal;
+        private string Year=string.Empty;
         #endregion
 
         #region Property
@@ -30,6 +45,8 @@ namespace CandySugar.Com.Pages.ViewModels
         private string _QueryKey;
         [ObservableProperty]
         private ObservableCollection<CartInitElementResult> _InitResult;
+        [ObservableProperty]
+        private ObservableCollection<BarModel> _Bar;
         #endregion
 
         #region Method
@@ -46,6 +63,7 @@ namespace CandySugar.Com.Pages.ViewModels
                         CacheSpan = 5,
                         Init = new CartInit
                         {
+                            Year=Year,
                             Page = Page,
                         }
                     };
@@ -123,6 +141,11 @@ namespace CandySugar.Com.Pages.ViewModels
                 if (QPage <= QTotal)
                     Application.Current.Dispatcher.DispatchAsync(SearchAsync);
             }
+        });
+        public RelayCommand<string> CatalogCommand => new(obj => {
+            Year = obj;
+            Page = 1;
+            Application.Current.Dispatcher.DispatchAsync(InitAsync);
         });
         #endregion
     }
