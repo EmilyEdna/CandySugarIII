@@ -72,7 +72,7 @@
                                         s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
                                         ButtonType="Primary"
                                         Command="{s:Action ChapterCommand}"
-                                        Content="地址一"
+                                        Content="铅笔源"
                                         Style="{DynamicResource CandyButtonStyle}"
                                         Tag="1">
                                         <uc:CandyButton.CommandParameter>
@@ -88,7 +88,7 @@
                                         s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
                                         ButtonType="Primary"
                                         Command="{s:Action ChapterCommand}"
-                                        Content="地址二"
+                                        Content="笔下源"
                                         Style="{DynamicResource CandyButtonStyle}"
                                         Tag="2">
                                         <uc:CandyButton.CommandParameter>
@@ -146,7 +146,7 @@
                                     Style="{DynamicResource CandyTextBlockButtonStyle}">
                                     <Button.CommandParameter>
                                         <MultiBinding Converter="{StaticResource MultiConverter}">
-                                            <Binding ElementName="IndexViewCtrl" Path="DataContext.DetailResult.NovelPlatformType" />
+                                            <Binding ElementName="IndexViewCtrl" Path="DataContext.Platform" />
                                             <Binding Path="Route" />
                                         </MultiBinding>
                                     </Button.CommandParameter>

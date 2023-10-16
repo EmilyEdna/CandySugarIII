@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using XExten.Advance.NetFramework.Enums;
 
 namespace CandySugar.Novel.ViewModels
 {
@@ -32,6 +33,12 @@ namespace CandySugar.Novel.ViewModels
         #endregion
 
         #region Property
+        private PlatformEnum _Platform;
+        public PlatformEnum Platform
+        {
+            get => _Platform;
+            set => SetAndNotify(ref _Platform, value);
+        }
         private ObservableCollection<NovelSearchElementResult> _SearchResult;
         public ObservableCollection<NovelSearchElementResult> SearchResult
         {
@@ -170,6 +177,7 @@ namespace CandySugar.Novel.ViewModels
                         };
                     }).RunsAsync()).DetailResult;
                     RootChapterTotal = RootDetail.Total;
+                    Platform = RootDetail.NovelPlatformType.Value;
                     DetailResult = new ObservableCollection<NovelDetailElementResult>(RootDetail.ElementResults);
                     WeakReferenceMessenger.Default.Send(new MessageNotify { SliderStatus = 1 });
                 }
