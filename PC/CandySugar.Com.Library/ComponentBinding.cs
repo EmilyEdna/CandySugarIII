@@ -66,6 +66,7 @@ namespace CandySugar.Com.Library
             if (Model.BackgroudLocation.IsNullOrEmpty())
                 ForceRefreshOptionObjectModels();
             _OptionObjectModels = Model;
+            WeakReferenceMessenger.Default.Send(Model);
             ForceRefresh = false;
         }
     }
