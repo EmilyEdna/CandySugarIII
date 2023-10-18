@@ -83,7 +83,6 @@ namespace CandySugar.Com.Pages.ChildViewModels.Rifans
         public RelayCommand<WatchElementResult> LinkCommand => new(input =>
         {
             Result = input.ToMapest<SearchElementResult>();
-            Insert(Result);
             Application.Current.Dispatcher.DispatchAsync(PreviewAsync);
         });
         public RelayCommand LoveCommand => new(() => Insert(Result));
