@@ -66,7 +66,7 @@ namespace CandySugar.Com.Library.Mqtts
             };
             client.ApplicationMessageReceivedAsync += (e) =>
             {
-                var data = Encoding.Default.GetString(e.ApplicationMessage.Payload);
+                var data = Encoding.Default.GetString(e.ApplicationMessage.PayloadSegment.Array);
                 ReceiveMsg?.Invoke(data);
                 return Task.CompletedTask;
             };
