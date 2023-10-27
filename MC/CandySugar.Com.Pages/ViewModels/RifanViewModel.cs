@@ -13,7 +13,7 @@ using XExten.Advance.LinqFramework;
 
 namespace CandySugar.Com.Pages.ViewModels
 {
-    public partial class RifanViewModel : ObservableObject
+    public partial class RifanViewModel : ObservableObject, IQueryAttributable
     {
         public RifanViewModel()
         {
@@ -43,6 +43,15 @@ namespace CandySugar.Com.Pages.ViewModels
         #endregion
 
         #region Method
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            if (query.Count == 0) return;
+            QueryKey = query["Tag"].ToString();
+            QeuryType = (SearchEnum)query["Type"];
+            Page = 1;
+            Application.Current.Dispatcher.DispatchAsync(InitAsync);
+        }
+
         private async void InitAsync()
         {
             try
