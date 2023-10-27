@@ -556,6 +556,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <ListBox
@@ -579,8 +580,30 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <uc:CandyListBox
+                <ListBox
                     Grid.Row="1"
+                    Margin="12,0,0,0"
+                    ItemsSource="{Binding Tags}"
+                    Style="{DynamicResource CandyListBoxStyle}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="3" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <uc:CandyButton
+                                s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                ButtonType="Info"
+                                Command="{s:Action LinkSearchCommand}"
+                                CommandParameter="{Binding .}"
+                                Content="{Binding Key}"
+                                Style="{DynamicResource CandyButtonStyle}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <uc:CandyListBox
+                    Grid.Row="2"
                     Margin="-20,0,0,0"
                     ItemsSource="{Binding LinkResult}">
                     <uc:CandyListBox.ItemTemplate>

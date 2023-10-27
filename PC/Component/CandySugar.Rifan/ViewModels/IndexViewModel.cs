@@ -1,4 +1,6 @@
-﻿namespace CandySugar.Rifan.ViewModels
+﻿using System.Collections;
+
+namespace CandySugar.Rifan.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
@@ -89,6 +91,13 @@
         {
             get => _Current;
             set => SetAndNotify(ref _Current, value);
+        }
+
+        private Dictionary<string, SearchEnum> _Tags;
+        public Dictionary<string, SearchEnum> Tags
+        {
+            get => _Tags;
+            set => SetAndNotify(ref _Tags, value);
         }
         #endregion
 
@@ -489,6 +498,7 @@
                         Route = t.Value,
                         Name = element.Name
                     }));
+                    Tags = result.CurrentTag;
                     LinkResult = new ObservableCollection<SearchElementResult>(result.Results.ToMapest<List<SearchElementResult>>());
                 }
                 catch (Exception ex)
@@ -591,6 +601,24 @@
         {
             CollectResult.Remove(element);
             CollectResult.ToList().DeleteAndCreate("Rifan", FileTypes.Dat, "Rifan");
+        }
+
+        /// <summary>
+        /// 更具标签查询
+        /// </summary>
+        /// <param name="element"></param>
+        public void LinkSearchCommand(DictionaryEntry element)
+        {
+            var Change = (int)element.Value;
+            this.Keyword = element.Key.ToString();
+            if (Change == 2)
+                OnRifanInit();
+            if (Change == 3)
+                OnMotionInit();
+            if (Change == 4)
+                OnCubicInit();
+            if (Change == 5)
+                OnCosplayInit();
         }
         #endregion
 
