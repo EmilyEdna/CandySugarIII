@@ -607,7 +607,7 @@ namespace CandySugar.Rifan.ViewModels
         /// 更具标签查询
         /// </summary>
         /// <param name="element"></param>
-        public void LinkSearchCommand(DictionaryEntry element)
+        public void LinkSearchCommand(KeyValuePair<string,SearchEnum> element)
         {
             var Change = (int)element.Value;
             this.Keyword = element.Key.ToString();
