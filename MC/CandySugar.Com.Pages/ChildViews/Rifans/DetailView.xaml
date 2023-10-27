@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:model="clr-namespace:CandySugar.Com.Library.Model;assembly=CandySugar.Com.Library"
     xmlns:sdk="clr-namespace:Sdk.Component.Vip.Anime.sdk.ViewModel.Response;assembly=Sdk.Component.Vip"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Rifans"
     Title="{Binding Result.Name}"
     x:DataType="vm:DetailViewModel"
@@ -66,7 +67,7 @@
                             VerticalItemSpacing="5" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="sys:String">
                             <Grid Margin="2">
                                 <Button
                                     Margin="0"
