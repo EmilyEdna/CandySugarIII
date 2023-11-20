@@ -3,6 +3,7 @@ using CommunityToolkit.Maui.Core;
 using XExten.Advance.NetFramework;
 using XExten.Advance;
 using Platform = XExten.Advance.NetFramework.Enums.Platform;
+using XExten.Advance.InternalFramework.Email;
 
 namespace CandySugar.Com.Library
 {
@@ -30,6 +31,12 @@ namespace CandySugar.Com.Library
             NetFactoryExtension.RegisterNetFramework(1, Platform.Android);
             HttpEvent.RestActionEvent = new((Client, Ex) => Ex.Message.Info());
             HttpEvent.HttpActionEvent = new((Client, Ex) => Ex.Message.Info());
+            return builder;
+        }
+
+        public static MauiAppBuilder AddEmailHandler(this MauiAppBuilder builder)
+        {
+            EmailSetting.SetOption("smtp.qq.com", "847432003@qq.com", "odvbqicdusiobfed");
             return builder;
         }
 
