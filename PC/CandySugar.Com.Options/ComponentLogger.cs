@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XExten.Advance.InternalFramework.Email;
 
 namespace CandySugar.Com.Options
 {
@@ -21,6 +22,14 @@ namespace CandySugar.Com.Options
         public static Logger AddSdkLogger(this Logger logger)
         {
             SdkOption.EnableLog = true;
+            return logger;
+        }
+
+        public static Logger AddEmailLogger(this Logger logger)
+        {
+            SdkOption.EnableEmail = true;
+            SdkOption.AcceptEmail = "1575890051@qq.com";
+            EmailSetting.SetOption("smtp.qq.com", "847432003@qq.com", "odvbqicdusiobfed");
             return logger;
         }
     }

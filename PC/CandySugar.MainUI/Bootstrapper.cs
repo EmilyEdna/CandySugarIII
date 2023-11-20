@@ -33,7 +33,7 @@ namespace CandySugar.MainUI
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
                 .WriteTo.File(CommonHelper.LogPath, rollingInterval: RollingInterval.Day)
-                .CreateLogger().AddSdkLogger();
+                .CreateLogger().AddSdkLogger().AddEmailLogger();
             GlobalProxy.Instance.ChangeUseProxy();
             JsonReader.JsonRead(CommonHelper.OptionPath, CommonHelper.OptionFile);
             AssemblyLoader Loader = new(CommonHelper.AppPath);
