@@ -42,8 +42,7 @@
                                 Width="160"
                                 Height="240"
                                 Margin="5"
-                                BorderType="Primary"
-                                Style="{DynamicResource CandyBorderStyle}">
+                                BorderType="Primary">
                                 <Image
                                     Width="160"
                                     Height="240"
@@ -73,7 +72,6 @@
                                         ButtonType="Primary"
                                         Command="{s:Action ChapterCommand}"
                                         Content="铅笔源"
-                                        Style="{DynamicResource CandyButtonStyle}"
                                         Tag="1">
                                         <uc:CandyButton.CommandParameter>
                                             <MultiBinding Converter="{StaticResource MultiConverter}">
@@ -89,7 +87,6 @@
                                         ButtonType="Primary"
                                         Command="{s:Action ChapterCommand}"
                                         Content="笔下源"
-                                        Style="{DynamicResource CandyButtonStyle}"
                                         Tag="2">
                                         <uc:CandyButton.CommandParameter>
                                             <MultiBinding Converter="{StaticResource MultiConverter}">
@@ -201,8 +198,7 @@
                                 ButtonType="Primary"
                                 Command="{s:Action ActiveCommand}"
                                 CommandParameter="{Binding Route}"
-                                Content="{Binding Name}"
-                                Style="{DynamicResource CandyButtonStyle}" />
+                                Content="{Binding Name}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

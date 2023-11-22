@@ -51,10 +51,7 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <uc:CandyBorder
-                                Margin="5"
-                                BorderType="Primary"
-                                Style="{DynamicResource CandyBorderStyle}">
+                            <uc:CandyBorder Margin="5" BorderType="Primary">
                                 <Image
                                     uc:ImageAttach.SourceAsync="{Binding Cover}"
                                     Stretch="None"
@@ -170,8 +167,7 @@
                                 ButtonType="Primary"
                                 Command="{s:Action ActiveCommand}"
                                 CommandParameter="{Binding Route}"
-                                Content="{Binding Name}"
-                                Style="{DynamicResource CandyButtonStyle}" />
+                                Content="{Binding Name}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

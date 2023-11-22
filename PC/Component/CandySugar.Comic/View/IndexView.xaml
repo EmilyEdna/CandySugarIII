@@ -48,8 +48,7 @@
                                   ElementName=IndexCtrl}"
                 Height="{c:Binding (Height-90),
                                    ElementName=IndexCtrl}"
-                BorderType="Info"
-                Style="{DynamicResource CandyBorderStyle}">
+                BorderType="Info">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
                         <TranslateTransform />
@@ -128,7 +127,6 @@
                 Height="{c:Binding (Height-90),
                                    ElementName=IndexCtrl}"
                 BorderType="Info"
-                Style="{DynamicResource CandyBorderStyle}"
                 Visibility="Hidden">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
@@ -240,15 +238,13 @@
                         ButtonType="Info"
                         Click="ColseEvent"
                         Command="{s:Action ViewCommand}"
-                        Content="查看"
-                        Style="{DynamicResource CandyButtonStyle}" />
+                        Content="查看" />
                     <uc:CandyButton
                         Width="55"
                         Margin="2,0"
                         ButtonType="Info"
                         Click="ColseEvent"
-                        Content="关闭"
-                        Style="{DynamicResource CandyButtonStyle}" />
+                        Content="关闭" />
                 </StackPanel>
                 <ListBox
                     Grid.Row="1"
@@ -302,8 +298,7 @@
                             <uc:CandyBorder
                                 Margin="3"
                                 BorderThickness="3"
-                                BorderType="Primary"
-                                Style="{DynamicResource CandyBorderStyle}">
+                                BorderType="Primary">
                                 <Image
                                     Source="{Binding .}"
                                     Stretch="Uniform"

@@ -64,8 +64,7 @@
                                   ElementName=IndexCtrl}"
                 Height="{c:Binding (Height-90),
                                    ElementName=IndexCtrl}"
-                BorderType="Info"
-                Style="{DynamicResource CandyBorderStyle}">
+                BorderType="Info">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
                         <TranslateTransform />
@@ -143,7 +142,6 @@
                 Height="{c:Binding (Height-90),
                                    ElementName=IndexCtrl}"
                 BorderType="Info"
-                Style="{DynamicResource CandyBorderStyle}"
                 Visibility="Hidden">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
@@ -222,7 +220,6 @@
                 Height="{c:Binding (Height-90),
                                    ElementName=IndexCtrl}"
                 BorderType="Info"
-                Style="{DynamicResource CandyBorderStyle}"
                 Visibility="Hidden">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
@@ -301,7 +298,6 @@
                 Height="{c:Binding (Height-90),
                                    ElementName=IndexCtrl}"
                 BorderType="Info"
-                Style="{DynamicResource CandyBorderStyle}"
                 Visibility="Hidden">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
@@ -380,7 +376,6 @@
                 Height="{c:Binding (Height-90),
                                    ElementName=IndexCtrl}"
                 BorderType="Info"
-                Style="{DynamicResource CandyBorderStyle}"
                 Visibility="Hidden">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
@@ -459,7 +454,6 @@
                 Height="{c:Binding (Height-90),
                                    ElementName=IndexCtrl}"
                 BorderType="Info"
-                Style="{DynamicResource CandyBorderStyle}"
                 Visibility="Hidden">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
@@ -575,8 +569,7 @@
                                 ButtonType="Info"
                                 Click="PlayClickEnvent"
                                 CommandParameter="{Binding .}"
-                                Content="{Binding Clarity}"
-                                Style="{DynamicResource CandyButtonStyle}" />
+                                Content="{Binding Clarity}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -597,8 +590,7 @@
                                 ButtonType="Info"
                                 Command="{s:Action LinkSearchCommand}"
                                 CommandParameter="{Binding .}"
-                                Content="{Binding Key}"
-                                Style="{DynamicResource CandyButtonStyle}" />
+                                Content="{Binding Key}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

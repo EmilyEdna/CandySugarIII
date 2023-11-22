@@ -11,6 +11,11 @@ namespace CandySugar.Com.Controls.ExtenControls
 {
     public class CandyButton : Button
     {
+        static CandyButton()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(CandyButton), new FrameworkPropertyMetadata(typeof(CandyButton)));
+        }
+
         public EButton ButtonType
         {
             get { return (EButton)GetValue(ButtonTypeProperty); }

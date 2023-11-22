@@ -11,6 +11,11 @@ namespace CandySugar.Com.Controls.ExtenControls
 {
     public class CandyBorder:Border
     {
+        static CandyBorder()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(CandyBorder), new FrameworkPropertyMetadata(typeof(CandyBorder)));
+        }
+
         public EButton BorderType
         {
             get { return (EButton)GetValue(BorderTypeProperty); }

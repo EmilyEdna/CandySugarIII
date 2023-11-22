@@ -49,7 +49,6 @@
                 Click="OpenCloseEvent"
                 Content="确定"
                 Foreground="Black"
-                Style="{DynamicResource CandyButtonStyle}"
                 TextOptions.TextFormattingMode="Display"
                 UseLayoutRounding="True" />
             <uc:CandyButton
@@ -59,7 +58,6 @@
                 Click="CloseEvent"
                 Content="取消"
                 Foreground="Black"
-                Style="{DynamicResource CandyButtonStyle}"
                 TextOptions.TextFormattingMode="Display"
                 UseLayoutRounding="True" />
         </Grid>

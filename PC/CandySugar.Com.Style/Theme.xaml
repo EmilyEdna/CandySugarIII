@@ -2,10 +2,15 @@
     x:Class="CandySugar.Com.Style.Theme"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:lib="http://lib.candy.com"
     xmlns:uc="http://ctrl.candy.com">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/CandySugar.Com.Controls;component/Themes/CandyBorderStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/CandySugar.Com.Controls;component/Themes/CandyButtonStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/CandySugar.Com.Controls;component/Themes/CandyImageStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
     <uc:NullConverter x:Key="NullConverter" />
     <uc:MultiConverter x:Key="MultiConverter" />
@@ -455,84 +460,6 @@
         </Setter>
     </Style>
 
-    <Style x:Key="CandyButtonStyle" TargetType="uc:CandyButton">
-        <Setter Property="Width" Value="100" />
-        <Setter Property="Height" Value="35" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Foreground" Value="White" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="uc:CandyButton">
-                    <uc:CandyBorder
-                        x:Name="Element"
-                        BorderBrush="Gray"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        BorderType="{TemplateBinding ButtonType}">
-                        <Border.Background>
-                            <SolidColorBrush Opacity=".6" Color=" DeepSkyBlue" />
-                        </Border.Background>
-                        <ContentPresenter
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Content="{TemplateBinding Content}" />
-                    </uc:CandyBorder>
-                    <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding BorderType, ElementName=Element}" Value="{x:Static lib:EButton.Primary}">
-                            <Setter TargetName="Element" Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Opacity=".6" Color="DeepSkyBlue" />
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding BorderType, ElementName=Element}" Value="{x:Static lib:EButton.Info}">
-                            <Setter TargetName="Element" Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Opacity=".6" Color="SkyBlue" />
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding BorderType, ElementName=Element}" Value="{x:Static lib:EButton.Success}">
-                            <Setter TargetName="Element" Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Opacity=".6" Color="LightGreen" />
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding BorderType, ElementName=Element}" Value="{x:Static lib:EButton.Warning}">
-                            <Setter TargetName="Element" Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Opacity=".6" Color="Tomato" />
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding BorderType, ElementName=Element}" Value="{x:Static lib:EButton.Error}">
-                            <Setter TargetName="Element" Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Opacity=".6" Color="DarkRed" />
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Element" Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Opacity=".6" Color="HotPink" />
-                                </Setter.Value>
-                            </Setter>
-                            <Setter TargetName="Element" Property="BorderBrush" Value="Black" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Element" Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Opacity=".6" Color="HotPink" />
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <Style x:Key="CandyFontButtonStyle" TargetType="Button">
         <Setter Property="Width" Value="30" />
         <Setter Property="Height" Value="30" />
@@ -787,50 +714,6 @@
         </Setter>
     </Style>
 
-    <!--#endregion-->
-
-    <!--#region Border-->
-
-    <Style x:Key="CandyBorderStyle" TargetType="uc:CandyBorder">
-        <Setter Property="BorderThickness" Value="1" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding BorderType, RelativeSource={RelativeSource Mode=Self}}" Value="{x:Static lib:EButton.Primary}">
-                <Setter Property="BorderBrush">
-                    <Setter.Value>
-                        <SolidColorBrush Opacity=".6" Color="DeepSkyBlue" />
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding BorderType, RelativeSource={RelativeSource Mode=Self}}" Value="{x:Static lib:EButton.Info}">
-                <Setter Property="BorderBrush">
-                    <Setter.Value>
-                        <SolidColorBrush Opacity=".6" Color="SkyBlue" />
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding BorderType, RelativeSource={RelativeSource Mode=Self}}" Value="{x:Static lib:EButton.Success}">
-                <Setter Property="BorderBrush">
-                    <Setter.Value>
-                        <SolidColorBrush Opacity=".6" Color="LightGreen" />
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding BorderType, RelativeSource={RelativeSource Mode=Self}}" Value="{x:Static lib:EButton.Warning}">
-                <Setter Property="BorderBrush">
-                    <Setter.Value>
-                        <SolidColorBrush Opacity=".6" Color="Tomato" />
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding BorderType, RelativeSource={RelativeSource Mode=Self}}" Value="{x:Static lib:EButton.Error}">
-                <Setter Property="BorderBrush">
-                    <Setter.Value>
-                        <SolidColorBrush Opacity=".6" Color="DarkRed" />
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
     <!--#endregion-->
 
     <!--#region ContextMenu-->
@@ -1211,4 +1094,5 @@
         </Setter>
     </Style>
     <!--#endregion-->
+
 </ResourceDictionary>

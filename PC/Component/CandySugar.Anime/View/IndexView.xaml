@@ -29,8 +29,7 @@
                               ElementName=AnimeIndexCtrl}"
             Height="{c:Binding (Height-90),
                                ElementName=AnimeIndexCtrl}"
-            BorderType="Info"
-            Style="{DynamicResource CandyBorderStyle}">
+            BorderType="Info">
             <uc:CandyBorder.RenderTransform>
                 <TransformGroup>
                     <TranslateTransform />
@@ -168,8 +167,7 @@
                                 ButtonType="Info"
                                 Command="{s:Action WatchCommand}"
                                 CommandParameter="{Binding .}"
-                                Content="{Binding Collect}"
-                                Style="{DynamicResource CandyButtonStyle}" />
+                                Content="{Binding Collect}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

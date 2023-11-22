@@ -92,8 +92,7 @@
                                 ButtonType="Primary"
                                 Command="{s:Action ActiveCommand}"
                                 CommandParameter="{Binding InstanceType}"
-                                Content="{Binding Name}"
-                                Style="{DynamicResource CandyButtonStyle}" />
+                                Content="{Binding Name}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

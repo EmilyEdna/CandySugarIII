@@ -32,21 +32,18 @@
                 s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
                 ButtonType="Info"
                 Command="{s:Action QeuryCommand}"
-                Content="获取视频"
-                Style="{DynamicResource CandyButtonStyle}" />
+                Content="获取视频" />
             <uc:CandyButton
                 s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
                 ButtonType="Success"
                 Command="{s:Action CookieCommand}"
-                Content="设置Cookie"
-                Style="{DynamicResource CandyButtonStyle}" />
+                Content="设置Cookie" />
         </StackPanel>
         <Grid Grid.Row="1">
             <uc:CandyBorder
                 Width="800"
                 Height="500"
                 BorderType="Info"
-                Style="{DynamicResource CandyBorderStyle}"
                 Visibility="{c:Binding '(InfoResult!=null?true:false)',
                                        FalseToVisibility=Collapsed}">
                 <Grid>
@@ -76,29 +73,25 @@
                     ButtonType="Primary"
                     Command="{s:Action HandleCommand}"
                     CommandParameter="1"
-                    Content="保存封面"
-                    Style="{DynamicResource CandyButtonStyle}" />
+                    Content="保存封面" />
                 <uc:CandyButton
                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
                     ButtonType="Success"
                     Command="{s:Action HandleCommand}"
                     CommandParameter="2"
-                    Content="保存视频"
-                    Style="{DynamicResource CandyButtonStyle}" />
+                    Content="保存视频" />
                 <uc:CandyButton
                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
                     ButtonType="Warning"
                     Command="{s:Action HandleCommand}"
                     CommandParameter="3"
-                    Content="保存音频"
-                    Style="{DynamicResource CandyButtonStyle}" />
+                    Content="保存音频" />
                 <uc:CandyButton
                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
                     ButtonType="Error"
                     Command="{s:Action HandleCommand}"
                     CommandParameter="4"
-                    Content="合并视音"
-                    Style="{DynamicResource CandyButtonStyle}" />
+                    Content="合并视音" />
             </UniformGrid>
         </StackPanel>
     </Grid>

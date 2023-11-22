@@ -267,8 +267,7 @@
                     Height="{c:Binding (Height*0.7),
                                        ElementName=IndexViewCtrl}"
                     Margin="0,0,0,70"
-                    BorderType="Info"
-                    Style="{DynamicResource CandyBorderStyle}">
+                    BorderType="Info">
                     <uc:CandyBorder.RenderTransform>
                         <TransformGroup>
                             <TranslateTransform />
@@ -348,7 +347,6 @@
                                        ElementName=IndexViewCtrl}"
                     Margin="0,0,0,70"
                     BorderType="Info"
-                    Style="{DynamicResource CandyBorderStyle}"
                     Visibility="Hidden">
                     <uc:CandyBorder.RenderTransform>
                         <TransformGroup>
@@ -388,7 +386,7 @@
                                             <ColumnDefinition Width="80" />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-                                        <uc:CandyBorder BorderType="Warning" Style="{DynamicResource CandyBorderStyle}">
+                                        <uc:CandyBorder BorderType="Warning">
                                             <Image
                                                 Width="80"
                                                 Height="80"
@@ -427,7 +425,6 @@
                                        ElementName=IndexViewCtrl}"
                     Margin="0,0,0,70"
                     BorderType="Info"
-                    Style="{DynamicResource CandyBorderStyle}"
                     Visibility="Hidden">
                     <uc:CandyBorder.RenderTransform>
                         <TransformGroup>
@@ -588,8 +585,7 @@
                                 ButtonType="Primary"
                                 Command="{s:Action ActiveCommand}"
                                 CommandParameter="{Binding Key}"
-                                Content="{Binding Value}"
-                                Style="{DynamicResource CandyButtonStyle}" />
+                                Content="{Binding Value}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

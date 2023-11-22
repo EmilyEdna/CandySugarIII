@@ -57,7 +57,7 @@
                 Height="{c:Binding (Height-90),
                                    ElementName=HavCtrl}"
                 BorderType="Info"
-                Style="{DynamicResource CandyBorderStyle}">
+               >
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
                         <TranslateTransform />
@@ -125,7 +125,7 @@
                 Height="{c:Binding (Height-90),
                                    ElementName=HavCtrl}"
                 BorderType="Info"
-                Style="{DynamicResource CandyBorderStyle}"
+               
                 Visibility="Hidden">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
@@ -194,7 +194,7 @@
                 Height="{c:Binding (Height-90),
                                    ElementName=HavCtrl}"
                 BorderType="Info"
-                Style="{DynamicResource CandyBorderStyle}"
+               
                 Visibility="Hidden">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
@@ -263,7 +263,7 @@
                 Height="{c:Binding (Height-90),
                                    ElementName=HavCtrl}"
                 BorderType="Info"
-                Style="{DynamicResource CandyBorderStyle}"
+               
                 Visibility="Hidden">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>

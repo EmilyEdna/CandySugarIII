@@ -1,0 +1,143 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:uc="clr-namespace:CandySugar.Com.Controls.ExtenControls">
+    <!--#region  Image-->
+    <Storyboard x:Key="Open">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_RECT" Storyboard.TargetProperty="Height">
+            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="100" />
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="Close">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_RECT" Storyboard.TargetProperty="Height">
+            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="100" />
+            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" />
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="OpenInfo">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_INFO" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)">
+            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="-90" />
+            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" />
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="CloseInfo">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_INFO" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)">
+            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="-90" />
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Style TargetType="uc:CandyImage">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="uc:CandyImage">
+                    <Grid>
+                        <Border
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                            <Grid>
+                                <Image
+                                    x:Name="PART_IMG"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    SnapsToDevicePixels="True"
+                                    Stretch="Uniform" />
+                                <Grid
+                                    x:Name="PART_RECT"
+                                    Width="{TemplateBinding Width}"
+                                    Height="0"
+                                    VerticalAlignment="Bottom">
+                                    <Rectangle
+                                        Width="{Binding Width, ElementName=PART_RECT, Mode=TwoWay}"
+                                        Height="{Binding Height, ElementName=PART_RECT, Mode=TwoWay}"
+                                        Fill="{TemplateBinding Fill}" />
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="25" />
+                                        </Grid.RowDefinitions>
+                                        <ContentPresenter ContentTemplate="{TemplateBinding ItemTemplate}" />
+                                        <Button x:Name="PART_BTN" Grid.Row="1">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Path
+                                                                    x:Name="PART_INFO"
+                                                                    Width="15"
+                                                                    Height="8"
+                                                                    Margin="0,0,15,0"
+                                                                    HorizontalAlignment="Right"
+                                                                    Data="M725.333333 426.666667L512 640 298.666667 426.666667z"
+                                                                    Fill="{TemplateBinding BorderBrush}"
+                                                                    RenderTransformOrigin="0.5,0.5"
+                                                                    Stretch="Fill"
+                                                                    Stroke="{TemplateBinding BorderBrush}">
+                                                                    <Path.RenderTransform>
+                                                                        <TransformGroup>
+                                                                            <RotateTransform Angle="-90" />
+                                                                        </TransformGroup>
+                                                                    </Path.RenderTransform>
+                                                                </Path>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Trigger.EnterActions>
+                                                                            <BeginStoryboard Storyboard="{DynamicResource OpenInfo}" />
+                                                                        </Trigger.EnterActions>
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <Path
+                            x:Name="PART_LOAD"
+                            Data="M834.7648 736.3584a5.632 5.632 0 1 0 11.264 0 5.632 5.632 0 0 0-11.264 0z m-124.16 128.1024a11.1616 11.1616 0 1 0 22.3744 0 11.1616 11.1616 0 0 0-22.3744 0z m-167.3216 65.8944a16.7936 16.7936 0 1 0 33.6384 0 16.7936 16.7936 0 0 0-33.6384 0zM363.1616 921.6a22.3744 22.3744 0 1 0 44.7488 0 22.3744 22.3744 0 0 0-44.7488 0z m-159.744-82.0224a28.0064 28.0064 0 1 0 55.9616 0 28.0064 28.0064 0 0 0-56.0128 0zM92.672 700.16a33.6384 33.6384 0 1 0 67.2256 0 33.6384 33.6384 0 0 0-67.2256 0zM51.2 528.9984a39.168 39.168 0 1 0 78.336 0 39.168 39.168 0 0 0-78.336 0z m34.1504-170.0864a44.8 44.8 0 1 0 89.6 0 44.8 44.8 0 0 0-89.6 0zM187.904 221.7984a50.432 50.432 0 1 0 100.864 0 50.432 50.432 0 0 0-100.864 0zM338.432 143.36a55.9616 55.9616 0 1 0 111.9232 0 55.9616 55.9616 0 0 0-111.9744 0z m169.0112-4.9152a61.5936 61.5936 0 1 0 123.2384 0 61.5936 61.5936 0 0 0-123.2384 0z m154.7776 69.632a67.1744 67.1744 0 1 0 134.3488 0 67.1744 67.1744 0 0 0-134.3488 0z m110.0288 130.816a72.8064 72.8064 0 1 0 145.5616 0 72.8064 72.8064 0 0 0-145.5616 0z m43.7248 169.472a78.3872 78.3872 0 1 0 156.8256 0 78.3872 78.3872 0 0 0-156.8256 0z"
+                            Fill="{TemplateBinding BorderBrush}"
+                            RenderTransformOrigin="0.5,0.5"
+                            Stretch="Fill"
+                            Stroke="{TemplateBinding BorderBrush}"
+                            Visibility="Collapsed">
+                            <Path.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform />
+                                </TransformGroup>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{DynamicResource Open}" />
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{DynamicResource Close}" />
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Complete, RelativeSource={RelativeSource Mode=Self}}" Value="false">
+                            <Setter TargetName="PART_LOAD" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Complete, RelativeSource={RelativeSource Mode=Self}}" Value="true">
+                            <Setter TargetName="PART_LOAD" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+</ResourceDictionary>
