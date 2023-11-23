@@ -2,18 +2,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:uc="clr-namespace:CandySugar.Com.Controls.ExtenControls">
+
     <!--#region  Image-->
     <Storyboard x:Key="Open">
         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_RECT" Storyboard.TargetProperty="Height">
             <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0" />
             <EasingDoubleKeyFrame KeyTime="0:0:1" Value="100" />
-        </DoubleAnimationUsingKeyFrames>
-    </Storyboard>
-
-    <Storyboard x:Key="OpenInfo">
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_INFO" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)">
-            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="-90" />
-            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0" />
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
 
@@ -49,7 +43,10 @@
                                             <RowDefinition Height="25" />
                                         </Grid.RowDefinitions>
                                         <ContentPresenter ContentTemplate="{TemplateBinding ItemTemplate}" />
-                                        <Button x:Name="PART_BTN" Grid.Row="1">
+                                        <Button
+                                            x:Name="PART_BTN"
+                                            Grid.Row="1"
+                                            Visibility="{TemplateBinding PopupBtn}">
                                             <Button.Style>
                                                 <Style TargetType="Button">
                                                     <Setter Property="Template">
@@ -72,13 +69,6 @@
                                                                         </TransformGroup>
                                                                     </Path.RenderTransform>
                                                                 </Path>
-                                                                <ControlTemplate.Triggers>
-                                                                    <Trigger Property="IsPressed" Value="True">
-                                                                        <Trigger.EnterActions>
-                                                                            <BeginStoryboard Storyboard="{DynamicResource OpenInfo}" />
-                                                                        </Trigger.EnterActions>
-                                                                    </Trigger>
-                                                                </ControlTemplate.Triggers>
                                                             </ControlTemplate>
                                                         </Setter.Value>
                                                     </Setter>

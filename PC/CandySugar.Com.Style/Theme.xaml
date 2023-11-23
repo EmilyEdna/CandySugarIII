@@ -73,9 +73,9 @@
                                 x:Name="ImageBackgroud"
                                 Width="{TemplateBinding Width}"
                                 Height="{TemplateBinding Height}">
-                                <Grid.Background>
+                                <!--<Grid.Background>
                                     <ImageBrush ImageSource="/CandySugar.Com.Style;component/Resources/Backgroud.jpg" />
-                                </Grid.Background>
+                                </Grid.Background>-->
                             </Grid>
                             <Grid>
                                 <Rectangle

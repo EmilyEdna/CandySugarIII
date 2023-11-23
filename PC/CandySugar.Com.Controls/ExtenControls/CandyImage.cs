@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Windows;
@@ -21,20 +22,20 @@ namespace CandySugar.Com.Controls.ExtenControls
         static CandyImage()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CandyImage), new FrameworkPropertyMetadata(typeof(CandyImage)));
-            ItemsQueue = new Queue<Tuple<CandyImage, string>>();
             AutoEvent = new AutoResetEvent(true);
             (new Thread(new ThreadStart(DownMethod))
             {
                 IsBackground = true
             }).Start();
         }
-        private static Queue<Tuple<CandyImage, string>> ItemsQueue;
+
         private static AutoResetEvent AutoEvent;
         private static Image PART_IMG;
         private static Path PART_LOAD;
         private static Button PART_BTN;
         private static Path PART_INFO;
         private static Grid PART_RECT;
+        private static Trigger TRIGGER;
         public override void OnApplyTemplate()
         {
             PART_IMG = (Image)this.Template.FindName("PART_IMG", this);
@@ -45,13 +46,24 @@ namespace CandySugar.Com.Controls.ExtenControls
             PART_LOAD.Height = LoadingThickness.Height;
             PART_LOAD.Width = LoadingThickness.Width;
 
+            TRIGGER = (Trigger)this.Template.Triggers.Where(t => t is Trigger).First();
+            if (PopupBtn == Visibility.Collapsed)
+            {
+                TRIGGER.ExitActions.Add(new BeginStoryboard
+                {
+                    Storyboard = CloseAnime()
+                });
+            }
             LoadAnime();
         }
 
         #region Anime
+        private static Storyboard LoadAnimeStory;
+        private static Storyboard CollapsedStory;
+        private static Storyboard ExpendStory;
         private void LoadAnime()
         {
-            Storyboard storyboard = new Storyboard();
+            LoadAnimeStory = new Storyboard();
             DoubleAnimationUsingKeyFrames KF = new DoubleAnimationUsingKeyFrames
             {
                 RepeatBehavior = RepeatBehavior.Forever
@@ -61,28 +73,43 @@ namespace CandySugar.Com.Controls.ExtenControls
             KF.KeyFrames.Add(new EasingDoubleKeyFrame(0, TimeSpan.FromSeconds(0)));
             KF.KeyFrames.Add(new EasingDoubleKeyFrame(180, TimeSpan.FromSeconds(1)));
             KF.KeyFrames.Add(new EasingDoubleKeyFrame(360, TimeSpan.FromSeconds(2)));
-            storyboard.Children.Add(KF);
-            storyboard.Begin();
+            LoadAnimeStory.Children.Add(KF);
+            LoadAnimeStory.Begin();
         }
 
-        private void ExitAnime()
+        private void ExpendAnime()
         {
-            Storyboard storyboard = new Storyboard();
+            ExpendStory = new Storyboard();
+            DoubleAnimationUsingKeyFrames Revolve = new DoubleAnimationUsingKeyFrames();
+            Storyboard.SetTarget(Revolve, PART_INFO);
+            Storyboard.SetTargetProperty(Revolve, new PropertyPath("(UIElement.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)"));
+            Revolve.KeyFrames.Add(new EasingDoubleKeyFrame(-90, TimeSpan.FromSeconds(0)));
+            Revolve.KeyFrames.Add(new EasingDoubleKeyFrame(0, TimeSpan.FromSeconds(1)));
+            ExpendStory.Children.Add(Revolve);
+            ExpendStory.Begin();
+        }
+        private void CollapsedAnime()
+        {
+            CollapsedStory = new Storyboard();
             DoubleAnimationUsingKeyFrames Revolve = new DoubleAnimationUsingKeyFrames();
             Storyboard.SetTarget(Revolve, PART_INFO);
             Storyboard.SetTargetProperty(Revolve, new PropertyPath("(UIElement.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)"));
             Revolve.KeyFrames.Add(new EasingDoubleKeyFrame(0, TimeSpan.FromSeconds(0)));
             Revolve.KeyFrames.Add(new EasingDoubleKeyFrame(-90, TimeSpan.FromSeconds(1)));
+            CollapsedStory.Children.Add(Revolve);
+            CollapsedStory.Begin();
+        }
 
+        private static Storyboard CloseAnime()
+        {
+            Storyboard storyboard = new Storyboard();
             DoubleAnimationUsingKeyFrames Close = new DoubleAnimationUsingKeyFrames();
             Storyboard.SetTarget(Close, PART_RECT);
             Storyboard.SetTargetProperty(Close, new PropertyPath("Height"));
             Close.KeyFrames.Add(new EasingDoubleKeyFrame(100, TimeSpan.FromSeconds(0)));
             Close.KeyFrames.Add(new EasingDoubleKeyFrame(0, TimeSpan.FromSeconds(1)));
-
-            storyboard.Children.Add(Revolve);
             storyboard.Children.Add(Close);
-            storyboard.Begin();
+            return storyboard;
         }
         #endregion
 
@@ -115,6 +142,8 @@ namespace CandySugar.Com.Controls.ExtenControls
             DependencyProperty.Register("CommandParameter", typeof(object), typeof(CandyImage), new PropertyMetadata(default));
         public static readonly DependencyProperty CommandProperty =
             DependencyProperty.Register("Command", typeof(ICommand), typeof(CandyImage), new PropertyMetadata(default));
+        public static readonly DependencyProperty PopupBtnProperty =
+            DependencyProperty.Register("PopupBtn", typeof(Visibility), typeof(CandyImage), new PropertyMetadata(Visibility.Collapsed));
         #endregion
 
         #region Property
@@ -166,6 +195,12 @@ namespace CandySugar.Com.Controls.ExtenControls
             get { return (ImageThickness)GetValue(PopupThicknessProperty); }
             set { SetValue(PopupThicknessProperty, value); }
         }
+        [Description("是否显示第二弹出层")]
+        public Visibility PopupBtn
+        {
+            get { return (Visibility)GetValue(PopupBtnProperty); }
+            set { SetValue(PopupBtnProperty, value); }
+        }
         [Description("是否启用图片加载等待")]
         public bool EnableLoading
         {
@@ -191,7 +226,7 @@ namespace CandySugar.Com.Controls.ExtenControls
             set { SetValue(CompleteProperty, value); }
         }
         [Description("命令")]
-        public ICommand Command 
+        public ICommand Command
         {
             get { return (ICommand)GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
@@ -210,9 +245,9 @@ namespace CandySugar.Com.Controls.ExtenControls
             CandyImage eda = (obj as CandyImage);
             if (eda.IsAsyncLoad)
             {
-                lock (ItemsQueue)
+                lock (DownloadQueue.ItemsQueue)
                 {
-                    ItemsQueue.Enqueue(Tuple.Create(eda, events.NewValue.ToString()));
+                    DownloadQueue.ItemsQueue.Enqueue(Tuple.Create(eda, events.NewValue.ToString()));
                     AutoEvent.Set();
                 }
             }
@@ -229,6 +264,7 @@ namespace CandySugar.Com.Controls.ExtenControls
         private void ClickEvent(object sender, RoutedEventArgs e)
         {
             PART_INFO = (Path)((Button)sender).Template.FindName("PART_INFO", PART_BTN);
+            ExpendAnime();
             Command?.Execute(CommandParameter);
             Grid panal = new Grid();
             panal.Children.Add(new Rectangle
@@ -252,8 +288,9 @@ namespace CandySugar.Com.Controls.ExtenControls
                 Child = panal
             };
             popup.IsOpen = true;
-            popup.Closed += delegate {
-                ExitAnime();
+            popup.Closed += delegate
+            {
+                CollapsedAnime();
             };
         }
 
@@ -262,11 +299,11 @@ namespace CandySugar.Com.Controls.ExtenControls
             while (true)
             {
                 Tuple<CandyImage, string> Items = null;
-                lock (ItemsQueue)
+                lock (DownloadQueue.ItemsQueue)
                 {
-                    if (ItemsQueue.Count > 0)
+                    if (DownloadQueue.ItemsQueue.Count > 0)
                     {
-                        Items = ItemsQueue.Dequeue();
+                        Items = DownloadQueue.ItemsQueue.Dequeue();
                     }
                 }
                 if (Items != null)
@@ -280,13 +317,23 @@ namespace CandySugar.Com.Controls.ExtenControls
                     {
                         PART_IMG.Source = BitmapHelper.Bytes2Image(Bytes, Items.Item1.ImageThickness.Width, Items.Item1.ImageThickness.Height);
                         Items.Item1.Complete = true;
+                        LoadAnimeStory.Stop();
                     });
                 }
-                if (ItemsQueue.Count > 0) continue;
+                if (DownloadQueue.ItemsQueue.Count > 0) continue;
                 //阻塞线程
                 AutoEvent.WaitOne();
             }
         }
         #endregion
+    }
+    internal static class DownloadQueue
+    {
+        internal static Queue<Tuple<CandyImage, string>> ItemsQueue;
+
+        static DownloadQueue()
+        {
+            ItemsQueue = new Queue<Tuple<CandyImage, string>>();
+        }
     }
 }
