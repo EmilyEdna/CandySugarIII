@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
@@ -32,15 +33,24 @@ namespace CandySugar.Com.Controls.ExtenControls
         private static Image PART_IMG;
         private static Path PART_LOAD;
         private static Button PART_BTN;
+        private static Path PART_INFO;
+        private static Grid PART_RECT;
         public override void OnApplyTemplate()
         {
             PART_IMG = (Image)this.Template.FindName("PART_IMG", this);
             PART_LOAD = (Path)this.Template.FindName("PART_LOAD", this);
             PART_BTN = (Button)this.Template.FindName("PART_BTN", this);
-            PART_BTN.Click += PART_BTN_Click;
+            PART_RECT = (Grid)this.Template.FindName("PART_RECT", this);
+            PART_BTN.Click += ClickEvent;
             PART_LOAD.Height = LoadingThickness.Height;
             PART_LOAD.Width = LoadingThickness.Width;
 
+            LoadAnime();
+        }
+
+        #region Anime
+        private void LoadAnime()
+        {
             Storyboard storyboard = new Storyboard();
             DoubleAnimationUsingKeyFrames KF = new DoubleAnimationUsingKeyFrames
             {
@@ -55,115 +65,146 @@ namespace CandySugar.Com.Controls.ExtenControls
             storyboard.Begin();
         }
 
+        private void ExitAnime()
+        {
+            Storyboard storyboard = new Storyboard();
+            DoubleAnimationUsingKeyFrames Revolve = new DoubleAnimationUsingKeyFrames();
+            Storyboard.SetTarget(Revolve, PART_INFO);
+            Storyboard.SetTargetProperty(Revolve, new PropertyPath("(UIElement.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)"));
+            Revolve.KeyFrames.Add(new EasingDoubleKeyFrame(0, TimeSpan.FromSeconds(0)));
+            Revolve.KeyFrames.Add(new EasingDoubleKeyFrame(-90, TimeSpan.FromSeconds(1)));
+
+            DoubleAnimationUsingKeyFrames Close = new DoubleAnimationUsingKeyFrames();
+            Storyboard.SetTarget(Close, PART_RECT);
+            Storyboard.SetTargetProperty(Close, new PropertyPath("Height"));
+            Close.KeyFrames.Add(new EasingDoubleKeyFrame(100, TimeSpan.FromSeconds(0)));
+            Close.KeyFrames.Add(new EasingDoubleKeyFrame(0, TimeSpan.FromSeconds(1)));
+
+            storyboard.Children.Add(Revolve);
+            storyboard.Children.Add(Close);
+            storyboard.Begin();
+        }
+        #endregion
+
+        #region Dp
+        public static readonly DependencyProperty FillProperty =
+            DependencyProperty.Register("Fill", typeof(Brush), typeof(CandyImage), new PropertyMetadata(Brushes.Transparent));
+        public static readonly DependencyProperty CornerRadiusProperty =
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(CandyImage), new PropertyMetadata(default));
+        public static readonly DependencyProperty BorderEffectProperty =
+            DependencyProperty.Register("BorderEffect", typeof(Effect), typeof(CandyImage), new PropertyMetadata(default));
+        public static readonly DependencyProperty IsAsyncLoadProperty =
+            DependencyProperty.Register("IsAsyncLoad", typeof(bool), typeof(CandyImage), new PropertyMetadata(true));
+        public static readonly DependencyProperty ImageThicknessProperty =
+            DependencyProperty.Register("ImageThickness", typeof(ImageThickness), typeof(CandyImage), new PropertyMetadata(new ImageThickness(160, 240)));
+        public static readonly DependencyProperty LoadingThicknessProperty =
+            DependencyProperty.Register("LoadingThickness", typeof(ImageThickness), typeof(CandyImage), new PropertyMetadata(new ImageThickness(25, 25)));
+        public static readonly DependencyProperty PopupThicknessProperty =
+            DependencyProperty.Register("PopupThickness", typeof(ImageThickness), typeof(CandyImage), new PropertyMetadata(new ImageThickness(0, 0)));
+        public static readonly DependencyProperty EnableLoadingProperty =
+            DependencyProperty.Register("EnableLoading", typeof(bool), typeof(CandyImage), new PropertyMetadata(false));
+        public static readonly DependencyProperty ItemTemplateProperty =
+            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(CandyImage), new PropertyMetadata(default));
+        public static readonly DependencyProperty PopTemplateProperty =
+            DependencyProperty.Register("PopTemplate", typeof(DataTemplate), typeof(CandyImage), new PropertyMetadata(default));
+        public static readonly DependencyProperty SrcProperty =
+            DependencyProperty.Register("Src", typeof(string), typeof(CandyImage), new PropertyMetadata(string.Empty, OnSrcChanged));
+        internal static readonly DependencyProperty CompleteProperty =
+            DependencyProperty.Register("Complete", typeof(bool), typeof(CandyImage), new PropertyMetadata(false));
+        public static readonly DependencyProperty CommandParameterProperty =
+            DependencyProperty.Register("CommandParameter", typeof(object), typeof(CandyImage), new PropertyMetadata(default));
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(CandyImage), new PropertyMetadata(default));
+        #endregion
+
+        #region Property
         [Description("弹出层颜色")]
         public Brush Fill
         {
             get { return (Brush)GetValue(FillProperty); }
             set { SetValue(FillProperty, value); }
         }
-        public static readonly DependencyProperty FillProperty =
-            DependencyProperty.Register("Fill", typeof(Brush), typeof(CandyImage), new PropertyMetadata(Brushes.Transparent));
-
         [Description("半角")]
         public CornerRadius CornerRadius
         {
             get { return (CornerRadius)GetValue(CornerRadiusProperty); }
             set { SetValue(CornerRadiusProperty, value); }
         }
-        public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(CandyImage), new PropertyMetadata(default));
-
         [Description("材质阴影")]
         public Effect BorderEffect
         {
             get { return (Effect)GetValue(BorderEffectProperty); }
             set { SetValue(BorderEffectProperty, value); }
         }
-        public static readonly DependencyProperty BorderEffectProperty =
-            DependencyProperty.Register("BorderEffect", typeof(Effect), typeof(CandyImage), new PropertyMetadata(default));
-
         [Description("异步加载")]
         public bool IsAsyncLoad
         {
             get { return (bool)GetValue(IsAsyncLoadProperty); }
             set { SetValue(IsAsyncLoadProperty, value); }
         }
-        public static readonly DependencyProperty IsAsyncLoadProperty =
-            DependencyProperty.Register("IsAsyncLoad", typeof(bool), typeof(CandyImage), new PropertyMetadata(true));
-
         [Description("图片链接")]
         public string Src
         {
             get { return (string)GetValue(SrcProperty); }
             set { SetValue(SrcProperty, value); }
         }
-        public static readonly DependencyProperty SrcProperty =
-            DependencyProperty.Register("Src", typeof(string), typeof(CandyImage), new PropertyMetadata(string.Empty, OnSrcChanged));
-
         [Description("重绘图片的长宽")]
         public ImageThickness ImageThickness
         {
             get { return (ImageThickness)GetValue(ImageThicknessProperty); }
             set { SetValue(ImageThicknessProperty, value); }
         }
-        public static readonly DependencyProperty ImageThicknessProperty =
-            DependencyProperty.Register("ImageThickness", typeof(ImageThickness), typeof(CandyImage), new PropertyMetadata(new ImageThickness(160, 240)));
-
         [Description("重绘图片的长宽")]
         public ImageThickness LoadingThickness
         {
             get { return (ImageThickness)GetValue(LoadingThicknessProperty); }
             set { SetValue(LoadingThicknessProperty, value); }
         }
-        public static readonly DependencyProperty LoadingThicknessProperty =
-            DependencyProperty.Register("LoadingThickness", typeof(ImageThickness), typeof(CandyImage), new PropertyMetadata(new ImageThickness(25, 25)));
-       
         [Description("第二弹出层长宽")]
         public ImageThickness PopupThickness
         {
             get { return (ImageThickness)GetValue(PopupThicknessProperty); }
             set { SetValue(PopupThicknessProperty, value); }
         }
-        public static readonly DependencyProperty PopupThicknessProperty =
-            DependencyProperty.Register("PopupThickness", typeof(ImageThickness), typeof(CandyImage), new PropertyMetadata(new ImageThickness(0, 0)));
-
-
         [Description("是否启用图片加载等待")]
         public bool EnableLoading
         {
             get { return (bool)GetValue(EnableLoadingProperty); }
             set { SetValue(EnableLoadingProperty, value); }
         }
-        public static readonly DependencyProperty EnableLoadingProperty =
-            DependencyProperty.Register("EnableLoading", typeof(bool), typeof(CandyImage), new PropertyMetadata(false));
-
-        [Description("是否完成加载")]
-        internal bool Complete
-        {
-            get { return (bool)GetValue(CompleteProperty); }
-            set { SetValue(CompleteProperty, value); }
-        }
-        internal static readonly DependencyProperty CompleteProperty =
-            DependencyProperty.Register("Complete", typeof(bool), typeof(CandyImage), new PropertyMetadata(false));
-
         [Description("信息模板")]
         public DataTemplate ItemTemplate
         {
             get { return (DataTemplate)GetValue(ItemTemplateProperty); }
             set { SetValue(ItemTemplateProperty, value); }
         }
-        public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(CandyImage), new PropertyMetadata(default));
-
         [Description("信息模板")]
         public DataTemplate PopTemplate
         {
             get { return (DataTemplate)GetValue(PopTemplateProperty); }
             set { SetValue(PopTemplateProperty, value); }
         }
-        public static readonly DependencyProperty PopTemplateProperty =
-            DependencyProperty.Register("PopTemplate", typeof(DataTemplate), typeof(CandyImage), new PropertyMetadata(default));
+        [Description("是否完成加载")]
+        internal bool Complete
+        {
+            get { return (bool)GetValue(CompleteProperty); }
+            set { SetValue(CompleteProperty, value); }
+        }
+        [Description("命令")]
+        public ICommand Command 
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
+        [Description("命令参数")]
+        public object CommandParameter
+        {
+            get { return (object)GetValue(CommandParameterProperty); }
+            set { SetValue(CommandParameterProperty, value); }
+        }
+        #endregion
 
+        #region Method
         private static async void OnSrcChanged(DependencyObject obj, DependencyPropertyChangedEventArgs events)
         {
             CandyImage eda = (obj as CandyImage);
@@ -185,8 +226,10 @@ namespace CandySugar.Com.Controls.ExtenControls
             }
         }
 
-        private void PART_BTN_Click(object sender, RoutedEventArgs e)
+        private void ClickEvent(object sender, RoutedEventArgs e)
         {
+            PART_INFO = (Path)((Button)sender).Template.FindName("PART_INFO", PART_BTN);
+            Command?.Execute(CommandParameter);
             Grid panal = new Grid();
             panal.Children.Add(new Rectangle
             {
@@ -209,7 +252,11 @@ namespace CandySugar.Com.Controls.ExtenControls
                 Child = panal
             };
             popup.IsOpen = true;
+            popup.Closed += delegate {
+                ExitAnime();
+            };
         }
+
         private static async void DownMethod()
         {
             while (true)
@@ -240,5 +287,6 @@ namespace CandySugar.Com.Controls.ExtenControls
                 AutoEvent.WaitOne();
             }
         }
+        #endregion
     }
 }
