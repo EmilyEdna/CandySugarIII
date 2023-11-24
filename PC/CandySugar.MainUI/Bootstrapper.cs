@@ -1,7 +1,6 @@
 ﻿using CandySugar.Com.Controls.UIExtenControls;
 using CandySugar.Com.Library;
 using CandySugar.Com.Library.DLLoader;
-using CandySugar.Com.Library.DownQueue;
 using CandySugar.Com.Library.ReadFile;
 using CandySugar.Com.Options;
 using CandySugar.MainUI.ViewModels;
@@ -77,7 +76,6 @@ namespace CandySugar.MainUI
         /// </summary>
         protected override void Configure()
         {
-            DownloadRequest.DownByQueue();
             base.Configure();
         }
 
