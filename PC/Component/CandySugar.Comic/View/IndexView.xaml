@@ -74,47 +74,55 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid>
-                                        <Image
-                                            uc:ImageAttach.RenderHeight="240"
-                                            uc:ImageAttach.RenderWidth="200"
-                                            uc:ImageAttach.SourceAsync="{Binding Cover}"
-                                            Tag="{x:Static lib:EDownload.Comic}"
-                                            ToolTip="{Binding Name}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction
-                                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                                        Command="{s:Action WatchCommand}"
-                                                        CommandParameter="{Binding Route}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Image>
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                            Command="{s:Action CollectCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Content="{x:Static lib:FontIcon.Star}"
-                                            Cursor="Hand"
-                                            FontSize="17"
-                                            Foreground="#ffe4c4"
-                                            Style="{DynamicResource CandyFontButtonStyle}" />
-                                    </Grid>
-                                    <Grid Grid.Row="1">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Name}"
-                                            TextTrimming="CharacterEllipsis" />
-                                    </Grid>
-                                </Grid>
+                                <uc:CandyImage
+                                    Width="200"
+                                    Height="240"
+                                    Margin="8"
+                                    BorderBrush="SkyBlue"
+                                    BorderThickness="1"
+                                    Fill="#80e6cfe6"
+                                    ImageThickness="200,240"
+                                    Item="{Binding .}"
+                                    Src="{Binding Cover}">
+                                    <uc:CandyImage.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="30" />
+                                                </Grid.RowDefinitions>
+                                                <StackPanel>
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Name}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                </StackPanel>
+                                                <Button
+                                                    Grid.Row="1"
+                                                    Margin="0,0,10,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                    Command="{s:Action CollectCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Content="{x:Static lib:FontIcon.Star}"
+                                                    Cursor="Hand"
+                                                    FontSize="17"
+                                                    Foreground="#ffe4c4"
+                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </uc:CandyImage.ItemTemplate>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction
+                                                s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                Command="{s:Action WatchCommand}"
+                                                CommandParameter="{Binding Route}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -153,47 +161,55 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid>
-                                        <Image
-                                            uc:ImageAttach.RenderHeight="240"
-                                            uc:ImageAttach.RenderWidth="200"
-                                            uc:ImageAttach.SourceAsync="{Binding Cover}"
-                                            Tag="{x:Static lib:EDownload.Comic}"
-                                            ToolTip="{Binding Name}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction
-                                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                                        Command="{s:Action WatchCommand}"
-                                                        CommandParameter="{Binding Route}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Image>
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                            Command="{s:Action RemoveCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Content="{x:Static lib:FontIcon.TrashCan}"
-                                            Cursor="Hand"
-                                            FontSize="17"
-                                            Foreground="#ffe4c4"
-                                            Style="{DynamicResource CandyFontButtonStyle}" />
-                                    </Grid>
-                                    <Grid Grid.Row="1">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Name}"
-                                            TextTrimming="CharacterEllipsis" />
-                                    </Grid>
-                                </Grid>
+                                <uc:CandyImage
+                                    Width="200"
+                                    Height="240"
+                                    Margin="8"
+                                    BorderBrush="SkyBlue"
+                                    BorderThickness="1"
+                                    Fill="#80e6cfe6"
+                                    ImageThickness="200,240"
+                                    Item="{Binding .}"
+                                    Src="{Binding Cover}">
+                                    <uc:CandyImage.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="30" />
+                                                </Grid.RowDefinitions>
+                                                <StackPanel>
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Name}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                </StackPanel>
+                                                <Button
+                                                    Grid.Row="1"
+                                                    Margin="0,0,10,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                    Command="{s:Action RemoveCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Content="{x:Static lib:FontIcon.TrashCan}"
+                                                    Cursor="Hand"
+                                                    FontSize="17"
+                                                    Foreground="#ffe4c4"
+                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </uc:CandyImage.ItemTemplate>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction
+                                                s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                Command="{s:Action WatchCommand}"
+                                                CommandParameter="{Binding Route}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -295,16 +311,16 @@
                 <uc:CandyListBox Grid.Row="2" ItemsSource="{Binding Preview}">
                     <uc:CandyListBox.ItemTemplate>
                         <DataTemplate>
-                            <uc:CandyBorder
+                            <uc:CandyImage
+                                Width="200"
+                                Height="240"
                                 Margin="3"
-                                BorderThickness="3"
-                                BorderType="Primary">
-                                <Image
-                                    Source="{Binding .}"
-                                    Stretch="Uniform"
-                                    Tag="{x:Static lib:EDownload.Comic}"
-                                    ToolTip="{Binding Name}" />
-                            </uc:CandyBorder>
+                                BorderBrush="SkyBlue"
+                                BorderThickness="1"
+                                EnableTag="False"
+                                Fill="#80e6cfe6"
+                                ImageThickness="200,240"
+                                Src="{Binding .}" />
                         </DataTemplate>
                     </uc:CandyListBox.ItemTemplate>
                 </uc:CandyListBox>
