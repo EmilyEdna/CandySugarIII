@@ -24,7 +24,7 @@
                             CornerRadius="{TemplateBinding CornerRadius}">
                             <Grid>
                                 <Image
-                                    uc:ImageAttach.SourceAsync="{TemplateBinding Src}"
+                                    uc:ImageAttachs.SourceAsync="{TemplateBinding Src}"
                                     RenderOptions.BitmapScalingMode="HighQuality"
                                     SnapsToDevicePixels="True"
                                     Stretch="Uniform" />
@@ -42,7 +42,7 @@
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="30" />
                                         </Grid.RowDefinitions>
-                                        <ContentPresenter ContentTemplate="{TemplateBinding ItemTemplate}" />
+                                        <ContentPresenter Content="{TemplateBinding Item}" ContentTemplate="{TemplateBinding ItemTemplate}" />
                                         <Button
                                             x:Name="PART_BTN"
                                             Grid.Row="1"

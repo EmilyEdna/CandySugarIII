@@ -248,31 +248,34 @@ namespace CandySugar.WallPaper.ViewModels
         {
             if (WallhavBuilder != null && WallhavBuilder.Count > 0)
             {
+                var OldData = DownUtil.ReadFile<List<WallhavSearchElementResult>>("Wallhaven", FileTypes.Dat, "WallPaper");
                 WallhavBuilder.ForEach(item =>
                 {
                     SyncStatic.DeleteFile(DownUtil.FilePath(item.Id, FileTypes.Jpg, "WallPaper"));
                     if (ComponentControl.DataContext is WallhavViewModel ViewModel)
-                    {
                         ViewModel.CollectResult.Remove(item);
-                    }
+                    OldData.RemoveAll(t => t.Id == item.Id);
                 });
-                if (WallhavBuilder.Count <= 0)
+
+                OldData.DeleteAndCreate("Wallhaven", FileTypes.Dat, "WallPaper");
+                WeakReferenceMessenger.Default.Send(new MessageNotify());
+                if (OldData.Count <= 0)
                     Default.ForEach(item => MenuIndex.Remove(item));
-                WallhavBuilder.DeleteAndCreate("Wallhaven", FileTypes.Dat, "WallPaper");
             }
             if (KonachanBuilder != null && KonachanBuilder.Count > 0)
             {
+                var OldData = DownUtil.ReadFile<List<WallkonElementResult>>("Konachan", FileTypes.Dat, "WallPaper");
                 KonachanBuilder.ForEach(item =>
                 {
                     SyncStatic.DeleteFile(DownUtil.FilePath(item.Id.AsString(), FileTypes.Jpg, "WallPaper"));
                     if (ComponentControl.DataContext is WallchanViewModel ViewModel)
-                    {
                         ViewModel.CollectResult.Remove(item);
-                    }
+                    OldData.RemoveAll(t => t.Id == item.Id);
                 });
-                if (WallhavBuilder.Count <= 0)
+                OldData.DeleteAndCreate("Konachan", FileTypes.Dat, "WallPaper");
+                WeakReferenceMessenger.Default.Send(new MessageNotify());
+                if (OldData.Count <= 0)
                     Default.ForEach(item => MenuIndex.Remove(item));
-                KonachanBuilder.DeleteAndCreate("Konachan", FileTypes.Dat, "WallPaper");
             }
         }
         public void NotifyScreen(double width, double height)

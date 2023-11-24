@@ -5,7 +5,7 @@ namespace CandySugar.WallPaper.ViewModels
     public class WallhavViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
-        private List<WallhavSearchElementResult> Builder;
+        public List<WallhavSearchElementResult> Builder;
         public WallhavViewModel()
         {
             Purity = (int)PurityEnum.SFW;

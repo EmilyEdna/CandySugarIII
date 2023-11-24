@@ -141,12 +141,20 @@ namespace CandySugar.Com.Controls.ExtenControls
         public static readonly DependencyProperty PopupBtnProperty =
             DependencyProperty.Register("PopupBtn", typeof(Visibility), typeof(CandyImage), new PropertyMetadata(Visibility.Collapsed));
         public static readonly DependencyProperty EnableCacheProperty =
-            DependencyProperty.Register("EnableCache", typeof(bool), typeof(CandyImage), new PropertyMetadata(false));
+            DependencyProperty.Register("EnableCache", typeof(bool), typeof(CandyImage), new PropertyMetadata(true));
         public static readonly DependencyProperty CacheSpanProperty =
             DependencyProperty.Register("CacheSpan", typeof(int), typeof(CandyImage), new PropertyMetadata(5));
+        public static readonly DependencyProperty ItemProperty =
+            DependencyProperty.Register("Item", typeof(object), typeof(CandyImage), new PropertyMetadata(default));
         #endregion
 
         #region Property
+        [Description("绑定的对象")]
+        public object Item
+        {
+            get { return GetValue(ItemProperty); }
+            set { SetValue(ItemProperty, value); }
+        }
         [Description("缓存时常/分钟")]
         public int CacheSpan
         {
@@ -246,7 +254,7 @@ namespace CandySugar.Com.Controls.ExtenControls
         [Description("命令参数")]
         public object CommandParameter
         {
-            get { return (object)GetValue(CommandParameterProperty); }
+            get { return GetValue(CommandParameterProperty); }
             set { SetValue(CommandParameterProperty, value); }
         }
         #endregion
@@ -266,7 +274,8 @@ namespace CandySugar.Com.Controls.ExtenControls
             });
             panal.Children.Add(new ContentPresenter
             {
-                ContentTemplate = PopupTemplate
+                ContentTemplate = PopupTemplate,
+                Content = Item
             });
             Popup popup = new Popup
             {
@@ -315,13 +324,10 @@ namespace CandySugar.Com.Controls.ExtenControls
                 }
                 if (Tigger != null)
                 {
-                    Tigger.Item3.Dispatcher.Invoke(() =>
+                    await Application.Current.Dispatcher.BeginInvoke(async () =>
                     {
                         Tigger.Item3.Complete = false;
-                    });
-                    var Bytes = Cache(await new HttpClient().GetByteArrayAsync(Tigger.Item1), Tigger.Item1, Tigger.Item3.EnableCache, Tigger.Item3.CacheSpan);
-                    await Tigger.Item2.Dispatcher.BeginInvoke(() =>
-                    {
+                        var Bytes = Cache(await new HttpClient().GetByteArrayAsync(Tigger.Item1), Tigger.Item1, Tigger.Item3.EnableCache, Tigger.Item3.CacheSpan);
                         Tigger.Item2.Source = BitmapHelper.Bytes2Image(Bytes, Tigger.Item3.ImageThickness.Width, Tigger.Item3.ImageThickness.Height);
                         Tigger.Item3.Complete = true;
                         Tigger.Item3.LoadAnimeStory.Stop();
@@ -368,7 +374,7 @@ namespace CandySugar.Com.Controls.ExtenControls
         }
     }
 
-    internal class ImageAttach
+    internal class ImageAttachs
     {
         internal static string GetSourceAsync(DependencyObject obj)
         {
@@ -379,7 +385,7 @@ namespace CandySugar.Com.Controls.ExtenControls
             obj.SetValue(SoucreAysncProperty, value);
         }
         internal static readonly DependencyProperty SoucreAysncProperty =
-            DependencyProperty.RegisterAttached("SourceAsync", typeof(string), typeof(ImageAttach), new PropertyMetadata(OnComplate));
+            DependencyProperty.RegisterAttached("SourceAsync", typeof(string), typeof(ImageAttachs), new PropertyMetadata(OnComplate));
 
         private static void OnComplate(DependencyObject sender, DependencyPropertyChangedEventArgs @event)
         {

@@ -6,7 +6,7 @@ namespace CandySugar.WallPaper.ViewModels
     public class WallchanViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
-        private List<WallkonElementResult> Builder;
+        public List<WallkonElementResult> Builder;
         public WallchanViewModel()
         {
             GenericDelegate.SearchAction = new(SearchHandler);

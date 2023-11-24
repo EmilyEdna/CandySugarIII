@@ -89,8 +89,7 @@
                                   ElementName=HavCtrl}"
                 Height="{c:Binding (Height-90),
                                    ElementName=HavCtrl}"
-                BorderType="Info"
-               >
+                BorderType="Info">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
                         <TranslateTransform />
@@ -116,36 +115,44 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid>
-                                        <Image
-                                            uc:ImageAttach.RenderHeight="200"
-                                            uc:ImageAttach.RenderWidth="320"
-                                            uc:ImageAttach.SourceAsync="{Binding Preview}"
-                                            Tag="{x:Static lib:EDownload.Wallhav}" />
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
-                                            Command="{s:Action CollectCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Content="{x:Static lib:FontIcon.Star}"
-                                            Cursor="Hand"
-                                            FontSize="17"
-                                            Foreground="#ffe4c4"
-                                            Style="{DynamicResource CandyFontButtonStyle}" />
-                                    </Grid>
-                                    <Grid Grid.Row="1">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Pixel}" />
-                                    </Grid>
-                                </Grid>
+                                <uc:CandyImage
+                                    Width="320"
+                                    Height="200"
+                                    Margin="8"
+                                    BorderBrush="SkyBlue"
+                                    BorderThickness="1"
+                                    Fill="#80e6cfe6"
+                                    ImageThickness="320,200"
+                                    Item="{Binding .}"
+                                    Src="{Binding Preview}">
+                                    <uc:CandyImage.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="30" />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    Style="{DynamicResource TextBlockStyle}"
+                                                    Text="{Binding Pixel}" />
+                                                <Button
+                                                    Grid.Row="1"
+                                                    Margin="10,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
+                                                    Command="{s:Action CollectCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Content="{x:Static lib:FontIcon.Star}"
+                                                    Cursor="Hand"
+                                                    FontSize="17"
+                                                    Foreground="#ffe4c4"
+                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </uc:CandyImage.ItemTemplate>
+                                </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -158,7 +165,6 @@
                 Height="{c:Binding (Height-90),
                                    ElementName=HavCtrl}"
                 BorderType="Info"
-               
                 Visibility="Hidden">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
@@ -185,36 +191,44 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid>
-                                        <Image
-                                            uc:ImageAttach.RenderHeight="200"
-                                            uc:ImageAttach.RenderWidth="320"
-                                            uc:ImageAttach.SourceAsync="{Binding Preview}"
-                                            Tag="{x:Static lib:EDownload.Wallhav}" />
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
-                                            Command="{s:Action CollectCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Content="{x:Static lib:FontIcon.Star}"
-                                            Cursor="Hand"
-                                            FontSize="17"
-                                            Foreground="#ffe4c4"
-                                            Style="{DynamicResource CandyFontButtonStyle}" />
-                                    </Grid>
-                                    <Grid Grid.Row="1">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Pixel}" />
-                                    </Grid>
-                                </Grid>
+                                <uc:CandyImage
+                                    Width="320"
+                                    Height="200"
+                                    Margin="8"
+                                    BorderBrush="SkyBlue"
+                                    BorderThickness="1"
+                                    Fill="#80e6cfe6"
+                                    ImageThickness="320,200"
+                                    Item="{Binding .}"
+                                    Src="{Binding Preview}">
+                                    <uc:CandyImage.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="30" />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    Style="{DynamicResource TextBlockStyle}"
+                                                    Text="{Binding Pixel}" />
+                                                <Button
+                                                    Grid.Row="1"
+                                                    Margin="10,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
+                                                    Command="{s:Action CollectCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Content="{x:Static lib:FontIcon.Star}"
+                                                    Cursor="Hand"
+                                                    FontSize="17"
+                                                    Foreground="#ffe4c4"
+                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </uc:CandyImage.ItemTemplate>
+                                </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -227,7 +241,6 @@
                 Height="{c:Binding (Height-90),
                                    ElementName=HavCtrl}"
                 BorderType="Info"
-               
                 Visibility="Hidden">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
@@ -254,36 +267,44 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid>
-                                        <Image
-                                            uc:ImageAttach.RenderHeight="200"
-                                            uc:ImageAttach.RenderWidth="320"
-                                            uc:ImageAttach.SourceAsync="{Binding Preview}"
-                                            Tag="{x:Static lib:EDownload.Wallhav}" />
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
-                                            Command="{s:Action CollectCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Content="{x:Static lib:FontIcon.Star}"
-                                            Cursor="Hand"
-                                            FontSize="17"
-                                            Foreground="#ffe4c4"
-                                            Style="{DynamicResource CandyFontButtonStyle}" />
-                                    </Grid>
-                                    <Grid Grid.Row="1">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Pixel}" />
-                                    </Grid>
-                                </Grid>
+                                <uc:CandyImage
+                                    Width="320"
+                                    Height="200"
+                                    Margin="8"
+                                    BorderBrush="SkyBlue"
+                                    BorderThickness="1"
+                                    Fill="#80e6cfe6"
+                                    ImageThickness="320,200"
+                                    Item="{Binding .}"
+                                    Src="{Binding Preview}">
+                                    <uc:CandyImage.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="30" />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    Style="{DynamicResource TextBlockStyle}"
+                                                    Text="{Binding Pixel}" />
+                                                <Button
+                                                    Grid.Row="1"
+                                                    Margin="10,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
+                                                    Command="{s:Action CollectCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Content="{x:Static lib:FontIcon.Star}"
+                                                    Cursor="Hand"
+                                                    FontSize="17"
+                                                    Foreground="#ffe4c4"
+                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </uc:CandyImage.ItemTemplate>
+                                </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -296,7 +317,6 @@
                 Height="{c:Binding (Height-90),
                                    ElementName=HavCtrl}"
                 BorderType="Info"
-               
                 Visibility="Hidden">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
@@ -320,44 +340,52 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid>
-                                        <Image
-                                            uc:ImageAttach.RenderHeight="200"
-                                            uc:ImageAttach.RenderWidth="320"
-                                            uc:ImageAttach.SourceAsync="{Binding Preview}"
-                                            Tag="{x:Static lib:EDownload.Wallhav}" />
-                                        <CheckBox
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            Background="Transparent">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Checked">
-                                                    <i:InvokeCommandAction
-                                                        s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
-                                                        Command="{s:Action CheckCommand}"
-                                                        CommandParameter="{Binding .}" />
-                                                </i:EventTrigger>
-                                                <i:EventTrigger EventName="Unchecked">
-                                                    <i:InvokeCommandAction
-                                                        s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
-                                                        Command="{s:Action UnCheckCommand}"
-                                                        CommandParameter="{Binding .}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </CheckBox>
-                                    </Grid>
-                                    <Grid Grid.Row="1">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Pixel}" />
-                                    </Grid>
-                                </Grid>
+                                <uc:CandyImage
+                                    Width="320"
+                                    Height="200"
+                                    Margin="8"
+                                    BorderBrush="SkyBlue"
+                                    BorderThickness="1"
+                                    Fill="#80e6cfe6"
+                                    ImageThickness="320,200"
+                                    Item="{Binding .}"
+                                    Src="{Binding Preview}">
+                                    <uc:CandyImage.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="30" />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <CheckBox
+                                                    Margin="0,5,10,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    Background="Transparent">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Checked">
+                                                            <i:InvokeCommandAction
+                                                                s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
+                                                                Command="{s:Action CheckCommand}"
+                                                                CommandParameter="{Binding .}" />
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="Unchecked">
+                                                            <i:InvokeCommandAction
+                                                                s:View.ActionTarget="{Binding DataContext, ElementName=HavCtrl}"
+                                                                Command="{s:Action UnCheckCommand}"
+                                                                CommandParameter="{Binding .}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </CheckBox>
+                                                <TextBlock
+                                                    Grid.Row="1"
+                                                    HorizontalAlignment="Center"
+                                                    Style="{DynamicResource TextBlockStyle}"
+                                                    Text="{Binding Pixel}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </uc:CandyImage.ItemTemplate>
+                                </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
