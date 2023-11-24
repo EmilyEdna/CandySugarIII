@@ -24,7 +24,7 @@
                             CornerRadius="{TemplateBinding CornerRadius}">
                             <Grid>
                                 <Image
-                                    x:Name="PART_IMG"
+                                    uc:ImageAttach.SourceAsync="{TemplateBinding Src}"
                                     RenderOptions.BitmapScalingMode="HighQuality"
                                     SnapsToDevicePixels="True"
                                     Stretch="Uniform" />
@@ -37,10 +37,10 @@
                                         Width="{Binding Width, ElementName=PART_RECT, Mode=TwoWay}"
                                         Height="{Binding Height, ElementName=PART_RECT, Mode=TwoWay}"
                                         Fill="{TemplateBinding Fill}" />
-                                    <Grid>
+                                    <Grid x:Name="PART_RECT_INFO">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*" />
-                                            <RowDefinition Height="25" />
+                                            <RowDefinition Height="30" />
                                         </Grid.RowDefinitions>
                                         <ContentPresenter ContentTemplate="{TemplateBinding ItemTemplate}" />
                                         <Button
@@ -100,16 +100,25 @@
                                 <BeginStoryboard Storyboard="{DynamicResource Open}" />
                             </Trigger.EnterActions>
                         </Trigger>
-                        <DataTrigger Binding="{Binding Complete, RelativeSource={RelativeSource Mode=Self}}" Value="false">
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Complete, RelativeSource={RelativeSource Mode=Self}}" Value="false" />
+                                <Condition Binding="{Binding EnableLoading, RelativeSource={RelativeSource Mode=Self}}" Value="true" />
+                            </MultiDataTrigger.Conditions>
                             <Setter TargetName="PART_LOAD" Property="Visibility" Value="Visible" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Complete, RelativeSource={RelativeSource Mode=Self}}" Value="true">
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Complete, RelativeSource={RelativeSource Mode=Self}}" Value="true" />
+                                <Condition Binding="{Binding EnableLoading, RelativeSource={RelativeSource Mode=Self}}" Value="true" />
+                            </MultiDataTrigger.Conditions>
                             <Setter TargetName="PART_LOAD" Property="Visibility" Value="Collapsed" />
-                        </DataTrigger>
+                        </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
     </Style>
     <!--#endregion-->
 

@@ -14,6 +14,8 @@ using System.Windows.Media.Effects;
 using System.Windows.Shapes;
 using CandySugar.Com.Controls.StructCtonrols;
 using CandySugar.Com.Library.BitConvert;
+using XExten.Advance.CacheFramework.RunTimeCache;
+using XExten.Advance.LinqFramework;
 
 namespace CandySugar.Com.Controls.ExtenControls
 {
@@ -22,26 +24,20 @@ namespace CandySugar.Com.Controls.ExtenControls
         static CandyImage()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CandyImage), new FrameworkPropertyMetadata(typeof(CandyImage)));
-            AutoEvent = new AutoResetEvent(true);
-            (new Thread(new ThreadStart(DownMethod))
-            {
-                IsBackground = true
-            }).Start();
         }
 
-        private static AutoResetEvent AutoEvent;
-        private static Image PART_IMG;
-        private static Path PART_LOAD;
-        private static Button PART_BTN;
-        private static Path PART_INFO;
-        private static Grid PART_RECT;
-        private static Trigger TRIGGER;
+        private Path PART_LOAD;
+        private Button PART_BTN;
+        private Path PART_INFO;
+        private Grid PART_RECT;
+        private Grid PART_RECT_INFO;
+        private Trigger TRIGGER;
         public override void OnApplyTemplate()
         {
-            PART_IMG = (Image)this.Template.FindName("PART_IMG", this);
             PART_LOAD = (Path)this.Template.FindName("PART_LOAD", this);
             PART_BTN = (Button)this.Template.FindName("PART_BTN", this);
             PART_RECT = (Grid)this.Template.FindName("PART_RECT", this);
+            PART_RECT_INFO = (Grid)this.Template.FindName("PART_RECT_INFO", this);
             PART_BTN.Click += ClickEvent;
             PART_LOAD.Height = LoadingThickness.Height;
             PART_LOAD.Width = LoadingThickness.Width;
@@ -49,18 +45,21 @@ namespace CandySugar.Com.Controls.ExtenControls
             TRIGGER = (Trigger)this.Template.Triggers.Where(t => t is Trigger).First();
             if (PopupBtn == Visibility.Collapsed)
             {
+                PART_RECT_INFO.RowDefinitions.Last().Height = new GridLength(0, GridUnitType.Pixel);
+                CloseAnime();
                 TRIGGER.ExitActions.Add(new BeginStoryboard
                 {
-                    Storyboard = CloseAnime()
+                    Storyboard = CloseStory
                 });
             }
             LoadAnime();
         }
 
         #region Anime
-        private static Storyboard LoadAnimeStory;
-        private static Storyboard CollapsedStory;
-        private static Storyboard ExpendStory;
+        public Storyboard LoadAnimeStory;
+        public Storyboard CollapsedStory;
+        public Storyboard ExpendStory;
+        public Storyboard CloseStory;
         private void LoadAnime()
         {
             LoadAnimeStory = new Storyboard();
@@ -76,7 +75,6 @@ namespace CandySugar.Com.Controls.ExtenControls
             LoadAnimeStory.Children.Add(KF);
             LoadAnimeStory.Begin();
         }
-
         private void ExpendAnime()
         {
             ExpendStory = new Storyboard();
@@ -99,17 +97,15 @@ namespace CandySugar.Com.Controls.ExtenControls
             CollapsedStory.Children.Add(Revolve);
             CollapsedStory.Begin();
         }
-
-        private static Storyboard CloseAnime()
+        private void CloseAnime()
         {
-            Storyboard storyboard = new Storyboard();
+            CloseStory = new Storyboard();
             DoubleAnimationUsingKeyFrames Close = new DoubleAnimationUsingKeyFrames();
             Storyboard.SetTarget(Close, PART_RECT);
             Storyboard.SetTargetProperty(Close, new PropertyPath("Height"));
             Close.KeyFrames.Add(new EasingDoubleKeyFrame(100, TimeSpan.FromSeconds(0)));
             Close.KeyFrames.Add(new EasingDoubleKeyFrame(0, TimeSpan.FromSeconds(1)));
-            storyboard.Children.Add(Close);
-            return storyboard;
+            CloseStory.Children.Add(Close);
         }
         #endregion
 
@@ -129,13 +125,13 @@ namespace CandySugar.Com.Controls.ExtenControls
         public static readonly DependencyProperty PopupThicknessProperty =
             DependencyProperty.Register("PopupThickness", typeof(ImageThickness), typeof(CandyImage), new PropertyMetadata(new ImageThickness(0, 0)));
         public static readonly DependencyProperty EnableLoadingProperty =
-            DependencyProperty.Register("EnableLoading", typeof(bool), typeof(CandyImage), new PropertyMetadata(false));
+            DependencyProperty.Register("EnableLoading", typeof(bool), typeof(CandyImage), new PropertyMetadata(true));
         public static readonly DependencyProperty ItemTemplateProperty =
             DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(CandyImage), new PropertyMetadata(default));
-        public static readonly DependencyProperty PopTemplateProperty =
-            DependencyProperty.Register("PopTemplate", typeof(DataTemplate), typeof(CandyImage), new PropertyMetadata(default));
+        public static readonly DependencyProperty PopupTemplateProperty =
+            DependencyProperty.Register("PopupTemplate", typeof(DataTemplate), typeof(CandyImage), new PropertyMetadata(default));
         public static readonly DependencyProperty SrcProperty =
-            DependencyProperty.Register("Src", typeof(string), typeof(CandyImage), new PropertyMetadata(string.Empty, OnSrcChanged));
+            DependencyProperty.Register("Src", typeof(string), typeof(CandyImage), new PropertyMetadata(default));
         internal static readonly DependencyProperty CompleteProperty =
             DependencyProperty.Register("Complete", typeof(bool), typeof(CandyImage), new PropertyMetadata(false));
         public static readonly DependencyProperty CommandParameterProperty =
@@ -144,9 +140,25 @@ namespace CandySugar.Com.Controls.ExtenControls
             DependencyProperty.Register("Command", typeof(ICommand), typeof(CandyImage), new PropertyMetadata(default));
         public static readonly DependencyProperty PopupBtnProperty =
             DependencyProperty.Register("PopupBtn", typeof(Visibility), typeof(CandyImage), new PropertyMetadata(Visibility.Collapsed));
+        public static readonly DependencyProperty EnableCacheProperty =
+            DependencyProperty.Register("EnableCache", typeof(bool), typeof(CandyImage), new PropertyMetadata(false));
+        public static readonly DependencyProperty CacheSpanProperty =
+            DependencyProperty.Register("CacheSpan", typeof(int), typeof(CandyImage), new PropertyMetadata(5));
         #endregion
 
         #region Property
+        [Description("缓存时常/分钟")]
+        public int CacheSpan
+        {
+            get { return (int)GetValue(CacheSpanProperty); }
+            set { SetValue(CacheSpanProperty, value); }
+        }
+        [Description("是否使用缓存")]
+        public bool EnableCache
+        {
+            get { return (bool)GetValue(EnableCacheProperty); }
+            set { SetValue(EnableCacheProperty, value); }
+        }
         [Description("弹出层颜色")]
         public Brush Fill
         {
@@ -183,7 +195,7 @@ namespace CandySugar.Com.Controls.ExtenControls
             get { return (ImageThickness)GetValue(ImageThicknessProperty); }
             set { SetValue(ImageThicknessProperty, value); }
         }
-        [Description("重绘图片的长宽")]
+        [Description("加载图像的长宽")]
         public ImageThickness LoadingThickness
         {
             get { return (ImageThickness)GetValue(LoadingThicknessProperty); }
@@ -213,11 +225,11 @@ namespace CandySugar.Com.Controls.ExtenControls
             get { return (DataTemplate)GetValue(ItemTemplateProperty); }
             set { SetValue(ItemTemplateProperty, value); }
         }
-        [Description("信息模板")]
-        public DataTemplate PopTemplate
+        [Description("弹出层模板")]
+        public DataTemplate PopupTemplate
         {
-            get { return (DataTemplate)GetValue(PopTemplateProperty); }
-            set { SetValue(PopTemplateProperty, value); }
+            get { return (DataTemplate)GetValue(PopupTemplateProperty); }
+            set { SetValue(PopupTemplateProperty, value); }
         }
         [Description("是否完成加载")]
         internal bool Complete
@@ -240,27 +252,6 @@ namespace CandySugar.Com.Controls.ExtenControls
         #endregion
 
         #region Method
-        private static async void OnSrcChanged(DependencyObject obj, DependencyPropertyChangedEventArgs events)
-        {
-            CandyImage eda = (obj as CandyImage);
-            if (eda.IsAsyncLoad)
-            {
-                lock (DownloadQueue.ItemsQueue)
-                {
-                    DownloadQueue.ItemsQueue.Enqueue(Tuple.Create(eda, events.NewValue.ToString()));
-                    AutoEvent.Set();
-                }
-            }
-            else
-            {
-                var Bytes = await new HttpClient().GetByteArrayAsync(events.NewValue.ToString());
-                await eda.Dispatcher.BeginInvoke(() =>
-                {
-                    PART_IMG.Source = BitmapHelper.Bytes2Image(Bytes, eda.ImageThickness.Width, eda.ImageThickness.Height);
-                });
-            }
-        }
-
         private void ClickEvent(object sender, RoutedEventArgs e)
         {
             PART_INFO = (Path)((Button)sender).Template.FindName("PART_INFO", PART_BTN);
@@ -275,7 +266,7 @@ namespace CandySugar.Com.Controls.ExtenControls
             });
             panal.Children.Add(new ContentPresenter
             {
-                ContentTemplate = PopTemplate
+                ContentTemplate = PopupTemplate
             });
             Popup popup = new Popup
             {
@@ -293,47 +284,108 @@ namespace CandySugar.Com.Controls.ExtenControls
                 CollapsedAnime();
             };
         }
+        #endregion
+    }
+
+    internal static class DownloadQueue
+    {
+        private static Queue<Tuple<string, Image, CandyImage>> Tiggers;
+        private static AutoResetEvent AutoEvent;
+        static DownloadQueue()
+        {
+            AutoEvent = new AutoResetEvent(true);
+            Tiggers = new Queue<Tuple<string, Image, CandyImage>>();
+            (new Thread(new ThreadStart(DownMethod))
+            {
+                IsBackground = true
+            }).Start();
+        }
 
         private static async void DownMethod()
         {
             while (true)
             {
-                Tuple<CandyImage, string> Items = null;
-                lock (DownloadQueue.ItemsQueue)
+                Tuple<string, Image, CandyImage> Tigger = null;
+                lock (Tiggers)
                 {
-                    if (DownloadQueue.ItemsQueue.Count > 0)
+                    if (Tiggers.Count > 0)
                     {
-                        Items = DownloadQueue.ItemsQueue.Dequeue();
+                        Tigger = Tiggers.Dequeue();
                     }
                 }
-                if (Items != null)
+                if (Tigger != null)
                 {
-                    Items.Item1.Dispatcher.Invoke(() =>
+                    Tigger.Item3.Dispatcher.Invoke(() =>
                     {
-                        Items.Item1.Complete = false;
+                        Tigger.Item3.Complete = false;
                     });
-                    var Bytes = await new HttpClient().GetByteArrayAsync(Items.Item2);
-                    await Items.Item1.Dispatcher.BeginInvoke(() =>
+                    var Bytes = Cache(await new HttpClient().GetByteArrayAsync(Tigger.Item1), Tigger.Item1, Tigger.Item3.EnableCache, Tigger.Item3.CacheSpan);
+                    await Tigger.Item2.Dispatcher.BeginInvoke(() =>
                     {
-                        PART_IMG.Source = BitmapHelper.Bytes2Image(Bytes, Items.Item1.ImageThickness.Width, Items.Item1.ImageThickness.Height);
-                        Items.Item1.Complete = true;
-                        LoadAnimeStory.Stop();
+                        Tigger.Item2.Source = BitmapHelper.Bytes2Image(Bytes, Tigger.Item3.ImageThickness.Width, Tigger.Item3.ImageThickness.Height);
+                        Tigger.Item3.Complete = true;
+                        Tigger.Item3.LoadAnimeStory.Stop();
                     });
                 }
-                if (DownloadQueue.ItemsQueue.Count > 0) continue;
+                if (Tiggers.Count > 0) continue;
                 //阻塞线程
                 AutoEvent.WaitOne();
             }
         }
-        #endregion
-    }
-    internal static class DownloadQueue
-    {
-        internal static Queue<Tuple<CandyImage, string>> ItemsQueue;
 
-        static DownloadQueue()
+        internal async static void Init(string route, Image image, CandyImage candy)
         {
-            ItemsQueue = new Queue<Tuple<CandyImage, string>>();
+            if (candy.IsAsyncLoad)
+            {
+                lock (Tiggers)
+                {
+                    Tiggers.Enqueue(Tuple.Create(route, image, candy));
+                    AutoEvent.Set();
+                }
+            }
+            else
+            {
+                var Bytes = Cache(await new HttpClient().GetByteArrayAsync(route), route, candy.EnableCache, candy.CacheSpan);
+                await candy.Dispatcher.BeginInvoke(() =>
+                {
+                    image.Source = BitmapHelper.Bytes2Image(Bytes, candy.ImageThickness.Width, candy.ImageThickness.Height);
+                });
+                candy.Complete = true;
+            }
+        }
+
+        internal static byte[] Cache(byte[] bytes, string route, bool enableCache, int cacheSpan)
+        {
+            if (!enableCache) return bytes;
+            var result = MemoryCaches.GetCache<byte[]>(route.ToMd5());
+            if (result != null)
+                return result;
+            else
+            {
+                MemoryCaches.AddCache(route.ToMd5(), bytes, cacheSpan);
+                return bytes;
+            }
+        }
+    }
+
+    internal class ImageAttach
+    {
+        internal static string GetSourceAsync(DependencyObject obj)
+        {
+            return (string)obj.GetValue(SoucreAysncProperty);
+        }
+        internal static void SetSourceAsync(DependencyObject obj, string value)
+        {
+            obj.SetValue(SoucreAysncProperty, value);
+        }
+        internal static readonly DependencyProperty SoucreAysncProperty =
+            DependencyProperty.RegisterAttached("SourceAsync", typeof(string), typeof(ImageAttach), new PropertyMetadata(OnComplate));
+
+        private static void OnComplate(DependencyObject sender, DependencyPropertyChangedEventArgs @event)
+        {
+            CandyImage candy = (CandyImage)((Image)sender).TemplatedParent;
+            Image image = (Image)sender;
+            DownloadQueue.Init(@event.NewValue.ToString(), image, candy);
         }
     }
 }
