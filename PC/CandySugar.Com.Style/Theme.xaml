@@ -12,6 +12,7 @@
         <ResourceDictionary Source="pack://application:,,,/CandySugar.Com.Controls;component/Themes/CandyImageStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <uc:ObjectConverter x:Key="ObjectConverter" />
     <uc:NullConverter x:Key="NullConverter" />
     <uc:MultiConverter x:Key="MultiConverter" />
 

@@ -53,16 +53,17 @@
                 <ListBox ItemsSource="{Binding Picture, IsAsync=True}" Style="{DynamicResource CandyListBoxStyle}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <uc:CandyBorder BorderType="Primary">
-                                <Image
-                                    Margin="0,10"
-                                    uc:ImageAttach.RenderHeight="{c:Binding (Height*0.9),
-                                                                            ElementName=ReaderViewCtrl}"
-                                    uc:ImageAttach.RenderWidth="{c:Binding (Width*0.9),
-                                                                           ElementName=ReaderViewCtrl}"
-                                    uc:ImageAttach.SourceAsync="{Binding .}"
-                                    Tag="{x:Static lib:EDownload.Light}" />
-                            </uc:CandyBorder>
+                            <uc:CandyImage
+                                Width="{c:Binding (Width*0.9),
+                                                  ElementName=ReaderViewCtrl}"
+                                Height="{c:Binding (Height*0.9),
+                                                   ElementName=ReaderViewCtrl}"
+                                Margin="0,10"
+                                BorderBrush="SkyBlue"
+                                BorderThickness="1"
+                                EnableTag="False"
+                                ImageThickness="{Binding ., RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource ObjectConverter}}"
+                                Src="{Binding .}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

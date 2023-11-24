@@ -51,12 +51,14 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <uc:CandyBorder Margin="5" BorderType="Primary">
-                                <Image
-                                    uc:ImageAttach.SourceAsync="{Binding Cover}"
-                                    Stretch="None"
-                                    Tag="{x:Static lib:EDownload.Light}" />
-                            </uc:CandyBorder>
+                            <uc:CandyImage
+                                Width="160"
+                                Height="240"
+                                Margin="5"
+                                BorderBrush="SkyBlue"
+                                BorderThickness="1"
+                                EnableTag="False"
+                                Src="{Binding Cover}" />
                             <WrapPanel
                                 Grid.Column="1"
                                 Width="350"

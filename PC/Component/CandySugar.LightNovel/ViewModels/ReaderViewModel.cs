@@ -54,15 +54,19 @@
                             }
                         };
                     }).RunsAsync()).ContentResult;
-                    if (result.Content != null)
+                    if (result.Content != null || result.Image != null)
                     {
-                        if (result.Content.Equals("因版权问题，文库不再提供该小说的阅读！"))
+                        if (result.Content != null)
                         {
-                            ErrorNotify("因版权问题，请前往下载!");
-                            return;
+                            if (result.Content.Equals("因版权问题，文库不再提供该小说的阅读！"))
+                            {
+                                ErrorNotify("因版权问题，请前往下载!");
+                                return;
+                            }
+                            Words = new ObservableCollection<string>(result.Content);
                         }
-                        Words = new ObservableCollection<string>(result.Content);
-                        Picture = new ObservableCollection<string>(result.Image ?? new List<string>());
+                        else
+                            Picture = new ObservableCollection<string>(result.Image ?? new List<string>());
                     }
                 }
                 catch (Exception ex)
@@ -83,7 +87,7 @@
         #endregion
 
         #region Command
-        public void BackCommand() 
+        public void BackCommand()
         {
             WeakReferenceMessenger.Default.Send(new MessageNotify
             {
