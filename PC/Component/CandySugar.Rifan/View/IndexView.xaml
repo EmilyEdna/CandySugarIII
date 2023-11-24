@@ -90,46 +90,65 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid>
-                                        <Image
-                                            uc:ImageAttach.RenderHeight="240"
-                                            uc:ImageAttach.RenderWidth="200"
-                                            uc:ImageAttach.SourceAsync="{Binding Cover}"
-                                            Tag="{x:Static lib:EDownload.Rifan}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction
-                                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                                        Command="{s:Action WatchCommand}"
-                                                        CommandParameter="{Binding .}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Image>
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                            Command="{s:Action CollectCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Content="{x:Static lib:FontIcon.Star}"
-                                            Cursor="Hand"
-                                            FontSize="17"
-                                            Foreground="#ffe4c4"
-                                            Style="{DynamicResource CandyFontButtonStyle}" />
-                                    </Grid>
-                                    <Grid Grid.Row="1">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Name}"
-                                            TextTrimming="CharacterEllipsis" />
-                                    </Grid>
-                                </Grid>
+                                <uc:CandyImage
+                                    Width="200"
+                                    Height="240"
+                                    Margin="8"
+                                    BorderBrush="SkyBlue"
+                                    BorderThickness="1"
+                                    Fill="#80e6cfe6"
+                                    ImageThickness="200,240"
+                                    Item="{Binding .}"
+                                    Src="{Binding Cover}">
+                                    <uc:CandyImage.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="30" />
+                                                </Grid.RowDefinitions>
+                                                <StackPanel>
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Name}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Duration, StringFormat=时常：{0}}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Views, StringFormat=次数：{0}}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                </StackPanel>
+                                                <Button
+                                                    Grid.Row="1"
+                                                    Margin="10,0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                    Command="{s:Action CollectCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Content="{x:Static lib:FontIcon.Star}"
+                                                    Cursor="Hand"
+                                                    FontSize="17"
+                                                    Foreground="#ffe4c4"
+                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </uc:CandyImage.ItemTemplate>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction
+                                                s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                Command="{s:Action WatchCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -168,46 +187,66 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid>
-                                        <Image
-                                            uc:ImageAttach.RenderHeight="240"
-                                            uc:ImageAttach.RenderWidth="200"
-                                            uc:ImageAttach.SourceAsync="{Binding Cover}"
-                                            Tag="{x:Static lib:EDownload.Rifan}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction
-                                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                                        Command="{s:Action WatchCommand}"
-                                                        CommandParameter="{Binding .}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Image>
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                            Command="{s:Action CollectCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Content="{x:Static lib:FontIcon.Star}"
-                                            Cursor="Hand"
-                                            FontSize="17"
-                                            Foreground="#ffe4c4"
-                                            Style="{DynamicResource CandyFontButtonStyle}" />
-                                    </Grid>
-                                    <Grid Grid.Row="1">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Name}"
-                                            TextTrimming="CharacterEllipsis" />
-                                    </Grid>
-                                </Grid>
+                                <uc:CandyImage
+                                    Width="200"
+                                    Height="240"
+                                    Margin="8"
+                                    BorderBrush="SkyBlue"
+                                    BorderThickness="1"
+                                    Fill="#80e6cfe6"
+                                    ImageThickness="200,240"
+                                    Item="{Binding .}"
+                                    Src="{Binding Cover}">
+                                    <uc:CandyImage.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="30" />
+                                                </Grid.RowDefinitions>
+                                                <StackPanel>
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Name}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Duration, StringFormat=时常：{0}}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Views, StringFormat=次数：{0}}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                </StackPanel>
+                                                <Button
+                                                    Grid.Row="1"
+                                                    Margin="10,0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                    Command="{s:Action CollectCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Content="{x:Static lib:FontIcon.Star}"
+                                                    Cursor="Hand"
+                                                    FontSize="17"
+                                                    Foreground="#ffe4c4"
+                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </uc:CandyImage.ItemTemplate>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction
+                                                s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                Command="{s:Action WatchCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </uc:CandyImage>
+
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -246,46 +285,65 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid>
-                                        <Image
-                                            uc:ImageAttach.RenderHeight="240"
-                                            uc:ImageAttach.RenderWidth="200"
-                                            uc:ImageAttach.SourceAsync="{Binding Cover}"
-                                            Tag="{x:Static lib:EDownload.Rifan}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction
-                                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                                        Command="{s:Action WatchCommand}"
-                                                        CommandParameter="{Binding .}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Image>
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                            Command="{s:Action CollectCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Content="{x:Static lib:FontIcon.Star}"
-                                            Cursor="Hand"
-                                            FontSize="17"
-                                            Foreground="#ffe4c4"
-                                            Style="{DynamicResource CandyFontButtonStyle}" />
-                                    </Grid>
-                                    <Grid Grid.Row="1">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Name}"
-                                            TextTrimming="CharacterEllipsis" />
-                                    </Grid>
-                                </Grid>
+                                <uc:CandyImage
+                                    Width="200"
+                                    Height="240"
+                                    Margin="8"
+                                    BorderBrush="SkyBlue"
+                                    BorderThickness="1"
+                                    Fill="#80e6cfe6"
+                                    ImageThickness="200,240"
+                                    Item="{Binding .}"
+                                    Src="{Binding Cover}">
+                                    <uc:CandyImage.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="30" />
+                                                </Grid.RowDefinitions>
+                                                <StackPanel>
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Name}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Duration, StringFormat=时常：{0}}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Views, StringFormat=次数：{0}}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                </StackPanel>
+                                                <Button
+                                                    Grid.Row="1"
+                                                    Margin="10,0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                    Command="{s:Action CollectCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Content="{x:Static lib:FontIcon.Star}"
+                                                    Cursor="Hand"
+                                                    FontSize="17"
+                                                    Foreground="#ffe4c4"
+                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </uc:CandyImage.ItemTemplate>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction
+                                                s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                Command="{s:Action WatchCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -324,46 +382,65 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid>
-                                        <Image
-                                            uc:ImageAttach.RenderHeight="240"
-                                            uc:ImageAttach.RenderWidth="200"
-                                            uc:ImageAttach.SourceAsync="{Binding Cover}"
-                                            Tag="{x:Static lib:EDownload.Rifan}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction
-                                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                                        Command="{s:Action WatchCommand}"
-                                                        CommandParameter="{Binding .}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Image>
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                            Command="{s:Action CollectCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Content="{x:Static lib:FontIcon.Star}"
-                                            Cursor="Hand"
-                                            FontSize="17"
-                                            Foreground="#ffe4c4"
-                                            Style="{DynamicResource CandyFontButtonStyle}" />
-                                    </Grid>
-                                    <Grid Grid.Row="1">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Name}"
-                                            TextTrimming="CharacterEllipsis" />
-                                    </Grid>
-                                </Grid>
+                                <uc:CandyImage
+                                    Width="200"
+                                    Height="240"
+                                    Margin="8"
+                                    BorderBrush="SkyBlue"
+                                    BorderThickness="1"
+                                    Fill="#80e6cfe6"
+                                    ImageThickness="200,240"
+                                    Item="{Binding .}"
+                                    Src="{Binding Cover}">
+                                    <uc:CandyImage.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="30" />
+                                                </Grid.RowDefinitions>
+                                                <StackPanel>
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Name}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Duration, StringFormat=时常：{0}}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Views, StringFormat=次数：{0}}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                </StackPanel>
+                                                <Button
+                                                    Grid.Row="1"
+                                                    Margin="10,0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                    Command="{s:Action CollectCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Content="{x:Static lib:FontIcon.Star}"
+                                                    Cursor="Hand"
+                                                    FontSize="17"
+                                                    Foreground="#ffe4c4"
+                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </uc:CandyImage.ItemTemplate>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction
+                                                s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                Command="{s:Action WatchCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -402,46 +479,65 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid>
-                                        <Image
-                                            uc:ImageAttach.RenderHeight="240"
-                                            uc:ImageAttach.RenderWidth="200"
-                                            uc:ImageAttach.SourceAsync="{Binding Cover}"
-                                            Tag="{x:Static lib:EDownload.Rifan}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction
-                                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                                        Command="{s:Action WatchCommand}"
-                                                        CommandParameter="{Binding .}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Image>
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                            Command="{s:Action CollectCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Content="{x:Static lib:FontIcon.Star}"
-                                            Cursor="Hand"
-                                            FontSize="17"
-                                            Foreground="#ffe4c4"
-                                            Style="{DynamicResource CandyFontButtonStyle}" />
-                                    </Grid>
-                                    <Grid Grid.Row="1">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Name}"
-                                            TextTrimming="CharacterEllipsis" />
-                                    </Grid>
-                                </Grid>
+                                <uc:CandyImage
+                                    Width="200"
+                                    Height="240"
+                                    Margin="8"
+                                    BorderBrush="SkyBlue"
+                                    BorderThickness="1"
+                                    Fill="#80e6cfe6"
+                                    ImageThickness="200,240"
+                                    Item="{Binding .}"
+                                    Src="{Binding Cover}">
+                                    <uc:CandyImage.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="30" />
+                                                </Grid.RowDefinitions>
+                                                <StackPanel>
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Name}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Duration, StringFormat=时常：{0}}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Views, StringFormat=次数：{0}}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                </StackPanel>
+                                                <Button
+                                                    Grid.Row="1"
+                                                    Margin="10,0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                    Command="{s:Action CollectCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Content="{x:Static lib:FontIcon.Star}"
+                                                    Cursor="Hand"
+                                                    FontSize="17"
+                                                    Foreground="#ffe4c4"
+                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </uc:CandyImage.ItemTemplate>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction
+                                                s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                Command="{s:Action WatchCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -480,46 +576,63 @@
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid>
-                                        <Image
-                                            uc:ImageAttach.RenderHeight="240"
-                                            uc:ImageAttach.RenderWidth="200"
-                                            uc:ImageAttach.SourceAsync="{Binding Cover}"
-                                            Tag="{x:Static lib:EDownload.Rifan}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction
-                                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                                        Command="{s:Action WatchCommand}"
-                                                        CommandParameter="{Binding .}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Image>
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                            Command="{s:Action RemoveCommand}"
-                                            CommandParameter="{Binding .}"
-                                            Content="{x:Static lib:FontIcon.TrashCan}"
-                                            Cursor="Hand"
-                                            FontSize="17"
-                                            Foreground="#ffe4c4"
-                                            Style="{DynamicResource CandyFontButtonStyle}" />
-                                    </Grid>
-                                    <Grid Grid.Row="1">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            Style="{DynamicResource TextBlockStyle}"
-                                            Text="{Binding Name}"
-                                            TextTrimming="CharacterEllipsis" />
-                                    </Grid>
-                                </Grid>
+                                <uc:CandyImage
+                                    Width="200"
+                                    Height="240"
+                                    Margin="8"
+                                    BorderBrush="SkyBlue"
+                                    BorderThickness="1"
+                                    Fill="#80e6cfe6"
+                                    ImageThickness="200,240"
+                                    Item="{Binding .}"
+                                    Src="{Binding Cover}">
+                                    <uc:CandyImage.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="30" />
+                                                </Grid.RowDefinitions>
+                                                <StackPanel>
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Name}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Duration, StringFormat=时常：{0}}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        Text="{Binding Views, StringFormat=次数：{0}}"
+                                                        TextTrimming="CharacterEllipsis" />
+                                                </StackPanel>
+                                                <Button
+                                                    Grid.Row="1"
+                                                    Margin="10,0"
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                    Command="{s:Action RemoveCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Content="{x:Static lib:FontIcon.TrashCan}"
+                                                    Cursor="Hand"
+                                                    FontSize="17"
+                                                    Foreground="#ffe4c4"
+                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </uc:CandyImage.ItemTemplate>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction
+                                                s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                Command="{s:Action WatchCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -600,57 +713,65 @@
                     ItemsSource="{Binding LinkResult}">
                     <uc:CandyListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid Width="300" Margin="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image
-                                    Width="100"
-                                    uc:ImageAttach.RenderHeight="130"
-                                    uc:ImageAttach.RenderWidth="100"
-                                    uc:ImageAttach.SourceAsync="{Binding Cover}"
-                                    Stretch="Uniform"
-                                    Tag="{x:Static lib:EDownload.Rifan}"
-                                    ToolTip="{Binding Name}">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown">
-                                            <i:InvokeCommandAction
+                            <uc:CandyImage
+                                Width="200"
+                                Height="240"
+                                Margin="8"
+                                BorderBrush="SkyBlue"
+                                BorderThickness="1"
+                                Fill="#80e6cfe6"
+                                ImageThickness="200,240"
+                                Item="{Binding .}"
+                                Src="{Binding Cover}">
+                                <uc:CandyImage.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition Height="30" />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel>
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    Style="{DynamicResource TextBlockStyle}"
+                                                    Text="{Binding Name}"
+                                                    TextTrimming="CharacterEllipsis" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    Style="{DynamicResource TextBlockStyle}"
+                                                    Text="{Binding Duration, StringFormat=时常：{0}}"
+                                                    TextTrimming="CharacterEllipsis" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    Style="{DynamicResource TextBlockStyle}"
+                                                    Text="{Binding Views, StringFormat=次数：{0}}"
+                                                    TextTrimming="CharacterEllipsis" />
+                                            </StackPanel>
+                                            <Button
+                                                Grid.Row="1"
+                                                Margin="10,0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Top"
                                                 s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                                Command="{s:Action WatchCommand}"
-                                                CommandParameter="{Binding .}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </Image>
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock
-                                        Margin="0,5"
-                                        Style="{DynamicResource TextBlockStyle}"
-                                        Text="{Binding Name}"
-                                        TextTrimming="CharacterEllipsis" />
-                                    <TextBlock
-                                        Margin="0,5"
-                                        FontSize="14"
-                                        Style="{DynamicResource TextBlockStyle}"
-                                        Text="{Binding Duration, StringFormat=时常：{0}}" />
-                                    <TextBlock
-                                        Margin="0,5"
-                                        FontSize="14"
-                                        Style="{DynamicResource TextBlockStyle}"
-                                        Text="{Binding Views, StringFormat=次数：{0}}" />
-                                    <Button
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                        Command="{s:Action CollectCommand}"
-                                        CommandParameter="{Binding .}"
-                                        Content="{x:Static lib:FontIcon.Star}"
-                                        Cursor="Hand"
-                                        FontSize="17"
-                                        Foreground="#ffe4c4"
-                                        Style="{DynamicResource CandyFontButtonStyle}" />
-                                </StackPanel>
-                            </Grid>
+                                                Command="{s:Action CollectCommand}"
+                                                CommandParameter="{Binding .}"
+                                                Content="{x:Static lib:FontIcon.Star}"
+                                                Cursor="Hand"
+                                                FontSize="17"
+                                                Foreground="#ffe4c4"
+                                                Style="{DynamicResource CandyFontButtonStyle}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </uc:CandyImage.ItemTemplate>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction
+                                            s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                            Command="{s:Action WatchCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </uc:CandyImage>
                         </DataTemplate>
                     </uc:CandyListBox.ItemTemplate>
                 </uc:CandyListBox>

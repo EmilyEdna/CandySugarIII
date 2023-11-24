@@ -107,7 +107,7 @@
                                                     <TextBlock
                                                         HorizontalAlignment="Center"
                                                         Style="{DynamicResource TextBlockStyle}"
-                                                        Text="{Binding Author, StringFormat=作者:{0}}" />
+                                                        Text="{Binding Author, StringFormat=作者：{0}}" />
                                                     <TextBlock
                                                         HorizontalAlignment="Center"
                                                         Style="{DynamicResource TextBlockStyle}"
@@ -193,7 +193,7 @@
                                                     <TextBlock
                                                         HorizontalAlignment="Center"
                                                         Style="{DynamicResource TextBlockStyle}"
-                                                        Text="{Binding Author, StringFormat=作者:{0}}" />
+                                                        Text="{Binding Author, StringFormat=作者：{0}}" />
                                                     <TextBlock
                                                         HorizontalAlignment="Center"
                                                         Style="{DynamicResource TextBlockStyle}"
@@ -279,7 +279,7 @@
                                                     <TextBlock
                                                         HorizontalAlignment="Center"
                                                         Style="{DynamicResource TextBlockStyle}"
-                                                        Text="{Binding Author, StringFormat=作者:{0}}" />
+                                                        Text="{Binding Author, StringFormat=作者：{0}}" />
                                                     <TextBlock
                                                         HorizontalAlignment="Center"
                                                         Style="{DynamicResource TextBlockStyle}"
@@ -382,7 +382,7 @@
                                                     <TextBlock
                                                         HorizontalAlignment="Center"
                                                         Style="{DynamicResource TextBlockStyle}"
-                                                        Text="{Binding Author, StringFormat=作者:{0}}" />
+                                                        Text="{Binding Author, StringFormat=作者：{0}}" />
                                                     <TextBlock
                                                         HorizontalAlignment="Center"
                                                         Style="{DynamicResource TextBlockStyle}"
