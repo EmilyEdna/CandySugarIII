@@ -126,8 +126,8 @@
                                                 </StackPanel>
                                                 <Button
                                                     Grid.Row="1"
-                                                    Margin="10,0"
-                                                    HorizontalAlignment="Left"
+                                                    Margin="0,0,10,0"
+                                                    HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
                                                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
                                                     Command="{s:Action CollectCommand}"
@@ -223,8 +223,8 @@
                                                 </StackPanel>
                                                 <Button
                                                     Grid.Row="1"
-                                                    Margin="10,0"
-                                                    HorizontalAlignment="Left"
+                                                    Margin="0,0,10,0"
+                                                    HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
                                                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
                                                     Command="{s:Action CollectCommand}"
@@ -321,8 +321,8 @@
                                                 </StackPanel>
                                                 <Button
                                                     Grid.Row="1"
-                                                    Margin="10,0"
-                                                    HorizontalAlignment="Left"
+                                                    Margin="0,0,10,0"
+                                                    HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
                                                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
                                                     Command="{s:Action CollectCommand}"
@@ -418,8 +418,8 @@
                                                 </StackPanel>
                                                 <Button
                                                     Grid.Row="1"
-                                                    Margin="10,0"
-                                                    HorizontalAlignment="Left"
+                                                    Margin="0,0,10,0"
+                                                    HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
                                                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
                                                     Command="{s:Action CollectCommand}"
@@ -515,8 +515,8 @@
                                                 </StackPanel>
                                                 <Button
                                                     Grid.Row="1"
-                                                    Margin="10,0"
-                                                    HorizontalAlignment="Left"
+                                                    Margin="0,0,10,0"
+                                                    HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
                                                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
                                                     Command="{s:Action CollectCommand}"
@@ -612,7 +612,9 @@
                                                 </StackPanel>
                                                 <Button
                                                     Grid.Row="1"
-                                                    Margin="10,0"
+                                                    Margin="0,0,10,0"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
                                                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
                                                     Command="{s:Action RemoveCommand}"
                                                     CommandParameter="{Binding .}"
@@ -749,8 +751,8 @@
                                             </StackPanel>
                                             <Button
                                                 Grid.Row="1"
-                                                Margin="10,0"
-                                                HorizontalAlignment="Left"
+                                                Margin="0,0,10,0"
+                                                HorizontalAlignment="Right"
                                                 VerticalAlignment="Top"
                                                 s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
                                                 Command="{s:Action CollectCommand}"
