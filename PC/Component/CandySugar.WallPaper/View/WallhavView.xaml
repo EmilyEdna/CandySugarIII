@@ -121,11 +121,11 @@
                                     Margin="8"
                                     BorderBrush="SkyBlue"
                                     BorderThickness="1"
-                                    Fill="#80e6cfe6"
+                                    Entity="{Binding .}"
                                     ImageThickness="320,200"
-                                    Item="{Binding .}"
-                                    Src="{Binding Preview}">
-                                    <uc:CandyImage.ItemTemplate>
+                                    MaskFill="#80e6cfe6"
+                                    Source="{Binding Preview}">
+                                    <uc:CandyImage.MaskTemplate>
                                         <DataTemplate>
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -151,7 +151,7 @@
                                                     Style="{DynamicResource CandyFontButtonStyle}" />
                                             </Grid>
                                         </DataTemplate>
-                                    </uc:CandyImage.ItemTemplate>
+                                    </uc:CandyImage.MaskTemplate>
                                 </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -197,11 +197,11 @@
                                     Margin="8"
                                     BorderBrush="SkyBlue"
                                     BorderThickness="1"
-                                    Fill="#80e6cfe6"
+                                    Entity="{Binding .}"
                                     ImageThickness="320,200"
-                                    Item="{Binding .}"
-                                    Src="{Binding Preview}">
-                                    <uc:CandyImage.ItemTemplate>
+                                    MaskFill="#80e6cfe6"
+                                    Source="{Binding Preview}">
+                                    <uc:CandyImage.MaskTemplate>
                                         <DataTemplate>
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -227,7 +227,7 @@
                                                     Style="{DynamicResource CandyFontButtonStyle}" />
                                             </Grid>
                                         </DataTemplate>
-                                    </uc:CandyImage.ItemTemplate>
+                                    </uc:CandyImage.MaskTemplate>
                                 </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -273,11 +273,11 @@
                                     Margin="8"
                                     BorderBrush="SkyBlue"
                                     BorderThickness="1"
-                                    Fill="#80e6cfe6"
+                                    Entity="{Binding .}"
                                     ImageThickness="320,200"
-                                    Item="{Binding .}"
-                                    Src="{Binding Preview}">
-                                    <uc:CandyImage.ItemTemplate>
+                                    MaskFill="#80e6cfe6"
+                                    Source="{Binding Preview}">
+                                    <uc:CandyImage.MaskTemplate>
                                         <DataTemplate>
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -303,7 +303,7 @@
                                                     Style="{DynamicResource CandyFontButtonStyle}" />
                                             </Grid>
                                         </DataTemplate>
-                                    </uc:CandyImage.ItemTemplate>
+                                    </uc:CandyImage.MaskTemplate>
                                 </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -346,11 +346,11 @@
                                     Margin="8"
                                     BorderBrush="SkyBlue"
                                     BorderThickness="1"
-                                    Fill="#80e6cfe6"
+                                    Entity="{Binding .}"
                                     ImageThickness="320,200"
-                                    Item="{Binding .}"
-                                    Src="{Binding Preview}">
-                                    <uc:CandyImage.ItemTemplate>
+                                    MaskFill="#80e6cfe6"
+                                    Source="{Binding Preview}">
+                                    <uc:CandyImage.MaskTemplate>
                                         <DataTemplate>
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -384,7 +384,7 @@
                                                     Text="{Binding Pixel}" />
                                             </Grid>
                                         </DataTemplate>
-                                    </uc:CandyImage.ItemTemplate>
+                                    </uc:CandyImage.MaskTemplate>
                                 </uc:CandyImage>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

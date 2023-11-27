@@ -22,10 +22,10 @@
                             Height="{TemplateBinding Height}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{TemplateBinding CornerRadius}">
-                            <Grid Margin="0.5">
+                            CornerRadius="{TemplateBinding BorderRadius}">
+                            <Grid>
                                 <Image
-                                    att:ImageAttach.SourceAsync="{TemplateBinding Src}"
+                                    att:ImageAttach.SourceAsync="{TemplateBinding Source}"
                                     RenderOptions.BitmapScalingMode="HighQuality"
                                     SnapsToDevicePixels="True"
                                     Stretch="Uniform" />
@@ -37,17 +37,17 @@
                                     <Rectangle
                                         Width="{Binding Width, ElementName=PART_RECT, Mode=TwoWay}"
                                         Height="{Binding Height, ElementName=PART_RECT, Mode=TwoWay}"
-                                        Fill="{TemplateBinding Fill}" />
+                                        Fill="{TemplateBinding MaskFill}" />
                                     <Grid x:Name="PART_RECT_INFO">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="30" />
                                         </Grid.RowDefinitions>
-                                        <ContentPresenter Content="{TemplateBinding Item}" ContentTemplate="{TemplateBinding ItemTemplate}" />
+                                        <ContentPresenter Content="{TemplateBinding Entity}" ContentTemplate="{TemplateBinding MaskTemplate}" />
                                         <Button
                                             x:Name="PART_BTN"
                                             Grid.Row="1"
-                                            Visibility="{TemplateBinding PopupBtn}">
+                                            Visibility="{TemplateBinding EnablePopupBtn}">
                                             <Button.Style>
                                                 <Style TargetType="Button">
                                                     <Setter Property="Template">

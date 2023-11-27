@@ -80,11 +80,11 @@
                                     Margin="8"
                                     BorderBrush="SkyBlue"
                                     BorderThickness="1"
-                                    Fill="#80e6cfe6"
+                                    Entity="{Binding .}"
                                     ImageThickness="200,240"
-                                    Item="{Binding .}"
-                                    Src="{Binding Cover}">
-                                    <uc:CandyImage.ItemTemplate>
+                                    MaskFill="#80e6cfe6"
+                                    Source="{Binding Cover}">
+                                    <uc:CandyImage.MaskTemplate>
                                         <DataTemplate>
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -113,7 +113,7 @@
                                                     Style="{DynamicResource CandyFontButtonStyle}" />
                                             </Grid>
                                         </DataTemplate>
-                                    </uc:CandyImage.ItemTemplate>
+                                    </uc:CandyImage.MaskTemplate>
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseLeftButtonDown">
                                             <i:InvokeCommandAction
@@ -167,11 +167,11 @@
                                     Margin="8"
                                     BorderBrush="SkyBlue"
                                     BorderThickness="1"
-                                    Fill="#80e6cfe6"
+                                    Entity="{Binding .}"
                                     ImageThickness="200,240"
-                                    Item="{Binding .}"
-                                    Src="{Binding Cover}">
-                                    <uc:CandyImage.ItemTemplate>
+                                    MaskFill="#80e6cfe6"
+                                    Source="{Binding Cover}">
+                                    <uc:CandyImage.MaskTemplate>
                                         <DataTemplate>
                                             <Grid>
                                                 <Grid.RowDefinitions>
@@ -200,7 +200,7 @@
                                                     Style="{DynamicResource CandyFontButtonStyle}" />
                                             </Grid>
                                         </DataTemplate>
-                                    </uc:CandyImage.ItemTemplate>
+                                    </uc:CandyImage.MaskTemplate>
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseLeftButtonDown">
                                             <i:InvokeCommandAction
@@ -317,10 +317,10 @@
                                 Margin="3"
                                 BorderBrush="SkyBlue"
                                 BorderThickness="1"
-                                EnableTag="False"
-                                Fill="#80e6cfe6"
+                                EnableMask="False"
                                 ImageThickness="200,240"
-                                Src="{Binding .}" />
+                                MaskFill="#80e6cfe6"
+                                Source="{Binding .}" />
                         </DataTemplate>
                     </uc:CandyListBox.ItemTemplate>
                 </uc:CandyListBox>
