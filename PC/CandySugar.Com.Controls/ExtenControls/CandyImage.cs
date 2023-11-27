@@ -181,7 +181,7 @@ namespace CandySugar.Com.Controls.ExtenControls
             set { SetValue(CommandProperty, value); }
         }
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register("Command", typeof(int), typeof(CandyImage), new PropertyMetadata(default));
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(CandyImage), new PropertyMetadata(default));
         /// <summary>
         /// 弹出层的长宽
         /// </summary>
