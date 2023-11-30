@@ -287,7 +287,7 @@ namespace CandySugar.WallPaper.ViewModels
         {
             if (ChangeType == 1)
             {
-                if (GeneralPageIndex <= FishyTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+                if (GeneralPageIndex <= GeneralTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
                 {
                     GeneralPageIndex += 1;
                     OnLoadMoreGeneralInit();
@@ -303,7 +303,7 @@ namespace CandySugar.WallPaper.ViewModels
             }
             if (ChangeType == 3)
             {
-                if (FishyPageIndex <= GeneralTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+                if (FishyPageIndex <= FishyTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
                 {
                     FishyPageIndex += 1;
                     OnLoadMoreFishyInit();
