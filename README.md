@@ -4,7 +4,7 @@
 
 以下是部分SDK功能截图：
 
-![](D:\Project\CandySugarClient\Screen\1.png)
+![]([D:\Project\CandySugarClient\Screen\1.png](https://github.com/EmilyEdna/CandySugarClient/blob/main/Screen/1.png)https://github.com/EmilyEdna/CandySugarClient/blob/main/Screen/1.png)
 
 目前不提供下载，也不提供核心的SDK库。
 
