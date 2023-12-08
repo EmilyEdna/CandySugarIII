@@ -6,6 +6,8 @@
 
 ![image](Screen/1.png)
 
+![image](Screen/2.png)
+
 目前不提供下载，也不提供核心的SDK库。
 
 项目结构分为WPF和MAUI，有兴趣的可以下载学习。
