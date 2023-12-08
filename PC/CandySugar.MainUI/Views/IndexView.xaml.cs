@@ -92,5 +92,10 @@ namespace CandySugar.MainUI.Views
             PopMenu.Opened += delegate { ((Storyboard)FindResource("Overly")).Begin(); };
             PopMenu.IsOpen = true;
         }
+
+        private void ShowEvent(object sender, RoutedEventArgs e)
+        {
+            this.Visibility = Visibility.Visible;
+        }
     }
 }

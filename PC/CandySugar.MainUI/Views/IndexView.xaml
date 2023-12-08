@@ -98,7 +98,7 @@
                 </ListBox>
             </Grid>
         </Popup>
-        <taskbar:TaskbarIcon x:Name="Tray">
+        <taskbar:TaskbarIcon x:Name="Tray" TrayMouseDoubleClick="ShowEvent">
             <taskbar:TaskbarIcon.ContextMenu>
                 <ContextMenu FontFamily="{DynamicResource FontStyle}" Style="{DynamicResource CandyContextMenuStyle}">
                     <MenuItem

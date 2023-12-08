@@ -121,8 +121,15 @@ namespace CandySugar.Com.Style
         public virtual void CloseEvent(object sender, RoutedEventArgs e)
         {
             Window win = (Window)((Button)sender).TemplatedParent;
-            if (win is ScreenPlayView|| win is ScreenWebPlayView) win.Close();
-            else Application.Current.Shutdown(0);
+            if (win is ScreenPlayView || win is ScreenWebPlayView) win.Close();
+            else
+            {
+                WindowCloseNofityView CloseWin = new WindowCloseNofityView();
+                if (CloseWin.ShowDialog().Value)
+                    Application.Current.Shutdown(0);
+                else
+                    win.Visibility = Visibility.Collapsed;
+            }
 
         }
         /// <summary>
