@@ -1,20 +1,20 @@
-﻿using System.Collections.ObjectModel;
-using CandySugar.Com.Library;
-using CandySugar.Com.Pages.ChildViews.Novels;
+﻿using CandySugar.Com.Library;
+using CandySugar.Com.Pages.ChildViews.Lights;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Sdk.Component.Novel.sdk;
-using Sdk.Component.Novel.sdk.ViewModel;
-using Sdk.Component.Novel.sdk.ViewModel.Enums;
-using Sdk.Component.Novel.sdk.ViewModel.Request;
-using Sdk.Component.Novel.sdk.ViewModel.Response;
+using Sdk.Component.Lovel.sdk;
+using Sdk.Component.Lovel.sdk.ViewModel;
+using Sdk.Component.Lovel.sdk.ViewModel.Enums;
+using Sdk.Component.Lovel.sdk.ViewModel.Request;
+using Sdk.Component.Lovel.sdk.ViewModel.Response;
+using System.Collections.ObjectModel;
 using XExten.Advance.LinqFramework;
 
 namespace CandySugar.Com.Pages.ViewModels
 {
-    public partial class NovelViewModel : ObservableObject
+    public partial class LightViewModel: ObservableObject
     {
-        public NovelViewModel()
+        public LightViewModel()
         {
             QueryIndex = CateIndex = 1;
             Application.Current.Dispatcher.DispatchAsync(InitAsync);
@@ -32,9 +32,9 @@ namespace CandySugar.Com.Pages.ViewModels
         [ObservableProperty]
         private string _QueryKey;
         [ObservableProperty]
-        private NovelInitRootResult _InitResult;
+        private ObservableCollection<LovelInitResult> _InitResult;
         [ObservableProperty]
-        private ObservableCollection<NovelCategoryElementResult> _CateResult;
+        private ObservableCollection<LovelCategoryElementResult> _CateResult;
         #endregion
 
         #region Method
@@ -42,44 +42,44 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             try
             {
-                var result = (await NovelFactory.Novel(opt =>
+                var result = (await LovelFactory.Lovel(opt =>
                 {
                     opt.RequestParam = new Input
                     {
-                        PlatformType = PlatformEnum.Pencil,
+                        LovelType = LovelEnum.Init,
                         CacheSpan = 5,
-                        NovelType = NovelEnum.Init
+                        Login = new()
                     };
-                }).RunsAsync()).InitResult;
-                InitResult = result;
+                }).RunsAsync()).InitResults;
+                InitResult = new ObservableCollection<LovelInitResult>(result);
             }
             catch (Exception ex)
             {
                 ex.Message.Info();
             }
         }
+
         private async void CategoryAsync()
         {
             try
             {
-                var result = (await NovelFactory.Novel(opt =>
-                  {
-                      opt.RequestParam = new Input
-                      {
-                          PlatformType = PlatformEnum.Pencil,
-                          CacheSpan = 5,
-                          NovelType = NovelEnum.Category,
-                          Category = new NovelCategory
-                          {
-                              Page = CateIndex,
-                              Route = CateRoute
-                          }
-                      };
-                  }).RunsAsync()).CategoryResult;
+                var result = (await LovelFactory.Lovel(opt =>
+                {
+                    opt.RequestParam = new Input
+                    {
+                        CacheSpan = 5,
+                        LovelType = LovelEnum.Category,
+                        Category = new LovelCategory
+                        {
+                            Page = CateIndex,
+                            Route = CateRoute
+                        }
+                    };
+                }).RunsAsync()).CategoryResult;
                 if (CateIndex <= 1)
                 {
                     CateTotal = result.Total;
-                    CateResult = new ObservableCollection<NovelCategoryElementResult>(result.ElementResults);
+                    CateResult = new ObservableCollection<LovelCategoryElementResult>(result.ElementResults);
                 }
                 else
                     result.ElementResults.ForEach(CateResult.Add);
@@ -89,29 +89,30 @@ namespace CandySugar.Com.Pages.ViewModels
                 ex.Message.Info();
             }
         }
+
         private async void SearchAsync()
         {
             try
             {
-                var result = (await NovelFactory.Novel(opt =>
+                var result = (await LovelFactory.Lovel(opt =>
                 {
                     opt.RequestParam = new Input
                     {
-                        PlatformType = PlatformEnum.Pencil,
+                        LovelType = LovelEnum.Search,
                         CacheSpan = 5,
-                        NovelType = NovelEnum.Search,
-                        Search = new NovelSearch
+                        Search = new LovelSearch
                         {
                             Page = QueryIndex,
-                            SearchKey = QueryKey
-                        }
+                            SearchType = LovelSearchEnum.ArticleName,
+                            KeyWord = QueryKey
+                        },
                     };
                 }).RunsAsync()).SearchResult;
-                var Model = result.ElementResults.ToMapest<List<NovelCategoryElementResult>>();
+                var Model = result.ElementResults.ToMapest<List<LovelCategoryElementResult>>();
                 if (QueryIndex <= 1)
                 {
                     QueryTotal = result.Total;
-                    CateResult = new ObservableCollection<NovelCategoryElementResult>(Model);
+                    CateResult = new ObservableCollection<LovelCategoryElementResult>(Model);
                 }
                 else Model.ForEach(CateResult.Add);
             }
@@ -120,13 +121,20 @@ namespace CandySugar.Com.Pages.ViewModels
                 ex.Message.Info();
             }
         }
-        private async void Next(string Name, string Route,string Cover, int Type)
+
+        private async void Next(string Name, string Route, string Cover)
         {
-            await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(ChapterView)]}?Type={Type}&Name={Name}&Route={Route}&Cover={Cover}");
+            await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(ChaptersView)]}?Name={Name}&Route={Route}&Cover={Cover}");
         }
         #endregion
 
         #region Command
+        public RelayCommand QueryCommand => new(() =>
+        {
+            if (QueryKey.IsNullOrEmpty()) return;
+            QueryIndex = 1;
+            Application.Current.Dispatcher.DispatchAsync(SearchAsync);
+        });
         public RelayCommand<string> CatalogCommand => new(Input =>
         {
             CateRoute = Input;
@@ -147,15 +155,8 @@ namespace CandySugar.Com.Pages.ViewModels
                     Application.Current.Dispatcher.DispatchAsync(SearchAsync);
             }
         });
-        public RelayCommand QueryCommand => new(() =>
-        {
-            if (QueryKey.IsNullOrEmpty()) return;
-            QueryIndex = 1;
-            Application.Current.Dispatcher.DispatchAsync(SearchAsync);
-        });
-        public RelayCommand<NovelCategoryElementResult> TypeOneCommand => new(input => Next(input.BookName, input.Route, input.Cover, 1));
-        public RelayCommand<NovelCategoryElementResult> TypeTwoCommand => new(input => Next(input.BookName, input.Route, input.Cover, 2));
+        public RelayCommand<LovelCategoryElementResult> ChapterCommand => new(input => Next(input.BookName, input.DetailAddress, input.Cover));
+        
         #endregion
-
     }
 }

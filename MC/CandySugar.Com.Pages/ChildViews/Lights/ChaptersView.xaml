@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CandySugar.Com.Pages.ChildViews.Novels.ChapterView"
+    x:Class="CandySugar.Com.Pages.ChildViews.Lights.ChaptersView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:sdk="clr-namespace:Sdk.Component.Novel.sdk.ViewModel.Response;assembly=Sdk.Component"
-    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Novels"
+    xmlns:sdk="clr-namespace:Sdk.Component.Lovel.sdk.ViewModel.Response;assembly=Sdk.Component"
+    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Lights"
     Title="{Binding BookName}"
-    x:DataType="vm:ChapterViewModel"
+    x:DataType="vm:ChaptersViewModel"
     BackgroundColor="{DynamicResource BasicContainer}"
     Shell.BackgroundColor="{DynamicResource BasicPage}">
     <AbsoluteLayout>
@@ -15,24 +15,22 @@
             AbsoluteLayout.LayoutBounds="0,0,1,1"
             AbsoluteLayout.LayoutFlags="All"
             ItemSizingStrategy="MeasureAllItems"
-            ItemsSource="{Binding ElementResult}"
-            RemainingItemsThreshold="0"
-            RemainingItemsThresholdReachedCommand="{Binding MoreCommand}">
+            ItemsSource="{Binding ViewResult}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="sdk:NovelDetailElementResult">
+                <DataTemplate x:DataType="sdk:LovelViewResult">
                     <Grid>
                         <Label
                             FontSize="18"
                             HorizontalOptions="StartAndExpand"
                             LineBreakMode="WordWrap"
-                            Text="{Binding Chapter}"
+                            Text="{Binding ChapterName}"
                             TextColor="{DynamicResource Basic}"
                             VerticalOptions="CenterAndExpand">
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ReaderCommand, Source={RelativeSource AncestorType={x:Type vm:ChapterViewModel}}}" CommandParameter="{Binding Route}" />
+                                <TapGestureRecognizer Command="{Binding ReaderCommand, Source={RelativeSource AncestorType={x:Type vm:ChaptersViewModel}}}" CommandParameter="{Binding ChapterRoute}" />
                             </Label.GestureRecognizers>
                         </Label>
                     </Grid>

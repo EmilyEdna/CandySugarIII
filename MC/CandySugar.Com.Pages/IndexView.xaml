@@ -24,6 +24,10 @@
             ContentTemplate="{DataTemplate page:NovelView}"
             Route="NovelView" />
         <ShellContent
+            Title="文库"
+            ContentTemplate="{DataTemplate page:LightView}"
+            Route="LightView" />
+        <ShellContent
             Title="动漫"
             ContentTemplate="{DataTemplate page:AnimeView}"
             Route="AnimeView" />
