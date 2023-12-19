@@ -19,6 +19,12 @@
       "Description": "音乐"
     },
     {
+      "Plugin": "CandySugar.Movie.dll",
+      "Bootstrapper": "MainView",
+      "Ioc": "Module",
+      "Description": "影剧"
+    },
+    {
       "Plugin": "CandySugar.WallPaper.dll",
       "Bootstrapper": "MainView",
       "Ioc": "Module",
