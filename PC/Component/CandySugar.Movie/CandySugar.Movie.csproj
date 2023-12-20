@@ -1,10 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
+		<BaseOutputPath>..\..\CandySugar.MainUI\bin</BaseOutputPath>
+		<!--动态加载-->
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<!--Aot发布-->
+		<!--<PublishAot>true</PublishAot>-->
+	</PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\CandySugar.Com.Style\CandySugar.Com.Style.csproj" />

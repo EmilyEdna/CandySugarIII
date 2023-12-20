@@ -1,6 +1,7 @@
-﻿using System;
+﻿using CandySugar.Com.Controls.StructCtonrols;
+using CandySugar.Com.Library.BitConvert;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -12,8 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Shapes;
-using CandySugar.Com.Controls.StructCtonrols;
-using CandySugar.Com.Library.BitConvert;
 using XExten.Advance.CacheFramework.RunTimeCache;
 using XExten.Advance.LinqFramework;
 
@@ -42,6 +41,8 @@ namespace CandySugar.Com.Controls.ExtenControls
             PART_BTN.Click += ClickEvent;
             PART_LOAD.Height = LoadingThickness.Height;
             PART_LOAD.Width = LoadingThickness.Width;
+            PART_RECT_INFO.Width= Width;
+            PART_BTN.Width = Width - 40;
 
             TRIGGER = (Trigger)this.Template.Triggers.Where(t => t is Trigger).First();
             if (!EnableMask)
