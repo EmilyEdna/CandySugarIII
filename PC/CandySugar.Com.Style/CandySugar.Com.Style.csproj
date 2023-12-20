@@ -19,4 +19,10 @@
     <Resource Include="Resources\Backgroud.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Assets\Player.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

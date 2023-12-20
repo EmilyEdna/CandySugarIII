@@ -278,7 +278,7 @@
                             Width="55"
                             ButtonType="Info"
                             Click="PlayClickEnvent"
-                            CommandParameter="{Binding .}"
+                            CommandParameter="{Binding PlayView}"
                             Content="{Binding Address}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>

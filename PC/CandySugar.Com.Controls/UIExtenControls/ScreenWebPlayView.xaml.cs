@@ -13,7 +13,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
         public ScreenWebPlayView()
         {
             InitializeComponent();
-            ScreenKeep.PreventForCurrentThread();
+            ScreenKeep.PreventForCurrentThread(); 
         }
 
         private void Window_Closed(object sender, EventArgs e)

@@ -1,19 +1,6 @@
 ﻿using CandySugar.Com.Controls.ExtenControls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
+using Microsoft.Web.WebView2.Wpf;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CandySugar.Movie.View
 {
@@ -46,9 +33,7 @@ namespace CandySugar.Movie.View
 
         private void PlayClickEnvent(object sender, RoutedEventArgs e)
         {
-            var Info = (sender as CandyButton).CommandParameter as MovieDetailElementResult;
-            var Name = (this.DataContext as IndexViewModel).DetailResult.Name;
-            new ScreenPlayView(Tuple.Create(Info.PlayView, $"{Name}_{Info.Address}")) { Width = 1200, Height = 700 }.Show();
+            new ScreenLocalWebPlayView((sender as CandyButton).CommandParameter.ToString()).Show();
             BarClose.Begin();
         }
     }
