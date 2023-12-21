@@ -22,7 +22,7 @@ namespace CandySugar.Movie.ViewModels
         private int PageIndex = 1;
         private Dictionary<string, string> InitKey = new Dictionary<string, string>
         {
-            {"T","" },{"Y",""},{"P",""}
+            {"T","" },{"Y",""},{"P",""},{ "C",""}
         };
         #endregion
 
@@ -45,6 +45,12 @@ namespace CandySugar.Movie.ViewModels
             get => _Plot;
             set => SetAndNotify(ref _Plot, value);
         }
+        private ObservableCollection<string> _Country;
+        public ObservableCollection<string> Country
+        {
+            get => _Country;
+            set => SetAndNotify(ref _Country, value);
+        }
         private ObservableCollection<MovieInitElementResult> _InitResult;
         public ObservableCollection<MovieInitElementResult> InitResult
         {
@@ -64,7 +70,7 @@ namespace CandySugar.Movie.ViewModels
         public RelayCommand<object> ChangedCommand => new((item) =>
         {
             PageIndex = 1;
-            InitKey["P"] = InitKey["T"] = InitKey["Y"] = string.Empty;
+            InitKey["P"] = InitKey["T"] = InitKey["Y"] = InitKey["C"] = string.Empty;
             var Target = ((CandyToggleItem)item);
             if (Target.FindParent<UserControl>() is IndexView View)
             {
@@ -96,7 +102,13 @@ namespace CandySugar.Movie.ViewModels
             InitKey["P"] = string.Empty;
             OnInit();
         });
-
+        public RelayCommand<object> CountryChangedCommand => new((item) =>
+        {
+            var Target = ((CandyToggleItem)item);
+            InitKey["C"] = Target.Content.ToString();
+            InitKey["P"] = string.Empty;
+            OnInit();
+        });
         public RelayCommand<ScrollChangedEventArgs> ScrollCommand => new(obj =>
         {
             if (PageIndex <= Total && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
@@ -141,8 +153,9 @@ namespace CandySugar.Movie.ViewModels
                     }).RunsAsync()).InitResult;
                     if (InitKey["P"].IsNullOrEmpty())
                     {
-                        Year = new ObservableCollection<string>(result.Year.ConvertAll(t => t.ToString()));
+                        Year = new ObservableCollection<string>(result.Year);
                         Plot = new ObservableCollection<string>(result.Plot);
+                        Country = new ObservableCollection<string>(result.Country);
                         InitResult = new ObservableCollection<MovieInitElementResult>(result.ElementResults);
                         Total = result.Total;
                     }
