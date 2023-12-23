@@ -4,7 +4,6 @@ using Serilog;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
-using XExten.Advance.StaticFramework;
 
 namespace CandySugar.Com.Controls.UIExtenControls
 {
@@ -33,15 +32,34 @@ namespace CandySugar.Com.Controls.UIExtenControls
             WebPlayer.CoreWebView2.Settings.AreDevToolsEnabled = true;
             await this.Dispatcher.BeginInvoke(async () =>
             {
-                var data = await WebPlayer.CoreWebView2.ExecuteScriptAsync("$('iframe')[1].contentWindow.config.url");
-                if (data != "null" && data.Contains(".m3u8"))
+                var res = await Dotry();
+                if (res.Contains(".m3u8"))
                 {
-                    Log.Logger.Debug($"流媒体地址：{data.Replace("\"", "")}");
+                    var playuri = res.Replace("\"", "");
                     WebPlayer.CoreWebView2.Navigate(new Uri($"{Environment.CurrentDirectory}\\Assets\\Player.html").AbsoluteUri);
                     await Task.Delay(2000); //等待html加载完成
-                    await WebPlayer.CoreWebView2.ExecuteScriptAsync($"opt.uri='{data.Replace("\"", "")}'");
+                    Log.Logger.Debug($"流媒体加载成功！地址：{playuri}");
+                    await WebPlayer.CoreWebView2.ExecuteScriptAsync($"opt.uri='{playuri}'");
                 }
             });
+        }
+
+        private async Task<string> Dotry()
+        {
+            try
+            {
+                await Task.Delay(2000); //等待html加载完成
+                var data = await WebPlayer.CoreWebView2.ExecuteScriptAsync("$('iframe')[1].contentWindow.config.url");
+                var res = data != "null" && data.Contains(".m3u8");
+                if (res) return data;
+                else return await Dotry();
+            }
+            catch (Exception)
+            {
+                this.Close();
+                return string.Empty;
+            }
+            
         }
 
         private void Window_Closed(object sender, EventArgs e)
