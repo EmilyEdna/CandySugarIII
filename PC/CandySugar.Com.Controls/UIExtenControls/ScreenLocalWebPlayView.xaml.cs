@@ -1,4 +1,5 @@
-﻿using CandySugar.Com.Library.KeepOn;
+﻿using CandySugar.Com.Library;
+using CandySugar.Com.Library.KeepOn;
 using Microsoft.Web.WebView2.Core;
 using Serilog;
 using System;
@@ -36,7 +37,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 if (res.Contains(".m3u8"))
                 {
                     var playuri = res.Replace("\"", "");
-                    WebPlayer.CoreWebView2.Navigate(new Uri($"{Environment.CurrentDirectory}\\Assets\\Player.html").AbsoluteUri);
+                    WebPlayer.CoreWebView2.Navigate(new Uri(CommonHelper.PlayerHtml).AbsoluteUri);
                     await Task.Delay(2000); //等待html加载完成
                     Log.Logger.Debug($"流媒体加载成功！地址：{playuri}");
                     await WebPlayer.CoreWebView2.ExecuteScriptAsync($"opt.uri='{playuri}'");
