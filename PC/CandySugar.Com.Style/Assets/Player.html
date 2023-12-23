@@ -1,4 +1,5 @@
-﻿﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -25,18 +26,30 @@
         }
     </style>
     <script>
-        function Play(uri) {
+
+        var opt = {
+            uri: ""
+        };
+
+        var interval = setInterval(function () {
+            Play();
+            clearInterval(interval);
+        }, 3000)
+
+        function Play() {
             var ele = document.getElementById('dplayer');
+            console.log(opt.uri);
             $("#dplayer").height("100%");
             var dp = new DPlayer({
                 container: ele,
                 video: {
-                    url: uri,
+                    url: opt.uri,
                     lang: 'zh-cn',
-                    autoplay: 'false',
+                    autoplay: 'true',
                 }
             });
             dp.play();
+            return true;
         }
     </script>
 </head>
