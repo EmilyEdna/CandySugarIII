@@ -2,6 +2,7 @@
 using CandySugar.Com.Library.VisualTree;
 using HandyControl.Controls;
 using Org.BouncyCastle.Asn1.X509;
+using System.DirectoryServices;
 using System.Windows.Input;
 
 namespace CandySugar.Movie.ViewModels
@@ -67,6 +68,14 @@ namespace CandySugar.Movie.ViewModels
         #endregion
 
         #region Command
+
+        public void ChangeCommand(int ActiveAnime)
+        {
+            if ((ActiveAnime == 1)) Platform = PlatformEnum.Film;
+            else Platform = PlatformEnum.Video;
+            OnInit();
+        }
+
         public RelayCommand<object> ChangedCommand => new((item) =>
         {
             PageIndex = 1;
@@ -76,15 +85,14 @@ namespace CandySugar.Movie.ViewModels
             {
                 if (Target.Tag.ToString().AsInt() == 0)
                 {
-                    Platform = PlatformEnum.Film;
+                    View.ActiveAnime=1;
                     View.AnimeX1.Begin();
                 }
                 else
                 {
-                    Platform = PlatformEnum.Video;
+                    View.ActiveAnime = 2;
                     View.AnimeX2.Begin();
                 }
-                OnInit();
             }
         });
 

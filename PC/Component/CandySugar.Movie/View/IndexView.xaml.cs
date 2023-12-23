@@ -9,13 +9,16 @@ namespace CandySugar.Movie.View
     /// </summary>
     public partial class IndexView : UserControl
     {
+        public int ActiveAnime = 1;
         public Storyboard AnimeX1;
         public Storyboard AnimeX2;
         private Storyboard BarOpen;
         private Storyboard BarClose;
+        private IndexViewModel ViewModel;
         public IndexView()
         {
             InitializeComponent();
+            Loaded += delegate { ViewModel = (IndexViewModel)this.DataContext; };
             AnimeX1 = (Storyboard)FindResource("X1Key");
             AnimeX2 = (Storyboard)FindResource("X2Key");
             BarOpen = (Storyboard)FindResource("NavListBarOpenKey");
@@ -29,6 +32,14 @@ namespace CandySugar.Movie.View
             {
                 BarOpen.Begin();
             });
+
+            AnimeX1.Completed += CompletedEvent;
+            AnimeX2.Completed += CompletedEvent;
+        }
+
+        private void CompletedEvent(object sender, EventArgs e)
+        {
+            ViewModel.ChangeCommand(ActiveAnime);
         }
 
         private void PlayClickEnvent(object sender, RoutedEventArgs e)
