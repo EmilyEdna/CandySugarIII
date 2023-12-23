@@ -1,4 +1,8 @@
 ﻿
+using CandySugar.Com.Controls.ExtenControls;
+using CandySugar.Com.Library.VisualTree;
+using XExten.Advance.NetFramework.Enums;
+
 namespace CandySugar.Comic.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
@@ -6,6 +10,7 @@ namespace CandySugar.Comic.ViewModels
         private object LockObject = new object();
         public IndexViewModel()
         {
+            Title = ["全部", "喜爱"];
             GenericDelegate.SearchAction = new(SearchHandler);
             var LocalDATA = DownUtil.ReadFile<List<SearchElementResult>>("Comic", FileTypes.Dat, "Comic");
             CollectResult = new ObservableCollection<SearchElementResult>();
@@ -23,6 +28,13 @@ namespace CandySugar.Comic.ViewModels
         #endregion
 
         #region Property
+        private ObservableCollection<string> _Title;
+        public ObservableCollection<string> Title
+        {
+            get => _Title;
+            set => SetAndNotify(ref _Title, value);
+        }
+
         private ObservableCollection<SearchElementResult> _CollectResult;
         public ObservableCollection<SearchElementResult> CollectResult
         {
@@ -169,6 +181,24 @@ namespace CandySugar.Comic.ViewModels
         #endregion
 
         #region Command
+        public RelayCommand<object> ChangedCommand => new((item) =>
+        {
+            var Target = ((CandyToggleItem)item);
+            if (Target.FindParent<UserControl>() is IndexView View)
+            {
+                if (Target.Tag.ToString().AsInt() == 0)
+                {
+                    View.ActiveAnime = 1;
+                    View.AnimeX1.Begin();
+                }
+                else
+                {
+                    View.ActiveAnime = 2;
+                    View.AnimeX2.Begin();
+                }
+            }
+        });
+
         public void ChangeCommand(int ActiveAnime)
         {
             if (SearchResult == null)

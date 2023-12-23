@@ -29,17 +29,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid Margin="20">
-            <ListBox Style="{DynamicResource ToggleListBox}">
-                <uc:CandyListboxItem
-                    Content="全部"
-                    IsSelected="True"
-                    MouseUp="MouseUpChanged"
-                    Tag="1" />
-                <uc:CandyListboxItem
-                    Content="喜爱"
-                    MouseUp="MouseUpChanged"
-                    Tag="2" />
-            </ListBox>
+            <uc:CandyToggle
+                Command="{Binding ChangedCommand}"
+                FirstSelect="True"
+                ModelSource="{Binding Title}" />
         </Grid>
         <Grid x:Name="ContentGird" Grid.Row="1">
             <uc:CandyBorder
