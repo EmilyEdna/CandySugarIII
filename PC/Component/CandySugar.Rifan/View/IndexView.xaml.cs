@@ -6,13 +6,13 @@
     public partial class IndexView : UserControl
     {
 
-        private int ActiveAnime = 1;
-        private Storyboard AnimeX1;
-        private Storyboard AnimeX2;
-        private Storyboard AnimeX3;
-        private Storyboard AnimeX4;
-        private Storyboard AnimeX5;
-        private Storyboard AnimeX6;
+        public int ActiveAnime = 1;
+        public Storyboard AnimeX1;
+        public Storyboard AnimeX2;
+        public Storyboard AnimeX3;
+        public Storyboard AnimeX4;
+        public Storyboard AnimeX5;
+        public Storyboard AnimeX6;
         private Storyboard BarOpen;
         private Storyboard BarClose;
         private IndexViewModel ViewModel;
@@ -50,41 +50,6 @@
             ViewModel.ChangeCommand(ActiveAnime);
         }
 
-        private void MouseUpChanged(object sender, MouseButtonEventArgs e)
-        {
-            var item = (sender as ListBoxItem);
-            var CK = item.Tag.ToString().AsInt();
-            if (CK == 1 && CK != ActiveAnime)
-            {
-                ActiveAnime = CK;
-                AnimeX1.Begin();
-            }
-            if (CK == 2 && CK != ActiveAnime)
-            {
-                ActiveAnime = CK;
-                AnimeX2.Begin();
-            }
-            if (CK == 3 && CK != ActiveAnime)
-            {
-                ActiveAnime = CK;
-                AnimeX3.Begin();
-            }
-            if (CK == 4 && CK != ActiveAnime)
-            {
-                ActiveAnime = CK;
-                AnimeX4.Begin();
-            }
-            if (CK == 5 && CK != ActiveAnime)
-            {
-                ActiveAnime = CK;
-                AnimeX5.Begin();
-            }
-            if (CK == 6 && CK != ActiveAnime)
-            {
-                ActiveAnime = CK;
-                AnimeX6.Begin();
-            }
-        }
 
         private void PlayClickEnvent(object sender, RoutedEventArgs e)
         {

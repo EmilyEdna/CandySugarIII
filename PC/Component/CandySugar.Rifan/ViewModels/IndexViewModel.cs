@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using CandySugar.Com.Library.VisualTree;
 
 namespace CandySugar.Rifan.ViewModels
 {
@@ -7,6 +7,7 @@ namespace CandySugar.Rifan.ViewModels
         private object LockObject = new object();
         public IndexViewModel()
         {
+            Title = ["All", "Rifan", "3D", "Motion", "Cosplay", "Collect"];
             GenericDelegate.SearchAction = new(SearchHandler);
             var LocalDATA = DownUtil.ReadFile<List<SearchElementResult>>("Rifan", FileTypes.Dat, "Rifan");
             CollectResult = new ObservableCollection<SearchElementResult>();
@@ -38,6 +39,13 @@ namespace CandySugar.Rifan.ViewModels
         #endregion
 
         #region Property
+        private ObservableCollection<string> _Title;
+        public ObservableCollection<string> Title
+        {
+            get => _Title;
+            set => SetAndNotify(ref _Title, value);
+        }
+
         private ObservableCollection<SearchElementResult> _AllResult;
         public ObservableCollection<SearchElementResult> AllResult
         {
@@ -511,6 +519,46 @@ namespace CandySugar.Rifan.ViewModels
         #endregion
 
         #region Command
+        public RelayCommand<object> ChangedCommand => new((item) =>
+        {
+            var Target = ((CandyToggleItem)item);
+            if (Target.FindParent<UserControl>() is IndexView View)
+            {
+                var Index = Target.Tag.ToString().AsInt();
+
+                if (Index == 0)
+                {
+                    View.ActiveAnime = 1;
+                    View.AnimeX1.Begin();
+                }
+                if (Index == 1)
+                {
+                    View.ActiveAnime = 2;
+                    View.AnimeX2.Begin();
+                }
+                if (Index == 2)
+                {
+                    View.ActiveAnime = 3;
+                    View.AnimeX3.Begin();
+                }
+                if (Index == 3)
+                {
+                    View.ActiveAnime = 4;
+                    View.AnimeX4.Begin();
+                }
+                if (Index == 4)
+                {
+                    View.ActiveAnime = 5;
+                    View.AnimeX5.Begin();
+                }
+                if (Index == 5)
+                {
+                    View.ActiveAnime = 6;
+                    View.AnimeX6.Begin();
+                }
+            }
+        });
+
         public void ChangeCommand(int ActiveAnime)
         {
             ChangeType = ActiveAnime;
