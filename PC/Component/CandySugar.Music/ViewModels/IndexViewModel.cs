@@ -1,4 +1,6 @@
-﻿using CandySugar.Com.Library.FileWrite;
+﻿using CandySugar.Com.Controls.ExtenControls;
+using CandySugar.Com.Library.FileWrite;
+using CandySugar.Com.Library.VisualTree;
 
 namespace CandySugar.Music.ViewModels
 {
@@ -16,6 +18,7 @@ namespace CandySugar.Music.ViewModels
                 { PlatformEnum.KuWoMusic,"酷我音乐"},
                 { PlatformEnum.MiGuMusic,"咪咕音乐"}
             };
+            Title = ["单曲", "歌单", "收藏"];
             GenericDelegate.SearchAction = new(SearchHandler);
             var LocalDATA = DownUtil.ReadFile<List<MusicSongElementResult>>("Music", FileTypes.Dat, "Music");
             CollectResult = new ObservableCollection<MusicSongElementResult>();
@@ -73,7 +76,12 @@ namespace CandySugar.Music.ViewModels
         #endregion
 
         #region Property
-
+        private ObservableCollection<string> _Title;
+        public ObservableCollection<string> Title
+        {
+            get => _Title;
+            set => SetAndNotify(ref _Title, value);
+        }
         private bool _Handle;
         public bool Handle
         {
@@ -164,6 +172,34 @@ namespace CandySugar.Music.ViewModels
         #endregion
 
         #region Command
+
+        /// <summary>
+        /// 切换
+        /// </summary>
+        public RelayCommand<object> ChangedCommand => new(item =>
+        {
+            var Target = ((CandyToggleItem)item);
+            if (Target.FindParent<UserControl>() is IndexView View)
+            {
+                var Index = Target.Tag.ToString().AsInt();
+
+                if (Index == 0)
+                {
+                    View.ActiveAnime = 1;
+                    View.AnimeX1.Begin();
+                }
+                if (Index == 1) 
+                {
+                    View.ActiveAnime = 2;
+                    View.AnimeX2.Begin(); 
+                }
+                if (Index == 2)
+                {
+                    View.ActiveAnime = 3;
+                    View.AnimeX3.Begin();
+                }
+            }
+        });
 
         /// <summary>
         /// 删除

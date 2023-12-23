@@ -23,11 +23,11 @@ namespace CandySugar.Music.View
     /// </summary>
     public partial class IndexView : UserControl
     {
-        private int ActiveAnime = 1;
+        public int ActiveAnime = 1;
         private IndexViewModel ViewModel;
-        private Storyboard AnimeX1;
-        private Storyboard AnimeX2;
-        private Storyboard AnimeX3;
+        public Storyboard AnimeX1;
+        public Storyboard AnimeX2;
+        public Storyboard AnimeX3;
         private int Vol = 0;
         public IndexView()
         {
@@ -76,23 +76,6 @@ namespace CandySugar.Music.View
         {
             PopMenu.Opened += delegate { ((Storyboard)FindResource("Overly")).Begin(); };
             PopMenu.IsOpen = true;
-        }
-
-        private void MouseUpChanged(object sender, MouseButtonEventArgs e)
-        {
-            var ListItem = (sender as ListBoxItem);
-            var CK = ListItem.Tag.ToString().AsInt();
-            if (CK == 1 && CK != ActiveAnime) Animetion(CK).Begin();
-            if (CK == 2 && CK != ActiveAnime) Animetion(CK).Begin();
-            if (CK == 3 && CK != ActiveAnime) Animetion(CK).Begin();
-        }
-
-        private Storyboard Animetion(int active)
-        {
-            ActiveAnime = active;
-            if (active == 1) return AnimeX1;
-            else if (active == 2) return AnimeX2;
-            else return AnimeX3;
         }
 
         private void SilderEvent(object sender, RoutedEventArgs e)

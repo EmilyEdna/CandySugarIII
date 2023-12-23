@@ -245,21 +245,11 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid Margin="0,10,0,0">
-                <ListBox Style="{DynamicResource ToggleListBox}">
-                    <uc:CandyListboxItem
-                        Content="单曲"
-                        IsSelected="True"
-                        MouseUp="MouseUpChanged"
-                        Tag="1" />
-                    <uc:CandyListboxItem
-                        Content="歌单"
-                        MouseUp="MouseUpChanged"
-                        Tag="2" />
-                    <uc:CandyListboxItem
-                        Content="收藏"
-                        MouseUp="MouseUpChanged"
-                        Tag="3" />
-                </ListBox>
+                <uc:CandyToggle
+                    VerticalAlignment="Top"
+                    Command="{Binding ChangedCommand}"
+                    FirstSelect="True"
+                    ModelSource="{Binding Title}" />
                 <uc:CandyBorder
                     x:Name="X1"
                     Width="{c:Binding ((Width/2)*0.75),
