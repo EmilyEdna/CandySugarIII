@@ -62,25 +62,7 @@
                     GroupName="Category"
                     IsChecked="{c:Binding '(Purity==2)?true:false'}" />
             </UniformGrid>
-            <ListBox Style="{DynamicResource ToggleListBox}">
-                <uc:CandyListboxItem
-                    Content="常规"
-                    IsSelected="True"
-                    MouseUp="MouseUpChanged"
-                    Tag="1" />
-                <uc:CandyListboxItem
-                    Content="动漫"
-                    MouseUp="MouseUpChanged"
-                    Tag="2" />
-                <uc:CandyListboxItem
-                    Content="人物"
-                    MouseUp="MouseUpChanged"
-                    Tag="3" />
-                <uc:CandyListboxItem
-                    Content="收藏"
-                    MouseUp="MouseUpChanged"
-                    Tag="4" />
-            </ListBox>
+            <uc:CandyToggle Command="{Binding ChangedCommand}" ModelSource="{Binding Title}" />
         </Grid>
         <Grid x:Name="ContentGird" Grid.Row="1">
             <uc:CandyBorder

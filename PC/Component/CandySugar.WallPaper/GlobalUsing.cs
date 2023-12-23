@@ -17,6 +17,8 @@ global using CandySugar.Com.Options;
 global using CandySugar.Com.Options.ComponentGeneric;
 global using CandySugar.Com.Options.ComponentObject;
 global using CandySugar.WallPaper.View;
+global using CandySugar.Com.Controls.ExtenControls;
+global using CandySugar.Com.Library.VisualTree;
 global using CandySugar.WallPaper.ViewModels;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Mvvm.Messaging;

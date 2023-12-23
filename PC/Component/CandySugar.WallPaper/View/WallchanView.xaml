@@ -29,25 +29,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid Margin="20">
-            <ListBox Style="{DynamicResource ToggleListBox}">
-                <uc:CandyListboxItem
-                    Content="常规"
-                    IsSelected="True"
-                    MouseUp="MouseUpChanged"
-                    Tag="1" />
-                <uc:CandyListboxItem
-                    Content="一般"
-                    MouseUp="MouseUpChanged"
-                    Tag="2" />
-                <uc:CandyListboxItem
-                    Content="可疑"
-                    MouseUp="MouseUpChanged"
-                    Tag="3" />
-                <uc:CandyListboxItem
-                    Content="收藏"
-                    MouseUp="MouseUpChanged"
-                    Tag="4" />
-            </ListBox>
+            <uc:CandyToggle Command="{Binding ChangedCommand}" ModelSource="{Binding Title}" />
         </Grid>
         <Grid x:Name="ContentGird" Grid.Row="1">
             <uc:CandyBorder

@@ -8,6 +8,7 @@ namespace CandySugar.WallPaper.ViewModels
         public List<WallhavSearchElementResult> Builder;
         public WallhavViewModel()
         {
+            Title = ["常规", "动漫", "人物", "收藏"];
             Purity = (int)PurityEnum.SFW;
             GenericDelegate.SearchAction = new(SearchHandler);
             var LocalDATA = DownUtil.ReadFile<List<WallhavSearchElementResult>>("Wallhaven", FileTypes.Dat, "WallPaper");
@@ -34,6 +35,13 @@ namespace CandySugar.WallPaper.ViewModels
         #endregion
 
         #region Property
+        private ObservableCollection<string> _Title;
+        public ObservableCollection<string> Title
+        {
+            get => _Title;
+            set => SetAndNotify(ref _Title, value);
+        }
+
         private ObservableCollection<WallhavSearchElementResult> _GeneralResult;
         public ObservableCollection<WallhavSearchElementResult> GeneralResult
         {
@@ -288,6 +296,35 @@ namespace CandySugar.WallPaper.ViewModels
         #endregion
 
         #region Command
+        public RelayCommand<object> ChangedCommand => new((item) =>
+        {
+            var Target = ((CandyToggleItem)item);
+            if (Target.FindParent<UserControl>() is WallhavView View)
+            {
+                var Index = Target.Tag.ToString().AsInt();
+
+                if (Index == 0)
+                {
+                    View.ActiveAnime = 1;
+                    View.AnimeX1.Begin();
+                }
+                if (Index == 1)
+                {
+                    View.ActiveAnime = 2;
+                    View.AnimeX2.Begin();
+                }
+                if (Index == 2)
+                {
+                    View.ActiveAnime = 3;
+                    View.AnimeX3.Begin();
+                }
+                if (Index == 3)
+                {
+                    View.ActiveAnime = 4;
+                    View.AnimeX4.Begin();
+                }
+            }
+        });
 
         /// <summary>
         /// 加载更多
