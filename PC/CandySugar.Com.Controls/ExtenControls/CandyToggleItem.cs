@@ -17,14 +17,14 @@ namespace CandySugar.Com.Controls.ExtenControls
             this.MouseUp += ToggleItemClicked;
         }
 
-        public bool UnderLine
+        public Visibility UnderLine
         {
-            get { return (bool)GetValue(UnderLineProperty); }
+            get { return (Visibility)GetValue(UnderLineProperty); }
             set { SetValue(UnderLineProperty, value); }
         }
 
         public static readonly DependencyProperty UnderLineProperty =
-            DependencyProperty.Register("UnderLine", typeof(bool), typeof(CandyToggleItem), new PropertyMetadata(true));
+            DependencyProperty.Register("UnderLine", typeof(Visibility), typeof(CandyToggleItem), new PropertyMetadata(Visibility.Visible));
 
         /// <summary>
         /// 命令参数
@@ -46,7 +46,7 @@ namespace CandySugar.Com.Controls.ExtenControls
     public class CandyToggleItemSetting
     {
         public double Width { get; set; }
-        public bool UseUnderLine { get; set; }
+        public Visibility UseUnderLine { get; set; }
         public object Content { get; set; }
     }
 }

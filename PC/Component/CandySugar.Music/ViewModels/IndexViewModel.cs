@@ -20,7 +20,7 @@ namespace CandySugar.Music.ViewModels
                 { PlatformEnum.MiGuMusic,"咪咕音乐"}
             };
             Title = ["单曲", "歌单", "收藏"];
-            Setting = [new() { Width = 80, UseUnderLine = false, Content = FontIcon.Repeat }, new() { Width = 80, UseUnderLine = false, Content = FontIcon.Repeat1 }];
+            Setting = [new() { Width = 80, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat }, new() { Width = 80, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat1 }];
             GenericDelegate.SearchAction = new(SearchHandler);
             var LocalDATA = DownUtil.ReadFile<List<MusicSongElementResult>>("Music", FileTypes.Dat, "Music");
             CollectResult = new ObservableCollection<MusicSongElementResult>();

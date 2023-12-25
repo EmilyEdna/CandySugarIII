@@ -1,6 +1,8 @@
-﻿using CandySugar.Com.Library;
+﻿using CandySugar.Com.Controls.ExtenControls;
+using CandySugar.Com.Library;
 using CandySugar.Com.Library.FileWrite;
 using CandySugar.Com.Library.KeepOn;
+using CandySugar.Com.Library.VisualTree;
 using CommunityToolkit.Mvvm.Input;
 using LibVLCSharp.Shared;
 using Microsoft.Win32;
@@ -288,9 +290,15 @@ namespace CandySugar.Com.Controls.UIExtenControls
         public ScreenPlayViewModel()
         {
             var His = DownUtil.ReadFile<List<History>>("Vlc", FileTypes.His, "VlcPlay");
-            History = new ObservableCollection<History>(His ?? new List<History>());
-            TrashCommand = new RelayCommand<History>(TrashMethod);
+            Setting = [new() { Width=40, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat1 }, new() { Width = 40, UseUnderLine = Visibility.Collapsed, Content = FontIcon.ArrowRightArrowLeft }];
+            History = new ObservableCollection<History>(His ?? []);
+        }
 
+        private ObservableCollection<CandyToggleItemSetting> _Setting;
+        public ObservableCollection<CandyToggleItemSetting> Setting
+        {
+            get => _Setting;
+            set => SetAndNotify(ref _Setting, value);
         }
 
         private ObservableCollection<History> _History;
@@ -313,14 +321,28 @@ namespace CandySugar.Com.Controls.UIExtenControls
             Encoding.Default.GetBytes(Data).FileCreate("Vlc", FileTypes.His, "VlcPlay");
         }
 
-        private void TrashMethod(History item)
+        public RelayCommand<History> TrashCommand => new(item =>
         {
             History.Remove(item);
             var Data = History.ToJson();
             Encoding.Default.GetBytes(Data).FileCreate("Vlc", FileTypes.His, "VlcPlay");
-        }
+        });
 
-        public ICommand TrashCommand { get; }
+        public RelayCommand<object> ModuleChangedCommand => new(item =>
+        {
+            var Target = ((CandyToggleItem)item);
+            var Index = Target.Tag.ToString().AsInt();
+            if (Target.FindParent<Window>() is ScreenPlayView Vlc)
+            {
+                if (Index == 0) //循环播放
+                {
 
+                }
+                else //顺序播放
+                {
+
+                }
+            }
+        });
     }
 }

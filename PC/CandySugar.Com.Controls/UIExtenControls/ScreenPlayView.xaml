@@ -349,17 +349,13 @@
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Orientation="Horizontal">
-                                    <ListBox Style="{DynamicResource ToggleListBoxIcon}">
-                                        <uc:CandyListboxItem
-                                            Content="{x:Static lib:FontIcon.Repeat1}"
-                                            IsSelected="True"
-                                            MouseUp="MouseUpChanged"
-                                            Tag="1" />
-                                        <uc:CandyListboxItem
-                                            Content="{x:Static lib:FontIcon.ArrowRightArrowLeft}"
-                                            MouseUp="MouseUpChanged"
-                                            Tag="2" />
-                                    </ListBox>
+                                    <uc:CandyToggle
+                                        Height="35"
+                                        Command="{Binding ModuleChangedCommand}"
+                                        FirstSelect="True"
+                                        FontFamily="{DynamicResource Thin}"
+                                        FontSize="20"
+                                        SettingSource="{Binding Setting}" />
                                 </StackPanel>
                             </Grid>
                         </Grid>

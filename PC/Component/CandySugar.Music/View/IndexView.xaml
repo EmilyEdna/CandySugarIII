@@ -178,8 +178,7 @@
                     Command="{Binding PlayChangeModuleCommand}"
                     FirstSelect="True"
                     FontFamily="{DynamicResource Thin}"
-                    SettingSource="{Binding Setting}"
-                    UnderBorderWidth="0" />
+                    SettingSource="{Binding Setting}" />
                 <Button
                     x:Name="音量控制"
                     Canvas.Left="340"

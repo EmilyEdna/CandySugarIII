@@ -72,7 +72,8 @@
                                     BorderThickness="1"
                                     CornerRadius="5"
                                     Opacity="0"
-                                    RenderTransformOrigin="0.5,0.5">
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Visibility="{TemplateBinding UnderLine}">
                                     <Border.RenderTransform>
                                         <TransformGroup>
                                             <ScaleTransform />
@@ -83,15 +84,19 @@
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True" />
+                                <Condition Property="UnderLine" Value="Visible" />
+                            </MultiTrigger.Conditions>
                             <Setter TargetName="BorderElement" Property="Background" Value="{Binding SelectedBrush, RelativeSource={RelativeSource AncestorType={x:Type uc:CandyToggle}}}" />
-                            <Trigger.EnterActions>
+                            <MultiTrigger.EnterActions>
                                 <BeginStoryboard x:Name="GradientAnimeMoveKey" Storyboard="{DynamicResource GradientAnimeFrame}" />
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
+                            </MultiTrigger.EnterActions>
+                            <MultiTrigger.ExitActions>
                                 <RemoveStoryboard BeginStoryboardName="GradientAnimeMoveKey" />
-                            </Trigger.ExitActions>
-                        </Trigger>
+                            </MultiTrigger.ExitActions>
+                        </MultiTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="BorderElement" Property="Background" Value="{Binding MouseOverBrush, RelativeSource={RelativeSource AncestorType={x:Type uc:CandyToggle}}}" />
                         </Trigger>
