@@ -36,7 +36,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
         private int Playing = 0;
         private bool IsOpen = false;
         private bool IsNavOpen = false;
-        private int PlayModel = 1;
+        public int PlayModel = 1;
         private ScreenPlayViewModel Vm;
         public ScreenPlayView()
         {
@@ -334,14 +334,9 @@ namespace CandySugar.Com.Controls.UIExtenControls
             var Index = Target.Tag.ToString().AsInt();
             if (Target.FindParent<Window>() is ScreenPlayView Vlc)
             {
-                if (Index == 0) //循环播放
-                {
+                if (Index == 0) Vlc.PlayModel = 1;
+                else Vlc.PlayModel = 2;
 
-                }
-                else //顺序播放
-                {
-
-                }
             }
         });
     }
