@@ -47,7 +47,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Anime", "..\PC\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Novel", "..\PC\Component\CandySugar.Novel\CandySugar.Novel.csproj", "{1AB86B9F-95B6-477F-BFFA-5A10F798BC6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Movie", "..\PC\Component\CandySugar.Movie\CandySugar.Movie.csproj", "{C7C9BD0B-142F-4795-A421-1B6625BB7C7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Movie", "..\PC\Component\CandySugar.Movie\CandySugar.Movie.csproj", "{C7C9BD0B-142F-4795-A421-1B6625BB7C7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Axgle", "..\PC\Component\CandySugar.Axgle\CandySugar.Axgle.csproj", "{7D6896AC-5A95-4386-919B-11BC72C5B751}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +117,10 @@ Global
 		{C7C9BD0B-142F-4795-A421-1B6625BB7C7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7C9BD0B-142F-4795-A421-1B6625BB7C7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7C9BD0B-142F-4795-A421-1B6625BB7C7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D6896AC-5A95-4386-919B-11BC72C5B751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D6896AC-5A95-4386-919B-11BC72C5B751}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D6896AC-5A95-4386-919B-11BC72C5B751}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D6896AC-5A95-4386-919B-11BC72C5B751}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,6 +143,7 @@ Global
 		{6EDE36C0-BC20-4C8C-AB77-E6AE053B83AA} = {9F85CA04-7D7D-486A-A12D-4D6E51D8C00D}
 		{1AB86B9F-95B6-477F-BFFA-5A10F798BC6D} = {9F85CA04-7D7D-486A-A12D-4D6E51D8C00D}
 		{C7C9BD0B-142F-4795-A421-1B6625BB7C7A} = {9F85CA04-7D7D-486A-A12D-4D6E51D8C00D}
+		{7D6896AC-5A95-4386-919B-11BC72C5B751} = {2EC8956E-DFD4-48DE-8F5C-56768445C9BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A29A095-E5DB-4102-9EBD-9F87F2028B06}
