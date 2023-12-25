@@ -10,7 +10,6 @@ namespace CandySugar.Com.Controls.ExtenControls
 {
     public class CandyToggle : ListBox
     {
-
         public IEnumerable<string> ModelSource
         {
             get { return (IEnumerable<string>)GetValue(ModelSourceProperty); }
@@ -131,10 +130,8 @@ namespace CandySugar.Com.Controls.ExtenControls
                         Model.Width=item.Width;
                     toggle.AddChild(Model);
                     Index++;
-
                 });
             }
-  
         }
     }
 }
