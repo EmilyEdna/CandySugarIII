@@ -172,43 +172,14 @@
             </Canvas>
             <!--  模式  -->
             <Canvas>
-                <ListBox
-                    x:Name="PlayBoxType"
+                <uc:CandyToggle
                     Canvas.Left="180"
                     Canvas.Top="75"
-                    Style="{DynamicResource ToggleListBox}">
-                    <uc:CandyListboxItem
-                        x:Name="ListRepeat"
-                        Width="80"
-                        Content="{x:Static lib:FontIcon.Repeat}"
-                        FontFamily="{DynamicResource Thin}"
-                        IsSelected="True"
-                        UnderLine="False">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Selected">
-                                <i:InvokeCommandAction
-                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
-                                    Command="{s:Action PlayChangeModuleCommand}"
-                                    CommandParameter="1" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </uc:CandyListboxItem>
-                    <uc:CandyListboxItem
-                        x:Name="SingleRepeat"
-                        Width="80"
-                        Content="{x:Static lib:FontIcon.Repeat1}"
-                        FontFamily="{DynamicResource Thin}"
-                        UnderLine="False">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Selected">
-                                <i:InvokeCommandAction
-                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
-                                    Command="{s:Action PlayChangeModuleCommand}"
-                                    CommandParameter="2" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </uc:CandyListboxItem>
-                </ListBox>
+                    Command="{Binding PlayChangeModuleCommand}"
+                    FirstSelect="True"
+                    FontFamily="{DynamicResource Thin}"
+                    SettingSource="{Binding Setting}"
+                    UnderBorderWidth="0" />
                 <Button
                     x:Name="音量控制"
                     Canvas.Left="340"

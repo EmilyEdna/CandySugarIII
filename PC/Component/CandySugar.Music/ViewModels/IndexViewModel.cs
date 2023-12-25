@@ -1,6 +1,7 @@
 ﻿using CandySugar.Com.Controls.ExtenControls;
 using CandySugar.Com.Library.FileWrite;
 using CandySugar.Com.Library.VisualTree;
+using System.Windows.Input;
 
 namespace CandySugar.Music.ViewModels
 {
@@ -19,6 +20,7 @@ namespace CandySugar.Music.ViewModels
                 { PlatformEnum.MiGuMusic,"咪咕音乐"}
             };
             Title = ["单曲", "歌单", "收藏"];
+            Setting = [new() { Width = 80, UseUnderLine = false, Content = FontIcon.Repeat }, new() { Width = 80, UseUnderLine = false, Content = FontIcon.Repeat1 }];
             GenericDelegate.SearchAction = new(SearchHandler);
             var LocalDATA = DownUtil.ReadFile<List<MusicSongElementResult>>("Music", FileTypes.Dat, "Music");
             CollectResult = new ObservableCollection<MusicSongElementResult>();
@@ -81,6 +83,12 @@ namespace CandySugar.Music.ViewModels
         {
             get => _Title;
             set => SetAndNotify(ref _Title, value);
+        }
+        private ObservableCollection<CandyToggleItemSetting> _Setting;
+        public ObservableCollection<CandyToggleItemSetting> Setting
+        {
+            get => _Setting;
+            set => SetAndNotify(ref _Setting, value);
         }
         private bool _Handle;
         public bool Handle
@@ -174,6 +182,22 @@ namespace CandySugar.Music.ViewModels
         #region Command
 
         /// <summary>
+        /// 切换控制
+        /// </summary>
+        public RelayCommand<object> PlayChangeModuleCommand => new(item =>
+        {
+            var Target = ((CandyToggleItem)item);
+            var Index = Target.Tag.ToString().AsInt() + 1;
+            if (this.PlayMoudle != Index)
+                this.PlayMoudle = Index;
+            if (AudioFactory.WaveOutReadOnly != null) //此时正在播放
+            {
+                if (this.PlayMoudle == 1) ListRuch();
+                if (this.PlayMoudle == 2) Single();
+            }
+        });
+
+        /// <summary>
         /// 切换
         /// </summary>
         public RelayCommand<object> ChangedCommand => new(item =>
@@ -188,10 +212,10 @@ namespace CandySugar.Music.ViewModels
                     View.ActiveAnime = 1;
                     View.AnimeX1.Begin();
                 }
-                if (Index == 1) 
+                if (Index == 1)
                 {
                     View.ActiveAnime = 2;
-                    View.AnimeX2.Begin(); 
+                    View.AnimeX2.Begin();
                 }
                 if (Index == 2)
                 {
@@ -343,17 +367,6 @@ namespace CandySugar.Music.ViewModels
             Handle = !Handle;
             if (AudioFactory.WaveOutReadOnly != null)
                 AudioFactory.WaveOutReadOnly.Pause();
-        }
-
-        public void PlayChangeModuleCommand(string key)
-        {
-            if (this.PlayMoudle != key.AsInt())
-                this.PlayMoudle = key.AsInt();
-            if (AudioFactory.WaveOutReadOnly != null) //此时正在播放
-            {
-                if (this.PlayMoudle == 1) ListRuch();
-                if (this.PlayMoudle == 2) Single();
-            }
         }
         #endregion
 
@@ -729,7 +742,7 @@ namespace CandySugar.Music.ViewModels
             {
                 var PlayNum = CollectResult.Count;
                 //播放完成
-                if (Math.Truncate(Live.LiveSeconds)>= Math.Truncate(AudioInfo.Seconds))
+                if (Math.Truncate(Live.LiveSeconds) >= Math.Truncate(AudioInfo.Seconds))
                 {
                     PlayIndex += 1;
                     if (PlayIndex < PlayNum)

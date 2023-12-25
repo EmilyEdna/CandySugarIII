@@ -42,4 +42,11 @@ namespace CandySugar.Com.Controls.ExtenControls
             ((CandyToggle)ParentElement)?.Command?.Execute(this);
         }
     }
+
+    public class CandyToggleItemSetting
+    {
+        public double Width { get; set; }
+        public bool UseUnderLine { get; set; }
+        public object Content { get; set; }
+    }
 }

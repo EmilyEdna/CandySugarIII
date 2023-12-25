@@ -10,13 +10,23 @@ namespace CandySugar.Com.Controls.ExtenControls
 {
     public class CandyToggle : ListBox
     {
+
         public IEnumerable<string> ModelSource
         {
             get { return (IEnumerable<string>)GetValue(ModelSourceProperty); }
             set { SetValue(ModelSourceProperty, value); }
         }
+
         public static readonly DependencyProperty ModelSourceProperty =
             DependencyProperty.Register("ModelSource", typeof(IEnumerable<string>), typeof(CandyToggle), new FrameworkPropertyMetadata(OnModelChanged));
+
+        public IEnumerable<CandyToggleItemSetting> SettingSource
+        {
+            get { return (IEnumerable<CandyToggleItemSetting>)GetValue(SettingSourceProperty); }
+            set { SetValue(SettingSourceProperty, value); }
+        }
+        public static readonly DependencyProperty SettingSourceProperty =
+            DependencyProperty.Register("SettingSource", typeof(IEnumerable<CandyToggleItemSetting>), typeof(CandyToggle), new FrameworkPropertyMetadata(OnModelChanged));
 
         public Brush SelectedBrush
         {
@@ -90,12 +100,41 @@ namespace CandySugar.Com.Controls.ExtenControls
             var toggle = dp as CandyToggle;
             int Index = 0;
             toggle.Items.Clear();
-            toggle.ModelSource.ForEnumerEach(item =>
+            if (toggle.ModelSource != null && toggle.ModelSource.Count() > 0)
             {
-                toggle.AddChild(new CandyToggleItem { Tag = Index, IsSelected = Index == 0 && toggle.FirstSelect, Content = item, ParentElement = toggle });
-                Index++;
-            });
-            //删除多余的
+                toggle.ModelSource.ForEnumerEach(item =>
+                {
+                    toggle.AddChild(new CandyToggleItem
+                    {
+                        FontSize = toggle.FontSize,
+                        IsSelected = Index == 0 && toggle.FirstSelect,
+                        Content = item,
+                        ParentElement = toggle,
+                        Tag=Index,
+                    });
+                    Index++;
+                });
+            }
+            else
+            {
+                toggle.SettingSource.ForEnumerEach(item =>
+                {
+                    var Model = new CandyToggleItem
+                    {
+                        IsSelected = Index == 0 && toggle.FirstSelect,
+                        Content = item.Content,
+                        ParentElement = toggle,
+                        Tag = Index,
+                        UnderLine =item.UseUnderLine,
+                    };
+                    if(item.Width!=0)
+                        Model.Width=item.Width;
+                    toggle.AddChild(Model);
+                    Index++;
+
+                });
+            }
+  
         }
     }
 }
