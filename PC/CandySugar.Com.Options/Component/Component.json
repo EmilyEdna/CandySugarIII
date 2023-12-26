@@ -25,10 +25,10 @@
       "Description": "影剧"
     },
     {
-      "Plugin": "CandySugar.WallPaper.dll",
+      "Plugin": "CandySugar.Anime.dll",
       "Bootstrapper": "MainView",
       "Ioc": "Module",
-      "Description": "壁纸"
+      "Description": "动漫"
     },
     {
       "Plugin": "CandySugar.Bilibili.dll",
@@ -37,10 +37,10 @@
       "Description": "B站"
     },
     {
-      "Plugin": "CandySugar.Anime.dll",
+      "Plugin": "CandySugar.WallPaper.dll",
       "Bootstrapper": "MainView",
       "Ioc": "Module",
-      "Description": "动漫"
+      "Description": "壁纸"
     },
     {
       "Plugin": "CandySugar.Comic.dll",
@@ -53,6 +53,12 @@
       "Bootstrapper": "MainView",
       "Ioc": "Module",
       "Description": "里番"
+    },
+    {
+      "Plugin": "CandySugar.Axgle.dll",
+      "Bootstrapper": "MainView",
+      "Ioc": "Module",
+      "Description": "车牌"
     }
   ]
 }

@@ -71,7 +71,7 @@ namespace CandySugar.Movie.ViewModels
 
         public void ChangeCommand(int ActiveAnime)
         {
-            if ((ActiveAnime == 1)) Platform = PlatformEnum.Film;
+            if (ActiveAnime == 1) Platform = PlatformEnum.Film;
             else Platform = PlatformEnum.Video;
             OnInit();
         }
