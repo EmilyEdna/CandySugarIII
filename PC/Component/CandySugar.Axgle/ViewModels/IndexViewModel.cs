@@ -180,9 +180,9 @@
                                 Page = PageIndex
                             }
                         };
-                    }).RunsAsync()).CategoryResult;
+                    }).RunsAsync()).SearchResult;
                     Total = res.Total;
-                    CateResult = new ObservableCollection<AxgleCategoryElementResult>(res.ElementResult);
+                    CateResult = new ObservableCollection<AxgleCategoryElementResult>(res.ElementResult.ToMapest<List<AxgleCategoryElementResult>>());
                     // 这一句很关键，开启集合的异步访问支持
                     BindingOperations.EnableCollectionSynchronization(CateResult, LockObject);
                 }
