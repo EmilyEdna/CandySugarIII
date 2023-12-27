@@ -83,7 +83,7 @@ namespace CandySugar.Axgle.ViewModels
         /// 收藏
         /// </summary>
         /// <param name="element"></param>
-        public void CollectCommand(AxgleCategoryElementResult element) 
+        public void CollectCommand(AxgleCategoryElementResult element)
         {
             CollectResult.Add(element);
             JsonHandler.Insert(element).ExuteInsert().SaveChange(); ;
@@ -100,7 +100,8 @@ namespace CandySugar.Axgle.ViewModels
         /// <summary>
         /// 切换功能
         /// </summary>
-        public RelayCommand<object> ChangedCommand => new(item => {
+        public RelayCommand<object> ChangedCommand => new(item =>
+        {
             var Target = ((CandyToggleItem)item);
             if (Target.FindParent<UserControl>() is IndexView View)
             {
@@ -303,11 +304,12 @@ namespace CandySugar.Axgle.ViewModels
 
         private void OnDetail(string input)
         {
-            Task.Run(async () => {
+            Task.Run(async () =>
+            {
                 try
                 {
                     var Proxy = Module.IocModule.Proxy;
-                    var res = (await AxgleFactory.Axgle(opt =>
+                    var result = (await AxgleFactory.Axgle(opt =>
                     {
                         opt.RequestParam = new Input
                         {
@@ -315,11 +317,22 @@ namespace CandySugar.Axgle.ViewModels
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             AxgleType = AxgleEnum.Detail,
-                           Detail = new AxgleDetail { 
-                            FrameURL = input
-                           }
+                            Detail = new AxgleDetail
+                            {
+                                FrameURL = input
+                            }
                         };
                     }).RunsAsync()).DetailResult.Route;
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        new ScreenWebPlayView
+                        {
+                            DataContext = new ScreenWebPlayViewModel
+                            {
+                                Route = result
+                            }
+                        }.Show();
+                    });
                 }
                 catch (Exception ex)
                 {
