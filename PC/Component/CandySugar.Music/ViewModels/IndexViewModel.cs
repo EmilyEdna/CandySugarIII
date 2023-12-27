@@ -1,14 +1,15 @@
 ﻿using CandySugar.Com.Controls.ExtenControls;
-using CandySugar.Com.Library.FileWrite;
 using CandySugar.Com.Library.VisualTree;
-using System.Windows.Input;
+using XExten.Advance.JsonDbFramework;
 
 namespace CandySugar.Music.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
-        private object SimpleLocker = new object();
+        private object SimpleLocker = new object(); 
+        private JsonDbHandle<MusicSongElementResult> JsonHandler;
+        private string DbPath = Path.Combine(CommonHelper.DownloadPath, "Music", $"Music.{FileTypes.Dat}");
         public IndexViewModel()
         {
             Handle = false;
@@ -22,7 +23,8 @@ namespace CandySugar.Music.ViewModels
             Title = ["单曲", "歌单", "收藏"];
             Setting = [new() { Width = 80, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat }, new() { Width = 80, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat1 }];
             GenericDelegate.SearchAction = new(SearchHandler);
-            var LocalDATA = DownUtil.ReadFile<List<MusicSongElementResult>>("Music", FileTypes.Dat, "Music");
+            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<MusicSongElementResult>();
+            var LocalDATA = JsonHandler.GetAll();
             CollectResult = new ObservableCollection<MusicSongElementResult>();
             if (LocalDATA != null)
             {
@@ -234,7 +236,7 @@ namespace CandySugar.Music.ViewModels
             var FileName = $"[High]{input.SongId}";
             DownUtil.FileDelete(FileName, FileTypes.Mp3, "Music");
             CollectResult.Remove(input);
-            CollectResult.ToList().DeleteAndCreate("Music", FileTypes.Dat, "Music");
+            JsonHandler.Delete(input).ExuteInsert().SaveChange();
         }
 
         /// <summary>
@@ -632,8 +634,10 @@ namespace CandySugar.Music.ViewModels
                             new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show();
                         };
                         if (!CollectResult.Any(t => t.SongId == input.SongId))
+                        {
                             CollectResult.Add(input);
-                        CollectResult.ToList().DeleteAndCreate("Music", FileTypes.Dat, "Music");
+                            JsonHandler.Insert(input).ExuteInsert().SaveChange();
+                        }
                     });
                 }
                 catch (Exception ex)

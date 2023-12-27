@@ -6,19 +6,17 @@ using CandySugar.Com.Library.VisualTree;
 using CommunityToolkit.Mvvm.Input;
 using LibVLCSharp.Shared;
 using Microsoft.Win32;
-using NPOI.HPSF;
 using Stylet;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using XExten.Advance.JsonDbFramework;
 using XExten.Advance.LinqFramework;
 using VLCPlayer = LibVLCSharp.Shared.MediaPlayer;
 
@@ -286,12 +284,13 @@ namespace CandySugar.Com.Controls.UIExtenControls
 
     public class ScreenPlayViewModel : PropertyChangedBase
     {
-
+        private JsonDbHandle<History> JsonHandler;
+        private string DbPath = Path.Combine(CommonHelper.DownloadPath, "VlcPlay", $"Vlc.{FileTypes.His}");
         public ScreenPlayViewModel()
         {
-            var His = DownUtil.ReadFile<List<History>>("Vlc", FileTypes.His, "VlcPlay");
+            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<History>();
             Setting = [new() { Width=40, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat1 }, new() { Width = 40, UseUnderLine = Visibility.Collapsed, Content = FontIcon.ArrowRightArrowLeft }];
-            History = new ObservableCollection<History>(His ?? []);
+            History = new ObservableCollection<History>(JsonHandler.GetAll() ?? []);
         }
 
         private ObservableCollection<CandyToggleItemSetting> _Setting;
@@ -317,15 +316,13 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 Value = route
             };
             History.Add(his);
-            var Data = History.ToJson();
-            Encoding.Default.GetBytes(Data).FileCreate("Vlc", FileTypes.His, "VlcPlay");
+            JsonHandler.Insert(his).ExuteInsert().SaveChange();
         }
 
         public RelayCommand<History> TrashCommand => new(item =>
         {
             History.Remove(item);
-            var Data = History.ToJson();
-            Encoding.Default.GetBytes(Data).FileCreate("Vlc", FileTypes.His, "VlcPlay");
+            JsonHandler.Delete(item).ExuteInsert().SaveChange();
         });
 
         public RelayCommand<object> ModuleChangedCommand => new(item =>
@@ -336,7 +333,6 @@ namespace CandySugar.Com.Controls.UIExtenControls
             {
                 if (Index == 0) Vlc.PlayModel = 1;
                 else Vlc.PlayModel = 2;
-
             }
         });
     }

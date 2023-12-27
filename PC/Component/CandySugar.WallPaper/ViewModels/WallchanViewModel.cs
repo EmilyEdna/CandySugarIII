@@ -1,4 +1,5 @@
-﻿using Input = Sdk.Component.Vip.Image.sdk.ViewModel.Input;
+﻿using XExten.Advance.JsonDbFramework;
+using Input = Sdk.Component.Vip.Image.sdk.ViewModel.Input;
 using QueryEnum = Sdk.Component.Vip.Wallkon.sdk.ViewModel.Enums.QueryEnum;
 
 namespace CandySugar.WallPaper.ViewModels
@@ -7,11 +8,14 @@ namespace CandySugar.WallPaper.ViewModels
     {
         private object LockObject = new object();
         public List<WallkonElementResult> Builder;
+        private JsonDbHandle<WallkonElementResult> JsonHandler;
+        private string DbPath = Path.Combine(CommonHelper.DownloadPath, "WallPaper", $"Konachan.{FileTypes.Dat}");
         public WallchanViewModel()
         {
             Title = ["常规", "一般", "可疑", "收藏"];
             GenericDelegate.SearchAction = new(SearchHandler);
-            var LocalDATA = DownUtil.ReadFile<List<WallkonElementResult>>("Konachan", FileTypes.Dat, "WallPaper");
+            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<WallkonElementResult>();
+            var LocalDATA = JsonHandler.GetAll();
             CollectResult = new ObservableCollection<WallkonElementResult>();
             if (LocalDATA != null)
             {
@@ -369,7 +373,7 @@ namespace CandySugar.WallPaper.ViewModels
         public void CollectCommand(WallkonElementResult element)
         {
             CollectResult.Add(element);
-            CollectResult.ToList().DeleteAndCreate("Konachan", FileTypes.Dat, "WallPaper");
+            JsonHandler.Insert(element).ExuteInsert().SaveChange();
         }
 
         public void CheckCommand(WallkonElementResult element)

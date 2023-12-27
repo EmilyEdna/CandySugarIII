@@ -1,15 +1,20 @@
 ﻿using CandySugar.Com.Library.VisualTree;
+using System.IO;
+using XExten.Advance.JsonDbFramework;
 
 namespace CandySugar.Rifan.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
+        private JsonDbHandle<SearchElementResult> JsonHandler;
+        private string DbPath = Path.Combine(CommonHelper.DownloadPath, "Rifan", $"Rifan.{FileTypes.Dat}");
         public IndexViewModel()
         {
             Title = ["All", "Rifan", "3D", "Motion", "Cosplay", "Collect"];
             GenericDelegate.SearchAction = new(SearchHandler);
-            var LocalDATA = DownUtil.ReadFile<List<SearchElementResult>>("Rifan", FileTypes.Dat, "Rifan");
+            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<SearchElementResult>();
+            var LocalDATA = JsonHandler.GetAll();
             CollectResult = new ObservableCollection<SearchElementResult>();
             if (LocalDATA != null)
             {
@@ -628,7 +633,7 @@ namespace CandySugar.Rifan.ViewModels
         public void CollectCommand(SearchElementResult element)
         {
             CollectResult.Add(element);
-            CollectResult.ToList().DeleteAndCreate("Rifan", FileTypes.Dat, "Rifan");
+            JsonHandler.Insert(element).ExuteInsert().SaveChange();
         }
 
         /// <summary>
@@ -648,7 +653,7 @@ namespace CandySugar.Rifan.ViewModels
         public void RemoveCommand(SearchElementResult element)
         {
             CollectResult.Remove(element);
-            CollectResult.ToList().DeleteAndCreate("Rifan", FileTypes.Dat, "Rifan");
+            JsonHandler.Delete(element).ExuteInsert().SaveChange();
         }
 
         /// <summary>

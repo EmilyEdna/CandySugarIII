@@ -1,4 +1,5 @@
 ﻿using CandySugar.WallPaper.ObjectEntity;
+using XExten.Advance.JsonDbFramework;
 
 namespace CandySugar.WallPaper.ViewModels
 {
@@ -248,31 +249,32 @@ namespace CandySugar.WallPaper.ViewModels
         {
             if (WallhavBuilder != null && WallhavBuilder.Count > 0)
             {
-                var OldData = DownUtil.ReadFile<List<WallhavSearchElementResult>>("Wallhaven", FileTypes.Dat, "WallPaper");
+                var JsonHandler = new JsonDbContext(Path.Combine(CommonHelper.DownloadPath, "WallPaper", $"Wallhaven.{FileTypes.Dat}"))
+                    .LoadInMemory<WallhavSearchElementResult>();
                 WallhavBuilder.ForEach(item =>
                 {
                     SyncStatic.DeleteFile(DownUtil.FilePath(item.Id, FileTypes.Jpg, "WallPaper"));
                     if (ComponentControl.DataContext is WallhavViewModel ViewModel)
                         ViewModel.CollectResult.Remove(item);
-                    OldData.RemoveAll(t => t.Id == item.Id);
+                    JsonHandler.Delete(t => t.Id == item.Id);
                 });
-
-                OldData.DeleteAndCreate("Wallhaven", FileTypes.Dat, "WallPaper");
+                var OldData=  JsonHandler.ExcuteDelete().SaveChange<WallhavSearchElementResult>();
                 WeakReferenceMessenger.Default.Send(new MessageNotify());
                 if (OldData.Count <= 0)
                     Default.ForEach(item => MenuIndex.Remove(item));
             }
             if (KonachanBuilder != null && KonachanBuilder.Count > 0)
             {
-                var OldData = DownUtil.ReadFile<List<WallkonElementResult>>("Konachan", FileTypes.Dat, "WallPaper");
+                var JsonHandler = new JsonDbContext(Path.Combine(CommonHelper.DownloadPath, "WallPaper", $"Konachan.{FileTypes.Dat}"))
+                  .LoadInMemory<WallkonElementResult>();
                 KonachanBuilder.ForEach(item =>
                 {
                     SyncStatic.DeleteFile(DownUtil.FilePath(item.Id.AsString(), FileTypes.Jpg, "WallPaper"));
                     if (ComponentControl.DataContext is WallchanViewModel ViewModel)
                         ViewModel.CollectResult.Remove(item);
-                    OldData.RemoveAll(t => t.Id == item.Id);
+                    JsonHandler.Delete(t => t.Id == item.Id);
                 });
-                OldData.DeleteAndCreate("Konachan", FileTypes.Dat, "WallPaper");
+                var OldData = JsonHandler.ExcuteDelete().SaveChange<WallkonElementResult>();
                 WeakReferenceMessenger.Default.Send(new MessageNotify());
                 if (OldData.Count <= 0)
                     Default.ForEach(item => MenuIndex.Remove(item));

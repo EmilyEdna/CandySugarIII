@@ -1,13 +1,19 @@
-﻿namespace CandySugar.Axgle.ViewModels
+﻿using System.IO;
+using XExten.Advance.JsonDbFramework;
+
+namespace CandySugar.Axgle.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
+        private JsonDbHandle<AxgleCategoryElementResult> JsonHandler;
+        private string DbPath = Path.Combine(CommonHelper.DownloadPath, "Axgle", $"Axgle.{FileTypes.Dat}");
         public IndexViewModel()
         {
             Title = ["常规", "收藏"];
             GenericDelegate.SearchAction = new(SearchHandler);
-            var LocalDATA = DownUtil.ReadFile<List<AxgleCategoryElementResult>>("Axgle", FileTypes.Dat, "Axgle");
+            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<AxgleCategoryElementResult>();
+            var LocalDATA = JsonHandler.GetAll();
             CollectResult = new ObservableCollection<AxgleCategoryElementResult>();
             if (LocalDATA != null)
             {
@@ -80,7 +86,7 @@
         public void CollectCommand(AxgleCategoryElementResult element) 
         {
             CollectResult.Add(element);
-            CollectResult.ToList().DeleteAndCreate("Axgle", FileTypes.Dat, "Axgle");
+            JsonHandler.Insert(element).ExuteInsert().SaveChange(); ;
         }
         /// <summary>
         /// 删除
@@ -89,7 +95,7 @@
         public void RemoveCommand(AxgleCategoryElementResult element)
         {
             CollectResult.Remove(element);
-            CollectResult.ToList().DeleteAndCreate("Axgle", FileTypes.Dat, "Axgle");
+            JsonHandler.Delete(element).ExuteInsert().SaveChange();
         }
         /// <summary>
         /// 切换功能
