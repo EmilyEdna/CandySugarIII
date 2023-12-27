@@ -1,4 +1,5 @@
-﻿using Input = Sdk.Component.Vip.Wallhav.sdk.ViewModel.Input;
+﻿using XExten.Advance.JsonDbFramework;
+using Input = Sdk.Component.Vip.Wallhav.sdk.ViewModel.Input;
 
 namespace CandySugar.WallPaper.ViewModels
 {
@@ -6,12 +7,15 @@ namespace CandySugar.WallPaper.ViewModels
     {
         private object LockObject = new object();
         public List<WallhavSearchElementResult> Builder;
+        private JsonDbHandle<WallhavSearchElementResult> JsonHandler;
+        private string DbPath = Path.Combine(CommonHelper.DownloadPath, "WallPaper", $"Wallhaven.{FileTypes.Dat}");
         public WallhavViewModel()
         {
             Title = ["常规", "动漫", "人物", "收藏"];
             Purity = (int)PurityEnum.SFW;
             GenericDelegate.SearchAction = new(SearchHandler);
-            var LocalDATA = DownUtil.ReadFile<List<WallhavSearchElementResult>>("Wallhaven", FileTypes.Dat, "WallPaper");
+            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<WallhavSearchElementResult>();
+            var LocalDATA = JsonHandler.GetAll();
             CollectResult = new ObservableCollection<WallhavSearchElementResult>();
             if (LocalDATA != null)
             {
@@ -377,7 +381,7 @@ namespace CandySugar.WallPaper.ViewModels
         public void CollectCommand(WallhavSearchElementResult element)
         {
             CollectResult.Add(element);
-            CollectResult.ToList().DeleteAndCreate("Wallhaven", FileTypes.Dat, "WallPaper");
+            JsonHandler.Insert(element).ExuteInsert().SaveChange();
         }
         public void CheckCommand(WallhavSearchElementResult wallhav)
         {

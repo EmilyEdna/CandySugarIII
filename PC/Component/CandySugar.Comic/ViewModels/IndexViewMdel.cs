@@ -1,18 +1,21 @@
-﻿
-using CandySugar.Com.Controls.ExtenControls;
+﻿using CandySugar.Com.Controls.ExtenControls;
 using CandySugar.Com.Library.VisualTree;
-using XExten.Advance.NetFramework.Enums;
+using System.IO;
+using XExten.Advance.JsonDbFramework;
 
 namespace CandySugar.Comic.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
+        private JsonDbHandle<SearchElementResult> JsonHandler;
+        private string DbPath = Path.Combine(CommonHelper.DownloadPath, "Comic", $"Comic.{FileTypes.Dat}");
         public IndexViewModel()
         {
             Title = ["全部", "喜爱"];
             GenericDelegate.SearchAction = new(SearchHandler);
-            var LocalDATA = DownUtil.ReadFile<List<SearchElementResult>>("Comic", FileTypes.Dat, "Comic");
+            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<SearchElementResult>();
+            var LocalDATA = JsonHandler.GetAll();
             CollectResult = new ObservableCollection<SearchElementResult>();
             if (LocalDATA != null)
             {
@@ -219,13 +222,13 @@ namespace CandySugar.Comic.ViewModels
         public void CollectCommand(SearchElementResult element)
         {
             CollectResult.Add(element);
-            CollectResult.ToList().DeleteAndCreate("Comic", FileTypes.Dat, "Comic");
+            JsonHandler.Insert(element).ExuteInsert().SaveChange();
         }
 
         public void RemoveCommand(SearchElementResult element)
         {
             CollectResult.Remove(element);
-            CollectResult.ToList().DeleteAndCreate("Comic", FileTypes.Dat, "Comic");
+            JsonHandler.Delete(element).ExuteInsert().SaveChange();
         }
 
         public void WatchCommand(string route)
