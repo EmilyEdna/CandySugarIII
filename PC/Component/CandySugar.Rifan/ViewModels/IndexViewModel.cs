@@ -653,7 +653,7 @@ namespace CandySugar.Rifan.ViewModels
         public void RemoveCommand(SearchElementResult element)
         {
             CollectResult.Remove(element);
-            JsonHandler.Delete(element).ExuteInsert().SaveChange();
+            JsonHandler.Delete(element).ExcuteDelete().SaveChange();
         }
 
         /// <summary>

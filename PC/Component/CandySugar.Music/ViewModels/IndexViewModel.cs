@@ -236,7 +236,7 @@ namespace CandySugar.Music.ViewModels
             var FileName = $"[High]{input.SongId}";
             DownUtil.FileDelete(FileName, FileTypes.Mp3, "Music");
             CollectResult.Remove(input);
-            JsonHandler.Delete(input).ExuteInsert().SaveChange();
+            JsonHandler.Delete(input).ExcuteDelete().SaveChange();
         }
 
         /// <summary>

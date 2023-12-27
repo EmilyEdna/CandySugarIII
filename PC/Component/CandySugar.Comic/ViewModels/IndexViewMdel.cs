@@ -228,7 +228,7 @@ namespace CandySugar.Comic.ViewModels
         public void RemoveCommand(SearchElementResult element)
         {
             CollectResult.Remove(element);
-            JsonHandler.Delete(element).ExuteInsert().SaveChange();
+            JsonHandler.Delete(element).ExcuteDelete().SaveChange();
         }
 
         public void WatchCommand(string route)

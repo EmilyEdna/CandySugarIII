@@ -95,7 +95,7 @@ namespace CandySugar.Axgle.ViewModels
         public void RemoveCommand(AxgleCategoryElementResult element)
         {
             CollectResult.Remove(element);
-            JsonHandler.Delete(element).ExuteInsert().SaveChange();
+            JsonHandler.Delete(element).ExcuteDelete().SaveChange();
         }
         /// <summary>
         /// 切换功能

@@ -322,7 +322,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
         public RelayCommand<History> TrashCommand => new(item =>
         {
             History.Remove(item);
-            JsonHandler.Delete(item).ExuteInsert().SaveChange();
+            JsonHandler.Delete(item).ExcuteDelete().SaveChange();
         });
 
         public RelayCommand<object> ModuleChangedCommand => new(item =>
