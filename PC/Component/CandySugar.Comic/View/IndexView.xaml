@@ -93,7 +93,7 @@
                                                 </StackPanel>
                                                 <Button
                                                     Grid.Row="1"
-                                                    Margin="0,0,10,0"
+                                                    Margin="0,0,25,0"
                                                     HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
                                                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
@@ -180,7 +180,7 @@
                                                 </StackPanel>
                                                 <Button
                                                     Grid.Row="1"
-                                                    Margin="0,0,10,0"
+                                                    Margin="0,0,25,0"
                                                     HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
                                                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
