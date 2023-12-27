@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0;net7.0-android;</TargetFrameworks>
+		<TargetFrameworks>net8.0;net8.0-android</TargetFrameworks>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -12,13 +12,13 @@
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
-		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="2.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="3.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.54" />
-		<PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.23.4" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.57" />
+		<PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.23.5" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.141-beta" />
-		<PackageReference Include="XExten.Advance" Version="2.2.0.2" />
+		<PackageReference Include="XExten.Advance" Version="2.2.1.3" />
 		<PackageReference Include="XExten.Advance.Maui.Bar" Version="1.0.0" />
 		<PackageReference Include="XExten.Advance.Maui.Direction" Version="1.0.0" />
 	</ItemGroup>
