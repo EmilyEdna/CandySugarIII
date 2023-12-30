@@ -8,6 +8,7 @@ namespace CandySugar.Axgle.ViewModels
         private object LockObject = new object();
         private JsonDbHandle<AxgleCategoryElementResult> JsonHandler;
         private string DbPath = Path.Combine(CommonHelper.DownloadPath, "Axgle", $"Axgle.{FileTypes.Dat}");
+        private bool IsDirty = false;
         public IndexViewModel()
         {
             Title = ["常规", "收藏"];
@@ -106,9 +107,15 @@ namespace CandySugar.Axgle.ViewModels
             if (Target.FindParent<UserControl>() is IndexView View)
             {
                 if (Target.Tag.ToString().AsInt() == 0)
+                {
+                    IsDirty = true;
                     View.AnimeX1.Begin();
+                }
                 else
+                {
+                    IsDirty = false;
                     View.AnimeX2.Begin();
+                }
             }
         });
         /// <summary>
@@ -116,6 +123,7 @@ namespace CandySugar.Axgle.ViewModels
         /// </summary>
         public RelayCommand<ScrollChangedEventArgs> ScrollCommand => new((obj) =>
         {
+            if (!IsDirty) return;
             if (PageIndex <= Total && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
             {
                 PageIndex += 1;
