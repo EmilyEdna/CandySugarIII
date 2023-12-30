@@ -151,7 +151,7 @@
                         </Rectangle>
                         <ListBox
                             uc:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
-                            ItemsSource="{Binding CateResult, IsAsync=True}"
+                            ItemsSource="{Binding CollectResult, IsAsync=True}"
                             Style="{DynamicResource CandyListBoxStyle}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>

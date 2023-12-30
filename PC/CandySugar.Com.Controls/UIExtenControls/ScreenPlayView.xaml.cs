@@ -8,9 +8,12 @@ using LibVLCSharp.Shared;
 using Microsoft.Win32;
 using Stylet;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +21,7 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using XExten.Advance.JsonDbFramework;
 using XExten.Advance.LinqFramework;
+using XExten.Advance.NetFramework;
 using VLCPlayer = LibVLCSharp.Shared.MediaPlayer;
 
 namespace CandySugar.Com.Controls.UIExtenControls
@@ -36,20 +40,22 @@ namespace CandySugar.Com.Controls.UIExtenControls
         private bool IsNavOpen = false;
         public int PlayModel = 1;
         private ScreenPlayViewModel Vm;
+        private bool IsAx = false;
+        private string AxReferrer = "https://avgle.com/";
         public ScreenPlayView()
         {
             InitializeComponent();
             Init();
         }
 
-        public ScreenPlayView(Tuple<string, string> MediaInfo)
+        public ScreenPlayView(Tuple<string, string> MediaInfo, bool IsAx = false)
         {
+            this.IsAx = IsAx;
             this.MediaInfo = MediaInfo;
             InitializeComponent();
             Init();
             Vm.SetHistory(MediaInfo.Item2, MediaInfo.Item1);
         }
-
         void Init()
         {
             Vm = this.DataContext as ScreenPlayViewModel;
@@ -122,8 +128,10 @@ namespace CandySugar.Com.Controls.UIExtenControls
         void InitVLC()
         {
             Core.Initialize(Path.Combine(CommonHelper.AppPath, "vlclib"));
-            VlcLibVLC = new LibVLC("--network-caching=5000");
-            
+            List<string> Options = new List<string> { "--network-caching=5000" };
+            if (IsAx) Options.Add($"--http-referrer={AxReferrer}");
+            VlcLibVLC = new LibVLC(Options.ToArray());
+
             VlcPlayer = new VLCPlayer(VlcLibVLC);
             VlcPlayer.TimeChanged += TimeChanged;
             VlcPlayer.PositionChanged += PositionChanged;
@@ -289,7 +297,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
         public ScreenPlayViewModel()
         {
             JsonHandler = new JsonDbContext(DbPath).LoadInMemory<History>();
-            Setting = [new() { Width=40, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat1 }, new() { Width = 40, UseUnderLine = Visibility.Collapsed, Content = FontIcon.ArrowRightArrowLeft }];
+            Setting = [new() { Width = 40, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat1 }, new() { Width = 40, UseUnderLine = Visibility.Collapsed, Content = FontIcon.ArrowRightArrowLeft }];
             History = new ObservableCollection<History>(JsonHandler.GetAll() ?? []);
         }
 

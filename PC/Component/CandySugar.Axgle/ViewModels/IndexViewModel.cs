@@ -66,7 +66,7 @@ namespace CandySugar.Axgle.ViewModels
         /// <param name="element"></param>
         public void WatchCommand(AxgleCategoryElementResult element)
         {
-            OnDetail(element.Play);
+            OnDetail(element);
         }
         /// <summary>
         /// 激活模块
@@ -223,7 +223,9 @@ namespace CandySugar.Axgle.ViewModels
                             }
                         };
                     }).RunsAsync()).SearchResult;
-                    res.ElementResult.ToMapest<List<AxgleCategoryElementResult>>().ForEach(CateResult.Add);
+                    // 这一句很关键，开启集合的异步访问支持
+                    BindingOperations.EnableCollectionSynchronization(CateResult, LockObject);
+                    Application.Current.Dispatcher.Invoke(() => { res.ElementResult.ToMapest<List<AxgleCategoryElementResult>>().ForEach(CateResult.Add); });
                 }
                 catch (Exception ex)
                 {
@@ -292,7 +294,9 @@ namespace CandySugar.Axgle.ViewModels
                             }
                         };
                     }).RunsAsync()).CategoryResult;
-                    res.ElementResult.ForEach(CateResult.Add);
+                    // 这一句很关键，开启集合的异步访问支持
+                    BindingOperations.EnableCollectionSynchronization(CateResult, LockObject);
+                    Application.Current.Dispatcher.Invoke(() =>{ res.ElementResult.ForEach(CateResult.Add); });               
                 }
                 catch (Exception ex)
                 {
@@ -302,7 +306,7 @@ namespace CandySugar.Axgle.ViewModels
             });
         }
 
-        private void OnDetail(string input)
+        private void OnDetail(AxgleCategoryElementResult input)
         {
             Task.Run(async () =>
             {
@@ -319,7 +323,7 @@ namespace CandySugar.Axgle.ViewModels
                             AxgleType = AxgleEnum.Detail,
                             Detail = new AxgleDetail
                             {
-                                FrameURL = input
+                                FrameURL = input.Play
                             }
                         };
                     }).RunsAsync()).DetailResult.Route;
@@ -329,7 +333,8 @@ namespace CandySugar.Axgle.ViewModels
                         {
                             DataContext = new ScreenWebPlayViewModel
                             {
-                                Route = result
+                                Route = result,
+                                Name= input.Title
                             }
                         }.Show();
                     });

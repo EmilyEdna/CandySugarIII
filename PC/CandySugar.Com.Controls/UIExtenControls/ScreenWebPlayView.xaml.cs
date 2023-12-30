@@ -1,4 +1,5 @@
 ﻿using CandySugar.Com.Library.KeepOn;
+using Microsoft.Web.WebView2.Core;
 using Stylet;
 using System;
 using System.Windows;
@@ -13,8 +14,25 @@ namespace CandySugar.Com.Controls.UIExtenControls
         public ScreenWebPlayView()
         {
             InitializeComponent();
-            ScreenKeep.PreventForCurrentThread(); 
+            ScreenKeep.PreventForCurrentThread();
+            WebPlayer.NavigationCompleted += CompelteEvent;
         }
+
+        private async void CompelteEvent(object sender, CoreWebView2NavigationCompletedEventArgs e)
+        {
+            WebPlayer.CoreWebView2.AddWebResourceRequestedFilter("*", CoreWebView2WebResourceContext.All);
+            WebPlayer.CoreWebView2.WebResourceRequested += (s, e) => 
+            {
+                if (e.Request.Uri.Contains("https://cdn.qooqlevideo.com")&& !e.Request.Uri.Contains(".ts"))
+                {
+                    var Name = (this.DataContext as ScreenWebPlayViewModel).Name;
+                    new ScreenPlayView(Tuple.Create(e.Request.Uri, $"{Name}"),true) { Width = 1200, Height = 700 }.Show();
+                    Window_Closed(null, null);
+                }
+            };
+            await WebPlayer.EnsureCoreWebView2Async();
+        }
+
 
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -31,6 +49,12 @@ namespace CandySugar.Com.Controls.UIExtenControls
         {
             get => _Route;
             set => SetAndNotify(ref _Route, value);
+        }
+        private string _Name;
+        public string Name
+        {
+            get => _Name;
+            set => SetAndNotify(ref _Name, value);
         }
     }
 }
