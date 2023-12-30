@@ -84,13 +84,14 @@
                                                     <RowDefinition />
                                                     <RowDefinition Height="30" />
                                                 </Grid.RowDefinitions>
-                                                <StackPanel>
-                                                    <TextBlock
+                                                <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
+                                                    <TextBox
                                                         HorizontalAlignment="Center"
-                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        ScrollViewer.CanContentScroll="True"
+                                                        Style="{DynamicResource CopyStyle}"
                                                         Text="{Binding Name}"
-                                                        TextTrimming="CharacterEllipsis" />
-                                                </StackPanel>
+                                                        TextWrapping="Wrap" />
+                                                </ScrollViewer>
                                                 <Button
                                                     Grid.Row="1"
                                                     Margin="0,0,25,0"
@@ -171,13 +172,14 @@
                                                     <RowDefinition />
                                                     <RowDefinition Height="30" />
                                                 </Grid.RowDefinitions>
-                                                <StackPanel>
-                                                    <TextBlock
+                                                <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
+                                                    <TextBox
                                                         HorizontalAlignment="Center"
-                                                        Style="{DynamicResource TextBlockStyle}"
+                                                        ScrollViewer.CanContentScroll="True"
+                                                        Style="{DynamicResource CopyStyle}"
                                                         Text="{Binding Name}"
-                                                        TextTrimming="CharacterEllipsis" />
-                                                </StackPanel>
+                                                        TextWrapping="Wrap" />
+                                                </ScrollViewer>
                                                 <Button
                                                     Grid.Row="1"
                                                     Margin="0,0,25,0"

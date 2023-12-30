@@ -84,10 +84,10 @@
                                                     </Grid.RowDefinitions>
                                                     <StackPanel>
                                                         <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
-                                                            <TextBlock
+                                                            <TextBox
                                                                 HorizontalAlignment="Center"
                                                                 ScrollViewer.CanContentScroll="True"
-                                                                Style="{DynamicResource TextBlockStyle}"
+                                                                Style="{DynamicResource CopyStyle}"
                                                                 Text="{Binding Title}"
                                                                 TextWrapping="Wrap" />
                                                         </ScrollViewer>
@@ -182,10 +182,10 @@
                                                     </Grid.RowDefinitions>
                                                     <StackPanel>
                                                         <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
-                                                            <TextBlock
+                                                            <TextBox
                                                                 HorizontalAlignment="Center"
                                                                 ScrollViewer.CanContentScroll="True"
-                                                                Style="{DynamicResource TextBlockStyle}"
+                                                                Style="{DynamicResource CopyStyle}"
                                                                 Text="{Binding Title}"
                                                                 TextWrapping="Wrap" />
                                                         </ScrollViewer>

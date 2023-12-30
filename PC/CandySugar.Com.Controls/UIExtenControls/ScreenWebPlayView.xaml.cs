@@ -1,5 +1,6 @@
 ﻿using CandySugar.Com.Library.KeepOn;
 using Microsoft.Web.WebView2.Core;
+using Serilog;
 using Stylet;
 using System;
 using System.Windows;
@@ -26,6 +27,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 if (e.Request.Uri.Contains("https://cdn.qooqlevideo.com")&& !e.Request.Uri.Contains(".ts"))
                 {
                     var Name = (this.DataContext as ScreenWebPlayViewModel).Name;
+                    Log.Logger.Information($"Axgle地址：{e.Request.Uri}");
                     new ScreenPlayView(Tuple.Create(e.Request.Uri, $"{Name}"),true) { Width = 1200, Height = 700 }.Show();
                     Window_Closed(null, null);
                 }

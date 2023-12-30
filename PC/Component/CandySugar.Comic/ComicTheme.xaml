@@ -5,6 +5,15 @@
         <Setter Property="Foreground" Value="#fdf5e6" />
     </Style>
 
+    <Style x:Key="CopyStyle" TargetType="TextBox">
+        <Setter Property="Margin" Value="1,2" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Foreground" Value="#fdf5e6" />
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
     <Storyboard x:Key="X1Key">
         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="X1" Storyboard.TargetProperty="RenderTransform.(TransformGroup.Children)[0].(TranslateTransform.X)">
             <EasingDoubleKeyFrame KeyTime="0:0:0" Value="-120" />
