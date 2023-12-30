@@ -83,11 +83,14 @@
                                                         <RowDefinition Height="30" />
                                                     </Grid.RowDefinitions>
                                                     <StackPanel>
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding Title}"
-                                                            TextWrapping="Wrap" />
+                                                        <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
+                                                            <TextBlock
+                                                                HorizontalAlignment="Center"
+                                                                ScrollViewer.CanContentScroll="True"
+                                                                Style="{DynamicResource TextBlockStyle}"
+                                                                Text="{Binding Title}"
+                                                                TextWrapping="Wrap" />
+                                                        </ScrollViewer>
                                                         <TextBlock
                                                             HorizontalAlignment="Center"
                                                             Style="{DynamicResource TextBlockStyle}"
@@ -178,11 +181,14 @@
                                                         <RowDefinition Height="30" />
                                                     </Grid.RowDefinitions>
                                                     <StackPanel>
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding Title}"
-                                                            TextWrapping="Wrap" />
+                                                        <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
+                                                            <TextBlock
+                                                                HorizontalAlignment="Center"
+                                                                ScrollViewer.CanContentScroll="True"
+                                                                Style="{DynamicResource TextBlockStyle}"
+                                                                Text="{Binding Title}"
+                                                                TextWrapping="Wrap" />
+                                                        </ScrollViewer>
                                                         <TextBlock
                                                             HorizontalAlignment="Center"
                                                             Style="{DynamicResource TextBlockStyle}"
