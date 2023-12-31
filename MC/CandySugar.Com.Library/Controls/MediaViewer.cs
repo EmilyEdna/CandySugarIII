@@ -11,14 +11,11 @@ namespace CandySugar.Com.Library.Controls
         public static BindableProperty VideoUrlProperty =
             BindableProperty.Create(nameof(VideoUrl), typeof(string), typeof(MediaViewer), "", defaultBindingMode: BindingMode.TwoWay);
 
-        public static BindableProperty DurationProperty =
-          BindableProperty.Create(nameof(Duration), typeof(string), typeof(MediaViewer), "", defaultBindingMode: BindingMode.TwoWay);
-
         public static BindableProperty CurrentTimeProperty =
           BindableProperty.Create(nameof(CurrentTime), typeof(string), typeof(MediaViewer), "", defaultBindingMode: BindingMode.TwoWay);
 
         public static BindableProperty PositionProperty =
-            BindableProperty.Create(nameof(Position), typeof(double), typeof(MediaViewer), 0f, defaultBindingMode: BindingMode.TwoWay);
+            BindableProperty.Create(nameof(Position), typeof(double), typeof(MediaViewer), 0d, defaultBindingMode: BindingMode.TwoWay);
 
         /// <summary>
         /// Disables or enables scanning
@@ -27,11 +24,6 @@ namespace CandySugar.Com.Library.Controls
         {
             get => (string)GetValue(VideoUrlProperty);
             set => SetValue(VideoUrlProperty, value);
-        }
-        public string Duration
-        {
-            get => (string)GetValue(DurationProperty);
-            set => SetValue(DurationProperty, value);
         }
         public string CurrentTime
         {

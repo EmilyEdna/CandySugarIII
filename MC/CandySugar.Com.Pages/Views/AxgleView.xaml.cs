@@ -8,5 +8,6 @@ public partial class AxgleView : ContentPage
 	{
 		InitializeComponent();
         this.BindingContext = new AxgleViewModel();
+        
     }
 }

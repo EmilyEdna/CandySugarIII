@@ -102,8 +102,6 @@ namespace CandySugar.Com.Library.Handlers
                     _mediaPlayer.Volume = 100;
                     _mediaPlayer.Mute = true;
                     _mediaPlayer.Play();
-                    var Total = TimeSpan.FromMilliseconds(_mediaPlayer.Media.Duration).ToString().Substring(0, 8);
-                    VirtualView.Duration = Total;
                 }
             }
             catch (Exception ex)

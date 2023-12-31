@@ -47,12 +47,10 @@
                                 TextColor="{DynamicResource Basic}" />
                             <Label
                                 Margin="10,0,0,0"
-                                LineBreakMode="WordWrap"
                                 Text="{Binding Duration, StringFormat=时常:{0}}"
                                 TextColor="{DynamicResource Basic}" />
                             <Label
                                 Margin="10,0,0,0"
-                                LineBreakMode="WordWrap"
                                 Text="{Binding Views, StringFormat=浏览次数:{0}}"
                                 TextColor="{DynamicResource Basic}" />
                             <HorizontalStackLayout>
