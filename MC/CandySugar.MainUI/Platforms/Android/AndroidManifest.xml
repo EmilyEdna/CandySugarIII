@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="github.emilyedna.candys" android:versionCode="1">
-	<application android:allowBackup="true" android:requestLegacyExternalStorage="true" android:icon="@mipmap/appicon" android:supportsRtl="true" android:label="Candys" android:usesCleartextTraffic="true">
-		<!--<provider android:name="androidx.core.content.FileProvider" android:authorities="github.emilyedna.fileprovider" android:exported="false" android:grantUriPermissions="true">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="github.emilyedna.candy" android:versionCode="1">
+	<application android:allowBackup="true" android:requestLegacyExternalStorage="true" android:icon="@mipmap/appicon" android:supportsRtl="true" android:label="Candy" android:usesCleartextTraffic="true">
+		<provider android:name="androidx.core.content.FileProvider" android:authorities="github.emilyedna.fileprovider" android:exported="false" android:grantUriPermissions="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@drawable/filepaths" />
-		</provider>-->
+		</provider>
 	</application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
