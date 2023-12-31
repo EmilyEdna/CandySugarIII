@@ -132,23 +132,21 @@ namespace CandySugar.Com.Pages.ViewModels
 
             try
             {
-                //var result = (await AxgleFactory.Axgle(opt =>
-                //{
-                //    opt.RequestParam = new Input
-                //    {
+                var result = (await AxgleFactory.Axgle(opt =>
+                {
+                    opt.RequestParam = new Input
+                    {
 
-                //        AxgleType = AxgleEnum.Detail,
-                //        CacheSpan = 5,
-                //        Detail= new AxgleDetail
-                //        {
-                //             FrameURL= route
-                //        }
-                //    };
-                //}).RunsAsync()).DetailResult.Route;
-                var result = "";
+                        AxgleType = AxgleEnum.Detail,
+                        CacheSpan = 5,
+                        Detail = new AxgleDetail
+                        {
+                            FrameURL = route
+                        }
+                    };
+                }).RunsAsync()).DetailResult.Route;
 
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", result } });
-
             }
             catch (Exception ex)
             {

@@ -1,6 +1,4 @@
 using CandySugar.Com.Pages.ChildViewModels.Axgles;
-
-
 #if ANDROID
 using XExten.Advance.Maui.Bar;
 using XExten.Advance.Maui.Direction;
