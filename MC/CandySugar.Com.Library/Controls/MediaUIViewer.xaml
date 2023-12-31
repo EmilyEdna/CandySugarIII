@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="CandySugar.Com.Library.Controls.MediaUIViewer"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:CandySugar.Com.Library.Controls"
+    x:Name="UIViewer"
+    Background="Black">
+    <Grid WidthRequest="750">
+        <local:MediaViewer
+            x:Name="Media"
+            HeightRequest="360"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand"
+            VideoUrl="{Binding Source, Source={x:Reference UIViewer}}" />
+        <Border
+            Margin="0,0,0,5"
+            Background="#30FFFFFF"
+            HeightRequest="30"
+            HorizontalOptions="CenterAndExpand"
+            StrokeShape="RoundRectangle 50"
+            VerticalOptions="EndAndExpand"
+            WidthRequest="750">
+            <Grid ColumnDefinitions="*,Auto">
+                <HorizontalStackLayout Grid.Row="1">
+                    <Slider
+                        DragCompleted="ProgressChanged"
+                        HorizontalOptions="StartAndExpand"
+                        MaximumTrackColor="{DynamicResource SurfaceContainer}"
+                        MinimumTrackColor="WhiteSmoke"
+                        ThumbColor="Red"
+                        WidthRequest="600"
+                        Value="{Binding Position, Source={x:Reference Media}}" />
+                    <Label
+                        Text="{Binding CurrentTime, Source={x:Reference Media}}"
+                        TextColor="{DynamicResource BasicPrimary}"
+                        VerticalOptions="CenterAndExpand"
+                        VerticalTextAlignment="Center" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Column="1" Margin="0,0,40,0">
+                    <ImageButton
+                        x:Name="Play"
+                        Clicked="ButtonEvent"
+                        CommandParameter="1"
+                        Source="{StaticResource Play}" />
+                    <ImageButton
+                        x:Name="Pause"
+                        Clicked="ButtonEvent"
+                        CommandParameter="2"
+                        IsVisible="False"
+                        Source="{StaticResource Pause}" />
+                </HorizontalStackLayout>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentView>

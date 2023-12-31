@@ -1,4 +1,6 @@
 ﻿using CandySugar.Com.Library;
+using CandySugar.Com.Library.Controls;
+using CandySugar.Com.Library.Handlers;
 using CandySugar.Com.Pages;
 using CandySugar.Com.Service;
 using CommunityToolkit.Maui;
@@ -24,6 +26,10 @@ namespace CandySugar.MainUI
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("FontAwesome6Thin.otf", "Thin");
+                }).ConfigureMauiHandlers(handlers => {
+#if ANDROID
+                    handlers.AddHandler(typeof(MediaViewer), typeof(MediaViewerHandler));
+#endif
                 });
 #if ANDROID
             WebViewHandler.Mapper.ModifyMapping(

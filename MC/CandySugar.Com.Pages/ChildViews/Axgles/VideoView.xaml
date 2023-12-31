@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui.MediaElement"
+    xmlns:uc="clr-namespace:CandySugar.Com.Library.Controls;assembly=CandySugar.Com.Library"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Axgles"
     x:DataType="vm:VideoViewModel"
     Shell.NavBarIsVisible="False">
@@ -12,12 +13,6 @@
             x:Name="Player"
             IsVisible="{Binding DisplayWebView}"
             Source="{Binding Route}" />
-        <toolkit:MediaElement
-            x:Name="Media"
-            IsVisible="{Binding DisplayExoView}"
-            ShouldAutoPlay="False"
-            ShouldKeepScreenOn="True"
-            ShouldShowPlaybackControls="True"
-            Source="{Binding URI}" />
+        <uc:MediaUIViewer IsVisible="{Binding DisplayExoView}" Source="{Binding URI}" />
     </Grid>
 </ContentPage>

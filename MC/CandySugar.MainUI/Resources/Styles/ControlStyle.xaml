@@ -17,6 +17,18 @@
         Glyph="{Static lib:FontIcon.CircleXmark}"
         Size="15"
         Color="{StaticResource BasicPage}" />
+    <FontImage
+        x:Key="Pause"
+        FontFamily="Thin"
+        Glyph="{Static lib:FontIcon.Pause}"
+        Size="15"
+        Color="{StaticResource BasicPrimary}" />
+    <FontImage
+        x:Key="Play"
+        FontFamily="Thin"
+        Glyph="{Static lib:FontIcon.Play}"
+        Size="15"
+        Color="{StaticResource BasicPrimary}" />
 
     <DataTemplate x:Key="ShellFlyoutItem">
         <VerticalStackLayout>

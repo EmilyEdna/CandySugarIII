@@ -14,6 +14,7 @@ using CandySugar.Com.Pages.ChildViews.Novels;
 using CandySugar.Com.Pages.ChildViews.Animes;
 using Sdk.Component.Cart.sdk.ViewModel.Response;
 using CandySugar.Com.Pages.ChildViews.Lights;
+using CandySugar.Com.Pages.ChildViews.Axgles;
 
 namespace CandySugar.Com.Pages.ViewModels
 {
@@ -29,6 +30,7 @@ namespace CandySugar.Com.Pages.ViewModels
                new BarModel{ Name="小说", Route="3" },
                new BarModel{ Name="动漫", Route="4" },
                new BarModel{ Name="文库", Route="5" },
+               new BarModel{ Name="车牌", Route="6" },
             };
             GetLocalData();
         }
@@ -75,6 +77,8 @@ namespace CandySugar.Com.Pages.ViewModels
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CollectView)], new Dictionary<string, object> { { "Param", new CartInitElementResult { Title = Model.Name, Route = Model.Route, Cover = Model.Cover } } });
             if (Model.Category == 5)
                 await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(ChaptersView)]}?Name={Model.Name}&Route={Model.Route}&Cover={Model.Cover}");
+            if (Model.Category == 5)
+                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", Model.Route } });
         }
         #endregion
 
