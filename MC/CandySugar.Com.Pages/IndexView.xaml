@@ -39,6 +39,10 @@
             Title="里番"
             ContentTemplate="{DataTemplate page:RifanView}"
             Route="RifanView" />
+        <ShellContent
+            Title="车牌"
+            ContentTemplate="{DataTemplate page:AxgleView}"
+            Route="AxgleView" />
     </FlyoutItem>
 
 </Shell>

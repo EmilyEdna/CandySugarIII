@@ -1,6 +1,8 @@
 ﻿using CandySugar.Com.Library;
+using CandySugar.Com.Pages;
 using CandySugar.Com.Service;
 using CommunityToolkit.Maui;
+using Microsoft.Maui.Handlers;
 using Sdk.Plugins;
 
 namespace CandySugar.MainUI
@@ -23,7 +25,11 @@ namespace CandySugar.MainUI
                 {
                     fonts.AddFont("FontAwesome6Thin.otf", "Thin");
                 });
-
+#if ANDROID
+            WebViewHandler.Mapper.ModifyMapping(
+                nameof(Android.Webkit.WebView.WebChromeClient),
+                (handler, view, args) => handler.PlatformView.SetWebChromeClient(new AjaxWebChrome(handler)));
+#endif
             return builder.Build();
         }
     }
