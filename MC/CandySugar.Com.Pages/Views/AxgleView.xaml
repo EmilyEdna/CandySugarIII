@@ -62,7 +62,7 @@
                                     WidthRequest="60" />
                                 <Button
                                     Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:AxgleViewModel}}}"
-                                    CommandParameter="{Binding Play}"
+                                    CommandParameter="{Binding .}"
                                     Style="{StaticResource ButtonStyle}"
                                     Text="播放"
                                     WidthRequest="60" />

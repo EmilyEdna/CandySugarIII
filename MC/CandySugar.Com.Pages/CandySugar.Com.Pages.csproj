@@ -44,6 +44,9 @@
 	  <MauiXaml Update="ChildViews\Animes\PlayView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="ChildViews\Axgles\AjaxView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ChildViews\Axgles\VideoView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

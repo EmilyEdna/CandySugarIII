@@ -8,11 +8,5 @@
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Axgles"
     x:DataType="vm:VideoViewModel"
     Shell.NavBarIsVisible="False">
-    <Grid>
-        <WebView
-            x:Name="Player"
-            IsVisible="{Binding DisplayWebView}"
-            Source="{Binding Route}" />
-        <uc:MediaUIViewer IsVisible="{Binding DisplayExoView}" Source="{Binding URI}" />
-    </Grid>
+    <uc:MediaUIViewer Source="{Binding Route}" />
 </ContentPage>

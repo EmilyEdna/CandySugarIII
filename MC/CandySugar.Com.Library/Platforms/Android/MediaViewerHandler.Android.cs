@@ -27,11 +27,7 @@ namespace CandySugar.Com.Library.Handlers
 
         private void VirtualView_PlayRequested()
         {
-            PrepareControl(_videoView);
             HandleUrl(VirtualView.VideoUrl);
-            _mediaPlayer.Play();  
-            _mediaPlayer.TimeChanged += VirtualView_TimeChanged;
-            _mediaPlayer.PositionChanged += VirtualView_PositionChanged;
         }
 
         private void VirtualView_PositionChanged(object sender, MediaPlayerPositionChangedEventArgs e)
@@ -70,6 +66,9 @@ namespace CandySugar.Com.Library.Handlers
             VirtualView.PauseRequested += VirtualView_PauseRequested;
             VirtualView.PlayRequested += VirtualView_PlayRequested;
             VirtualView.TimeRequested += VirtualView_TimeRequested;
+
+            _mediaPlayer.TimeChanged += VirtualView_TimeChanged;
+            _mediaPlayer.PositionChanged += VirtualView_PositionChanged;
         }
 
         private void VirtualView_TimeRequested(double obj)

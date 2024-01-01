@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CandySugar.Com.Pages.ChildViews.Axgles.AjaxView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Axgles"
+    Title="{Binding Title}"
+    x:DataType="vm:VideoViewModel"
+    Shell.NavBarIsVisible="True">
+    <WebView x:Name="Player" Source="{Binding Route}" />
+</ContentPage>

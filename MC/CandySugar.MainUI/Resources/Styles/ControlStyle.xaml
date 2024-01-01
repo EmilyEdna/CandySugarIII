@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary
     x:Class="CandySugar.MainUI.Resources.Styles.ControlStyle"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -27,6 +26,12 @@
         x:Key="Play"
         FontFamily="Thin"
         Glyph="{Static lib:FontIcon.Play}"
+        Size="15"
+        Color="{StaticResource BasicPrimary}" />
+    <FontImage
+        x:Key="Refresh"
+        FontFamily="Thin"
+        Glyph="{Static lib:FontIcon.ArrowsRotate}"
         Size="15"
         Color="{StaticResource BasicPrimary}" />
 

@@ -127,7 +127,7 @@ namespace CandySugar.Com.Pages.ViewModels
             }
         }
 
-        private async void PlayAsync(string route) 
+        private async void PlayAsync(AxgleCategoryElementResult input) 
         {
 
             try
@@ -141,12 +141,12 @@ namespace CandySugar.Com.Pages.ViewModels
                         CacheSpan = 5,
                         Detail = new AxgleDetail
                         {
-                            FrameURL = route
+                            FrameURL = input.Play
                         }
                     };
                 }).RunsAsync()).DetailResult.Route;
 
-                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", result } });
+                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(AjaxView)], new Dictionary<string, object> { { "Param", result },{"Title", input.Title } });
             }
             catch (Exception ex)
             {
@@ -199,7 +199,7 @@ namespace CandySugar.Com.Pages.ViewModels
 
         public RelayCommand<AxgleCategoryElementResult> CollectCommand => new(Insert);
 
-        public RelayCommand<string> PlayCommand => new(PlayAsync);
+        public RelayCommand<AxgleCategoryElementResult> PlayCommand => new(PlayAsync);
         #endregion
     }
 }

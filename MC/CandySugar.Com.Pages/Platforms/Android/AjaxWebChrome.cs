@@ -13,9 +13,9 @@ namespace CandySugar.Com.Pages
         {
             if (handler.VirtualView is Microsoft.Maui.Controls.WebView view)
             {
-                if (view.Parent is Grid)
+                if (view.Parent is ContentPage page)
                 {
-                    var dc = view.Parent.Parent.BindingContext;
+                    var dc = page.BindingContext;
                     if (dc != null)
                         DataContext = dc;
                 }
