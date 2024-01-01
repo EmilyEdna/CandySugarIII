@@ -158,7 +158,7 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             await IocDependency.Resolve<ICandyService>().Add(new CollectModel
             {
-                Category = 4,
+                Category = 6,
                 Cover = result.Preview,
                 Name = result.Title,
                 Route = result.Play,

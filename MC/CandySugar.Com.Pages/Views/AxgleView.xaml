@@ -42,17 +42,17 @@
                         <StackLayout Grid.Column="1" VerticalOptions="StartAndExpand">
                             <Label
                                 Margin="10,0,0,0"
-                                LineBreakMode="WordWrap"
+                                LineBreakMode="TailTruncation"
                                 Text="{Binding Title}"
                                 TextColor="{DynamicResource Basic}" />
-                            <Label
-                                Margin="10,0,0,0"
-                                Text="{Binding Duration, StringFormat=时常:{0}}"
-                                TextColor="{DynamicResource Basic}" />
-                            <Label
-                                Margin="10,0,0,0"
-                                Text="{Binding Views, StringFormat=浏览次数:{0}}"
-                                TextColor="{DynamicResource Basic}" />
+                            <HorizontalStackLayout Margin="10,0,0,0">
+                                <Label Text="时常：" TextColor="{DynamicResource Basic}" />
+                                <Label Text="{Binding Duration}" TextColor="{DynamicResource Basic}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="10,0,0,0">
+                                <Label Text="浏览次数：" TextColor="{DynamicResource Basic}" />
+                                <Label Text="{Binding Views}" TextColor="{DynamicResource Basic}" />
+                            </HorizontalStackLayout>
                             <HorizontalStackLayout>
                                 <Button
                                     Command="{Binding CollectCommand, Source={RelativeSource AncestorType={x:Type vm:AxgleViewModel}}}"

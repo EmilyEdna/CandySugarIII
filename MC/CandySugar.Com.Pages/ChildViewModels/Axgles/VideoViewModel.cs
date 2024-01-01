@@ -1,11 +1,6 @@
-﻿using CommunityToolkit.Maui.Views;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Messaging;
-using System.Net.Http.Headers;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Text.RegularExpressions;
 using XExten.Advance.LinqFramework;
-
-
 #if ANDROID
 using XExten.Advance.Maui.Bar;
 using XExten.Advance.Maui.Direction;
