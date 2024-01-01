@@ -10,6 +10,7 @@
     FlyoutFooterTemplate="{DynamicResource ShellFlyoutFoot}"
     FlyoutHeaderTemplate="{DynamicResource ShellFlyoutHead}"
     ItemTemplate="{DynamicResource ShellFlyoutItem}"
+    MenuItemTemplate="{DynamicResource ShellMenuItem}"
     Shell.FlyoutBehavior="Flyout"
     Shell.FlyoutWidth="250"
     Shell.TabBarIsVisible="False">
@@ -44,5 +45,8 @@
             ContentTemplate="{DataTemplate page:AxgleView}"
             Route="AxgleView" />
     </FlyoutItem>
-
+    <MenuItem
+        Clicked="ImportEvent"
+        IsDestructive="True"
+        Text="导入数据" />
 </Shell>

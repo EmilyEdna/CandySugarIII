@@ -53,6 +53,24 @@
         </VerticalStackLayout>
     </DataTemplate>
 
+    <DataTemplate x:Key="ShellMenuItem">
+        <VerticalStackLayout>
+            <Label
+                Margin="30,10,0,0"
+                FontSize="20"
+                HorizontalOptions="Start"
+                Text="{Binding Title}"
+                TextColor="{DynamicResource Basic}" />
+            <Border
+                Margin="0,5,0,0"
+                BackgroundColor="{DynamicResource Basic}"
+                HeightRequest="1"
+                HorizontalOptions="CenterAndExpand"
+                StrokeThickness="1"
+                WidthRequest="200" />
+        </VerticalStackLayout>
+    </DataTemplate>
+
     <DataTemplate x:Key="ShellFlyoutHead">
         <Grid HeightRequest="180">
             <Image Aspect="Fill" Source="head.png" />
