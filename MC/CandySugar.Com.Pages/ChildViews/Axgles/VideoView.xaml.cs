@@ -18,6 +18,8 @@ public partial class VideoView : ContentPage
             IBarStatus.Instance.ShowStatusBar();
             IDirection.Instance.LockOrientation(OrientationEnum.Portrait);
 #endif
+            DeviceDisplay.Current.KeepScreenOn = false;
+            Player.Dispose();
         };
 
     }

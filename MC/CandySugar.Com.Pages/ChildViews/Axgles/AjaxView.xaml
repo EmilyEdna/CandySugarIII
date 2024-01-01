@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Axgles"
     Title="{Binding Title}"
-    x:DataType="vm:VideoViewModel"
+    x:DataType="vm:AjaxViewModel"
     Shell.NavBarIsVisible="True">
     <WebView x:Name="Player" Source="{Binding Route}" />
 </ContentPage>

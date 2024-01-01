@@ -14,6 +14,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             Route = (string)query["Input"];
+            DeviceDisplay.Current.KeepScreenOn = true;
 #if ANDROID
             IBarStatus.Instance.HiddenStatusBar();
             IDirection.Instance.LockOrientation(OrientationEnum.Landscape);

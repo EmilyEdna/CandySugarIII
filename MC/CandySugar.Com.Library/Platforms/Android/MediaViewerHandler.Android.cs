@@ -2,6 +2,7 @@
 using LibVLCSharp.Platforms.Android;
 using LibVLCSharp.Shared;
 using Microsoft.Maui.Handlers;
+using XExten.Advance.LinqFramework;
 
 
 namespace CandySugar.Com.Library.Handlers
@@ -24,30 +25,62 @@ namespace CandySugar.Com.Library.Handlers
 
             base.ConnectHandler(nativeView);
         }
+        #region Event
 
         private void VirtualView_PlayRequested()
         {
+            _mediaPlayer.Play();
+            VirtualView.IsPlaying = _mediaPlayer.IsPlaying;
+        }
+        private void VirtualView_ReloadRequested()
+        {
+            _mediaPlayer.Stop();
+            VirtualView.IsPlaying = _mediaPlayer.IsPlaying;
             HandleUrl(VirtualView.VideoUrl);
         }
+        private void VirtualView_PauseRequested()
+        {
+            _mediaPlayer.Pause();
+            VirtualView.IsPlaying = _mediaPlayer.IsPlaying;
+        }
 
-        private void VirtualView_PositionChanged(object sender, MediaPlayerPositionChangedEventArgs e)
+        private void VirtualView_TimeRequested(double obj)
+        {
+            _mediaPlayer.Position = (float)obj;
+        }
+        private void VirtualView_DisposeRequested()
+        {
+            _mediaPlayer.Stop();
+            _mediaPlayer.Dispose();
+        }
+        private void VirtualView_RateRequested(float obj)
+        {
+            if (_mediaPlayer.IsPlaying)
+                _mediaPlayer.SetRate(obj);
+        }
+        #endregion
+
+        #region VLCEvent
+        private void VLC_PositionChanged(object sender, MediaPlayerPositionChangedEventArgs e)
         {
             VirtualView.Position = e.Position;
         }
 
-        private void VirtualView_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
+        private void VLC_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
         {
             VirtualView.CurrentTime = TimeSpan.FromMilliseconds(e.Time).ToString().Substring(0, 8);
         }
-
-        private void VirtualView_PauseRequested()
-        {
-            _mediaPlayer.Pause();
-        }
+        #endregion
 
         protected override void DisconnectHandler(VideoView nativeView)
         {
             VirtualView.PauseRequested -= VirtualView_PauseRequested;
+            VirtualView.PlayRequested -= VirtualView_PlayRequested;
+            VirtualView.TimeRequested -= VirtualView_TimeRequested;
+            VirtualView.ReloadRequested -= VirtualView_ReloadRequested;
+
+            _mediaPlayer.TimeChanged -= VLC_TimeChanged;
+            _mediaPlayer.PositionChanged -= VLC_PositionChanged;
             nativeView.Dispose();
             base.DisconnectHandler(nativeView);
         }
@@ -66,45 +99,29 @@ namespace CandySugar.Com.Library.Handlers
             VirtualView.PauseRequested += VirtualView_PauseRequested;
             VirtualView.PlayRequested += VirtualView_PlayRequested;
             VirtualView.TimeRequested += VirtualView_TimeRequested;
+            VirtualView.ReloadRequested += VirtualView_ReloadRequested;
+            VirtualView.DisposeRequested += VirtualView_DisposeRequested;
+            VirtualView.RateRequested += VirtualView_RateRequested; ;
 
-            _mediaPlayer.TimeChanged += VirtualView_TimeChanged;
-            _mediaPlayer.PositionChanged += VirtualView_PositionChanged;
-        }
-
-        private void VirtualView_TimeRequested(double obj)
-        {
-            _mediaPlayer.Position = (float)obj;
+            _mediaPlayer.TimeChanged += VLC_TimeChanged;
+            _mediaPlayer.PositionChanged += VLC_PositionChanged;
         }
 
         private void HandleUrl(string url)
         {
-            try
+            if (!url.IsNullOrEmpty())
             {
-
-                if (url.EndsWith("/"))
+                var media = new Media(_libVLC, url, FromType.FromLocation);
+                _mediaPlayer.NetworkCaching = 20000;
+                if (_mediaPlayer.Media != null)
                 {
-                    url = url.TrimEnd('/');
+                    _mediaPlayer.Stop();
+                    _mediaPlayer.Media.Dispose();
                 }
-
-                if (!string.IsNullOrEmpty(url))
-                {
-                    var media = new Media(_libVLC, url, FromType.FromLocation);
-
-                    _mediaPlayer.NetworkCaching = 20000;
-
-                    if (_mediaPlayer.Media != null)
-                    {
-                        _mediaPlayer.Stop();
-                        _mediaPlayer.Media.Dispose();
-                    }
-                    _mediaPlayer.Media = media;
-                    _mediaPlayer.Volume = 100;
-                    _mediaPlayer.Mute = true;
-                    _mediaPlayer.Play();
-                }
-            }
-            catch (Exception ex)
-            {
+                _mediaPlayer.Media = media;
+                _mediaPlayer.Volume = 100;
+                _mediaPlayer.AspectRatio = "770:360";
+                VirtualView.IsPlaying = _mediaPlayer.IsPlaying;
             }
         }
 

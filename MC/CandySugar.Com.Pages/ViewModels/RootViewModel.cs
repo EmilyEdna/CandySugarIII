@@ -77,7 +77,7 @@ namespace CandySugar.Com.Pages.ViewModels
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CollectView)], new Dictionary<string, object> { { "Param", new CartInitElementResult { Title = Model.Name, Route = Model.Route, Cover = Model.Cover } } });
             if (Model.Category == 5)
                 await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(ChaptersView)]}?Name={Model.Name}&Route={Model.Route}&Cover={Model.Cover}");
-            if (Model.Category == 5)
+            if (Model.Category == 6)
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(AjaxView)], new Dictionary<string, object> { { "Param", Model.Route },{ "Title",Model.Name} });
         }
         #endregion
