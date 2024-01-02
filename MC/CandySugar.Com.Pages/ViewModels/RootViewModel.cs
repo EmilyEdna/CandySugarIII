@@ -67,6 +67,7 @@ namespace CandySugar.Com.Pages.ViewModels
         }
         private async void Next(CollectModel Model)
         {
+            GetLocalData();
             if (Model.Category == 1)
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CatalogView)], new Dictionary<string, object> { { "Param", new ComicSearch { Cover = Model.Cover, Name = Model.Name, Route = Model.Route } } });
             if (Model.Category == 2)
