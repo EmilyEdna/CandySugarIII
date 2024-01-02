@@ -30,18 +30,18 @@ namespace CandySugar.Com.Library.Handlers
         private void VirtualView_PlayRequested()
         {
             _mediaPlayer.Play();
-            VirtualView.IsPlaying = _mediaPlayer.IsPlaying;
+            VirtualView.IsPlaying = true;
         }
         private void VirtualView_ReloadRequested()
         {
             _mediaPlayer.Stop();
-            VirtualView.IsPlaying = _mediaPlayer.IsPlaying;
+            VirtualView.IsPlaying = false;
             HandleUrl(VirtualView.VideoUrl);
         }
         private void VirtualView_PauseRequested()
         {
             _mediaPlayer.Pause();
-            VirtualView.IsPlaying = _mediaPlayer.IsPlaying;
+            VirtualView.IsPlaying =false;
         }
 
         private void VirtualView_TimeRequested(double obj)
@@ -121,7 +121,7 @@ namespace CandySugar.Com.Library.Handlers
                 _mediaPlayer.Media = media;
                 _mediaPlayer.Volume = 100;
                 _mediaPlayer.AspectRatio = "770:360";
-                VirtualView.IsPlaying = _mediaPlayer.IsPlaying;
+                VirtualView.IsPlaying = false;
             }
         }
 
