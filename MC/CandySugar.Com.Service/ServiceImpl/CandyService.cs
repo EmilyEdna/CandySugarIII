@@ -38,5 +38,18 @@ namespace CandySugar.Com.Service
         {
             await DbContext.Lite.Table<CollectModel>().DeleteAsync(t => t.Category == Category);
         }
+
+        public async Task Update(string key, string input)
+        {
+            var model = await DbContext.Lite.Table<CollectModel>()
+                 .Where(t => t.Category == 6)
+                 .Where(t => string.IsNullOrEmpty(t.Commom))
+                 .Where(t => t.Hash == key).FirstAsync();
+            if (model != null)
+            {
+                model.Commom = input;
+                await DbContext.Lite.UpdateAsync(model);
+            }
+        }
     }
 }

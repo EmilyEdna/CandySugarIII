@@ -146,7 +146,7 @@ namespace CandySugar.Com.Pages.ViewModels
                     };
                 }).RunsAsync()).DetailResult.Route;
 
-                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(AjaxView)], new Dictionary<string, object> { { "Param", result },{"Title", input.Title } });
+                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(AjaxView)], new Dictionary<string, object> { { "Param", result },{"Title", input.Title },{ "Cover",input.Preview} });
             }
             catch (Exception ex)
             {
