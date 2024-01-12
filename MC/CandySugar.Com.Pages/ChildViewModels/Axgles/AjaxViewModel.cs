@@ -17,7 +17,6 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
             IsLoaded = false;
             Route = (string)query["Param"];
             Title = (string)query["Title"];
-            Cover = (string)query["Cover"];
         }
 
         #region Property
@@ -45,8 +44,6 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
         }
         private async void NextAsync(string res)
         {
-            var Key = $"{Route}_{Cover}_{Title}".ToMd5();
-            await IocDependency.Resolve<ICandyService>().Update(Key, res);
             await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Input", res } });
         }
         #endregion

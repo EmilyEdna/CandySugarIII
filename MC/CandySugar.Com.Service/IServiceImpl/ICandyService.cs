@@ -12,6 +12,5 @@ namespace CandySugar.Com.Service
         Task Delete(Guid Id);
         Task Remove(int Category);
         Task<Tuple<int, List<CollectModel>>> Get(int Category, int PageIndex);
-        Task Update(string key, string input);
     }
 }
