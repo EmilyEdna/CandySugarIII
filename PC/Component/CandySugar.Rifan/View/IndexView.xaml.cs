@@ -57,5 +57,10 @@
             new ScreenPlayView(Tuple.Create(Info.Route, $"{Info.Name}_{Info.Clarity}")) { Width = 1200, Height = 700 }.Show();
             BarClose.Begin();
         }
+
+        private void CloseBarEvent(object sender, RoutedEventArgs e)
+        {
+            BarClose.Begin();
+        }
     }
 }

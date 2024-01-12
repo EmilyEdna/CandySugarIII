@@ -640,6 +640,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <ListBox
@@ -662,8 +663,18 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <ListBox
+                <uc:CandyButton
                     Grid.Row="1"
+                    Margin="13,0,0,0"
+                    HorizontalAlignment="Left"
+                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                    ButtonType="Info"
+                    Click="CloseBarEvent"
+                    Command="{s:Action LinkCompanyCommand}"
+                    CommandParameter="{Binding Company}"
+                    Content="{Binding Company}" />
+                <ListBox
+                    Grid.Row="2"
                     Margin="12,0,0,0"
                     ItemsSource="{Binding Tags}"
                     Style="{DynamicResource CandyListBoxStyle}">
@@ -677,6 +688,7 @@
                             <uc:CandyButton
                                 s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
                                 ButtonType="Info"
+                                Click="CloseBarEvent"
                                 Command="{s:Action LinkSearchCommand}"
                                 CommandParameter="{Binding .}"
                                 Content="{Binding Key}" />
@@ -684,7 +696,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <uc:CandyListBox
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Margin="-20,0,0,0"
                     ItemsSource="{Binding LinkResult}">
                     <uc:CandyListBox.ItemTemplate>

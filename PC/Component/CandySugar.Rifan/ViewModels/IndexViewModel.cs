@@ -112,6 +112,12 @@ namespace CandySugar.Rifan.ViewModels
             get => _Tags;
             set => SetAndNotify(ref _Tags, value);
         }
+        private string _Compnay;
+        public string Company 
+        {
+            get => _Compnay;
+            set => SetAndNotify(ref _Compnay, value);
+        }
         #endregion
 
         #region Method
@@ -511,6 +517,7 @@ namespace CandySugar.Rifan.ViewModels
                         Route = t.Value,
                         Name = element.Name
                     }));
+                    Company = result.Company;
                     Tags = result.CurrentTag;
                     LinkResult = new ObservableCollection<SearchElementResult>(result.Results.ToMapest<List<SearchElementResult>>());
                 }
@@ -657,11 +664,24 @@ namespace CandySugar.Rifan.ViewModels
         }
 
         /// <summary>
-        /// 更具标签查询
+        /// 获取该公司所有作品
+        /// </summary>
+        /// <param name="input"></param>
+        public void LinkCompanyCommand(string input)
+        {
+            AllPageIndex = RifanPageIndex = MotionPageIndex = CubicPageIndex = CosplayPageIndex = 1;
+            this.ChangeType = 1;
+            this.Keyword = input;
+            OnAllInit();
+        }
+
+        /// <summary>
+        /// 根据标签查询
         /// </summary>
         /// <param name="element"></param>
         public void LinkSearchCommand(KeyValuePair<string,SearchEnum> element)
         {
+            AllPageIndex = RifanPageIndex = MotionPageIndex = CubicPageIndex = CosplayPageIndex = 1;
             var Change = (int)element.Value;
             this.Keyword = element.Key.ToString();
             if (Change == 2)
