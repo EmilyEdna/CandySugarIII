@@ -1,64 +1,70 @@
 {
-  "ComponentInfos": [
-    {
-      "Plugin": "CandySugar.LightNovel.dll",
-      "Bootstrapper": "MainView",
-      "Ioc": "Module",
-      "Description": "轻小说"
-    },
-    {
-      "Plugin": "CandySugar.Novel.dll",
-      "Bootstrapper": "MainView",
-      "Ioc": "Module",
-      "Description": "小说"
-    },
-    {
-      "Plugin": "CandySugar.Music.dll",
-      "Bootstrapper": "MainView",
-      "Ioc": "Module",
-      "Description": "音乐"
-    },
-    {
-      "Plugin": "CandySugar.Movie.dll",
-      "Bootstrapper": "MainView",
-      "Ioc": "Module",
-      "Description": "影剧"
-    },
-    {
-      "Plugin": "CandySugar.Anime.dll",
-      "Bootstrapper": "MainView",
-      "Ioc": "Module",
-      "Description": "动漫"
-    },
-    {
-      "Plugin": "CandySugar.Bilibili.dll",
-      "Bootstrapper": "MainView",
-      "Ioc": "Module",
-      "Description": "B站"
-    },
-    {
-      "Plugin": "CandySugar.WallPaper.dll",
-      "Bootstrapper": "MainView",
-      "Ioc": "Module",
-      "Description": "壁纸"
-    },
-    {
-      "Plugin": "CandySugar.Comic.dll",
-      "Bootstrapper": "MainView",
-      "Ioc": "Module",
-      "Description": "里漫"
-    },
-    {
-      "Plugin": "CandySugar.Rifan.dll",
-      "Bootstrapper": "MainView",
-      "Ioc": "Module",
-      "Description": "里番"
-    },
-    {
-      "Plugin": "CandySugar.Axgle.dll",
-      "Bootstrapper": "MainView",
-      "Ioc": "Module",
-      "Description": "车牌"
-    }
-  ]
+    "ComponentInfos": [
+        {
+            "Plugin": "CandySugar.LightNovel.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module",
+            "Description": "轻小说"
+        },
+        {
+            "Plugin": "CandySugar.Novel.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module",
+            "Description": "小说"
+        },
+        {
+            "Plugin": "CandySugar.Music.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module",
+            "Description": "音乐"
+        },
+        {
+            "Plugin": "CandySugar.Movie.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module",
+            "Description": "影剧"
+        },
+        {
+            "Plugin": "CandySugar.Anime.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module",
+            "Description": "动漫"
+        },
+        {
+            "Plugin": "CandySugar.Bilibili.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module",
+            "Description": "B站"
+        },
+        {
+            "Plugin": "CandySugar.WallPaper.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module",
+            "Description": "壁纸"
+        },
+        {
+            "Plugin": "CandySugar.Cosplay.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module",
+            "Description": "写真"
+        },
+        {
+            "Plugin": "CandySugar.Comic.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module",
+            "Description": "里漫"
+        },
+        {
+            "Plugin": "CandySugar.Rifan.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module",
+            "Description": "里番"
+        },
+        {
+            "Plugin": "CandySugar.Axgle.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module",
+            "Description": "车牌"
+        }
+    ]
 }

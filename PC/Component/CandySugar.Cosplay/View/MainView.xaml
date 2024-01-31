@@ -1,0 +1,78 @@
+﻿<UserControl
+    x:Class="CandySugar.Cosplay.View.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:CandySugar.Cosplay.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://github.com/canton7/Stylet"
+    xmlns:uc="http://ctrl.candy.com"
+    xmlns:vm="clr-namespace:CandySugar.Cosplay.ViewModels"
+    x:Name="MainCtrl"
+    d:DataContext="{d:DesignInstance vm:MainViewModel}"
+    d:DesignHeight="700"
+    d:DesignWidth="1200"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CandySugar.Cosplay;component/CosplayTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Canvas>
+        <ContentControl Content="{Binding ComponentControl}" />
+        <Button
+            x:Name="FloatBtn"
+            Panel.ZIndex="1"
+            Click="PopMenuEvent"
+            Style="{DynamicResource CandyFloatChildButtonStyle}" />
+        <Popup
+            x:Name="PopMenu"
+            Width="100"
+            Height="200"
+            Panel.ZIndex="1"
+            AllowsTransparency="True"
+            HorizontalOffset="-25"
+            Placement="Top"
+            PlacementTarget="{Binding ElementName=FloatBtn}"
+            StaysOpen="False"
+            VerticalOffset="-10">
+            <Grid x:Name="PopMenuContent">
+                <Rectangle
+                    Margin="3"
+                    Fill="#60FDD3D3"
+                    RadiusX="3"
+                    RadiusY="3">
+                    <Rectangle.Effect>
+                        <DropShadowEffect
+                            BlurRadius="15"
+                            Direction="0"
+                            RenderingBias="Quality"
+                            ShadowDepth="1"
+                            Color="#FFBBBBBB" />
+                    </Rectangle.Effect>
+                </Rectangle>
+                <ListBox
+                    Margin="2"
+                    ItemsSource="{Binding MenuIndex, Mode=TwoWay}"
+                    Style="{DynamicResource CandyListBoxStyle}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <uc:CandyButton
+                                Width="80"
+                                Height="25"
+                                Margin="1.5"
+                                s:View.ActionTarget="{Binding DataContext, ElementName=MainCtrl}"
+                                BorderThickness="0"
+                                ButtonType="Primary"
+                                Command="{s:Action ActiveCommand}"
+                                CommandParameter="{Binding Key}"
+                                Content="{Binding Value}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Popup>
+    </Canvas>
+</UserControl>

@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
+		<BaseOutputPath>..\..\CandySugar.MainUI\bin</BaseOutputPath>
+		<!--动态加载-->
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\CandySugar.Com.Style\CandySugar.Com.Style.csproj">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</ProjectReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Sdk.Component.Vip">
+			<HintPath>..\..\..\Lib\Sdk.Component.Vip.dll</HintPath>
+		</Reference>
+		<Reference Include="Sdk.Plugins">
+			<HintPath>..\..\..\Lib\Sdk.Plugins.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+</Project>
