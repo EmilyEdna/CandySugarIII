@@ -1,17 +1,16 @@
-﻿using Sdk.Component.Vip.Image.sdk.ViewModel.Response;
-using Sdk.Component.Vip.Wallhav.sdk.ViewModel.Response;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CandySugar.Com.Library.Audios;
+using CandySugar.Com.Library.FFMPeg;
+using Microsoft.Win32;
+using System.IO;
+using System.Net.Http;
+using XExten.Advance.JsonDbFramework;
+using XExten.Advance.StaticFramework;
 
 namespace CandySugar.Cosplay.ViewModels
 {
     public class MainViewModel : PropertyChangedBase
     {
-        private List<CosplayInitElementResult> LabBuilder;
-        private List<CosplayInitElementResult> LandBuilder;
+        private List<CosplayInitElementResult> Builder;
         private List<string> RealLocal;
         private List<MenuInfo> Default = new List<MenuInfo> {
             new MenuInfo { Key = 3, Value = "下载选中" },
@@ -32,28 +31,14 @@ namespace CandySugar.Cosplay.ViewModels
             {
                 if (obj is List<CosplayInitElementResult> input)
                 {
-                    if (input.First().Platform == PlatformEnum.Lab)
+                    Builder = input;
+                    if (Builder.Count >= 1)
                     {
-                        LabBuilder = input;
-                        if (LabBuilder.Count >= 1)
-                        {
-                            if (!MenuIndex.Any(t => t.Key == 3 || t.Key == 4 || t.Key == 5 || t.Key == 6))
-                                Default.ForEach(item => MenuIndex.Add(item));
-                        }
-                        else
-                            Default.ForEach(item => MenuIndex.Remove(item));
+                        if (!MenuIndex.Any(t => t.Key == 3 || t.Key == 4 || t.Key == 5 || t.Key == 6))
+                            Default.ForEach(item => MenuIndex.Add(item));
                     }
                     else
-                    {
-                        LandBuilder = input;
-                        if (LandBuilder.Count >= 1)
-                        {
-                            if (!MenuIndex.Any(t => t.Key == 3 || t.Key == 4 || t.Key == 5 || t.Key == 6))
-                                Default.ForEach(item => MenuIndex.Add(item));
-                        }
-                        else
-                            Default.ForEach(item => MenuIndex.Remove(item));
-                    }
+                        Default.ForEach(item => MenuIndex.Remove(item));
                 }
             });
         }
@@ -110,19 +95,131 @@ namespace CandySugar.Cosplay.ViewModels
         #region Method
         private void BuilderVideoPicture()
         {
-
+            if (Builder != null)
+            {
+                RealLocal = new List<string>();
+                //判断本地文件是否存在
+                Builder.ForEach(item => {
+                    var Type = item.Platform == PlatformEnum.Lab ? "Lab" : "Land";
+                    item.Images.ForEach(node =>
+                    {
+                        var fileName = DownUtil.FilePath(node.ToMd5(), FileTypes.Jpg, Path.Combine("Cosplay", Type, item.Title.ToMd5()));
+                        if (File.Exists(fileName)) RealLocal.Add(fileName);
+                    });
+                });
+                //没有被删除真实存在的文件
+                if (RealLocal.Count > 0)
+                {
+                    //异步制作MP4
+                    Task.Run(async () =>
+                    {
+                        var catalog = Path.GetDirectoryName(RealLocal.First());
+                        var res = await RealLocal.ImageToVideo(catalog);
+                        if (res) Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            new ScreenDownNofityView(CommonHelper.ConvertFinishInformation, catalog).Show();
+                        });
+                    });
+                }
+            }
         }
         private void BuilderVideoAudioPicture()
         {
-
+            string AudioName = string.Empty;
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                Filter = "音频|*.mp3"
+            };
+            var res = dialog.ShowDialog();
+            if (res == true)
+                AudioName = dialog.FileName;
+            if (AudioName.IsNullOrEmpty()) return;
+            var Time = AudioFactory.Instance.InitAudio(AudioName).AudioReader.TotalTime.TotalSeconds.ToString("F0");
+            AudioFactory.Instance.Dispose();
+            if (Builder != null)
+            {
+                RealLocal = new List<string>();
+                //判断本地文件是否存在
+                Builder.ForEach(item => {
+                    var Type = item.Platform == PlatformEnum.Lab ? "Lab" : "Land";
+                    item.Images.ForEach(node =>
+                    {
+                        var fileName = DownUtil.FilePath(node.ToMd5(), FileTypes.Jpg, Path.Combine("Cosplay", Type, item.Title.ToMd5()));
+                        if (File.Exists(fileName)) RealLocal.Add(fileName);
+                    });
+                });
+                //没有被删除真实存在的文件
+                if (RealLocal.Count > 0)
+                {
+                    //异步制作MP4
+                    Task.Run(async () =>
+                    {
+                        var catalog = Path.GetDirectoryName(RealLocal.First());
+                        var res = await RealLocal.ImageToVideo(AudioName, Time, catalog);
+                        if (res) Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            new ScreenDownNofityView(CommonHelper.ConvertFinishInformation, catalog).Show();
+                        });
+                    });
+                }
+            }
         }
         private void DownSelectPicture()
         {
-
+            if (Builder != null && Builder.Count > 0)
+            {
+                Task.Run(() =>
+                {
+                    Builder.ForEach(async item =>
+                    {
+                        for (int index = 0; index < item.Images.Count; index++)
+                        {
+                            var fileBytes = await new HttpClient().GetByteArrayAsync(item.Images[index]);
+                            fileBytes.FileCreate(item.Images[index].ToMd5(), FileTypes.Jpg, Path.Combine("Cosplay", item.Platform.ToString(), item.Title.ToMd5()), (catalog, fileName) =>
+                            {
+                                if (index == item.Images.Count - 1)
+                                    new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show();
+                            });
+                        }
+                    });
+                });
+            }
         }
         private void RemoveSelectPicture()
         {
+            if (Builder != null && Builder.Count > 0)
+            {
+                JsonDbHandle<CosplayInitElementResult> JsonHandler = null;
+                if (ComponentControl.DataContext is CosplayLabViewModel)
+                {
+                    JsonHandler = new JsonDbContext(Path.Combine(CommonHelper.DownloadPath, "Cosplay", $"CosplayLab.{FileTypes.Dat}"))
+                        .LoadInMemory<CosplayInitElementResult>();
+                }
+                else {
+                    JsonHandler = new JsonDbContext(Path.Combine(CommonHelper.DownloadPath, "Cosplay", $"CosplayLand.{FileTypes.Dat}"))
+                          .LoadInMemory<CosplayInitElementResult>();
+                }
 
+                Builder.ForEach(item =>
+                {
+                    var Type = item.Platform == PlatformEnum.Lab ? "Lab" : "Land";
+                    item.Images.ForEach(node => SyncStatic.DeleteFile(DownUtil.FilePath(node.ToMd5(), FileTypes.Jpg, Path.Combine("Cosplay", Type, item.Title.ToMd5()))));
+                    if (ComponentControl.DataContext is CosplayLabViewModel CosplayLab)
+                    {
+                        CosplayLab.CollectResult.Remove(item);
+                        JsonHandler.Delete(t => t.Title == item.Title);
+                    }
+                    if (ComponentControl.DataContext is CosplayLandViewModel CosplayLand)
+                    {
+                        CosplayLand.CollectResult.Remove(item);
+                        JsonHandler.Delete(t => t.Title == item.Title);
+                    }
+                });
+                var OldData = JsonHandler.ExcuteDelete().SaveChange<CosplayInitElementResult>();
+                if (OldData.Count <= 0)
+                    Default.ForEach(item => MenuIndex.Remove(item));
+                WeakReferenceMessenger.Default.Send(new MessageNotify());
+            }
         }
         public void NotifyScreen(double width, double height)
         {

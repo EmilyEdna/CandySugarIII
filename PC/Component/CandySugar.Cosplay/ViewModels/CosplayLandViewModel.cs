@@ -17,6 +17,7 @@ namespace CandySugar.Cosplay.ViewModels
         public CosplayLandViewModel()
         {
             Title = ["常规", "收藏"];
+            Builder=new List<CosplayInitElementResult>();
             GenericDelegate.SearchAction = new(SearchHandler);
             JsonHandler = new JsonDbContext(DbPath).LoadInMemory<CosplayInitElementResult>();
             var LocalDATA = JsonHandler.GetAll();
@@ -112,7 +113,8 @@ namespace CandySugar.Cosplay.ViewModels
         {
             OnCosDetail(element, () =>
             {
-                CollectResult.Add(element);
+                BindingOperations.EnableCollectionSynchronization(CollectResult, LockObject);
+                Application.Current.Dispatcher.Invoke(() => CollectResult.Add(element));
                 JsonHandler.Insert(element).ExuteInsert().SaveChange();
             });
         }

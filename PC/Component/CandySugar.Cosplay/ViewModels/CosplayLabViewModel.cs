@@ -12,6 +12,7 @@ namespace CandySugar.Cosplay.ViewModels
         public CosplayLabViewModel()
         {
             Title = ["常规", "写真", "收藏"];
+            Builder=new List<CosplayInitElementResult>();
             GenericDelegate.SearchAction = new(SearchHandler);
             JsonHandler = new JsonDbContext(DbPath).LoadInMemory<CosplayInitElementResult>();
             var LocalDATA = JsonHandler.GetAll();
