@@ -51,7 +51,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Movie", "..\PC\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Axgle", "..\PC\Component\CandySugar.Axgle\CandySugar.Axgle.csproj", "{7D6896AC-5A95-4386-919B-11BC72C5B751}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Cosplay", "..\PC\Component\CandySugar.Cosplay\CandySugar.Cosplay.csproj", "{B6396631-5638-4C1B-8039-9B73254C6AF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Cosplay", "..\PC\Component\CandySugar.Cosplay\CandySugar.Cosplay.csproj", "{B6396631-5638-4C1B-8039-9B73254C6AF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Manga", "..\PC\Component\CandySugar.Manga\CandySugar.Manga.csproj", "{95CBB5B9-F866-4A1E-9994-1C6856B7B411}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +129,10 @@ Global
 		{B6396631-5638-4C1B-8039-9B73254C6AF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6396631-5638-4C1B-8039-9B73254C6AF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6396631-5638-4C1B-8039-9B73254C6AF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95CBB5B9-F866-4A1E-9994-1C6856B7B411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95CBB5B9-F866-4A1E-9994-1C6856B7B411}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95CBB5B9-F866-4A1E-9994-1C6856B7B411}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95CBB5B9-F866-4A1E-9994-1C6856B7B411}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,6 +157,7 @@ Global
 		{C7C9BD0B-142F-4795-A421-1B6625BB7C7A} = {9F85CA04-7D7D-486A-A12D-4D6E51D8C00D}
 		{7D6896AC-5A95-4386-919B-11BC72C5B751} = {2EC8956E-DFD4-48DE-8F5C-56768445C9BC}
 		{B6396631-5638-4C1B-8039-9B73254C6AF5} = {2EC8956E-DFD4-48DE-8F5C-56768445C9BC}
+		{95CBB5B9-F866-4A1E-9994-1C6856B7B411} = {9F85CA04-7D7D-486A-A12D-4D6E51D8C00D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A29A095-E5DB-4102-9EBD-9F87F2028B06}

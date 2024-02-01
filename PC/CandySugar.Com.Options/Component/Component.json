@@ -31,6 +31,12 @@
             "Description": "动漫"
         },
         {
+            "Plugin": "CandySugar.Manga.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module",
+            "Description": "漫画"
+        },
+        {
             "Plugin": "CandySugar.Bilibili.dll",
             "Bootstrapper": "MainView",
             "Ioc": "Module",
