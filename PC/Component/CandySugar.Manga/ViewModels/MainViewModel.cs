@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CandySugar.Manga.ViewModels
+﻿namespace CandySugar.Manga.ViewModels
 {
     public class MainViewModel: PropertyChangedBase
     {
@@ -12,6 +6,7 @@ namespace CandySugar.Manga.ViewModels
         {
             ComponentControl = Module.IocModule.Resolve<IndexView>();
         }
+
         #region Property
         private Control _ComponentControl;
         public Control ComponentControl

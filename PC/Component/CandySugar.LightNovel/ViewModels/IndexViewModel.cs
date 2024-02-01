@@ -8,7 +8,6 @@
         {
             GenericDelegate.SearchAction = new(SearchHandler);
             OnInit();
-
         }
 
         #region Field
