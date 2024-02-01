@@ -12,6 +12,7 @@ namespace CandySugar.Cosplay.ViewModels
         public CosplayLabViewModel()
         {
             Title = ["常规", "写真", "收藏"];
+            GenericDelegate.SearchAction = new(SearchHandler);
             JsonHandler = new JsonDbContext(DbPath).LoadInMemory<CosplayInitElementResult>();
             var LocalDATA = JsonHandler.GetAll();
             CollectResult = new ObservableCollection<CosplayInitElementResult>();
@@ -282,6 +283,17 @@ namespace CandySugar.Cosplay.ViewModels
                     ErrorNotify();
                 }
             });
+        }
+        #endregion
+
+        #region ExternalCalls
+        /// <summary>
+        /// 检索数据
+        /// </summary>
+        /// <param name="keyword"></param>
+        private void SearchHandler(string keyword)
+        {
+            this.Keyword = keyword;
         }
         #endregion
     }

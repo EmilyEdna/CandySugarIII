@@ -2,6 +2,7 @@
     x:Class="CandySugar.Cosplay.View.CosplayLandView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
@@ -11,7 +12,7 @@
     xmlns:s="https://github.com/canton7/Stylet"
     xmlns:uc="http://ctrl.candy.com"
     xmlns:vm="clr-namespace:CandySugar.Cosplay.ViewModels"
-    x:Name="HavCtrl"
+    x:Name="LandCtrl"
     d:DataContext="{d:DesignInstance vm:CosplayLandViewModel}"
     d:DesignHeight="700"
     d:DesignWidth="1200"
@@ -35,9 +36,9 @@
             <uc:CandyBorder
                 x:Name="Y1"
                 Width="{c:Binding (Width*0.95),
-                                  ElementName=LabCtrl}"
+                                  ElementName=LandCtrl}"
                 Height="{c:Binding (Height-90),
-                                   ElementName=LabCtrl}"
+                                   ElementName=LandCtrl}"
                 BorderType="Info">
                 <uc:CandyBorder.RenderTransform>
                     <TransformGroup>
@@ -90,7 +91,7 @@
                                                     Margin="10,0"
                                                     HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
-                                                    s:View.ActionTarget="{Binding DataContext, ElementName=LabCtrl}"
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=LandCtrl}"
                                                     Command="{s:Action CollectCommand}"
                                                     CommandParameter="{Binding .}"
                                                     Content="{x:Static lib:FontIcon.Star}"
@@ -110,9 +111,9 @@
             <uc:CandyBorder
                 x:Name="Y2"
                 Width="{c:Binding (Width*0.95),
-                                  ElementName=LabCtrl}"
+                                  ElementName=LandCtrl}"
                 Height="{c:Binding (Height-90),
-                                   ElementName=LabCtrl}"
+                                   ElementName=LandCtrl}"
                 BorderType="Info"
                 Visibility="Hidden">
                 <uc:CandyBorder.RenderTransform>
@@ -162,13 +163,13 @@
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="Checked">
                                                             <i:InvokeCommandAction
-                                                                s:View.ActionTarget="{Binding DataContext, ElementName=LabCtrl}"
+                                                                s:View.ActionTarget="{Binding DataContext, ElementName=LandCtrl}"
                                                                 Command="{s:Action CheckCommand}"
                                                                 CommandParameter="{Binding .}" />
                                                         </i:EventTrigger>
                                                         <i:EventTrigger EventName="Unchecked">
                                                             <i:InvokeCommandAction
-                                                                s:View.ActionTarget="{Binding DataContext, ElementName=LabCtrl}"
+                                                                s:View.ActionTarget="{Binding DataContext, ElementName=LandCtrl}"
                                                                 Command="{s:Action UnCheckCommand}"
                                                                 CommandParameter="{Binding .}" />
                                                         </i:EventTrigger>

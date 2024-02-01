@@ -8,7 +8,7 @@ using XExten.Advance.JsonDbFramework;
 
 namespace CandySugar.Cosplay.ViewModels
 {
-    public class CosplayLandViewModel: PropertyChangedBase
+    public class CosplayLandViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
         public List<CosplayInitElementResult> Builder;
@@ -17,6 +17,7 @@ namespace CandySugar.Cosplay.ViewModels
         public CosplayLandViewModel()
         {
             Title = ["常规", "收藏"];
+            GenericDelegate.SearchAction = new(SearchHandler);
             JsonHandler = new JsonDbContext(DbPath).LoadInMemory<CosplayInitElementResult>();
             var LocalDATA = JsonHandler.GetAll();
             CollectResult = new ObservableCollection<CosplayInitElementResult>();
@@ -109,8 +110,11 @@ namespace CandySugar.Cosplay.ViewModels
         /// <param name="element"></param>
         public void CollectCommand(CosplayInitElementResult element)
         {
-            CollectResult.Add(element);
-            JsonHandler.Insert(element).ExuteInsert().SaveChange();
+            OnCosDetail(element, () =>
+            {
+                CollectResult.Add(element);
+                JsonHandler.Insert(element).ExuteInsert().SaveChange();
+            });
         }
         public void CheckCommand(CosplayInitElementResult input)
         {
@@ -197,6 +201,50 @@ namespace CandySugar.Cosplay.ViewModels
                     ErrorNotify();
                 }
             });
+        }
+
+        private void OnCosDetail(CosplayInitElementResult input, Action action)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    var Proxy = Module.IocModule.Proxy;
+                    var result = (await CosplayFactory.Cosplay(opt =>
+                    {
+                        opt.RequestParam = new Input
+                        {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
+                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                            CosplayType = CosplayEnum.Detail,
+                            PlatformType = PlatformEnum.Land,
+                            Detail = new CosplayDetail
+                            {
+                                Route = input.Route
+                            }
+                        };
+                    }).RunsAsync()).DetailResult;
+                    CosResult.First(t => t.Route.ToMd5() == result.Request.ToMd5()).Images = result.Image;
+                    action.Invoke();
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, "");
+                    ErrorNotify();
+                }
+            });
+        }
+        #endregion
+
+        #region ExternalCalls
+        /// <summary>
+        /// 检索数据
+        /// </summary>
+        /// <param name="keyword"></param>
+        private void SearchHandler(string keyword)
+        {
+            this.Keyword = keyword;
         }
         #endregion
     }
