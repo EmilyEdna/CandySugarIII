@@ -13,7 +13,7 @@ namespace CandySugar.Manga.ViewModels
         }
 
         #region Field
-        private string Keyword=string.Empty;
+        private string Keyword = string.Empty;
         private int SearchPageIndex = 1;
         private int SearchTotal;
         private string CategoryRoute;
@@ -55,6 +55,7 @@ namespace CandySugar.Manga.ViewModels
             get => _Chapter;
             set => SetAndNotify(ref _Chapter, value);
         }
+
         #endregion
 
         #region Command
@@ -92,7 +93,7 @@ namespace CandySugar.Manga.ViewModels
 
         public void ViewCommand(string input)
         {
-
+            OnContent(input);
         }
         #endregion
 
@@ -281,6 +282,57 @@ namespace CandySugar.Manga.ViewModels
                     var Model = result.SearchResult.ElementResults.ToMapest<List<MangaCategoryElementResult>>();
                     BindingOperations.EnableCollectionSynchronization(CateResult, LockObject);
                     Application.Current.Dispatcher.Invoke(() => Model.ForEach(CateResult.Add));
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, "");
+                    ErrorNotify();
+                }
+            });
+        }
+
+        private void OnContent(string input)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    var Proxy = Module.IocModule.Proxy;
+                    var result = await MangaFactory.Manga(opt =>
+                    {
+                        opt.RequestParam = new Input
+                        {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
+                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                            MangaType = MangaEnum.Content,
+                            Content = new MangaContent
+                            {
+                                Route = input
+                            }
+                        };
+                    }).RunsAsync();
+                    var bytes = await MangaFactory.Manga(opt =>
+                    {
+                        opt.RequestParam = new Input
+                        {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
+                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                            MangaType = MangaEnum.Download,
+                            Down = new MangaBytes
+                            {
+                                CacheKey = result.ContentResult.CacheKey,
+                                Route = result.ContentResult.Route
+                            }
+                        };
+                    }).RunsAsync();
+                    WeakReferenceMessenger.Default.Send(new MessageNotify
+                    {
+                        NotifyType = NotifyType.ChangeControl,
+                        ControlType = 2,
+                        ControlParam = bytes.DwonResult.Bytes
+                    });
                 }
                 catch (Exception ex)
                 {

@@ -50,19 +50,19 @@
                         Style="{DynamicResource CandyListBoxStyle}">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Columns="6" />
+                                <UniformGrid Columns="5" />
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <uc:CandyImage
                                     Width="200"
-                                    Height="240"
+                                    Height="260"
                                     Margin="8"
                                     BorderBrush="SkyBlue"
                                     BorderThickness="1"
                                     Entity="{Binding .}"
-                                    ImageThickness="200,240"
+                                    ImageThickness="200,260"
                                     MaskFill="#80e6cfe6"
                                     Source="{Binding Cover}">
                                     <uc:CandyImage.MaskTemplate>

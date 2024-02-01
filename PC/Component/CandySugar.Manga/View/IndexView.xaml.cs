@@ -26,10 +26,13 @@ namespace CandySugar.Manga.View
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    if (notify.SliderStatus == 1)
-                        CreateOpenDyamicAmime();
-                    if (notify.SliderStatus == 2)
-                        CreateCloseDyamicAmime();
+                    if (notify.NotifyType == NotifyType.Notify)
+                    {
+                        if (notify.SliderStatus == 1)
+                            CreateOpenDyamicAmime();
+                        if (notify.SliderStatus == 2)
+                            CreateCloseDyamicAmime();
+                    }
                 });
             });
         }
