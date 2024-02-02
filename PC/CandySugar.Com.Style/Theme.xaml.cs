@@ -126,7 +126,7 @@ namespace CandySugar.Com.Style
             {
                 WindowCloseNofityView CloseWin = new WindowCloseNofityView();
                 if (CloseWin.ShowDialog().Value)
-                    Application.Current.Shutdown(0);
+                    Environment.Exit(0);
                 else
                     win.Visibility = Visibility.Collapsed;
             }
