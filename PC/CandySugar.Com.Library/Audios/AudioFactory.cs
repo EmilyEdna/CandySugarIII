@@ -78,6 +78,10 @@ namespace CandySugar.Com.Library.Audios
         /// 实时播放数据
         /// </summary>
         private Action<AudioLive> LiveAction;
+        /// <summary>
+        /// 实时波形倍率
+        /// </summary>
+        private double Pow;
         #endregion
 
         #region ReadOnlyProperty
@@ -114,12 +118,22 @@ namespace CandySugar.Com.Library.Audios
         /// </summary>
         /// <param name="LiveAction"></param>
         /// <returns></returns>
-        public AudioFactory InitLiveData(Action<AudioLive> LiveAction)
+        public AudioFactory InitLiveData(Action<AudioLive> LiveAction, double pow = 50)
         {
-            SampleArray = new float[512];
+            Pow = pow;
             this.LiveAction = LiveAction;
+            SampleArray=new float[128];
+/*            WasapiLoopbackCapture cap = new();
+            cap.DataAvailable += FourierTransformEvent;
+            cap.StartRecording();*/
             return this;
         }
+
+        private void FourierTransformEvent(object sender, WaveInEventArgs e)
+        {
+            GetSampleArray();
+        }
+
         /// <summary>
         /// 改变音量
         /// </summary>
@@ -176,9 +190,9 @@ namespace CandySugar.Com.Library.Audios
         /// <summary>
         /// 读取音频采样数据
         /// </summary>
-        private async void GetSampleArray()
+        private void GetSampleArray()
         {
-            await Task.Run(() => { AudioReader.Read(SampleArray, 0, 512); });
+            AudioReader.Read(SampleArray, 0, SampleArray.Length);
         }
         /// <summary>
         /// 傅里叶变换FTF
@@ -249,7 +263,7 @@ namespace CandySugar.Com.Library.Audios
                  #endregion
 
                  #region 设置绑定数据
-                 var LineData = finalData.Take(32).ToList();
+                 var LineData = finalData.Take(32).Select(t => t * Pow).ToList();
                  #endregion
 
                  return new AudioLive
