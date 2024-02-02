@@ -26,6 +26,7 @@ namespace CandySugar.MainUI
         {
 
 #if RELEASE
+            //创建桌面快捷方式
             Com.Library.Lnk.Shortcut.Instance.CreateLnk("Candy");
 #endif
             //日志
@@ -33,15 +34,21 @@ namespace CandySugar.MainUI
                 .MinimumLevel.Information()
                 .WriteTo.File(CommonHelper.LogPath, rollingInterval: RollingInterval.Day)
                 .CreateLogger().AddSdkLogger().AddEmailLogger();
+            //代理配置
             GlobalProxy.Instance.ChangeUseProxy();
+            //读取本地配置
             JsonReader.JsonRead(CommonHelper.OptionPath, CommonHelper.OptionFile);
+            //读取本地插件配置
             AssemblyLoader Loader = new(CommonHelper.AppPath);
-            NetFactoryExtension.RegisterNetFramework();
-            ClipboardUtil.InitClipBoard();
             ComponentBinding.ComponentObjectModels.ForEach(Dll =>
             {
                 Loader.Load(Dll.Plugin, Dll.Bootstrapper, Dll.Ioc, Dll.Description);
             });
+            //注册请求框架
+            NetFactoryExtension.RegisterNetFramework();
+            //初始化粘贴板
+            ClipboardUtil.InitClipBoard();
+            //配置请求框架全局异常
             HttpEvent.HttpActionEvent = new Action<HttpClient, Exception>((client, ex) =>
             {
                 Log.Logger.Error(ex, "HTTP全局请求异常捕获");
@@ -60,6 +67,10 @@ namespace CandySugar.MainUI
             });
         }
 
+        /// <summary>
+        /// 注入模型
+        /// </summary>
+        /// <param name="builder"></param>
         protected override void ConfigureIoC(IStyletIoCBuilder builder)
         {
             builder.Bind<OptionViewModel>().ToSelf();

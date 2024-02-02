@@ -36,6 +36,7 @@ namespace CandySugar.MainUI.ViewModels
             this.WindowManager = WindowManager;
             this.Title = $"甜糖V{Assembly.GetExecutingAssembly().GetName().Version}";
 #if RELEASE
+            //检查更新
             Modify.CandySugarModify();
 #endif
         }
@@ -43,6 +44,7 @@ namespace CandySugar.MainUI.ViewModels
         protected override void OnActivate()
         {
             base.OnActivate();
+            //根据插件构建菜单
             var dlls = AssemblyLoader.Dll.Select(item => new ComponentMenu
             {
                 InstanceType = item.InstanceType,
@@ -51,6 +53,7 @@ namespace CandySugar.MainUI.ViewModels
                 ViewModel = item.InstanceViewModel
             });
             MenuObj = new ObservableCollection<ComponentMenu>(dlls);
+            //网络检查
             ThreadFactory.Instance.StartWithRestart(() =>
             {
                 if (!InternetWork.GetNetworkState)
