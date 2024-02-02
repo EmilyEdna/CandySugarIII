@@ -41,7 +41,7 @@ namespace CandySugar.Com.Controls.ExtenControls
             PART_BTN.Click += ClickEvent;
             PART_LOAD.Height = LoadingThickness.Height;
             PART_LOAD.Width = LoadingThickness.Width;
-            PART_RECT_INFO.Width= Width;
+            PART_RECT_INFO.Width = Width;
             PART_BTN.Width = Width - 40;
 
             TRIGGER = (Trigger)this.Template.Triggers.Where(t => t is Trigger).First();
@@ -163,6 +163,18 @@ namespace CandySugar.Com.Controls.ExtenControls
         }
         public static readonly DependencyProperty SourceProperty =
             DependencyProperty.Register("Source", typeof(string), typeof(CandyImage), new PropertyMetadata(default));
+
+        /// <summary>
+        /// bytes数据
+        /// </summary>
+        public object Base64Source
+        {
+            get { return (object)GetValue(Base64SourceProperty); }
+            set { SetValue(Base64SourceProperty, value); }
+        }
+        public static readonly DependencyProperty Base64SourceProperty =
+            DependencyProperty.Register("Base64Source", typeof(object), typeof(CandyImage), new PropertyMetadata(null));
+
         /// <summary>
         /// 命令参数
         /// </summary>

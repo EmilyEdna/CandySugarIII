@@ -25,6 +25,7 @@
                             CornerRadius="{TemplateBinding BorderRadius}">
                             <Grid>
                                 <Image
+                                    att:ImageAttach.Base64Soucre="{TemplateBinding Base64Source}"
                                     att:ImageAttach.SourceAsync="{TemplateBinding Source}"
                                     RenderOptions.BitmapScalingMode="HighQuality"
                                     SnapsToDevicePixels="True"

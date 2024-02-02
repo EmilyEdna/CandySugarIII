@@ -36,15 +36,18 @@
                 Style="{DynamicResource CandyListBoxStyle}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border
+                        <uc:CandyImage
                             Width="{c:Binding (Width*0.9),
                                               ElementName=ReaderViewCtrl}"
                             Height="{c:Binding (Height*0.9),
                                                ElementName=ReaderViewCtrl}"
+                            Margin="0,10"
+                            Base64Source="{Binding .}"
                             BorderBrush="SkyBlue"
-                            BorderThickness="1">
-                            <Image Width="{c:Binding (Width*0.9), ElementName=ReaderViewCtrl}" Height="{c:Binding (Height*0.9), ElementName=ReaderViewCtrl}" />
-                        </Border>
+                            BorderThickness="1"
+                            EnableLoading="False"
+                            EnableMask="False"
+                            ImageThickness="{Binding ., RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource ObjectConverter}}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
