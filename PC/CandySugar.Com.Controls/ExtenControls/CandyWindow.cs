@@ -51,5 +51,20 @@ namespace CandySugar.Com.Controls.ExtenControls
         }
         public static readonly DependencyProperty ShowBackgroudProperty =
             DependencyProperty.Register("ShowBackgroud", typeof(Visibility), typeof(CandyWindow), new PropertyMetadata(Visibility.Visible));
+        public double Opaque
+        {
+            get { return (double)GetValue(OpaqueProperty); }
+            set { SetValue(OpaqueProperty, value); }
+        }
+        public static readonly DependencyProperty OpaqueProperty =
+            DependencyProperty.Register("Opaque", typeof(double), typeof(CandyWindow), new PropertyMetadata(.4));
+        public bool IsMusicWindow
+        {
+            get { return (bool)GetValue(IsMusicWindowProperty); }
+            set { SetValue(IsMusicWindowProperty, value); }
+        }
+        public static readonly DependencyProperty IsMusicWindowProperty =
+            DependencyProperty.Register("IsMusicWindow", typeof(bool), typeof(CandyWindow), new PropertyMetadata(false));
+
     }
 }

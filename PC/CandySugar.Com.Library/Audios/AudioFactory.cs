@@ -78,6 +78,10 @@ namespace CandySugar.Com.Library.Audios
         /// 实时波形倍率
         /// </summary>
         private double Pow;
+        /// <summary>
+        /// 显示的音阶
+        /// </summary>
+        private int Channal;
         #endregion
 
         #region ReadOnlyProperty
@@ -112,9 +116,10 @@ namespace CandySugar.Com.Library.Audios
         /// </summary>
         /// <param name="LiveAction"></param>
         /// <returns></returns>
-        public AudioFactory InitLiveData(Action<AudioLive> LiveAction, double pow = 10)
+        public AudioFactory InitLiveData(Action<AudioLive> LiveAction,int Channal=32, double Pow = 10)
         {
-            Pow = pow;
+            this.Pow = Pow;
+            this.Channal = Channal;
             this.LiveAction = LiveAction;
             WasapiLoopbackCapture cap = new();
             cap.DataAvailable += FourierTransformEventAsync;
@@ -124,9 +129,12 @@ namespace CandySugar.Com.Library.Audios
 
         private void FourierTransformEventAsync(object sender, WaveInEventArgs e)
         {
-            SampleArray = Enumerable.Range(0, e.BytesRecorded / 150).Select(i => BitConverter.ToSingle(e.Buffer, i * 4)).ToArray();
-            if (SampleArray.Length > 0)
-                LiveAction.Invoke(FourierTransform());
+            if (AudioReader != null)
+            {
+                SampleArray = Enumerable.Range(0, e.BytesRecorded / 150).Select(i => BitConverter.ToSingle(e.Buffer, i * 4)).ToArray();
+                if (SampleArray.Length > 0)
+                    LiveAction.Invoke(FourierTransform());
+            }
         }
 
         /// <summary>
@@ -238,7 +246,7 @@ namespace CandySugar.Com.Library.Audios
             #endregion
 
             #region 设置绑定数据
-            var LineData = finalData.Take(32).Select(t => t * Pow).ToList();
+            var LineData = finalData.Take(Channal).Select(t => t * Pow).ToList();
             #endregion
 
             return new AudioLive

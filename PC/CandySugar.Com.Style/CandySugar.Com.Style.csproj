@@ -6,6 +6,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\MusciBackgroud.jpg" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\CandySugar.Com.Controls\CandySugar.Com.Controls.csproj" />
@@ -17,6 +21,7 @@
     <Resource Include="Fonts\FontAwesome6Thin.otf" />
     <Resource Include="Fonts\HappyZcool.ttf" />
     <Resource Include="Resources\Backgroud.jpg" />
+    <Resource Include="Resources\MusciBackgroud.jpg" />
   </ItemGroup>
 
   <ItemGroup>
