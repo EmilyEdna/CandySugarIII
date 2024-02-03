@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using CandySugar.Com.Controls.UIExtenControls;
+﻿using CandySugar.Com.Controls.UIExtenControls;
 using CandySugar.Com.Library;
 using CandySugar.Com.Library.Audios;
 using CandySugar.Com.Library.DLLoader;
@@ -21,6 +11,16 @@ using CandySugar.MainUI.Views;
 using Microsoft.Win32;
 using Stylet;
 using StyletIoC;
+using System;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using XExten.Advance.LinqFramework;
 using XExten.Advance.ThreadFramework;
 
@@ -139,6 +139,7 @@ namespace CandySugar.MainUI.ViewModels
                     });
                 });
             }
+            if (input == EMenu.AudioPlayer) Application.Current.Dispatcher.Invoke(() => new ScreenAudioPlayView().Show());
             if (input == EMenu.AudioToHigh) Application.Current.Dispatcher.Invoke(AudioToHighAudio);
             if (input == EMenu.ImgToVideo) Application.Current.Dispatcher.Invoke(ImageToVideo);
             if (input == EMenu.ImgToAudio) Application.Current.Dispatcher.Invoke(ImageToAudioVideo);

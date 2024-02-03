@@ -29,7 +29,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
     /// <summary>
     /// ScreenPlayView.xaml 的交互逻辑
     /// </summary>
-    public partial class ScreenPlayView : Window
+    public partial class ScreenPlayView : CandyWindow
     {
         private LibVLC VlcLibVLC;
         private Tuple<string, string> MediaInfo;

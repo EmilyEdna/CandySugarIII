@@ -86,7 +86,6 @@ namespace CandySugar.Com.Style
         /// <param name="e"></param>
         public virtual void MoveEvent(object sender, MouseButtonEventArgs e)
         {
-
             if (e.LeftButton == MouseButtonState.Pressed)
                 ((Window)((Border)sender).TemplatedParent).DragMove();
         }
@@ -121,7 +120,7 @@ namespace CandySugar.Com.Style
         public virtual void CloseEvent(object sender, RoutedEventArgs e)
         {
             Window win = (Window)((Button)sender).TemplatedParent;
-            if (win is ScreenPlayView || win is ScreenWebPlayView|| win is ScreenLocalWebPlayView) win.Close();
+            if (win is ScreenPlayView || win is ScreenWebPlayView|| win is ScreenLocalWebPlayView|| win is ScreenAudioPlayView) win.Close();
             else
             {
                 WindowCloseNofityView CloseWin = new WindowCloseNofityView();

@@ -1,4 +1,5 @@
-﻿using CandySugar.Com.Controls.UIExtenControls;
+﻿using CandySugar.Com.Controls.ExtenControls;
+using CandySugar.Com.Controls.UIExtenControls;
 using CandySugar.Com.Library.HotKey;
 using CandySugar.Com.Options.ComponentGeneric;
 using CandySugar.Com.Options.NotifyObject;
@@ -16,7 +17,7 @@ namespace CandySugar.MainUI.Views
     /// <summary>
     /// IndexView.xaml 的交互逻辑
     /// </summary>
-    public partial class IndexView : Window
+    public partial class IndexView : CandyWindow
     {
         private HotKeyAction _HotKey;
         public IndexView()

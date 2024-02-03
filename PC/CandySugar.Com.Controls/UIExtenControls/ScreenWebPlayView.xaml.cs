@@ -1,4 +1,5 @@
-﻿using CandySugar.Com.Library.KeepOn;
+﻿using CandySugar.Com.Controls.ExtenControls;
+using CandySugar.Com.Library.KeepOn;
 using Microsoft.Web.WebView2.Core;
 using Serilog;
 using Stylet;
@@ -10,7 +11,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
     /// <summary>
     /// ScreenWebPlayView.xaml 的交互逻辑
     /// </summary>
-    public partial class ScreenWebPlayView : Window
+    public partial class ScreenWebPlayView : CandyWindow
     {
         public ScreenWebPlayView()
         {

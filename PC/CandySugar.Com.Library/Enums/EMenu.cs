@@ -14,6 +14,10 @@ namespace CandySugar.Com.Library.Enums
         /// </summary>
         VLCPlayer,
         /// <summary>
+        /// 音频播放器
+        /// </summary>
+        AudioPlayer,
+        /// <summary>
         /// 音频转高音质
         /// </summary>
         AudioToHigh,

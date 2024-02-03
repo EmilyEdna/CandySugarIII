@@ -1,4 +1,4 @@
-﻿<Window
+﻿<uc:CandyWindow
     x:Class="CandySugar.Com.Controls.UIExtenControls.ScreenPlayView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -15,6 +15,7 @@
     Height="700"
     d:DataContext="{d:DesignInstance local:ScreenPlayViewModel}"
     Closed="Window_Closed"
+    ShowQeuryIcon="Hidden"
     StateChanged="Window_Stated"
     Style="{DynamicResource CandyDefaultWindowStyle}"
     WindowStartupLocation="CenterScreen"
@@ -364,4 +365,4 @@
             </Grid>
         </vlc:VideoView>
     </Grid>
-</Window>
+</uc:CandyWindow>
