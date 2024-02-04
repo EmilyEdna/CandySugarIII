@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:lib="http://lib.candy.com"
     xmlns:local="clr-namespace:CandySugar.Com.Controls.UIExtenControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -531,7 +532,7 @@
             <!--  模式  -->
             <Canvas>
                 <uc:CandyToggle
-                    Canvas.Left="100"
+                    Canvas.Left="99"
                     Canvas.Top="75"
                     Command="{Binding PlayChangeModuleCommand}"
                     FirstSelect="True"
@@ -572,9 +573,13 @@
             </ListBox>
         </Grid>
         <!--#region 播放列表-->
+        <TextBlock
+            Canvas.Left="675"
+            Style="{DynamicResource TextBlockStyle}"
+            Text="播放列表" />
         <ListBox
             Canvas.Left="670"
-            Canvas.Top="10"
+            Canvas.Top="20"
             Height="250"
             ItemsSource="{Binding CollectResult}"
             Style="{DynamicResource CandyListBoxStyle}">
@@ -585,7 +590,16 @@
                             <TextBlock
                                 Style="{DynamicResource TextBlockStyle}"
                                 Text="{Binding ., Converter={StaticResource PathConverter}}"
-                                TextTrimming="CharacterEllipsis" />
+                                TextTrimming="CharacterEllipsis">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction
+                                            s:View.ActionTarget="{Binding DataContext, ElementName=AudioWin}"
+                                            Command="{s:Action CurrentPlayCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBlock>
                             <Button
                                 Margin="10,-5,3,0"
                                 HorizontalAlignment="Left"

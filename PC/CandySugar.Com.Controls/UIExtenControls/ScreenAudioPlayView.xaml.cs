@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -185,6 +186,16 @@ namespace CandySugar.Com.Controls.UIExtenControls
         #endregion
 
         #region Command
+        /// <summary>
+        /// 播放选中的歌曲
+        /// </summary>
+        /// <param name="input"></param>
+        public void CurrentPlayCommand(string input)
+        {
+            CurrentPlay = input;
+            PlayIndex = CollectResult.ToList().IndexOf(input);
+            PlayCommand();
+        }
         /// <summary>
         /// 删除歌曲
         /// </summary>
