@@ -1,6 +1,5 @@
 ﻿using CandySugar.Com.Controls.ExtenControls;
 using CandySugar.Com.Library.BitConvert;
-using Org.BouncyCastle.Utilities;
 using System;
 using System.Windows;
 using System.Windows.Controls;
