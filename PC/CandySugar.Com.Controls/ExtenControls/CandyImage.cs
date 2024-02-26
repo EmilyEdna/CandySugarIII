@@ -1,6 +1,7 @@
 ﻿using CandySugar.Com.Controls.StructCtonrols;
 using CandySugar.Com.Library.BitConvert;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -265,6 +266,26 @@ namespace CandySugar.Com.Controls.ExtenControls
         }
         public static readonly DependencyProperty EnableAsyncLoadProperty =
             DependencyProperty.Register("EnableAsyncLoad", typeof(bool), typeof(CandyImage), new PropertyMetadata(true));
+        /// <summary>
+        /// 数据集合
+        /// </summary>
+        public IEnumerable ItemSource
+        {
+            get { return (IEnumerable)GetValue(ItemSourceProperty); }
+            set { SetValue(ItemSourceProperty, value); }
+        }
+        public static readonly DependencyProperty ItemSourceProperty =
+            DependencyProperty.Register("ItemSource", typeof(IEnumerable), typeof(CandyImage), new PropertyMetadata(default));
+        /// <summary>
+        /// 弹出位置
+        /// </summary>
+        public PlacementMode Placement
+        {
+            get { return (PlacementMode)GetValue(PlacementProperty); }
+            set { SetValue(PlacementProperty, value); }
+        }
+        public static readonly DependencyProperty PlacementProperty =
+            DependencyProperty.Register("Placement", typeof(PlacementMode), typeof(CandyImage), new PropertyMetadata(PlacementMode.Bottom));
         #endregion
 
         #region Anime
@@ -334,14 +355,23 @@ namespace CandySugar.Com.Controls.ExtenControls
                 Width = PopupThickness.Width == 0 ? Application.Current.MainWindow.ActualWidth : PopupThickness.Width,
                 Fill = MaskFill,
             });
-            panal.Children.Add(new ContentPresenter
-            {
-                ContentTemplate = PopupTemplate,
-                Content = Entity
-            });
+            if (ItemSource == null)
+                panal.Children.Add(new ContentPresenter
+                {
+                    ContentTemplate = PopupTemplate,
+                    Content = Entity
+                });
+            else
+                panal.Children.Add(new ListBox
+                {
+                    ItemsSource = ItemSource,
+                    ItemsPanel = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(StackPanel))),
+                    Style = Style,
+                    ItemTemplate = PopupTemplate
+                });
             Popup popup = new Popup
             {
-                Placement = PlacementMode.Bottom,
+                Placement = Placement,
                 PlacementTarget = this,
                 AllowsTransparency = true,
                 StaysOpen = false,
