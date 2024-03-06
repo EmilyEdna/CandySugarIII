@@ -1,6 +1,7 @@
 ﻿using CandySugar.Com.Controls.UIExtenControls;
 using CandySugar.Com.Library;
 using CandySugar.Com.Library.DLLoader;
+using CandySugar.Com.Library.MultiOpen;
 using CandySugar.Com.Library.ReadFile;
 using CandySugar.Com.Options;
 using CandySugar.MainUI.ViewModels;
@@ -65,6 +66,8 @@ namespace CandySugar.MainUI
                     new ScreenNotifyView($"REST网络内部异常，请看日志!").Show();
                 });
             });
+            //防止多开程序
+            MultiOpenCheck.AllowCheck(info => new ScreenNotifyView(info).ShowDialog());
         }
 
         /// <summary>

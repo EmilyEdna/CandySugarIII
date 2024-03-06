@@ -480,6 +480,7 @@
                             Style="{DynamicResource CandyFontButtonStyle}" />
                         <ListBox
                             Grid.Column="1"
+                            uc:ListBoxAttach.ScrollCommand="{Binding DJScrollCommand}"
                             ItemsSource="{Binding BasicResult, IsAsync=True}"
                             Style="{DynamicResource CandyListBoxStyle}">
                             <ListBox.ItemTemplate>

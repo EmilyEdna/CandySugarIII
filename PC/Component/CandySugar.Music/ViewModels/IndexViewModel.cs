@@ -7,7 +7,7 @@ namespace CandySugar.Music.ViewModels
     public class IndexViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
-        private object SimpleLocker = new object(); 
+        private object SimpleLocker = new object();
         private JsonDbHandle<MusicSongElementResult> JsonHandler;
         private string DbPath = Path.Combine(CommonHelper.DownloadPath, "Music", $"Music.{FileTypes.Dat}");
         public IndexViewModel()
@@ -18,7 +18,8 @@ namespace CandySugar.Music.ViewModels
                 { PlatformEnum.NeteaseMusic,"网易音乐"},
                 { PlatformEnum.KuGouMusic,"酷狗音乐"},
                 { PlatformEnum.KuWoMusic,"酷我音乐"},
-                { PlatformEnum.MiGuMusic,"咪咕音乐"}
+                { PlatformEnum.MiGuMusic,"咪咕音乐"},
+                { PlatformEnum.DjRadioMusic,"网易电台"}
             };
             Title = ["单曲", "歌单", "收藏"];
             Setting = [new() { Width = 80, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat }, new() { Width = 80, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat1 }];
@@ -51,7 +52,13 @@ namespace CandySugar.Music.ViewModels
         /// 1 单曲 2歌单 3列表
         /// </summary>
         private int HandleType = 1;
+        /// <summary>
+        /// 检索关键字
+        /// </summary>
         private string SearchKeyword;
+        /// <summary>
+        /// 平台
+        /// </summary>
         private PlatformEnum Platform;
         /// <summary>
         /// 单曲页码
@@ -77,6 +84,18 @@ namespace CandySugar.Music.ViewModels
         /// 歌词
         /// </summary>
         private List<MusicLyricElemetResult> LyricResult;
+        /// <summary>
+        /// 歌单Id
+        /// </summary>
+        private string SheetId;
+        /// <summary>
+        /// 电台页面
+        /// </summary>
+        private int DjRadioPageIndex = 1;
+        /// <summary>
+        /// 电台歌曲总数
+        /// </summary>
+        private int DjRadioTotal;
         #endregion
 
         #region Property
@@ -292,7 +311,9 @@ namespace CandySugar.Music.ViewModels
         /// <param name="sheetId"></param>
         public void SheetCommand(dynamic sheetId)
         {
-            OnInitLists(sheetId.ToString());
+            DjRadioPageIndex = 1;
+            SheetId = sheetId.ToString();
+            OnInitLists();
         }
 
         /// <summary>
@@ -323,6 +344,17 @@ namespace CandySugar.Music.ViewModels
                 }
         });
 
+        public RelayCommand<ScrollChangedEventArgs> DJScrollCommand => new((obj) =>
+        {
+            if (PlatformEnum.DjRadioMusic == Platform)
+            {
+                if (DjRadioPageIndex <= DjRadioTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+                {
+                    DjRadioPageIndex += 1;
+                    OnLoadMoreInitLists();
+                }
+            }
+        });
         /// <summary>
         /// 播放
         /// </summary>
@@ -373,7 +405,11 @@ namespace CandySugar.Music.ViewModels
         #endregion
 
         #region Method
-        private void OnInitLists(string sheetId)
+        /// <summary>
+        /// 歌单列表
+        /// </summary>
+        /// <param name="sheetId"></param>
+        private void OnInitLists()
         {
             Task.Run(async () =>
             {
@@ -388,14 +424,56 @@ namespace CandySugar.Music.ViewModels
                             MusicType = MusicEnum.SheetDetail,
                             SheetDetail = new MusicSheetDetail
                             {
-                                Id = sheetId
+                                Id = SheetId
                             }
                         };
                     }).RunsAsync()).SheetDetailResult;
                     BasicResult = new ObservableCollection<MusicSongElementResult>(result.ElementResults);
+                    if (Platform == PlatformEnum.DjRadioMusic) DjRadioTotal = result.MusicNum;
                     // 这一句很关键，开启集合的异步访问支持
                     BindingOperations.EnableCollectionSynchronization(BasicResult, LockObject);
                     WeakReferenceMessenger.Default.Send(new MessageNotify { SliderStatus = 1 });
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, "");
+                    ErrorNotify();
+                }
+            });
+        }
+        /// <summary>
+        /// 加载更多歌单列表
+        /// </summary>
+        private void OnLoadMoreInitLists()
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    var result = (await MusicFactory.Music(opt =>
+                    {
+                        opt.RequestParam = new Input
+                        {
+                            PlatformType = Platform,
+                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                            MusicType = MusicEnum.SheetDetail,
+                            SheetDetail = new MusicSheetDetail
+                            {
+                                Page = DjRadioPageIndex,
+                                Id = SheetId
+                            }
+                        };
+                    }).RunsAsync()).SheetDetailResult;
+                    lock (LockObject)
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            result.ElementResults.ForEach(item =>
+                            {
+                                BasicResult.Add(item);
+                            });
+                        });
+                    }
                 }
                 catch (Exception ex)
                 {
