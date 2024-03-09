@@ -1,7 +1,6 @@
 ﻿using CandySugar.Com.Controls.UIExtenControls;
 using CandySugar.Com.Library;
 using CandySugar.Com.Library.DLLoader;
-using CandySugar.Com.Library.MultiOpen;
 using CandySugar.Com.Library.ReadFile;
 using CandySugar.Com.Options;
 using CandySugar.MainUI.ViewModels;
@@ -15,6 +14,7 @@ using System.Windows;
 using System.Windows.Threading;
 using XExten.Advance;
 using XExten.Advance.NetFramework;
+using XExten.Advance.StaticFramework;
 
 namespace CandySugar.MainUI
 {
@@ -67,7 +67,8 @@ namespace CandySugar.MainUI
                 });
             });
             //防止多开程序
-            MultiOpenCheck.AllowCheck(info => new ScreenNotifyView(info).ShowDialog());
+            if (SyncStatic.MultiOpenCheck())
+                new ScreenNotifyView("已经有一个实例在运行中").ShowDialog();
         }
 
         /// <summary>
