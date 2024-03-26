@@ -5,6 +5,7 @@
     xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:lib="http://lib.candy.com"
     xmlns:local="clr-namespace:CandySugar.Bilibili.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://github.com/canton7/Stylet"
@@ -18,81 +19,165 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height=".3*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel
+            Width="800"
             HorizontalAlignment="Center"
-            VerticalAlignment="Bottom"
-            Orientation="Horizontal">
-            <TextBox
-                Style="{DynamicResource CandyTextboxStyle}"
-                Tag="输入B站视频地址"
-                Text="{Binding Route, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <uc:CandyButton
-                s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
-                ButtonType="Info"
-                Command="{s:Action QeuryCommand}"
-                Content="获取视频" />
-            <uc:CandyButton
-                s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
-                ButtonType="Success"
-                Command="{s:Action CookieCommand}"
-                Content="设置Cookie" />
-        </StackPanel>
-        <Grid Grid.Row="1">
-            <uc:CandyBorder
-                Width="800"
-                Height="500"
-                BorderType="Info"
-                Visibility="{c:Binding '(InfoResult!=null?true:false)',
-                                       FalseToVisibility=Collapsed}">
-                <Grid>
-                    <Image Source="{Binding InfoResult.Cover}" Stretch="Fill" />
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontFamily="Microsoft YaHei"
-                        FontSize="50"
-                        Foreground="#e63995"
-                        Text="{Binding Progress}" />
-                </Grid>
-            </uc:CandyBorder>
-        </Grid>
-        <StackPanel
-            Grid.Row="1"
-            Width="500"
-            Height="35"
-            Margin="0,0,0,50"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Bottom"
-            Visibility="{c:Binding '(InfoResult!=null?true:false)',
-                                   FalseToVisibility=Collapsed}">
-            <UniformGrid Columns="4">
-                <uc:CandyButton
-                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
-                    ButtonType="Primary"
-                    Command="{s:Action HandleCommand}"
-                    CommandParameter="1"
-                    Content="保存封面" />
+            VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal">
                 <uc:CandyButton
                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
                     ButtonType="Success"
-                    Command="{s:Action HandleCommand}"
-                    CommandParameter="2"
-                    Content="保存视频" />
+                    Command="{s:Action CookieCommand}"
+                    Content="设置Cookie" />
+                <uc:CandyButton
+                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                    ButtonType="Primary"
+                    Command="{s:Action QeuryCommand}"
+                    Content="获取视频" />
                 <uc:CandyButton
                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
                     ButtonType="Warning"
-                    Command="{s:Action HandleCommand}"
-                    CommandParameter="3"
-                    Content="保存音频" />
-                <uc:CandyButton
-                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
-                    ButtonType="Error"
-                    Command="{s:Action HandleCommand}"
-                    CommandParameter="4"
-                    Content="合并视音" />
-            </UniformGrid>
+                    Command="{s:Action FavCommand}"
+                    Content="获取收藏" />
+            </StackPanel>
+            <TextBox
+                Width="800"
+                HorizontalAlignment="Left"
+                Style="{DynamicResource CandyTextboxStyle}"
+                Tag="输入B站视频地址"
+                Text="{Binding Route, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
+        <ListBox
+            Grid.Row="1"
+            Width="800"
+            ItemsSource="{Binding Collect}"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+            Style="{DynamicResource CandyListBoxStyle}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel
+                        Margin="2,0"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <uc:CandyButton
+                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                        ButtonType="Primary"
+                        Command="{s:Action CollectCommand}"
+                        CommandParameter="{Binding .}"
+                        Content="{Binding Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox
+            Grid.Row="2"
+            Width="800"
+            Height="500"
+            ItemsSource="{Binding InfoResults}"
+            Style="{DynamicResource CandyListBoxStyle}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="3" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <uc:CandyBorder BorderType="Info">
+                        <Grid>
+                            <Image
+                                Width="265"
+                                Height="170"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Source="{Binding Cover}"
+                                Stretch="Fill" />
+                            <Button
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                                Command="{s:Action TranshCammnd}"
+                                CommandParameter="{Binding .}"
+                                Content="{x:Static lib:FontIcon.CircleX}"
+                                FontSize="15"
+                                Style="{DynamicResource CandyFontButtonStyle}" />
+                            <StackPanel
+                                Margin="0,0,0,3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom">
+                                <UniformGrid Columns="4">
+                                    <uc:CandyButton
+                                        Width="60"
+                                        Height="20"
+                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                                        ButtonType="Primary"
+                                        Command="{s:Action HandleCommand}"
+                                        Content="保存封面">
+                                        <uc:CandyButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource MultiConverter}">
+                                                <Binding Source="1" />
+                                                <Binding Path="." />
+                                            </MultiBinding>
+                                        </uc:CandyButton.CommandParameter>
+                                    </uc:CandyButton>
+                                    <uc:CandyButton
+                                        Width="60"
+                                        Height="20"
+                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                                        ButtonType="Success"
+                                        Command="{s:Action HandleCommand}"
+                                        Content="保存视频">
+                                        <uc:CandyButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource MultiConverter}">
+                                                <Binding Source="2" />
+                                                <Binding Path="." />
+                                            </MultiBinding>
+                                        </uc:CandyButton.CommandParameter>
+                                    </uc:CandyButton>
+                                    <uc:CandyButton
+                                        Width="60"
+                                        Height="20"
+                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                                        ButtonType="Warning"
+                                        Command="{s:Action HandleCommand}"
+                                        Content="保存音频">
+                                        <uc:CandyButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource MultiConverter}">
+                                                <Binding Source="3" />
+                                                <Binding Path="." />
+                                            </MultiBinding>
+                                        </uc:CandyButton.CommandParameter>
+                                    </uc:CandyButton>
+                                    <uc:CandyButton
+                                        Width="60"
+                                        Height="20"
+                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                                        ButtonType="Error"
+                                        Command="{s:Action HandleCommand}"
+                                        Content="合并视音">
+                                        <uc:CandyButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource MultiConverter}">
+                                                <Binding Source="4" />
+                                                <Binding Path="." />
+                                            </MultiBinding>
+                                        </uc:CandyButton.CommandParameter>
+                                    </uc:CandyButton>
+                                </UniformGrid>
+                            </StackPanel>
+                            <Border
+                                Width="{Binding Width, Mode=TwoWay}"
+                                Height="3"
+                                VerticalAlignment="Bottom"
+                                Background="#FDA8D5" />
+                        </Grid>
+                    </uc:CandyBorder>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

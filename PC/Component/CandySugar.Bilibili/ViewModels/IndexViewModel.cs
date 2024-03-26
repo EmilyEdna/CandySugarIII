@@ -1,11 +1,15 @@
-﻿namespace CandySugar.Bilibili.ViewModels
+﻿using CandySugar.Bilibili.Models;
+using System.Collections.ObjectModel;
+
+namespace CandySugar.Bilibili.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
 
         public IndexViewModel()
         {
-            Progress = SessionCode = string.Empty;
+            SessionCode = string.Empty;
+            InfoResults = new();
             Merge();
             ReadCookie();
             ReadClipboradContent();
@@ -16,14 +20,9 @@
         private string Catalog = Path.Combine(CommonHelper.DownloadPath, "Bilibili");
         private string CookiePath = Path.Combine(CommonHelper.DownloadPath, "Bilibili", "Cookie.txt");
         private string SessionCode;
+        private BiliVideoInfoModel InfoResult;
 
         #region Property
-        private string _Progress;
-        public string Progress
-        {
-            get => _Progress;
-            set => SetAndNotify(ref _Progress, value);
-        }
         private string _Route;
         public string Route
         {
@@ -31,14 +30,14 @@
             set => SetAndNotify(ref _Route, value);
         }
 
-        private BiliVideoInfoResult _InfoResult;
+        private ObservableCollection<BiliVideoInfoModel> _InfoResults;
         /// <summary>
         /// 视频信息
         /// </summary>
-        public BiliVideoInfoResult InfoResult
+        public ObservableCollection<BiliVideoInfoModel> InfoResults
         {
-            get => _InfoResult;
-            set => SetAndNotify(ref _InfoResult, value);
+            get => _InfoResults;
+            set => SetAndNotify(ref _InfoResults, value);
         }
 
         private BiliVideoDataResult _DataResult;
@@ -50,9 +49,43 @@
             get => _DataResult;
             set => SetAndNotify(ref _DataResult, value);
         }
+
+        private ObservableCollection<BiliFavCollectResult> _Collect;
+        /// <summary>
+        /// 收藏
+        /// </summary>
+        public ObservableCollection<BiliFavCollectResult> Collect
+        {
+            get => _Collect;
+            set => SetAndNotify(ref _Collect, value);
+        }
         #endregion
 
         #region Command
+        /// <summary>
+        /// 获取收藏
+        /// </summary>
+        public void FavCommand()
+        {
+            if (SessionCode.IsNullOrEmpty())
+            {
+                new ScreenNotifyView(CommonHelper.CookieError).Show();
+                return;
+            }
+            var userId = Regex.Match(Regex.Match(SessionCode, "UserID=\\d+").Value, "\\d+").Value;
+            OnInitFavCollect(userId);
+        }
+        /// <summary>
+        /// 从列表中移除
+        /// </summary>
+        /// <param name="input"></param>
+        public void TranshCammnd(BiliVideoInfoModel input)
+        {
+            InfoResults.Remove(input);
+        }
+        /// <summary>
+        /// 设置Cookie
+        /// </summary>
         public void CookieCommand()
         {
             SyncStatic.CreateDir(Path.Combine(CommonHelper.DownloadPath, "Bilibili"));
@@ -60,18 +93,38 @@
             pro.WaitForExit();
             ReadCookie();
         }
+        /// <summary>
+        /// 查询
+        /// </summary>
         public void QeuryCommand()
         {
             if (Route.IsNullOrEmpty()) return;
             OnInitVideo();
         }
-        public void HandleCommand(string key)
+        /// <summary>
+        /// 功能
+        /// </summary>
+        /// <param name="input"></param>
+        public void HandleCommand(Dictionary<string, object> input)
         {
-            var condition = key.AsInt();
+            var condition = input.Values.First().AsString().AsInt();
+            InfoResult = (BiliVideoInfoModel)input.Values.Last();
             if (condition == 1) OnDownload();
             if (condition == 2) SaveVideo();
             if (condition == 3) SaveAudio();
             if (condition == 4) SaveAMerge();
+        }
+
+        /// <summary>
+        /// 获取收藏数据
+        /// </summary>
+        /// <param name="input"></param>
+        public void CollectCommand(BiliFavCollectResult input)
+        {
+            for (int index = 1; index <= input.Count; index++)
+            {
+                OnInitFavData(input.FId, index);
+            }
         }
         #endregion
 
@@ -139,7 +192,7 @@
                 });
             });
         }
-        private async void OnInitData()
+        private async void OnInitData(BiliVideoInfoResult InfoResult)
         {
             try
             {
@@ -187,8 +240,69 @@
                         }
                     };
                 }).RunsAsync()).InfoResult;
-                InfoResult = result;
-                OnInitData();
+                if (InfoResults.FirstOrDefault(t => t.CID == result.CID && t.BVID == result.BVID) == null)
+                    InfoResults.Add(result.ToMapest<BiliVideoInfoModel>());
+                OnInitData(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
+        }
+        private async void OnInitFavCollect(string userId)
+        {
+            try
+            {
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await BilibiliFactory.Bili(opt =>
+                {
+                    opt.RequestParam = new Input
+                    {
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        BiliType = BiliEnum.FavCollect,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        FavList = new BiliFavCollect
+                        {
+                            UserId = userId
+                        }
+                    };
+                }).RunsAsync()).FavCollectResults;
+                Collect = new ObservableCollection<BiliFavCollectResult>(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
+        }
+
+        private async void OnInitFavData(string FId, int PageIndex)
+        {
+            try
+            {
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await BilibiliFactory.Bili(opt =>
+                {
+                    opt.RequestParam = new Input
+                    {
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        BiliType = BiliEnum.FavData,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        FavData = new BiliFavData
+                        {
+                            FavId = FId,
+                            PageIndex = PageIndex
+                        }
+                    };
+                }).RunsAsync()).FavDataResults;
+                result.ToMapest<List<BiliVideoInfoModel>>().ForEach(item =>
+                {
+                    if (InfoResults.FirstOrDefault(t => t.CID == item.CID && t.BVID == item.BVID) == null)
+                        InfoResults.Add(item);
+                });
             }
             catch (Exception ex)
             {
@@ -216,16 +330,15 @@
             {
                 if (item == double.Parse((100 / num).ToString("F2")))
                     Counts += item;
-                this.Progress = $"{Counts+ item}%";
+                var Model = InfoResults.First(t => t.CID == InfoResult.CID && t.BVID == InfoResult.BVID);
+                Model.Width = (Counts + item) * 2.66;
                 if (Math.Ceiling(Counts) >= 100)
                 {
                     Task.Run(async () =>
                     {
-                        this.Progress = "Please Wait . . .";
                         var res = await Path.Combine(Catalog, $"{InfoResult.BVID}.mp4").M4VAMerge(Path.Combine(Catalog, $"mp3_{InfoResult.BVID}.m4s"), Path.Combine(Catalog, $"mp4_{InfoResult.BVID}.m4s"));
                         if (res)
                         {
-                            this.Progress = string.Empty;
                             Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
                             await Task.Delay(1500);
                             try
@@ -249,7 +362,7 @@
                 }
             });
         }
-        private void ReadClipboradContent() 
+        private void ReadClipboradContent()
         {
             GenericDelegate.ClipboardAction = new(data =>
             {

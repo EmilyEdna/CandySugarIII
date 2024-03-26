@@ -67,6 +67,10 @@ namespace CandySugar.Com.Library
         /// </summary>
         public static string ProgramErronInformation => "程序完整检验失败，3秒后退出!";
         /// <summary>
+        /// Cookie检验
+        /// </summary>
+        public static string CookieError => "读取Cookie失败，检查Cookie是否正确!";
+        /// <summary>
         /// 配置文件
         /// </summary>
         public static List<string> OptionFile = new List<string>
