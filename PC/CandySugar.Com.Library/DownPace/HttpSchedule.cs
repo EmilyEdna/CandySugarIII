@@ -17,7 +17,7 @@ namespace CandySugar.Com.Library.DownPace
     public class HttpSchedule
     {
         private static double DownCount { get; set; }
-        public static Action<double,double> ReceiveAction { get; set; }
+        public static Action<double, double> ReceiveAction { get; set; }
         private static ProgressMessageHandler ProgressHandler()
         {
             var ProgressHandler = new ProgressMessageHandler(new HttpClientHandler());

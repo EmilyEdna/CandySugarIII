@@ -29,7 +29,7 @@
             <StackPanel Orientation="Horizontal">
                 <uc:CandyButton
                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
-                    ButtonType="Success"
+                    ButtonType="Info"
                     Command="{s:Action CookieCommand}"
                     Content="设置Cookie" />
                 <uc:CandyButton
@@ -39,9 +39,14 @@
                     Content="获取视频" />
                 <uc:CandyButton
                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
-                    ButtonType="Warning"
+                    ButtonType="Success"
                     Command="{s:Action FavCommand}"
                     Content="获取收藏" />
+                <uc:CandyButton
+                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                    ButtonType="Warning"
+                    Command="{s:Action BatchAudioCommand}"
+                    Content="批量音频" />
             </StackPanel>
             <TextBox
                 Width="800"
@@ -59,10 +64,7 @@
             Style="{DynamicResource CandyListBoxStyle}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel
-                        Margin="2,0"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal" />
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
