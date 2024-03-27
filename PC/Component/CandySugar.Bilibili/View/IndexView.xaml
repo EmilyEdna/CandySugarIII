@@ -60,12 +60,19 @@
                     Command="{s:Action BatchAudioCommand}"
                     CommandParameter="3"
                     Content="批量视频" />
+                <uc:CandyToggle
+                    Width="Auto"
+                    Height="38"
+                    Command="{Binding ChangedCommand}"
+                    ContentPadding="0"
+                    FirstSelect="True"
+                    ModelSource="{Binding Title}" />
             </StackPanel>
             <TextBox
                 Width="800"
                 HorizontalAlignment="Left"
                 Style="{DynamicResource CandyTextboxStyle}"
-                Tag="输入B站视频地址"
+                Tag="输入B站视频地址或者博主ID"
                 Text="{Binding Route, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
         <ListBox
@@ -186,9 +193,9 @@
                             </StackPanel>
                             <Border
                                 Width="{Binding Width, Mode=TwoWay}"
-                                Height="3"
+                                Height="4"
                                 VerticalAlignment="Bottom"
-                                Background="#FDA8D5" />
+                                Background="Black" />
                         </Grid>
                     </uc:CandyBorder>
                 </DataTemplate>
