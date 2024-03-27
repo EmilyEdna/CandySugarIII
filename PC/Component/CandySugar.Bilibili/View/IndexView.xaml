@@ -46,7 +46,20 @@
                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
                     ButtonType="Warning"
                     Command="{s:Action BatchAudioCommand}"
+                    CommandParameter="1"
+                    Content="批量封面" />
+                <uc:CandyButton
+                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                    ButtonType="Error"
+                    Command="{s:Action BatchAudioCommand}"
+                    CommandParameter="2"
                     Content="批量音频" />
+                <uc:CandyButton
+                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                    ButtonType="Fatal"
+                    Command="{s:Action BatchAudioCommand}"
+                    CommandParameter="3"
+                    Content="批量视频" />
             </StackPanel>
             <TextBox
                 Width="800"
@@ -81,7 +94,7 @@
         <ListBox
             Grid.Row="2"
             Width="800"
-            Height="500"
+            Height="450"
             ItemsSource="{Binding InfoResults}"
             Style="{DynamicResource CandyListBoxStyle}">
             <ListBox.ItemsPanel>

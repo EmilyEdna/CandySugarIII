@@ -57,6 +57,13 @@
                         <DataTrigger Binding="{Binding BorderType, ElementName=Element}" Value="{x:Static lib:EButton.Error}">
                             <Setter TargetName="Element" Property="Background">
                                 <Setter.Value>
+                                    <SolidColorBrush Opacity=".6" Color="DeepPink" />
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BorderType, ElementName=Element}" Value="{x:Static lib:EButton.Fatal}">
+                            <Setter TargetName="Element" Property="Background">
+                                <Setter.Value>
                                     <SolidColorBrush Opacity=".6" Color="DarkRed" />
                                 </Setter.Value>
                             </Setter>

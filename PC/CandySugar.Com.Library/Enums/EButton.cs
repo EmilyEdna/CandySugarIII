@@ -12,6 +12,7 @@ namespace CandySugar.Com.Library.Enums
         Info,
         Success,
         Warning,
-        Error
+        Error,
+        Fatal
     }
 }

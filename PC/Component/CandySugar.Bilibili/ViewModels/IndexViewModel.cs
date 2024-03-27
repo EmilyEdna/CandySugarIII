@@ -9,8 +9,9 @@ namespace CandySugar.Bilibili.ViewModels
         public IndexViewModel()
         {
             SessionCode = string.Empty;
-            InfoResults = new();
-            DataResults = new();
+            InfoResults = [];
+            DataResults = [];
+            CompleteEvent += CompleteActionEvent;
             Merge();
             ReadCookie();
             ReadClipboradContent();
@@ -22,6 +23,23 @@ namespace CandySugar.Bilibili.ViewModels
         private string CookiePath = Path.Combine(CommonHelper.DownloadPath, "Bilibili", "Cookie.txt");
         private string SessionCode;
         private BiliVideoInfoModel InfoResult;
+        private Dictionary<string, bool> Complete;
+
+        #region Event
+        private event Action CompleteEvent;
+        /// <summary>
+        /// 完成通知事件
+        /// </summary>
+        private void CompleteActionEvent()
+        {
+            if (Complete.Values.Any(t => t == true))
+            {
+                Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
+                Complete.Clear();
+            }
+        }
+        #endregion
+
 
         #region Property
         private string _Route;
@@ -66,9 +84,15 @@ namespace CandySugar.Bilibili.ViewModels
         /// <summary>
         /// 批量合成音频
         /// </summary>
-        public void BatchAudioCommand()
+        public void BatchAudioCommand(string key)
         {
-            BatchSaveAudio();
+            var param = key.AsInt();
+            if (param == 1)
+                BatchSaveCover();
+            else if (param == 2)
+                BatchSaveAudio();
+            else
+                BatchSaveVideo();
         }
         /// <summary>
         /// 获取收藏
@@ -117,10 +141,10 @@ namespace CandySugar.Bilibili.ViewModels
         {
             var condition = input.Values.First().AsString().AsInt();
             InfoResult = (BiliVideoInfoModel)input.Values.Last();
-            if (condition == 1) OnDownload();
+            if (condition == 1) SaveCover();
             if (condition == 2) SaveVideo();
             if (condition == 3) SaveAudio();
-            if (condition == 4) SaveAMerge();
+            if (condition == 4) SaveMerge();
         }
 
         /// <summary>
@@ -133,6 +157,57 @@ namespace CandySugar.Bilibili.ViewModels
             {
                 OnInitFavData(input.FId, index);
             }
+        }
+        #endregion
+
+        #region BatchMethod
+        private void BatchSaveCover() 
+        {
+            if (DataResults.Count <= 0 || InfoResults.Count <= 0) return;
+            Complete = DataResults.ToDictionary(t => t.BVID, t => false);
+            foreach (var DataResult in DataResults)
+            {
+                var InfoResult = InfoResults.FirstOrDefault(t => t.CID == DataResult.CID && t.BVID == DataResult.BVID);
+                if (InfoResult == null) continue;
+                Task.Run(async () =>
+                {
+                    var bytes = await new HttpClient().GetByteArrayAsync(InfoResult.Cover);
+                    bytes.FileCreate(InfoResult.Title, FileTypes.Jpg, "Bilibili", (catalog, fileName) =>
+                    {
+                        Complete[InfoResult.BVID] = true;
+                        CompleteEvent?.Invoke();
+                    });
+                });
+            }
+        }
+        private void BatchSaveAudio()
+        {
+            if (DataResults.Count <= 0 || InfoResults.Count <= 0) return;
+            Complete = DataResults.ToDictionary(t => t.BVID, t => false);
+            foreach (var DataResult in DataResults)
+            {
+                var InfoResult = InfoResults.FirstOrDefault(t => t.CID == DataResult.CID && t.BVID == DataResult.BVID);
+                if (InfoResult == null) continue;
+                Task.Run(async () =>
+                {
+                    var res = await DataResult.AudioDash.M4Audio(Path.Combine(SyncStatic.CreateDir(Catalog), $"{InfoResult.BVID}.mp3"));
+                    if (res)
+                    {
+                        var Pattern = "[\\|/|*/|?/|</|>/|/|:/|\\\\/|//|\"]";
+                        if (InfoResult.Title.Any(t => Special.Contains(t.ToString())))
+                            InfoResult.Title = Regex.Replace(InfoResult.Title, Pattern, "_");
+                        else
+                            InfoResult.Title = InfoResult.Title;
+                        File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp3"), Path.Combine(Catalog, $"{InfoResult.Title}.mp3"));
+                        Complete[InfoResult.BVID] = true;
+                        CompleteEvent?.Invoke();
+                    }
+                });
+            }
+        }
+        private void BatchSaveVideo() 
+        {
+            if (DataResults.Count <= 0 || InfoResults.Count <= 0) return;
         }
         #endregion
 
@@ -178,32 +253,8 @@ namespace CandySugar.Bilibili.ViewModels
                 }
             });
         }
-        private void BatchSaveAudio()
-        {
-            if (DataResults.Count <= 0 || InfoResults.Count <= 0) return;
 
-            foreach (var DataResult in DataResults)
-            {
-                var InfoResult = InfoResults.FirstOrDefault(t => t.CID == DataResult.CID && t.BVID == DataResult.BVID);
-                if (InfoResult == null) continue;
-                Task.Run(async () =>
-                {
-                    var res = await DataResult.AudioDash.M4Audio(Path.Combine(SyncStatic.CreateDir(Catalog), $"{InfoResult.BVID}.mp3"));
-                    if (res)
-                    {
-                        var Pattern = "[\\|/|*/|?/|</|>/|/|:/|\\\\/|//|\"]";
-                        if (InfoResult.Title.Any(t => Special.Contains(t.ToString())))
-                            InfoResult.Title = Regex.Replace(InfoResult.Title, Pattern, "_");
-                        else
-                            InfoResult.Title = InfoResult.Title;
-                        File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp3"), Path.Combine(Catalog, $"{InfoResult.Title}.mp3"));
-                        Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
-                    }
-                });
-            }
-        }
-
-        private void SaveAMerge()
+        private void SaveMerge()
         {
             if (DataResults.Count <= 0) return;
             var DataResult = DataResults.FirstOrDefault(t => t.CID == InfoResult.CID && t.BVID == InfoResult.BVID);
@@ -221,7 +272,8 @@ namespace CandySugar.Bilibili.ViewModels
                 });
             });
         }
-        private void OnDownload()
+
+        private void SaveCover()
         {
             Task.Run(async () =>
             {

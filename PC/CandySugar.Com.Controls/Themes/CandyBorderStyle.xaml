@@ -39,6 +39,13 @@
             <DataTrigger Binding="{Binding BorderType, RelativeSource={RelativeSource Mode=Self}}" Value="{x:Static lib:EButton.Error}">
                 <Setter Property="BorderBrush">
                     <Setter.Value>
+                        <SolidColorBrush Opacity=".6" Color="DeepPink" />
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding BorderType, RelativeSource={RelativeSource Mode=Self}}" Value="{x:Static lib:EButton.Fatal}">
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
                         <SolidColorBrush Opacity=".6" Color="DarkRed" />
                     </Setter.Value>
                 </Setter>
