@@ -49,11 +49,11 @@ namespace CandySugar.Bilibili.ViewModels
         {
             TimerHelper.InitTimer(1000, (uc) =>
             {
+                TimerHelper.Stop();
                 if (ConQueues.Count <= 0)
                 {
                     IsBatchVideo = false;
                     CompleteActionEvent();
-                    uc.Stop();
                     return;
                 }
                 ConQueues.TryDequeue(out BiliVideoDataModel model);
@@ -69,7 +69,7 @@ namespace CandySugar.Bilibili.ViewModels
                         header.Add(ConstDefault.Referer, "https://www.bilibili.com/");
                     });
                 });
-                uc.Stop();
+               
             });
         }
         #endregion
@@ -148,6 +148,12 @@ namespace CandySugar.Bilibili.ViewModels
         public void TranshCammnd(BiliVideoInfoModel input)
         {
             InfoResults.Remove(input);
+            if (DataResults.Count > 0)
+            {
+                var Model = DataResults.FirstOrDefault(t => t.BVID == input.BVID && t.CID == input.CID);
+                if (Model != null)
+                    DataResults.Remove(Model);
+            }
         }
         /// <summary>
         /// 设置Cookie
@@ -511,11 +517,13 @@ namespace CandySugar.Bilibili.ViewModels
                                 File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp4"), Path.Combine(Catalog, $"{SaleName}.mp4"));
                                 SyncStatic.DeleteFile(Path.Combine(Catalog, $"mp3_{InfoResult.BVID}.m4s"));
                                 SyncStatic.DeleteFile(Path.Combine(Catalog, $"mp4_{InfoResult.BVID}.m4s"));
-
+                                Counts = 0;
                                 if (IsBatchVideo)
                                 {
                                     if(Complete.ContainsKey(InfoResult.BVID))
                                          Complete[InfoResult.BVID] = true;
+
+                                    await Task.Delay(1500);
                                     TimerHelper.Start();
                                 }
                             }
