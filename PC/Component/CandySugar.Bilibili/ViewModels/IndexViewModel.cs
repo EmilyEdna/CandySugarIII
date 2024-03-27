@@ -1,5 +1,8 @@
 ﻿using CandySugar.Bilibili.Models;
+using CandySugar.Com.Library.Timers;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
+using XExten.Advance.LinqFramework;
 
 namespace CandySugar.Bilibili.ViewModels
 {
@@ -9,12 +12,14 @@ namespace CandySugar.Bilibili.ViewModels
         public IndexViewModel()
         {
             SessionCode = string.Empty;
+            ConQueues = [];
             InfoResults = [];
             DataResults = [];
             CompleteEvent += CompleteActionEvent;
             Merge();
             ReadCookie();
             ReadClipboradContent();
+            TimerEvent();
         }
 
         private double Counts = 0;
@@ -24,6 +29,8 @@ namespace CandySugar.Bilibili.ViewModels
         private string SessionCode;
         private BiliVideoInfoModel InfoResult;
         private Dictionary<string, bool> Complete;
+        private ConcurrentQueue<BiliVideoDataModel> ConQueues;
+        private bool IsBatchVideo = false;
 
         #region Event
         private event Action CompleteEvent;
@@ -32,11 +39,38 @@ namespace CandySugar.Bilibili.ViewModels
         /// </summary>
         private void CompleteActionEvent()
         {
-            if (Complete.Values.Any(t => t == true))
+            if (!Complete.Values.Any(t => t==false))
             {
                 Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
                 Complete.Clear();
             }
+        }
+        private void TimerEvent()
+        {
+            TimerHelper.InitTimer(1000, (uc) =>
+            {
+                if (ConQueues.Count <= 0)
+                {
+                    IsBatchVideo = false;
+                    CompleteActionEvent();
+                    uc.Stop();
+                    return;
+                }
+                ConQueues.TryDequeue(out BiliVideoDataModel model);
+                InfoResult = InfoResults.FirstOrDefault(t => t.BVID == model.BVID && t.CID == model.CID);
+                Task.Run(async () =>
+                {
+                    var data = new Dictionary<string, string> {
+                        { Path.Combine(Catalog, $"mp4_{InfoResult.BVID}.m4s"),model.VideoDash },
+                        { Path.Combine(Catalog, $"mp3_{InfoResult.BVID}.m4s"),model.AudioDash }
+                    };
+                    await HttpSchedule.HttpDownload(data, header =>
+                    {
+                        header.Add(ConstDefault.Referer, "https://www.bilibili.com/");
+                    });
+                });
+                uc.Stop();
+            });
         }
         #endregion
 
@@ -161,7 +195,7 @@ namespace CandySugar.Bilibili.ViewModels
         #endregion
 
         #region BatchMethod
-        private void BatchSaveCover() 
+        private void BatchSaveCover()
         {
             if (DataResults.Count <= 0 || InfoResults.Count <= 0) return;
             Complete = DataResults.ToDictionary(t => t.BVID, t => false);
@@ -205,9 +239,23 @@ namespace CandySugar.Bilibili.ViewModels
                 });
             }
         }
-        private void BatchSaveVideo() 
+        private void BatchSaveVideo()
         {
+            if (IsBatchVideo)
+            {
+                new ScreenNotifyView(CommonHelper.DownloadWait).Show();
+                return;
+            }
             if (DataResults.Count <= 0 || InfoResults.Count <= 0) return;
+            Complete = DataResults.ToDictionary(t => t.BVID, t => false);
+            DataResults.ForEnumerEach(item =>
+            {
+                if (ConQueues.FirstOrDefault(t => t.BVID == item.BVID && t.CID == item.CID) == null)
+                    ConQueues.Enqueue(item);
+            });
+            SyncStatic.CreateDir(Catalog);
+            IsBatchVideo = true;
+            TimerHelper.Start();
         }
         #endregion
 
@@ -449,7 +497,8 @@ namespace CandySugar.Bilibili.ViewModels
                         var res = await Path.Combine(Catalog, $"{InfoResult.BVID}.mp4").M4VAMerge(Path.Combine(Catalog, $"mp3_{InfoResult.BVID}.m4s"), Path.Combine(Catalog, $"mp4_{InfoResult.BVID}.m4s"));
                         if (res)
                         {
-                            Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
+                            if (IsBatchVideo == false)
+                                Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
                             await Task.Delay(1500);
                             try
                             {
@@ -462,6 +511,13 @@ namespace CandySugar.Bilibili.ViewModels
                                 File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp4"), Path.Combine(Catalog, $"{SaleName}.mp4"));
                                 SyncStatic.DeleteFile(Path.Combine(Catalog, $"mp3_{InfoResult.BVID}.m4s"));
                                 SyncStatic.DeleteFile(Path.Combine(Catalog, $"mp4_{InfoResult.BVID}.m4s"));
+
+                                if (IsBatchVideo)
+                                {
+                                    if(Complete.ContainsKey(InfoResult.BVID))
+                                         Complete[InfoResult.BVID] = true;
+                                    TimerHelper.Start();
+                                }
                             }
                             catch (Exception ex)
                             {

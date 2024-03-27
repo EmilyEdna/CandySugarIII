@@ -71,6 +71,10 @@ namespace CandySugar.Com.Library
         /// </summary>
         public static string CookieError => "读取Cookie失败，检查Cookie是否正确!";
         /// <summary>
+        /// 下载数据等待
+        /// </summary>
+        public static string DownloadWait => "队列下载中请等待!";
+        /// <summary>
         /// 配置文件
         /// </summary>
         public static List<string> OptionFile = new List<string>
