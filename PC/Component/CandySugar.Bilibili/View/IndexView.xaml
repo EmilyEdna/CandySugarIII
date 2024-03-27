@@ -60,13 +60,6 @@
                     Command="{s:Action BatchAudioCommand}"
                     CommandParameter="3"
                     Content="批量视频" />
-                <uc:CandyToggle
-                    Width="Auto"
-                    Height="38"
-                    Command="{Binding ChangedCommand}"
-                    ContentPadding="0"
-                    FirstSelect="True"
-                    ModelSource="{Binding Title}" />
             </StackPanel>
             <TextBox
                 Width="800"
