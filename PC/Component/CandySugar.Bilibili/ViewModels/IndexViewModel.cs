@@ -14,7 +14,6 @@ namespace CandySugar.Bilibili.ViewModels
         public IndexViewModel()
         {
             SessionCode = string.Empty;
-            Title = ["个人", "白嫖"];
             ConQueues = [];
             InfoResults = [];
             DataResults = [];
@@ -34,7 +33,6 @@ namespace CandySugar.Bilibili.ViewModels
         private Dictionary<string, bool> Complete;
         private ConcurrentQueue<BiliVideoDataModel> ConQueues;
         private bool IsBatchVideo = false;
-        private int TypeModule=0;
 
         #region Event
         private event Action CompleteEvent;
@@ -78,14 +76,7 @@ namespace CandySugar.Bilibili.ViewModels
         }
         #endregion
 
-
         #region Property
-        private ObservableCollection<string> _Title;
-        public ObservableCollection<string> Title
-        {
-            get => _Title;
-            set => SetAndNotify(ref _Title, value);
-        }
         private string _Route;
         public string Route
         {
@@ -126,13 +117,6 @@ namespace CandySugar.Bilibili.ViewModels
 
         #region Command
         /// <summary>
-        /// 切换模式
-        /// </summary>
-        public RelayCommand<object> ChangedCommand => new((item) => {
-            var Target = ((CandyToggleItem)item);
-            TypeModule = Target.Tag.ToString().AsInt();
-        });
-        /// <summary>
         /// 批量合成音频
         /// </summary>
         public void BatchAudioCommand(string key)
@@ -156,7 +140,7 @@ namespace CandySugar.Bilibili.ViewModels
                 return;
             }
             var userId = Regex.Match(Regex.Match(SessionCode, "UserID=\\d+").Value, "\\d+").Value;
-            OnInitFavCollect(TypeModule==0?userId:Route);
+            OnInitFavCollect(userId);
         }
         /// <summary>
         /// 从列表中移除
@@ -188,7 +172,6 @@ namespace CandySugar.Bilibili.ViewModels
         public void QeuryCommand()
         {
             if (Route.IsNullOrEmpty()) return;
-            if (TypeModule == 1) return;
             OnInitVideo();
         }
         /// <summary>
