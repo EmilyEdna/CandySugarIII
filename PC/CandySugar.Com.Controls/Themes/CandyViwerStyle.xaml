@@ -4,18 +4,24 @@
     xmlns:lib="http://lib.candy.com"
     xmlns:uc="clr-namespace:CandySugar.Com.Controls.ExtenControls">
     <Style TargetType="uc:CandyViewer">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="uc:CandyViewer">
-                    <Grid>
+                    <Grid HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
                         <Rectangle
                             Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Width}"
-                            Fill="#996D6D6D" />
+                            Height="{TemplateBinding Height}"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            Fill="#FF7B7B7B" />
                         <Ellipse
                             x:Name="PART_PROCESS"
+                            Width="100"
+                            Height="100"
                             RenderTransformOrigin="0.5,0.5"
-                            Stroke="#e63995"
+                            Stroke="#FFFFAADC"
                             StrokeDashArray="{TemplateBinding ProcessValue}"
                             StrokeThickness="12">
                             <Ellipse.RenderTransform>
@@ -27,12 +33,19 @@
                                 x:Name="PART_IMG"
                                 Width="{TemplateBinding Width}"
                                 Height="{TemplateBinding Height}"
+                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
                                 Stretch="Fill" />
                         </uc:CandyBorder>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding ImageLoader, RelativeSource={RelativeSource Mode=Self}}" Value="Visible">
+                        <DataTrigger Binding="{Binding Show, RelativeSource={RelativeSource Mode=Self}}" Value="true">
                             <Setter TargetName="PART_PROCESS" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PART_IMG" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Show, RelativeSource={RelativeSource Mode=Self}}" Value="false">
+                            <Setter TargetName="PART_PROCESS" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="PART_IMG" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

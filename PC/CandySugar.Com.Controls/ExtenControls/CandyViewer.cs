@@ -1,7 +1,7 @@
 ﻿using CandySugar.Com.Library.BitConvert;
 using CandySugar.Com.Library.DownPace;
 using System;
-using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -17,14 +17,18 @@ namespace CandySugar.Com.Controls.ExtenControls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CandyViewer), new FrameworkPropertyMetadata(typeof(CandyViewer)));
         }
 
+        private Image PART_IMG;
         public override void OnApplyTemplate()
         {
-            base.OnApplyTemplate();
+            PART_IMG = (Image)this.Template.FindName("PART_IMG", this);
             HttpSchedule.ProcessAction = (process) =>
             {
-                CalcProgress(process, 50, 12);
-                if (process >= 100)
-                    ImageLoader = Visibility.Visible;
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    this.ProcessValue = CalcProgress(process, 50, 12);
+                    if (process >= 100)
+                        Show = true;
+                });
             };
         }
 
@@ -35,7 +39,7 @@ namespace CandySugar.Com.Controls.ExtenControls
         }
 
         public static readonly DependencyProperty ViewSoucreProperty =
-            DependencyProperty.Register("ViewSoucre", typeof(string), typeof(CandyViewer), new FrameworkPropertyMetadata(OnChaged));
+            DependencyProperty.Register("ViewSoucre", typeof(string), typeof(CandyViewer), new FrameworkPropertyMetadata(Onchanged));
 
         public DoubleCollection ProcessValue
         {
@@ -44,29 +48,35 @@ namespace CandySugar.Com.Controls.ExtenControls
         }
 
         public static readonly DependencyProperty ProcessValueProperty =
-            DependencyProperty.Register("ProcessValue", typeof(DoubleCollection), typeof(CandyViewer), new PropertyMetadata(default));
+            DependencyProperty.Register("ProcessValue", typeof(DoubleCollection), typeof(CandyViewer), new FrameworkPropertyMetadata(new DoubleCollection { 0, 0 }));
 
-        public Visibility ImageLoader
+        public bool Show
         {
-            get { return (Visibility)GetValue(ImageLoaderProperty); }
-            set { SetValue(ImageLoaderProperty, value); }
+            get { return (bool)GetValue(ShowProperty); }
+            set { SetValue(ShowProperty, value); }
         }
 
-        public static readonly DependencyProperty ImageLoaderProperty =
-            DependencyProperty.Register("ImageLoader", typeof(Visibility), typeof(CandyViewer), new PropertyMetadata(Visibility.Collapsed));
+        public static readonly DependencyProperty ShowProperty =
+            DependencyProperty.Register("Show", typeof(bool), typeof(CandyViewer), new FrameworkPropertyMetadata(false));
 
-        private static async void OnChaged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static async void Onchanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var uc = (CandyViewer)d;
-            var PART_IMG = (Image)uc.Template.FindName("PART_IMG", uc);
+            uc.Show = false;
+            uc.ProcessValue = [0, 0];
             var key = e.NewValue.ToString().ToMd5();
             var result = Caches.RunTimeCacheGet<byte[]>(key);
-            if (result != null) PART_IMG.Source = BitmapHelper.Bytes2Image(result, (int)uc.Width, (int)uc.Height);
+            if (result != null)
+            {
+                var data = BitmapHelper.Bytes2Image(result, (int)uc.Width, (int)uc.Height);
+                uc.PART_IMG.Source = data;
+            }
             else
             {
                 var bytes = await HttpSchedule.HttpDownload(e.NewValue.ToString());
-                PART_IMG.Source = BitmapHelper.Bytes2Image(result, (int)uc.Width, (int)uc.Height);
-                Caches.RunTimeCacheSet(key,bytes,5);
+                var data = BitmapHelper.Bytes2Image(bytes, (int)uc.Width, (int)uc.Height);
+                Caches.RunTimeCacheSet(key, bytes, 5);
+                uc.PART_IMG.Source = data;
             }
         }
 
@@ -75,8 +85,7 @@ namespace CandySugar.Com.Controls.ExtenControls
             var r = radius - thickness / 2;
             var perimeter = 2 * Math.PI * r / thickness;
             var step = progress / 100 * perimeter;
-            var result = new DoubleCollection() { step, 1000 };
-            return result;
+            return [step, 1000];
         }
     }
 }

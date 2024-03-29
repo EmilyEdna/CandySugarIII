@@ -42,12 +42,12 @@ namespace CandySugar.Comic.ViewModels
         public RelayCommand PreviousCommand => new(() => {
 
             if (Current.Index - 1 < 0) return;
-            Current = Views[Current.Index - 1];
+            Current = Views.ElementAtOrDefault(Current.Index - 1);
         });
         public RelayCommand NextCommand => new(() =>
         {
             if (Current.Index + 1 > Views.Count) return;
-            Current = Views[Current.Index + 1];
+            Current = Views.ElementAtOrDefault(Current.Index +1);
         });
 
         public RelayCommand BackCommand => new(() =>
