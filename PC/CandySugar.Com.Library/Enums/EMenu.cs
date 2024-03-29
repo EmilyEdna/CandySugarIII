@@ -32,6 +32,10 @@ namespace CandySugar.Com.Library.Enums
         /// <summary>
         /// 系统配置
         /// </summary>
-        SysOption
+        SysOption,
+        /// <summary>
+        /// 退出
+        /// </summary>
+        Exit
     }
 }

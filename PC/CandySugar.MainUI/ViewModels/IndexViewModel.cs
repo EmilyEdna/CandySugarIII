@@ -144,6 +144,7 @@ namespace CandySugar.MainUI.ViewModels
             if (input == EMenu.ImgToVideo) Application.Current.Dispatcher.Invoke(ImageToVideo);
             if (input == EMenu.ImgToAudio) Application.Current.Dispatcher.Invoke(ImageToAudioVideo);
             if (input == EMenu.SysOption) WindowManager.ShowWindow(Container.Get<OptionViewModel>());
+            if (input == EMenu.Exit) Environment.Exit(0);
         }
         #endregion
 

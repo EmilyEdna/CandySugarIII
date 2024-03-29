@@ -143,6 +143,12 @@
                         CommandParameter="{x:Static lib:EMenu.SysOption}"
                         Header="系统设置"
                         Style="{DynamicResource CandyMenuItemStyle}" />
+                    <MenuItem
+                        s:View.ActionTarget="{Binding DataContext, ElementName=CandyWindow}"
+                        Command="{s:Action SettingCommand}"
+                        CommandParameter="{x:Static lib:EMenu.Exit}"
+                        Header="退出软件"
+                        Style="{DynamicResource CandyMenuItemStyle}" />
                 </ContextMenu>
             </taskbar:TaskbarIcon.ContextMenu>
             <taskbar:TaskbarIcon.TrayToolTip>
