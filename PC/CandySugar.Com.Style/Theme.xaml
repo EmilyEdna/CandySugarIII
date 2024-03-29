@@ -11,6 +11,7 @@
         <ResourceDictionary Source="pack://application:,,,/CandySugar.Com.Controls;component/Themes/CandyButtonStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/CandySugar.Com.Controls;component/Themes/CandyImageStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/CandySugar.Com.Controls;component/Themes/CandyToggleStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/CandySugar.Com.Controls;component/Themes/CandyViwerStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <uc:ObjectConverter x:Key="ObjectConverter" />

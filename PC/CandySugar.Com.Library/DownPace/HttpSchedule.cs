@@ -15,6 +15,7 @@ namespace CandySugar.Com.Library.DownPace
     {
         private static double DownCount { get; set; }
         public static Action<double, double> ReceiveAction { get; set; }
+        public static Action<double> ProcessAction { get; set; }
         private static ProgressMessageHandler ProgressHandler()
         {
             var ProgressHandler = new ProgressMessageHandler(new HttpClientHandler());
@@ -25,6 +26,15 @@ namespace CandySugar.Com.Library.DownPace
         private static void HttpReceiveProgress(object sender, HttpProgressEventArgs e)
         {
             ReceiveAction?.Invoke(double.Parse((e.ProgressPercentage / DownCount).ToString("F2")), DownCount);
+            ProcessAction?.Invoke(e.ProgressPercentage);
+        }
+
+        public static async Task<byte[]> HttpDownload(string uri, Action<HttpRequestHeaders> action = null)
+        {
+            HttpClient Client = new HttpClient(ProgressHandler());
+            Client.DefaultRequestHeaders.Add(ConstDefault.UserAgent, ConstDefault.UserAgentValue);
+            action?.Invoke(Client.DefaultRequestHeaders);
+            return await Client.GetByteArrayAsync(uri);
         }
 
         public static async Task HttpDownload(string uri, string file, Action<HttpRequestHeaders> action = null)

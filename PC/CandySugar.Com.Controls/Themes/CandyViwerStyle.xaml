@@ -1,0 +1,42 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:lib="http://lib.candy.com"
+    xmlns:uc="clr-namespace:CandySugar.Com.Controls.ExtenControls">
+    <Style TargetType="uc:CandyViewer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="uc:CandyViewer">
+                    <Grid>
+                        <Rectangle
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Width}"
+                            Fill="#996D6D6D" />
+                        <Ellipse
+                            x:Name="PART_PROCESS"
+                            RenderTransformOrigin="0.5,0.5"
+                            Stroke="#e63995"
+                            StrokeDashArray="{TemplateBinding ProcessValue}"
+                            StrokeThickness="12">
+                            <Ellipse.RenderTransform>
+                                <RotateTransform Angle="-90" />
+                            </Ellipse.RenderTransform>
+                        </Ellipse>
+                        <uc:CandyBorder BorderType="Fatal">
+                            <Image
+                                x:Name="PART_IMG"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                Stretch="Fill" />
+                        </uc:CandyBorder>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ImageLoader, RelativeSource={RelativeSource Mode=Self}}" Value="Visible">
+                            <Setter TargetName="PART_PROCESS" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
