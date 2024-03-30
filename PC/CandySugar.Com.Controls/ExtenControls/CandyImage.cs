@@ -276,6 +276,13 @@ namespace CandySugar.Com.Controls.ExtenControls
         }
         public static readonly DependencyProperty ItemSourceProperty =
             DependencyProperty.Register("ItemSource", typeof(IEnumerable), typeof(CandyImage), new PropertyMetadata(default));
+        public Style ItemStyle
+        {
+            get { return (Style)GetValue(ItemStyleProperty); }
+            set { SetValue(ItemStyleProperty, value); }
+        }
+        public static readonly DependencyProperty ItemStyleProperty =
+            DependencyProperty.Register("ItemStyle", typeof(Style), typeof(CandyImage), new PropertyMetadata(default));
         /// <summary>
         /// 弹出位置
         /// </summary>
@@ -366,7 +373,7 @@ namespace CandySugar.Com.Controls.ExtenControls
                 {
                     ItemsSource = ItemSource,
                     ItemsPanel = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(StackPanel))),
-                    Style = Style,
+                    Style = ItemStyle,
                     ItemTemplate = PopupTemplate
                 });
             Popup popup = new Popup
