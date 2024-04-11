@@ -6,6 +6,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
 using System.Net.Http.Handlers;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -41,16 +42,9 @@ namespace CandySugar.ModifyUI.ViewModels
 
         private void ExtractFile()
         {
-            try
-            {
-                ZipFile.ExtractToDirectory(TempFileZip, AppDomain.CurrentDomain.BaseDirectory, true);
-            }
-            catch (Exception ex)
-            {
-                ExtractFile();
-                Log.Logger.Error(ex, "");
-            }
-
+            ZipFile.ExtractToDirectory(TempFileZip, AppDomain.CurrentDomain.BaseDirectory, true);
+            Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CandySugar.exe"));
+            Environment.Exit(0);
         }
         private void UpgradeFile()
         {
@@ -61,21 +55,11 @@ namespace CandySugar.ModifyUI.ViewModels
                 Result = args.ProgressPercentage + "%";
                 if (args.ProgressPercentage == 100)
                 {
+                    Tip = "资源解压中，请稍后. . .";
+                    Thread.Sleep(1000);
                     Task.Run(() =>
                     {
                         ExtractFile();
-                        try
-                        {
-                            Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CandySugar.exe"));
-                        }
-                        catch (Exception ex)
-                        {
-                            Log.Logger.Error(ex, "");
-                        }
-                        finally
-                        {
-                            Environment.Exit(0);
-                        }
                     });
                 }
             };
@@ -98,7 +82,6 @@ namespace CandySugar.ModifyUI.ViewModels
                             Environment.Exit(0);
                     });
                 }
-
             });
         }
         #endregion
