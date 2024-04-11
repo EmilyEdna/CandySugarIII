@@ -43,6 +43,8 @@
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
     <!--#endregion-->
+    
+    
 
     <!--#region Window-->
 
@@ -79,11 +81,49 @@
                                     Height="{TemplateBinding Height}"
                                     Fill="#e6cfe6"
                                     Opacity="{TemplateBinding Opaque}" />
-                                <Grid>
+                                <Grid x:Name="GridContent">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
+                                    <Grid.Resources>
+                                        <Storyboard x:Key="CloseMenuBarAnimeFrame">
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.05" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(TranslateTransform.Y)">
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-12.5" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Contents" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1.04" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Contents" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(TranslateTransform.Y)">
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-1" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                        <Storyboard x:Key="OpenMenuBarAnimeFrame">
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0.05" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(TranslateTransform.Y)">
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="-12.5" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Contents" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1.04" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Contents" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(TranslateTransform.Y)">
+                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="-1" />
+                                                <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </Grid.Resources>
                                     <Border
                                         x:Name="MenuBar"
                                         Width="{TemplateBinding Width}"
@@ -98,28 +138,6 @@
                                                 <TranslateTransform />
                                             </TransformGroup>
                                         </Border.RenderTransform>
-                                        <Border.Resources>
-                                            <Storyboard x:Key="CloseMenuBarAnimeFrame">
-                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                                                    <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1" />
-                                                    <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.05" />
-                                                </DoubleAnimationUsingKeyFrames>
-                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(TranslateTransform.Y)">
-                                                    <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0" />
-                                                    <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-12.5" />
-                                                </DoubleAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                            <Storyboard x:Key="OpenMenuBarAnimeFrame">
-                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                                                    <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0.05" />
-                                                    <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1" />
-                                                </DoubleAnimationUsingKeyFrames>
-                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(TranslateTransform.Y)">
-                                                    <EasingDoubleKeyFrame KeyTime="00:00:00" Value="-12.5" />
-                                                    <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0" />
-                                                </DoubleAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </Border.Resources>
                                         <Border.Style>
                                             <Style TargetType="Border">
                                                 <EventSetter Event="MouseRightButtonDown" Handler="BarMenuEvent" />
@@ -216,7 +234,18 @@
                                             </WrapPanel>
                                         </Grid>
                                     </Border>
-                                    <ContentPresenter Grid.Row="1" Content="{TemplateBinding Content}" />
+                                    <ContentPresenter
+                                        x:Name="Contents"
+                                        Grid.Row="1"
+                                        Content="{TemplateBinding Content}"
+                                        RenderTransformOrigin=".5,.5">
+                                        <ContentPresenter.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform />
+                                                <TranslateTransform />
+                                            </TransformGroup>
+                                        </ContentPresenter.RenderTransform>
+                                    </ContentPresenter>
                                 </Grid>
                             </Grid>
                         </Grid>

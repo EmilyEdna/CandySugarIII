@@ -108,12 +108,12 @@ namespace CandySugar.Com.Style
         {
             var Button = (Button)sender;
             Window win = (Window)Button.TemplatedParent;
-            var MenuBar = Button.FindParent<Border>("MenuBar");
+            var GridContent = Button.FindParent<Grid>("GridContent");
             if (win.WindowState == WindowState.Maximized)
                 win.WindowState = WindowState.Normal;
             else
             {
-                ((Storyboard)MenuBar.FindResource("CloseMenuBarAnimeFrame")).Begin();
+                ((Storyboard)GridContent.FindResource("CloseMenuBarAnimeFrame")).Begin();
                 win.WindowState = WindowState.Maximized;
             }
         }
@@ -124,12 +124,12 @@ namespace CandySugar.Com.Style
         /// <param name="e"></param>
         private void BarMenuEvent(object sender, MouseButtonEventArgs e)
         {
-            var MenuBar = (Border)sender;
-            var win = (Window)MenuBar.TemplatedParent;
+            var GridContent =  ((Border)sender).FindParent<Grid>("GridContent");
+            var win = (Window)GridContent.TemplatedParent;
             if (win.WindowState == WindowState.Maximized)
             {
-                var CloseAnime = (Storyboard)MenuBar.FindResource("CloseMenuBarAnimeFrame");
-                var OpenAnime = (Storyboard)MenuBar.FindResource("OpenMenuBarAnimeFrame");
+                var CloseAnime = (Storyboard)GridContent.FindResource("CloseMenuBarAnimeFrame");
+                var OpenAnime = (Storyboard)GridContent.FindResource("OpenMenuBarAnimeFrame");
                 OpenAnime.Begin();
                 OpenAnime.Completed += delegate
                 {
