@@ -81,7 +81,7 @@
                                     Opacity="{TemplateBinding Opaque}" />
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <Border
