@@ -69,11 +69,6 @@ namespace CandySugar.MainUI
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     new ScreenNotifyView(CommonHelper.VersionErronInformation).Show();
-                    Task.Run(async () =>
-                    {
-                        await Task.Delay(3000);
-                        Environment.Exit(0);
-                    });
                 });
             }
         }
