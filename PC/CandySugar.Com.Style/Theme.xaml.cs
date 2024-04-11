@@ -1,6 +1,6 @@
 ﻿using CandySugar.Com.Controls.UIExtenControls;
 using CandySugar.Com.Library;
-using CandySugar.Com.Options.ComponentObject;
+using CandySugar.Com.Library.VisualTree;
 using CandySugar.Com.Options.NotifyObject;
 using CommunityToolkit.Mvvm.Messaging;
 using System;
@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,7 +17,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using XExten.Advance.LinqFramework;
-using XExten.Advance.StaticFramework;
 
 namespace CandySugar.Com.Style
 {
@@ -106,11 +106,44 @@ namespace CandySugar.Com.Style
         /// <param name="e"></param>
         public virtual void MaxEvent(object sender, RoutedEventArgs e)
         {
-            Window win = (Window)((Button)sender).TemplatedParent;
+            var Button = (Button)sender;
+            Window win = (Window)Button.TemplatedParent;
+            var MenuBar = Button.FindParent<Border>("MenuBar");
             if (win.WindowState == WindowState.Maximized)
                 win.WindowState = WindowState.Normal;
             else
+            {
+                ((Storyboard)MenuBar.FindResource("CloseMenuBarAnimeFrame")).Begin();
                 win.WindowState = WindowState.Maximized;
+            }
+        }
+        /// <summary>
+        /// 最大化事件显示导航栏
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BarMenuEvent(object sender, MouseButtonEventArgs e)
+        {
+            var MenuBar = (Border)sender;
+            var win = (Window)MenuBar.TemplatedParent;
+            if (win.WindowState == WindowState.Maximized)
+            {
+                var CloseAnime = (Storyboard)MenuBar.FindResource("CloseMenuBarAnimeFrame");
+                var OpenAnime = (Storyboard)MenuBar.FindResource("OpenMenuBarAnimeFrame");
+                OpenAnime.Begin();
+                OpenAnime.Completed += delegate
+                {
+                    Task.Delay(TimeSpan.FromSeconds(3)).ContinueWith(_ =>
+                    {
+                        win.Dispatcher.BeginInvoke(() =>
+                        {
+                            if (win.WindowState == WindowState.Maximized)
+                                CloseAnime.Begin();
+                        });
+                    });
+                };
+            }
+
         }
         /// <summary>
         /// 窗体关闭事件
@@ -120,7 +153,7 @@ namespace CandySugar.Com.Style
         public virtual void CloseEvent(object sender, RoutedEventArgs e)
         {
             Window win = (Window)((Button)sender).TemplatedParent;
-            if (win is ScreenPlayView || win is ScreenWebPlayView|| win is ScreenLocalWebPlayView|| win is ScreenAudioPlayView) win.Close();
+            if (win is ScreenPlayView || win is ScreenWebPlayView || win is ScreenLocalWebPlayView || win is ScreenAudioPlayView) win.Close();
             else
             {
                 WindowCloseNofityView CloseWin = new WindowCloseNofityView();
@@ -140,5 +173,7 @@ namespace CandySugar.Com.Style
         {
             WeakReferenceMessenger.Default.Send(new DefaultNotify { Module = EDefaultNotify.SearchNotify });
         }
+
+
     }
 }

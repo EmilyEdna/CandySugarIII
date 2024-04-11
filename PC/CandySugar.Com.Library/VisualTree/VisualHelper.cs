@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows;
+using NPOI.POIFS.Properties;
 
 namespace CandySugar.Com.Library.VisualTree
 {
@@ -94,10 +95,29 @@ namespace CandySugar.Com.Library.VisualTree
                 {
                     return t;
                 }
-
                 parent = VisualTreeHelper.GetParent(parent);
             }
+            return null;
+        }
 
+        /// <summary>
+        /// 获得指定元素的父元素
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static T FindParent<T>(this DependencyObject obj,string name) where T : FrameworkElement
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(obj);
+            while (parent != null)
+            {
+                if (parent is T  t&& ((T)parent).Name.Equals(name))
+                {
+                    return t;
+                }
+                parent = VisualTreeHelper.GetParent(parent);
+            }
             return null;
         }
     }

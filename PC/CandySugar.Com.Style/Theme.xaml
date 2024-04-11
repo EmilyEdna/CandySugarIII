@@ -85,11 +85,46 @@
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <Border
+                                        x:Name="MenuBar"
                                         Width="{TemplateBinding Width}"
                                         Height="35"
                                         VerticalAlignment="Top"
                                         Background="DimGray"
-                                        Opacity=".7">
+                                        Opacity=".7"
+                                        RenderTransformOrigin=".5,.5">
+                                        <Border.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform />
+                                                <TranslateTransform />
+                                            </TransformGroup>
+                                        </Border.RenderTransform>
+                                        <Border.Resources>
+                                            <Storyboard x:Key="CloseMenuBarAnimeFrame">
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                                                    <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                                                    <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0.05" />
+                                                </DoubleAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(TranslateTransform.Y)">
+                                                    <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0" />
+                                                    <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-12.5" />
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                            <Storyboard x:Key="OpenMenuBarAnimeFrame">
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                                                    <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0.05" />
+                                                    <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1" />
+                                                </DoubleAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(TranslateTransform.Y)">
+                                                    <EasingDoubleKeyFrame KeyTime="00:00:00" Value="-12.5" />
+                                                    <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0" />
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </Border.Resources>
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <EventSetter Event="MouseRightButtonDown" Handler="BarMenuEvent" />
+                                            </Style>
+                                        </Border.Style>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width=".1*" />
