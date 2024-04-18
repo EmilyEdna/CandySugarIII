@@ -41,10 +41,7 @@ namespace CandySugar.MainUI
             JsonReader.JsonRead(CommonHelper.OptionPath, CommonHelper.OptionFile);
             //读取本地插件配置
             AssemblyLoader Loader = new(CommonHelper.AppPath);
-            ComponentBinding.ComponentObjectModels.ForEach(Dll =>
-            {
-                Loader.Load(Dll.Plugin, Dll.Bootstrapper, Dll.Ioc, Dll.Description);
-            });
+            ComponentBinding.ComponentObjectModels.ForEach(Dll => Loader.Load(Dll.Plugin, Dll.Bootstrapper, Dll.Ioc, Dll.Description));
             //注册请求框架
             NetFactoryExtension.RegisterNetFramework();
             //初始化粘贴板
