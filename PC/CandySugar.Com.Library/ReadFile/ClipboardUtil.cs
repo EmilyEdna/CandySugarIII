@@ -10,6 +10,9 @@ namespace CandySugar.Com.Library.ReadFile
 {
     public class ClipboardUtil
     {  
+        /// <summary>
+        /// 初始化粘贴板
+        /// </summary>
         public static void InitClipBoard()
         {
             ThreadFactory.Instance.StartWithRestart(() =>
