@@ -128,7 +128,17 @@ namespace CandySugar.Com.Controls.UIExtenControls
         void InitVLC()
         {
             Core.Initialize(Path.Combine(CommonHelper.AppPath, "vlclib"));
-            if (IsAx) VlcLibVLC = new LibVLC($"--http-referrer={AxReferrer}", "--file-caching=10000");
+            if (IsAx)
+            {
+                string[] options = { 
+                    $"--http-referrer={AxReferrer}", 
+                    $"--http-user-agent={ConstDefault.UserAgentValue}",
+                    "--file-caching=10000",
+                    "--http-caching=10000",
+                    "--http-continuous",
+                };
+                VlcLibVLC = new LibVLC(options);
+            }
             else VlcLibVLC = new LibVLC();
             VlcPlayer = new VLCPlayer(VlcLibVLC);
             VlcPlayer.TimeChanged += TimeChanged;
