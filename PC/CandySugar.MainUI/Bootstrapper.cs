@@ -15,6 +15,7 @@ using System.Windows;
 using System.Windows.Threading;
 using XExten.Advance;
 using XExten.Advance.IocFramework;
+using XExten.Advance.LinqFramework;
 using XExten.Advance.NetFramework;
 using XExten.Advance.StaticFramework;
 
@@ -83,7 +84,7 @@ namespace CandySugar.MainUI
                 if (item.IocModule != null)
                     Activator.CreateInstance(item.IocModule);
             });
-            Module.Services.ForEach(item=>IocDependency.Register(item));
+            Module.Services.ForDicEach((key,value)=>IocDependency.Register(value,key));
         }
 
         /// <summary>

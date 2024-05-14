@@ -3,12 +3,12 @@
     public class IndexViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
-        private ComicService Service;
+        private IService<ComicModel> Service;
         public IndexViewModel()
         {
             Title = ["全部", "喜爱"];
             GenericDelegate.SearchAction = new(SearchHandler);
-            Service = IocDependency.Resolve<ComicService>();
+            Service = IocDependency.Resolve<IService<ComicModel>>();
             var LocalDATA = Service.QueryAll();
             CollectResult = [];
             LocalDATA?.ForEach(CollectResult.Add);

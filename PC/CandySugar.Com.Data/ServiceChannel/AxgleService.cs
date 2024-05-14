@@ -1,11 +1,10 @@
 ﻿using CandySugar.Com.Data.Entity.AxgleEntity;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace CandySugar.Com.Data
+namespace CandySugar.Com.Data.ServiceChannel
 {
-    public class AxgleService
+    public class AxgleService: IService<AxgleModel>
     {
         public void Insert(AxgleModel input)
         {

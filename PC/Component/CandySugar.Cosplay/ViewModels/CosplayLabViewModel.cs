@@ -7,20 +7,16 @@ namespace CandySugar.Cosplay.ViewModels
     {
         private object LockObject = new object();
         public List<CosplayInitElementResult> Builder;
-        private JsonDbHandle<CosplayInitElementResult> JsonHandler;
-        private string DbPath = Path.Combine(CommonHelper.DownloadPath, "Cosplay", $"CosplayLab.{FileTypes.Dat}");
+        private IService<CosplayModel> Service;
         public CosplayLabViewModel()
         {
             Title = ["常规", "写真", "收藏"];
-            Builder=new List<CosplayInitElementResult>();
+            Builder = [];
             GenericDelegate.SearchAction = new(SearchHandler);
-            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<CosplayInitElementResult>();
-            var LocalDATA = JsonHandler.GetAll();
-            CollectResult = new ObservableCollection<CosplayInitElementResult>();
-            if (LocalDATA != null)
-            {
-                LocalDATA.ForEach(CollectResult.Add);
-            }
+            Service = IocDependency.Resolve<IService<CosplayModel>>();
+            var LocalDATA = Service.QueryAll();
+            CollectResult = [];
+            LocalDATA?.ToMapest<List<CosplayInitElementResult>>().ForEach(CollectResult.Add);
         }
 
         #region Field
@@ -131,7 +127,7 @@ namespace CandySugar.Cosplay.ViewModels
         public void CollectCommand(CosplayInitElementResult element)
         {
             CollectResult.Add(element);
-            JsonHandler.Insert(element).ExuteInsert().SaveChange();
+            Service.Insert(element.ToMapest<CosplayModel>());
         }
         public void CheckCommand(CosplayInitElementResult input)
         {

@@ -1,23 +1,15 @@
-﻿using CandySugar.Com.Library.Audios;
-using CandySugar.Com.Library.FFMPeg;
-using Microsoft.Win32;
-using System.IO;
-using System.Net.Http;
-using XExten.Advance.JsonDbFramework;
-using XExten.Advance.StaticFramework;
-
-namespace CandySugar.Cosplay.ViewModels
+﻿namespace CandySugar.Cosplay.ViewModels
 {
     public class MainViewModel : PropertyChangedBase
     {
         private List<CosplayInitElementResult> Builder;
         private List<string> RealLocal;
-        private List<MenuInfo> Default = new List<MenuInfo> {
+        private List<MenuInfo> Default = [
             new MenuInfo { Key = 3, Value = "下载选中" },
             new MenuInfo { Key = 4, Value = "删除选中" },
             new MenuInfo { Key = 5, Value = "无声相册" },
             new MenuInfo { Key = 6, Value = "音乐相册" }
-        };
+        ];
 
         public MainViewModel()
         {
@@ -189,17 +181,7 @@ namespace CandySugar.Cosplay.ViewModels
         {
             if (Builder != null && Builder.Count > 0)
             {
-                JsonDbHandle<CosplayInitElementResult> JsonHandler = null;
-                if (ComponentControl.DataContext is CosplayLabViewModel)
-                {
-                    JsonHandler = new JsonDbContext(Path.Combine(CommonHelper.DownloadPath, "Cosplay", $"CosplayLab.{FileTypes.Dat}"))
-                        .LoadInMemory<CosplayInitElementResult>();
-                }
-                else {
-                    JsonHandler = new JsonDbContext(Path.Combine(CommonHelper.DownloadPath, "Cosplay", $"CosplayLand.{FileTypes.Dat}"))
-                          .LoadInMemory<CosplayInitElementResult>();
-                }
-
+                IService<CosplayModel> Servcie = IocDependency.Resolve<IService<CosplayModel>>();
                 Builder.ForEach(item =>
                 {
                     var Type = item.Platform == PlatformEnum.Lab ? "Lab" : "Land";
@@ -207,16 +189,15 @@ namespace CandySugar.Cosplay.ViewModels
                     if (ComponentControl.DataContext is CosplayLabViewModel CosplayLab)
                     {
                         CosplayLab.CollectResult.Remove(item);
-                        JsonHandler.Delete(t => t.Title == item.Title);
+                        Servcie.Remove(Servcie.QueryAll().First(t => t.Platform == 1 && t.Title == item.Title).Id);
                     }
                     if (ComponentControl.DataContext is CosplayLandViewModel CosplayLand)
                     {
                         CosplayLand.CollectResult.Remove(item);
-                        JsonHandler.Delete(t => t.Title == item.Title);
+                        Servcie.Remove(Servcie.QueryAll().First(t => t.Platform == 2 && t.Title == item.Title).Id);
                     }
                 });
-                var OldData = JsonHandler.ExcuteDelete().SaveChange<CosplayInitElementResult>();
-                if (OldData.Count <= 0)
+                if (Servcie.QueryAll().Count <= 0)
                     Default.ForEach(item => MenuIndex.Remove(item));
                 WeakReferenceMessenger.Default.Send(new MessageNotify());
             }

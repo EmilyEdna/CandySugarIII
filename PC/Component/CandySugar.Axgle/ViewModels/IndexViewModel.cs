@@ -3,13 +3,13 @@
     public class IndexViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
-        private AxgleService Service;
+        private IService<AxgleModel> Service;
         private bool IsDirty = false;
         public IndexViewModel()
         {
             Title = ["常规", "收藏"];
             GenericDelegate.SearchAction = new(SearchHandler);
-            Service = IocDependency.Resolve<AxgleService>();
+            Service = IocDependency.Resolve<IService<AxgleModel>>();
             var LocalDATA = Service.QueryAll();
             CollectResult = [];
             LocalDATA?.ForEach(CollectResult.Add);

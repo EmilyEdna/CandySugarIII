@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CandySugar.Com.Data
+namespace CandySugar.Com.Data.ServiceChannel
 {
-    public class ComicService
+    public class ComicService: IService<ComicModel>
     {
         public void Insert(ComicModel input)
         {
