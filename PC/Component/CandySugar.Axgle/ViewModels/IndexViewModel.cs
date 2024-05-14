@@ -1,25 +1,18 @@
-﻿using System.IO;
-using XExten.Advance.JsonDbFramework;
-
-namespace CandySugar.Axgle.ViewModels
+﻿namespace CandySugar.Axgle.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
-        private JsonDbHandle<AxgleCategoryElementResult> JsonHandler;
-        private string DbPath = Path.Combine(CommonHelper.DownloadPath, "Axgle", $"Axgle.{FileTypes.Dat}");
+        private AxgleService Service;
         private bool IsDirty = false;
         public IndexViewModel()
         {
             Title = ["常规", "收藏"];
             GenericDelegate.SearchAction = new(SearchHandler);
-            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<AxgleCategoryElementResult>();
-            var LocalDATA = JsonHandler.GetAll();
-            CollectResult = new ObservableCollection<AxgleCategoryElementResult>();
-            if (LocalDATA != null)
-            {
-                LocalDATA.ForEach(CollectResult.Add);
-            }
+            Service = IocDependency.Resolve<AxgleService>();
+            var LocalDATA = Service.QueryAll();
+            CollectResult = [];
+            LocalDATA?.ForEach(CollectResult.Add);
             OnInit();
         }
 
@@ -29,7 +22,6 @@ namespace CandySugar.Axgle.ViewModels
         private int PageIndex;
         private string Keyword;
         #endregion
-
 
         #region Property
         private ObservableCollection<string> _Title;
@@ -52,8 +44,8 @@ namespace CandySugar.Axgle.ViewModels
             set => SetAndNotify(ref _CateResult, value);
         }
 
-        private ObservableCollection<AxgleCategoryElementResult> _CollectResult;
-        public ObservableCollection<AxgleCategoryElementResult> CollectResult
+        private ObservableCollection<AxgleModel> _CollectResult;
+        public ObservableCollection<AxgleModel> CollectResult
         {
             get => _CollectResult;
             set => SetAndNotify(ref _CollectResult, value);
@@ -86,17 +78,18 @@ namespace CandySugar.Axgle.ViewModels
         /// <param name="element"></param>
         public void CollectCommand(AxgleCategoryElementResult element)
         {
-            CollectResult.Add(element);
-            JsonHandler.Insert(element).ExuteInsert().SaveChange(); ;
+            var Model = element.ToMapest<AxgleModel>();
+            CollectResult.Add(Model);
+            Service.Insert(Model);
         }
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="element"></param>
-        public void RemoveCommand(AxgleCategoryElementResult element)
+        public void RemoveCommand(Guid id)
         {
-            CollectResult.Remove(element);
-            JsonHandler.Delete(element).ExcuteDelete().SaveChange();
+            CollectResult.Remove(CollectResult.First(t => t.Id == id));
+            Service.Remove(id);
         }
         /// <summary>
         /// 切换功能

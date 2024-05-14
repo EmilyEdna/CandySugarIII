@@ -53,7 +53,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Axgle", "..\PC\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Cosplay", "..\PC\Component\CandySugar.Cosplay\CandySugar.Cosplay.csproj", "{B6396631-5638-4C1B-8039-9B73254C6AF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Manga", "..\PC\Component\CandySugar.Manga\CandySugar.Manga.csproj", "{95CBB5B9-F866-4A1E-9994-1C6856B7B411}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Manga", "..\PC\Component\CandySugar.Manga\CandySugar.Manga.csproj", "{95CBB5B9-F866-4A1E-9994-1C6856B7B411}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Data", "..\PC\CandySugar.Com.Data\CandySugar.Com.Data.csproj", "{C1B13695-F54F-4686-861D-34A373EF8873}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,6 +135,10 @@ Global
 		{95CBB5B9-F866-4A1E-9994-1C6856B7B411}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95CBB5B9-F866-4A1E-9994-1C6856B7B411}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95CBB5B9-F866-4A1E-9994-1C6856B7B411}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1B13695-F54F-4686-861D-34A373EF8873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1B13695-F54F-4686-861D-34A373EF8873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1B13695-F54F-4686-861D-34A373EF8873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1B13695-F54F-4686-861D-34A373EF8873}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -158,6 +164,7 @@ Global
 		{7D6896AC-5A95-4386-919B-11BC72C5B751} = {2EC8956E-DFD4-48DE-8F5C-56768445C9BC}
 		{B6396631-5638-4C1B-8039-9B73254C6AF5} = {2EC8956E-DFD4-48DE-8F5C-56768445C9BC}
 		{95CBB5B9-F866-4A1E-9994-1C6856B7B411} = {9F85CA04-7D7D-486A-A12D-4D6E51D8C00D}
+		{C1B13695-F54F-4686-861D-34A373EF8873} = {60B0C081-CE17-48C5-831C-B949C55F2DAA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A29A095-E5DB-4102-9EBD-9F87F2028B06}

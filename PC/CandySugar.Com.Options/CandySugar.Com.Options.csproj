@@ -29,6 +29,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\CandySugar.Com.Data\CandySugar.Com.Data.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Reference Include="Sdk.Plugins">
 			<HintPath>..\..\Lib\Sdk.Plugins.dll</HintPath>
 		</Reference>
