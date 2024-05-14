@@ -16,7 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\CandySugar.Com.Style\CandySugar.Com.Style.csproj" />
+		<ProjectReference Include="..\..\Common\CandySugar.Com.Style\CandySugar.Com.Style.csproj" />
 		<ProjectReference Include="..\CandySugar.HostServer\CandySugar.HostServer.csproj" />
 	</ItemGroup>
 

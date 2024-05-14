@@ -4,20 +4,21 @@
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
-		<BaseOutputPath>..\..\CandySugar.MainUI\bin</BaseOutputPath>
+			<BaseOutputPath>..\..\Launch\CandySugar.MainUI\bin</BaseOutputPath>
 		<!--动态加载-->
 		<EnableDynamicLoading>true</EnableDynamicLoading>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<!--Aot发布-->
 		<!--<PublishAot>true</PublishAot>-->
 	</PropertyGroup>
+
 	<ItemGroup>
-		<ProjectReference Include="..\..\CandySugar.Com.Style\CandySugar.Com.Style.csproj">
+		<ProjectReference Include="..\..\Common\CandySugar.Com.Style\CandySugar.Com.Style.csproj">
 			<Private>false</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</ProjectReference>
 	</ItemGroup>
-
+	
 	<ItemGroup>
 		<Reference Include="Sdk.Component">
 			<HintPath>..\..\..\Lib\Sdk.Component.dll</HintPath>

@@ -14,6 +14,6 @@
 		<PackageReference Include="XExten.Advance" Version="2.2.1.5" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\CandySugar.Com.Data\CandySugar.Com.Data.csproj" />
+	  <ProjectReference Include="..\..\Common\CandySugar.Com.Data\CandySugar.Com.Data.csproj" />
 	</ItemGroup>
 </Project>
