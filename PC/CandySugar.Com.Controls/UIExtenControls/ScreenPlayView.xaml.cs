@@ -54,7 +54,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
             this.MediaInfo = MediaInfo;
             InitializeComponent();
             Init();
-            Vm.SetHistory(MediaInfo.Item2, MediaInfo.Item1);
+            Vm.SetHistory(MediaInfo.Item2, MediaInfo.Item1,1);
         }
         void Init()
         {
@@ -104,8 +104,19 @@ namespace CandySugar.Com.Controls.UIExtenControls
         {
             var His = (sender as Button).CommandParameter as History;
             MediaInfo = Tuple.Create(His.Value, His.Key);
-            using Media media = new Media(VlcLibVLC, new Uri(His.Value));
-            VideoPlayer.MediaPlayer.Play(media);
+            if (His.Type == 0)
+            {
+                using Media media = new Media(VlcLibVLC, new Uri(His.Value));
+                VideoPlayer.MediaPlayer.Play(media);
+            }
+            else {
+                VlcLibVLC.Dispose();
+                VlcPlayer.Dispose();
+                IsAx = true;
+                InitVLC();
+                using Media media = new Media(VlcLibVLC, new Uri(His.Value));
+                VideoPlayer.MediaPlayer.Play(media);
+            }
             VedioTitle.Text = His.Key;
         }
 
@@ -261,7 +272,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 if (dialog.ShowDialog() == true)
                 {
                     var FileName = Path.GetFileName(dialog.FileName);
-                    Vm.SetHistory(FileName, dialog.FileName);
+                    Vm.SetHistory(FileName, dialog.FileName,0);
                     MediaInfo = Tuple.Create(dialog.FileName, FileName);
                     PlayHandlerEvent(sender, e);
                 }
@@ -295,7 +306,10 @@ namespace CandySugar.Com.Controls.UIExtenControls
         public string Key { get; set; }
 
         public string Value { get; set; }
-
+        /// <summary>
+        /// 类型
+        /// </summary>
+        public int Type { get;set; }
     }
 
     public class ScreenPlayViewModel : PropertyChangedBase
@@ -323,13 +337,14 @@ namespace CandySugar.Com.Controls.UIExtenControls
             set => SetAndNotify(ref _History, value);
         }
 
-        public void SetHistory(string fileName, string route)
+        public void SetHistory(string fileName, string route,int type)
         {
             if (History.Any(t => t.Key == fileName)) return;
             History his = new History
             {
                 Key = fileName,
-                Value = route
+                Value = route,
+                Type=type
             };
             History.Add(his);
             JsonHandler.Insert(his).ExuteInsert().SaveChange();
