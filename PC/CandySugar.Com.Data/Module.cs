@@ -1,6 +1,7 @@
 ﻿using CandySugar.Com.Data.Entity.AxgleEntity;
 using CandySugar.Com.Data.Entity.ComicEntity;
 using CandySugar.Com.Data.Entity.CosplayEntity;
+using CandySugar.Com.Data.Entity.MusicEntity;
 using CandySugar.Com.Data.Entity.RifanEntity;
 using CandySugar.Com.Data.Entity.WallEntity;
 using CandySugar.Com.Data.ServiceChannel;
@@ -17,7 +18,8 @@ namespace CandySugar.Com.Data
             { typeof(ComicService),typeof(IService<ComicModel>) },
             { typeof(CosplayService),typeof(IService<CosplayModel>) },
             { typeof(RifanService),typeof(IService<RifanModel>) },
-            { typeof(WallService),typeof(IService<WallModel>) }
+            { typeof(WallService),typeof(IService<WallModel>) },
+            { typeof(MusicService),typeof(IService<MusicModel>) }
         };
     }
 }

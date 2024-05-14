@@ -1,6 +1,9 @@
 ﻿using CandySugar.Com.Controls.ExtenControls;
+using CandySugar.Com.Data.Entity.MusicEntity;
+using CandySugar.Com.Data;
 using CandySugar.Com.Library.VisualTree;
 using XExten.Advance.JsonDbFramework;
+using XExten.Advance.LinqFramework;
 
 namespace CandySugar.Music.ViewModels
 {
@@ -8,7 +11,7 @@ namespace CandySugar.Music.ViewModels
     {
         private object LockObject = new object();
         private object SimpleLocker = new object();
-        private JsonDbHandle<MusicSongElementResult> JsonHandler;
+        private IService<MusicModel> Service;
         private string DbPath = Path.Combine(CommonHelper.DownloadPath, "Music", $"Music.{FileTypes.Dat}");
         public IndexViewModel()
         {
@@ -24,13 +27,10 @@ namespace CandySugar.Music.ViewModels
             Title = ["单曲", "歌单", "收藏"];
             Setting = [new() { Width = 80, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat }, new() { Width = 80, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat1 }];
             GenericDelegate.SearchAction = new(SearchHandler);
-            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<MusicSongElementResult>();
-            var LocalDATA = JsonHandler.GetAll();
-            CollectResult = new ObservableCollection<MusicSongElementResult>();
-            if (LocalDATA != null)
-            {
-                LocalDATA.ForEach(CollectResult.Add);
-            }
+            Service = IocDependency.Resolve<IService<MusicModel>>();
+            var LocalDATA = Service.QueryAll();
+            CollectResult = [];
+            LocalDATA?.ForEach(CollectResult.Add);
             PlayTimer = new() { Interval = 1000 };
         }
 
@@ -153,11 +153,11 @@ namespace CandySugar.Music.ViewModels
             get => _Live;
             set => SetAndNotify(ref _Live, value);
         }
-        private ObservableCollection<MusicSongElementResult> _CollectResult;
+        private ObservableCollection<MusicModel> _CollectResult;
         /// <summary>
         /// 播放列表
         /// </summary>
-        public ObservableCollection<MusicSongElementResult> CollectResult
+        public ObservableCollection<MusicModel> CollectResult
         {
             get => _CollectResult;
             set => SetAndNotify(ref _CollectResult, value);
@@ -250,12 +250,12 @@ namespace CandySugar.Music.ViewModels
         /// 删除
         /// </summary>
         /// <param name="input"></param>
-        public void TrashCommand(MusicSongElementResult input)
+        public void TrashCommand(MusicModel input)
         {
             var FileName = $"[High]{input.SongId}";
             DownUtil.FileDelete(FileName, FileTypes.Mp3, "Music");
             CollectResult.Remove(input);
-            JsonHandler.Delete(input).ExcuteDelete().SaveChange();
+            Service.Remove(input.PId);
         }
 
         /// <summary>
@@ -713,8 +713,9 @@ namespace CandySugar.Music.ViewModels
                         };
                         if (!CollectResult.Any(t => t.SongId == input.SongId))
                         {
-                            CollectResult.Add(input);
-                            JsonHandler.Insert(input).ExuteInsert().SaveChange();
+                            var Model = input.ToMapper<MusicModel>();
+                            Model.PId = Service.Insert(Model);
+                            CollectResult.Add(Model);
                         }
                     });
                 }
@@ -807,7 +808,7 @@ namespace CandySugar.Music.ViewModels
         #region Event
         private void EventCommon()
         {
-            CurrentPlay = CollectResult[PlayIndex];
+            CurrentPlay = CollectResult[PlayIndex].ToMapper<MusicSongElementResult>();
             OnInitLyric(CurrentPlay);
             if (!DownUtil.FileExists(FileName(), FileTypes.Mp3, "Music"))
                 //播放下一首
@@ -859,7 +860,7 @@ namespace CandySugar.Music.ViewModels
                 ErrorNotify("收藏列表未添加歌曲!");
                 return;
             }
-            CurrentPlay = CollectResult[PlayIndex];
+            CurrentPlay = CollectResult[PlayIndex].ToMapper<MusicSongElementResult>();
             OnInitLyric(CurrentPlay);
             if (PlayMoudle == 1)
             {
