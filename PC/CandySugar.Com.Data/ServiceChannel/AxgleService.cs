@@ -8,13 +8,13 @@ namespace CandySugar.Com.Data.ServiceChannel
     {
         public Guid Insert(AxgleModel input)
         {
-            input.Id = Guid.NewGuid();
+            input.PId = Guid.NewGuid();
             DataContext.Sqlite.Insert(input).ExecuteAffrows();
-            return input.Id;
+            return input.PId;
         }
         public void Remove(Guid Id)
         {
-            DataContext.Sqlite.Delete<AxgleModel>().Where(t => t.Id == Id).ExecuteAffrows();
+            DataContext.Sqlite.Delete<AxgleModel>().Where(t => t.PId == Id).ExecuteAffrows();
         }
         public List<AxgleModel> QueryAll()
         {

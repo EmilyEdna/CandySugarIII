@@ -36,3 +36,7 @@ global using Stylet;
 global using XExten.Advance.IocFramework;
 global using XExten.Advance.LinqFramework;
 global using XExten.Advance.StaticFramework;
+global using System.Windows.Media.Animation;
+global using CandySugar.Com.Data;
+global using CandySugar.Com.Data.Entity.WallEntity;
+global using CandySugar.WallPaper.ObjectEntity;

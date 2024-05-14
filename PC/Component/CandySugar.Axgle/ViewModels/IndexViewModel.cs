@@ -79,7 +79,7 @@
         public void CollectCommand(AxgleCategoryElementResult element)
         {
             var Model = element.ToMapest<AxgleModel>();
-            Model.Id= Service.Insert(Model);
+            Model.PId = Service.Insert(Model);
             CollectResult.Add(Model);
         }
         /// <summary>
@@ -88,7 +88,7 @@
         /// <param name="element"></param>
         public void RemoveCommand(Guid id)
         {
-            CollectResult.Remove(CollectResult.First(t => t.Id == id));
+            CollectResult.Remove(CollectResult.First(t => t.PId == id));
             Service.Remove(id);
         }
         /// <summary>

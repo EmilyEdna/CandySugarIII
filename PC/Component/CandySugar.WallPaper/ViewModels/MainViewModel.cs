@@ -1,12 +1,8 @@
-﻿using CandySugar.WallPaper.ObjectEntity;
-using XExten.Advance.JsonDbFramework;
-
-namespace CandySugar.WallPaper.ViewModels
+﻿namespace CandySugar.WallPaper.ViewModels
 {
     public class MainViewModel : PropertyChangedBase
     {
-        private List<WallhavSearchElementResult> WallhavBuilder;
-        private List<WallkonElementResult> KonachanBuilder;
+        private List<WallModel> WallBuilder;
         private List<string> RealLocal;
         private List<MenuInfo> Default = new List<MenuInfo> {
             new MenuInfo { Key = 3, Value = "下载选中" },
@@ -17,37 +13,21 @@ namespace CandySugar.WallPaper.ViewModels
         public MainViewModel()
         {
             ComponentControl = Module.IocModule.Resolve<WallhavView>();
-            MenuIndex = new()
-            {
+            MenuIndex =
+            [
                 new MenuInfo { Key = 1, Value = "wallhaven" },
                 new MenuInfo { Key = 2, Value = "konachan" }
-            };
+            ];
             GenericDelegate.HandleAction = new(obj =>
             {
-                //Wallhaven收藏勾选事件
-                if (obj is List<WallhavSearchElementResult> wallhav)
+                WallBuilder = (List<WallModel>)obj;
+                if (WallBuilder.Count >= 1)
                 {
-                    WallhavBuilder = wallhav;
-                    if (WallhavBuilder.Count >= 1)
-                    {
-                        if (!MenuIndex.Any(t => t.Key == 3 || t.Key == 4 || t.Key == 5 || t.Key == 6))
-                            Default.ForEach(item => MenuIndex.Add(item));
-                    }
-                    else
-                        Default.ForEach(item => MenuIndex.Remove(item));
+                    if (!MenuIndex.Any(t => t.Key == 3 || t.Key == 4 || t.Key == 5 || t.Key == 6))
+                        Default.ForEach(item => MenuIndex.Add(item));
                 }
-                //Konachan收藏勾选事件
-                if (obj is List<WallkonElementResult> chan)
-                {
-                    KonachanBuilder = chan;
-                    if (KonachanBuilder.Count >= 1)
-                    {
-                        if (!MenuIndex.Any(t => t.Key == 3 || t.Key == 4 || t.Key == 5 || t.Key == 6))
-                            Default.ForEach(item => MenuIndex.Add(item));
-                    }
-                    else
-                        Default.ForEach(item => MenuIndex.Remove(item));
-                }
+                else
+                    Default.ForEach(item => MenuIndex.Remove(item));
             });
         }
 
@@ -103,37 +83,12 @@ namespace CandySugar.WallPaper.ViewModels
         #region Method
         private void BuilderVideoPicture()
         {
-            if (WallhavBuilder != null)
+            if (WallBuilder != null)
             {
                 RealLocal = new List<string>();
-                //判断本地文件是否存在
-                WallhavBuilder.ForEach(item =>
+                WallBuilder.ForEach(item =>
                 {
-                    var fileName = DownUtil.FilePath(item.Id, FileTypes.Jpg, "WallPaper");
-                    if (File.Exists(fileName)) RealLocal.Add(fileName);
-                });
-                //没有被删除真实存在的文件
-                if (RealLocal.Count > 0)
-                {
-                    //异步制作MP4
-                    Task.Run(async () =>
-                    {
-                        var catalog = Path.Combine(CommonHelper.DownloadPath, "WallPaper");
-                        var res = await RealLocal.ImageToVideo(catalog);
-                        if (res) Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            new ScreenDownNofityView(CommonHelper.ConvertFinishInformation, catalog).Show();
-                        });
-                    });
-                }
-            }
-            if (KonachanBuilder != null)
-            {
-                RealLocal = new List<string>();
-                //判断本地文件是否存在
-                KonachanBuilder.ForEach(item =>
-                {
-                    var fileName = DownUtil.FilePath(item.Id.AsString(), FileTypes.Jpg, "WallPaper");
+                    var fileName = DownUtil.FilePath(item.PId.ToString(), FileTypes.Jpg, "WallPaper");
                     if (File.Exists(fileName)) RealLocal.Add(fileName);
                 });
                 //没有被删除真实存在的文件
@@ -165,37 +120,13 @@ namespace CandySugar.WallPaper.ViewModels
             if (AudioName.IsNullOrEmpty()) return;
             var Time = AudioFactory.Instance.InitAudio(AudioName).AudioReader.TotalTime.TotalSeconds.ToString("F0");
             AudioFactory.Instance.Dispose();
-            if (WallhavBuilder != null)
+            if (WallBuilder != null)
             {
                 RealLocal = new List<string>();
                 //判断本地文件是否存在
-                WallhavBuilder.ForEach(item =>
+                WallBuilder.ForEach(item =>
                 {
-                    var fileName = DownUtil.FilePath(item.Id, FileTypes.Jpg, "WallPaper");
-                    if (File.Exists(fileName)) RealLocal.Add(fileName);
-                });
-                //没有被删除真实存在的文件
-                if (RealLocal.Count > 0)
-                {
-                    //异步制作MP4
-                    Task.Run(async () =>
-                    {
-                        var catalog = Path.Combine(CommonHelper.DownloadPath, "WallPaper");
-                        var res = await RealLocal.ImageToVideo(AudioName, Time, catalog);
-                        if (res) Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            new ScreenDownNofityView(CommonHelper.ConvertFinishInformation, catalog).Show();
-                        });
-                    });
-                }
-            }
-            if (KonachanBuilder != null)
-            {
-                RealLocal = new List<string>();
-                //判断本地文件是否存在
-                KonachanBuilder.ForEach(item =>
-                {
-                    var fileName = DownUtil.FilePath(item.Id.AsString(), FileTypes.Jpg, "WallPaper");
+                    var fileName = DownUtil.FilePath(item.PId.ToString(), FileTypes.Jpg, "WallPaper");
                     if (File.Exists(fileName)) RealLocal.Add(fileName);
                 });
                 //没有被删除真实存在的文件
@@ -216,28 +147,14 @@ namespace CandySugar.WallPaper.ViewModels
         }
         private void DownSelectPicture()
         {
-            if (WallhavBuilder != null && WallhavBuilder.Count > 0)
+            if (WallBuilder != null && WallBuilder.Count > 0)
             {
                 Task.Run(() =>
                 {
-                    WallhavBuilder.ForEach(async item =>
+                    WallBuilder.ForEach(async item =>
                     {
-                        var fileBytes = await (new HttpClient().GetByteArrayAsync(item.Original));
-                        fileBytes.FileCreate(item.Id, FileTypes.Jpg, "WallPaper", (catalog, fileName) =>
-                        {
-                            new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show();
-                        });
-                    });
-                });
-            }
-            if (KonachanBuilder != null && KonachanBuilder.Count > 0)
-            {
-                Task.Run(() =>
-                {
-                    KonachanBuilder.ForEach(async item =>
-                    {
-                        var fileBytes = await (new HttpClient().GetByteArrayAsync(item.OriginalPng));
-                        fileBytes.FileCreate(item.Id.AsString(), FileTypes.Jpg, "WallPaper", (catalog, fileName) =>
+                        var fileBytes = await new HttpClient().GetByteArrayAsync(!item.Original.IsNullOrEmpty()? item.Original: item.OriginalPng);
+                        fileBytes.FileCreate(item.PId.ToString(), FileTypes.Jpg, "WallPaper", (catalog, fileName) =>
                         {
                             new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show();
                         });
@@ -247,36 +164,19 @@ namespace CandySugar.WallPaper.ViewModels
         }
         private void RemoveSelectPicture()
         {
-            if (WallhavBuilder != null && WallhavBuilder.Count > 0)
+            if (WallBuilder != null && WallBuilder.Count > 0)
             {
-                var JsonHandler = new JsonDbContext(Path.Combine(CommonHelper.DownloadPath, "WallPaper", $"Wallhaven.{FileTypes.Dat}"))
-                    .LoadInMemory<WallhavSearchElementResult>();
-                WallhavBuilder.ForEach(item =>
+                IService<WallModel> Service = IocDependency.Resolve<IService<WallModel>>();
+
+                WallBuilder.ForEach(item =>
                 {
-                    SyncStatic.DeleteFile(DownUtil.FilePath(item.Id, FileTypes.Jpg, "WallPaper"));
+                    SyncStatic.DeleteFile(DownUtil.FilePath(item.PId.ToString(), FileTypes.Jpg, "WallPaper"));
                     if (ComponentControl.DataContext is WallhavViewModel ViewModel)
                         ViewModel.CollectResult.Remove(item);
-                    JsonHandler.Delete(t => t.Id == item.Id);
+                    Service.Remove(item.PId);
                 });
-                var OldData=  JsonHandler.ExcuteDelete().SaveChange<WallhavSearchElementResult>();
                 WeakReferenceMessenger.Default.Send(new MessageNotify());
-                if (OldData.Count <= 0)
-                    Default.ForEach(item => MenuIndex.Remove(item));
-            }
-            if (KonachanBuilder != null && KonachanBuilder.Count > 0)
-            {
-                var JsonHandler = new JsonDbContext(Path.Combine(CommonHelper.DownloadPath, "WallPaper", $"Konachan.{FileTypes.Dat}"))
-                  .LoadInMemory<WallkonElementResult>();
-                KonachanBuilder.ForEach(item =>
-                {
-                    SyncStatic.DeleteFile(DownUtil.FilePath(item.Id.AsString(), FileTypes.Jpg, "WallPaper"));
-                    if (ComponentControl.DataContext is WallchanViewModel ViewModel)
-                        ViewModel.CollectResult.Remove(item);
-                    JsonHandler.Delete(t => t.Id == item.Id);
-                });
-                var OldData = JsonHandler.ExcuteDelete().SaveChange<WallkonElementResult>();
-                WeakReferenceMessenger.Default.Send(new MessageNotify());
-                if (OldData.Count <= 0)
+                if (Service.QueryAll().Count <= 0)
                     Default.ForEach(item => MenuIndex.Remove(item));
             }
         }

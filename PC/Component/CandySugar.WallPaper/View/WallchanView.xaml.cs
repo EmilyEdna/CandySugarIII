@@ -1,8 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using System.Windows.Input;
-using System.Windows.Media.Animation;
-
-namespace CandySugar.WallPaper.View
+﻿namespace CandySugar.WallPaper.View
 {
     /// <summary>
     /// WallhavView.xaml 的交互逻辑

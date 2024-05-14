@@ -205,7 +205,7 @@
                                                         VerticalAlignment="Top"
                                                         s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
                                                         Command="{s:Action RemoveCommand}"
-                                                        CommandParameter="{Binding Id}"
+                                                        CommandParameter="{Binding PId}"
                                                         Content="{x:Static lib:FontIcon.TrashCan}"
                                                         Cursor="Hand"
                                                         FontSize="17"

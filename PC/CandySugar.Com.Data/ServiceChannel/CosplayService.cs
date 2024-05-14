@@ -10,14 +10,14 @@ namespace CandySugar.Com.Data.ServiceChannel
     {
         public Guid Insert(CosplayModel input)
         {
-            input.Id = Guid.NewGuid();
+            input.PId = Guid.NewGuid();
             input.Picture = string.Join("|", input.Images);
             DataContext.Sqlite.Insert(input).ExecuteAffrows();
-            return input.Id;
+            return input.PId;
         }
         public void Remove(Guid Id)
         {
-            DataContext.Sqlite.Delete<CosplayModel>().Where(t => t.Id == Id).ExecuteAffrows();
+            DataContext.Sqlite.Delete<CosplayModel>().Where(t => t.PId == Id).ExecuteAffrows();
         }
         public List<CosplayModel> QueryAll()
         {

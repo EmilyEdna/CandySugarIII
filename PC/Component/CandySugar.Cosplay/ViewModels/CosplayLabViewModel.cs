@@ -1,7 +1,4 @@
-﻿using System.IO;
-using XExten.Advance.JsonDbFramework;
-
-namespace CandySugar.Cosplay.ViewModels
+﻿namespace CandySugar.Cosplay.ViewModels
 {
     public class CosplayLabViewModel : PropertyChangedBase
     {
@@ -14,7 +11,7 @@ namespace CandySugar.Cosplay.ViewModels
             Builder = [];
             GenericDelegate.SearchAction = new(SearchHandler);
             Service = IocDependency.Resolve<IService<CosplayModel>>();
-            var LocalDATA = Service.QueryAll();
+            var LocalDATA = Service.QueryAll().Where(t=>t.Platform==1).ToList();
             CollectResult = [];
             LocalDATA?.ToMapest<List<CosplayInitElementResult>>().ForEach(CollectResult.Add);
         }

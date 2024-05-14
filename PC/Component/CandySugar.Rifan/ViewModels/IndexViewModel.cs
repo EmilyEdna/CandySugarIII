@@ -634,7 +634,7 @@
         public void CollectCommand(SearchElementResult element)
         {
             var Model = element.ToMapest<RifanModel>();
-            Model.Id = Service.Insert(Model);
+            Model.PId = Service.Insert(Model);
             CollectResult.Add(Model);
         }
 
@@ -654,7 +654,7 @@
         /// <param name="param"></param>
         public void RemoveCommand(Guid id)
         {
-            CollectResult.Remove(CollectResult.First(t=>t.Id==id));
+            CollectResult.Remove(CollectResult.First(t=>t.PId==id));
             Service.Remove(id);
         }
 

@@ -1,5 +1,4 @@
-﻿using XExten.Advance.JsonDbFramework;
-using Input = Sdk.Component.Vip.Image.sdk.ViewModel.Input;
+﻿using Input = Sdk.Component.Vip.Image.sdk.ViewModel.Input;
 using QueryEnum = Sdk.Component.Vip.Wallkon.sdk.ViewModel.Enums.QueryEnum;
 
 namespace CandySugar.WallPaper.ViewModels
@@ -7,21 +6,16 @@ namespace CandySugar.WallPaper.ViewModels
     public class WallchanViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
-        public List<WallkonElementResult> Builder;
-        private JsonDbHandle<WallkonElementResult> JsonHandler;
-        private string DbPath = Path.Combine(CommonHelper.DownloadPath, "WallPaper", $"Konachan.{FileTypes.Dat}");
+        public List<WallModel> Builder;
+        private IService<WallModel> Service;
         public WallchanViewModel()
         {
+            Builder = [];
+            CollectResult = [];
             Title = ["常规", "一般", "可疑", "收藏"];
             GenericDelegate.SearchAction = new(SearchHandler);
-            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<WallkonElementResult>();
-            var LocalDATA = JsonHandler.GetAll();
-            CollectResult = new ObservableCollection<WallkonElementResult>();
-            if (LocalDATA != null)
-            {
-                LocalDATA.ForEach(CollectResult.Add);
-            }
-            Builder = new List<WallkonElementResult>();
+            var LocalDATA = Service.QueryAll().Where(t => t.Platform == 2).ToList();
+            LocalDATA?.ForEach(CollectResult.Add);
         }
 
         #region Field
@@ -67,8 +61,8 @@ namespace CandySugar.WallPaper.ViewModels
             get => _FishyResult;
             set => SetAndNotify(ref _FishyResult, value);
         }
-        private ObservableCollection<WallkonElementResult> _CollectResult;
-        public ObservableCollection<WallkonElementResult> CollectResult
+        private ObservableCollection<WallModel> _CollectResult;
+        public ObservableCollection<WallModel> CollectResult
         {
             get => _CollectResult;
             set => SetAndNotify(ref _CollectResult, value);
@@ -372,16 +366,18 @@ namespace CandySugar.WallPaper.ViewModels
         /// <param name="element"></param>
         public void CollectCommand(WallkonElementResult element)
         {
-            CollectResult.Add(element);
-            JsonHandler.Insert(element).ExuteInsert().SaveChange();
+            var Model = element.ToMapest<WallModel>();
+            Model.Platform = 2;
+            Model.PId = Service.Insert(Model);
+            CollectResult.Add(Model);
         }
 
-        public void CheckCommand(WallkonElementResult element)
+        public void CheckCommand(WallModel element)
         {
             Builder.Add(element);
             GenericDelegate.HandleAction?.Invoke(Builder);
         }
-        public void UnCheckCommand(WallkonElementResult element)
+        public void UnCheckCommand(WallModel element)
         {
             Builder.Remove(element);
             GenericDelegate.HandleAction?.Invoke(Builder);

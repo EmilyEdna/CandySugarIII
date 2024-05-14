@@ -189,12 +189,12 @@
                     if (ComponentControl.DataContext is CosplayLabViewModel CosplayLab)
                     {
                         CosplayLab.CollectResult.Remove(item);
-                        Servcie.Remove(Servcie.QueryAll().First(t => t.Platform == 1 && t.Title == item.Title).Id);
+                        Servcie.Remove(Servcie.QueryAll().First(t => t.Platform == 1 && t.Title == item.Title).PId);
                     }
                     if (ComponentControl.DataContext is CosplayLandViewModel CosplayLand)
                     {
                         CosplayLand.CollectResult.Remove(item);
-                        Servcie.Remove(Servcie.QueryAll().First(t => t.Platform == 2 && t.Title == item.Title).Id);
+                        Servcie.Remove(Servcie.QueryAll().First(t => t.Platform == 2 && t.Title == item.Title).PId);
                     }
                 });
                 if (Servcie.QueryAll().Count <= 0)

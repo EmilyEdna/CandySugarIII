@@ -1,27 +1,21 @@
-﻿using XExten.Advance.JsonDbFramework;
-using Input = Sdk.Component.Vip.Wallhav.sdk.ViewModel.Input;
+﻿using Input = Sdk.Component.Vip.Wallhav.sdk.ViewModel.Input;
 
 namespace CandySugar.WallPaper.ViewModels
 {
     public class WallhavViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
-        public List<WallhavSearchElementResult> Builder;
-        private JsonDbHandle<WallhavSearchElementResult> JsonHandler;
-        private string DbPath = Path.Combine(CommonHelper.DownloadPath, "WallPaper", $"Wallhaven.{FileTypes.Dat}");
+        public List<WallModel> Builder;
+        private IService<WallModel> Service;
         public WallhavViewModel()
         {
+            Builder = [];
+            CollectResult = [];
             Title = ["常规", "动漫", "人物", "收藏"];
             Purity = (int)PurityEnum.SFW;
             GenericDelegate.SearchAction = new(SearchHandler);
-            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<WallhavSearchElementResult>();
-            var LocalDATA = JsonHandler.GetAll();
-            CollectResult = new ObservableCollection<WallhavSearchElementResult>();
-            if (LocalDATA != null)
-            {
-                LocalDATA.ForEach(CollectResult.Add);
-            }
-            Builder = new List<WallhavSearchElementResult>();
+            var LocalDATA = Service.QueryAll().Where(t => t.Platform == 1).ToList();
+            LocalDATA?.ForEach(CollectResult.Add);
         }
 
         #region Field
@@ -67,8 +61,8 @@ namespace CandySugar.WallPaper.ViewModels
             set => SetAndNotify(ref _PeopleResult, value);
         }
 
-        private ObservableCollection<WallhavSearchElementResult> _CollectResult;
-        public ObservableCollection<WallhavSearchElementResult> CollectResult
+        private ObservableCollection<WallModel> _CollectResult;
+        public ObservableCollection<WallModel> CollectResult
         {
             get => _CollectResult;
             set => SetAndNotify(ref _CollectResult, value);
@@ -380,15 +374,17 @@ namespace CandySugar.WallPaper.ViewModels
         /// <param name="element"></param>
         public void CollectCommand(WallhavSearchElementResult element)
         {
-            CollectResult.Add(element);
-            JsonHandler.Insert(element).ExuteInsert().SaveChange();
+            var Model = element.ToMapest<WallModel>();
+            Model.Platform = 1;
+            Model.PId= Service.Insert(Model);
+            CollectResult.Add(Model);
         }
-        public void CheckCommand(WallhavSearchElementResult wallhav)
+        public void CheckCommand(WallModel wallhav)
         {
             Builder.Add(wallhav);
             GenericDelegate.HandleAction?.Invoke(Builder);
         }
-        public void UnCheckCommand(WallhavSearchElementResult wallhav)
+        public void UnCheckCommand(WallModel wallhav)
         {
             Builder.Remove(wallhav);
             GenericDelegate.HandleAction?.Invoke(Builder);

@@ -11,7 +11,7 @@
             Builder = [];
             GenericDelegate.SearchAction = new(SearchHandler);
             Service = IocDependency.Resolve<IService<CosplayModel>>();
-            var LocalDATA = Service.QueryAll();
+            var LocalDATA = Service.QueryAll().Where(t => t.Platform == 2).ToList();
             CollectResult = [];
             LocalDATA?.ToMapest<List<CosplayInitElementResult>>().ForEach(CollectResult.Add);
         }
