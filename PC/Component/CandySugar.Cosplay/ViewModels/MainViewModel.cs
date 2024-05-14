@@ -182,9 +182,21 @@
             if (Builder != null && Builder.Count > 0)
             {
                 IService<CosplayModel> Servcie = IocDependency.Resolve<IService<CosplayModel>>();
+                int Platform = 0;
                 Builder.ForEach(item =>
                 {
-                    var Type = item.Platform == PlatformEnum.Lab ? "Lab" : "Land";
+                    var Type = "";
+                    if (item.Platform == PlatformEnum.Lab)
+                    {
+                        Platform = 1;
+                        Type = "Lab";
+                    }
+                    else
+                    {
+                        Platform = 2;
+                        Type = "Land";
+                    }
+
                     item.Images.ForEach(node => SyncStatic.DeleteFile(DownUtil.FilePath(node.ToMd5(), FileTypes.Jpg, Path.Combine("Cosplay", Type, item.Title.ToMd5()))));
                     if (ComponentControl.DataContext is CosplayLabViewModel CosplayLab)
                     {
@@ -197,7 +209,7 @@
                         Servcie.Remove(Servcie.QueryAll().First(t => t.Platform == 2 && t.Title == item.Title).PId);
                     }
                 });
-                if (Servcie.QueryAll().Count <= 0)
+                if (Servcie.QueryAll().Where(t=>t.Platform== Platform).Count() <= 0)
                     Default.ForEach(item => MenuIndex.Remove(item));
                 WeakReferenceMessenger.Default.Send(new MessageNotify());
             }
