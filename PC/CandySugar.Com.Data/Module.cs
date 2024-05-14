@@ -8,7 +8,8 @@ namespace CandySugar.Com.Data
     {
         public static List<Type> Services => new List<Type>
         {
-            typeof(AxgleService)
+            typeof(AxgleService),
+            typeof(ComicService)
         };
     }
 }

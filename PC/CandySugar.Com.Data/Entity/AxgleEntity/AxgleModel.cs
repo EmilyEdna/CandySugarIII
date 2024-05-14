@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CandySugar.Com.Data.Entity.AxgleEntity
+﻿namespace CandySugar.Com.Data.Entity.AxgleEntity
 {
     public class AxgleModel : BasicEntity
     {

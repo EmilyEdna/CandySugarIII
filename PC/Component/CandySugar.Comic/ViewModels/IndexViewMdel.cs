@@ -1,26 +1,17 @@
-﻿using CandySugar.Com.Controls.ExtenControls;
-using CandySugar.Com.Library.VisualTree;
-using System.IO;
-using XExten.Advance.JsonDbFramework;
-
-namespace CandySugar.Comic.ViewModels
+﻿namespace CandySugar.Comic.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
-        private JsonDbHandle<SearchElementResult> JsonHandler;
-        private string DbPath = Path.Combine(CommonHelper.DownloadPath, "Comic", $"Comic.{FileTypes.Dat}");
+        private ComicService Service;
         public IndexViewModel()
         {
             Title = ["全部", "喜爱"];
             GenericDelegate.SearchAction = new(SearchHandler);
-            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<SearchElementResult>();
-            var LocalDATA = JsonHandler.GetAll();
-            CollectResult = new ObservableCollection<SearchElementResult>();
-            if (LocalDATA != null)
-            {
-                LocalDATA.ForEach(CollectResult.Add);
-            }
+            Service = IocDependency.Resolve<ComicService>();
+            var LocalDATA = Service.QueryAll();
+            CollectResult = [];
+            LocalDATA?.ForEach(CollectResult.Add);
         }
 
         #region Field
@@ -38,8 +29,8 @@ namespace CandySugar.Comic.ViewModels
             set => SetAndNotify(ref _Title, value);
         }
 
-        private ObservableCollection<SearchElementResult> _CollectResult;
-        public ObservableCollection<SearchElementResult> CollectResult
+        private ObservableCollection<ComicModel> _CollectResult;
+        public ObservableCollection<ComicModel> CollectResult
         {
             get => _CollectResult;
             set => SetAndNotify(ref _CollectResult, value);
@@ -221,14 +212,15 @@ namespace CandySugar.Comic.ViewModels
 
         public void CollectCommand(SearchElementResult element)
         {
-            CollectResult.Add(element);
-            JsonHandler.Insert(element).ExuteInsert().SaveChange();
+            var Model = element.ToMapest<ComicModel>();
+            CollectResult.Add(Model);
+            Service.Insert(Model);
         }
 
-        public void RemoveCommand(SearchElementResult element)
+        public void RemoveCommand(Guid id)
         {
-            CollectResult.Remove(element);
-            JsonHandler.Delete(element).ExcuteDelete().SaveChange();
+            CollectResult.Remove(CollectResult.First(t=>t.Id==id));
+            Service.Remove(id);
         }
 
         public void WatchCommand(string route)
