@@ -8,7 +8,7 @@ namespace CandySugar.Com.Data
 {
     public interface IService<T> where T : BasicEntity
     {
-        void Insert(T input);
+        Guid Insert(T input);
 
         void Remove(Guid Id);
 

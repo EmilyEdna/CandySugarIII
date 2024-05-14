@@ -28,4 +28,3 @@ global using System.Windows.Data;
 global using System.Windows.Media.Animation;
 global using XExten.Advance.IocFramework;
 global using XExten.Advance.LinqFramework;
-

@@ -1,21 +1,15 @@
-﻿using CandySugar.Com.Library.VisualTree;
-using System.IO;
-using XExten.Advance.JsonDbFramework;
-
-namespace CandySugar.Rifan.ViewModels
+﻿namespace CandySugar.Rifan.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
-        private JsonDbHandle<SearchElementResult> JsonHandler;
-        private string DbPath = Path.Combine(CommonHelper.DownloadPath, "Rifan", $"Rifan.{FileTypes.Dat}");
+        private IService<RifanModel> Service;
         public IndexViewModel()
         {
             Title = ["All", "Rifan", "3D", "Motion", "Cosplay", "Collect"];
             GenericDelegate.SearchAction = new(SearchHandler);
-            JsonHandler = new JsonDbContext(DbPath).LoadInMemory<SearchElementResult>();
-            var LocalDATA = JsonHandler.GetAll();
-            CollectResult = new ObservableCollection<SearchElementResult>();
+            var LocalDATA = Service.QueryAll();
+            CollectResult = [];
             if (LocalDATA != null)
             {
                 LocalDATA.ForEach(CollectResult.Add);
@@ -85,8 +79,8 @@ namespace CandySugar.Rifan.ViewModels
             set => SetAndNotify(ref _CosplayResult, value);
         }
 
-        private ObservableCollection<SearchElementResult> _CollectResult;
-        public ObservableCollection<SearchElementResult> CollectResult
+        private ObservableCollection<RifanModel> _CollectResult;
+        public ObservableCollection<RifanModel> CollectResult
         {
             get => _CollectResult;
             set => SetAndNotify(ref _CollectResult, value);
@@ -639,8 +633,9 @@ namespace CandySugar.Rifan.ViewModels
         /// <param name="param"></param>
         public void CollectCommand(SearchElementResult element)
         {
-            CollectResult.Add(element);
-            JsonHandler.Insert(element).ExuteInsert().SaveChange();
+            var Model = element.ToMapest<RifanModel>();
+            Model.Id = Service.Insert(Model);
+            CollectResult.Add(Model);
         }
 
         /// <summary>
@@ -657,10 +652,10 @@ namespace CandySugar.Rifan.ViewModels
         /// 删除
         /// </summary>
         /// <param name="param"></param>
-        public void RemoveCommand(SearchElementResult element)
+        public void RemoveCommand(Guid id)
         {
-            CollectResult.Remove(element);
-            JsonHandler.Delete(element).ExcuteDelete().SaveChange();
+            CollectResult.Remove(CollectResult.First(t=>t.Id==id));
+            Service.Remove(id);
         }
 
         /// <summary>

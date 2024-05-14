@@ -8,10 +8,11 @@ namespace CandySugar.Com.Data.ServiceChannel
 {
     public class ComicService: IService<ComicModel>
     {
-        public void Insert(ComicModel input)
+        public Guid Insert(ComicModel input)
         {
             input.Id = Guid.NewGuid();
             DataContext.Sqlite.Insert(input).ExecuteAffrows();
+            return input.Id;
         }
         public void Remove(Guid Id)
         {

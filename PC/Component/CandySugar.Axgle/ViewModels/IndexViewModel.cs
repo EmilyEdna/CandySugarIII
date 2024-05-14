@@ -79,8 +79,8 @@
         public void CollectCommand(AxgleCategoryElementResult element)
         {
             var Model = element.ToMapest<AxgleModel>();
+            Model.Id= Service.Insert(Model);
             CollectResult.Add(Model);
-            Service.Insert(Model);
         }
         /// <summary>
         /// 删除

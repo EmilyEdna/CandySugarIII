@@ -6,13 +6,14 @@ using System.Linq;
 
 namespace CandySugar.Com.Data.ServiceChannel
 {
-    public class CosplayService: IService<CosplayModel>
+    public class CosplayService : IService<CosplayModel>
     {
-        public void Insert(CosplayModel input)
+        public Guid Insert(CosplayModel input)
         {
             input.Id = Guid.NewGuid();
             input.Picture = string.Join("|", input.Images);
             DataContext.Sqlite.Insert(input).ExecuteAffrows();
+            return input.Id;
         }
         public void Remove(Guid Id)
         {

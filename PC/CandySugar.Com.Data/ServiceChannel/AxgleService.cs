@@ -6,10 +6,11 @@ namespace CandySugar.Com.Data.ServiceChannel
 {
     public class AxgleService: IService<AxgleModel>
     {
-        public void Insert(AxgleModel input)
+        public Guid Insert(AxgleModel input)
         {
             input.Id = Guid.NewGuid();
             DataContext.Sqlite.Insert(input).ExecuteAffrows();
+            return input.Id;
         }
         public void Remove(Guid Id)
         {

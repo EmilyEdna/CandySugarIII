@@ -213,8 +213,8 @@
         public void CollectCommand(SearchElementResult element)
         {
             var Model = element.ToMapest<ComicModel>();
+            Model.Id = Service.Insert(Model);
             CollectResult.Add(Model);
-            Service.Insert(Model);
         }
 
         public void RemoveCommand(Guid id)
