@@ -21,6 +21,10 @@ rd /S /Q PC\CandySugar.Com.Options\obj PC\CandySugar.Com.Options\bin\Release
 
 rd /S /Q PC\CandySugar.Com.Style\obj PC\CandySugar.Com.Style\bin\Release
 
+rd /S /Q PC\CandySugar.Com.Data\obj PC\CandySugar.Com.Data\bin\Release
+
+rd /S /Q PC\CandySugar.HostServer\obj PC\CandySugar.HostServer\bin\Release
+
 for %%a in (%List%) do (
 rd /S /Q PC\Component\CandySugar.%%a\obj PC\Component\CandySugar.%%a\bin\Release
 )

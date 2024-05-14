@@ -4,6 +4,7 @@ using CandySugar.Com.Library;
 using CandySugar.Com.Library.DLLoader;
 using CandySugar.Com.Library.ReadFile;
 using CandySugar.Com.Options;
+using CandySugar.HostServer;
 using CandySugar.MainUI.ViewModels;
 using RestSharp;
 using Serilog;
@@ -93,6 +94,7 @@ namespace CandySugar.MainUI
         protected override void Configure()
         {
             base.Configure();
+            WebHost.StartWeb();
         }
 
         /// <summary>
