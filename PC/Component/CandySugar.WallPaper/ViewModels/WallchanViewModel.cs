@@ -14,6 +14,7 @@ namespace CandySugar.WallPaper.ViewModels
             CollectResult = [];
             Title = ["常规", "一般", "可疑", "收藏"];
             GenericDelegate.SearchAction = new(SearchHandler);
+            Service = IocDependency.Resolve<IService<WallModel>>();
             var LocalDATA = Service.QueryAll().Where(t => t.Platform == 2).ToList();
             LocalDATA?.ForEach(CollectResult.Add);
         }

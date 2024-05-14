@@ -14,6 +14,7 @@ namespace CandySugar.WallPaper.ViewModels
             Title = ["常规", "动漫", "人物", "收藏"];
             Purity = (int)PurityEnum.SFW;
             GenericDelegate.SearchAction = new(SearchHandler);
+            Service=IocDependency.Resolve<IService<WallModel>>();
             var LocalDATA = Service.QueryAll().Where(t => t.Platform == 1).ToList();
             LocalDATA?.ForEach(CollectResult.Add);
         }

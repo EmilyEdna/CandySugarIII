@@ -1,4 +1,6 @@
-﻿namespace CandySugar.Rifan.ViewModels
+﻿using CandySugar.Com.Data.Entity.WallEntity;
+
+namespace CandySugar.Rifan.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
@@ -8,12 +10,10 @@
         {
             Title = ["All", "Rifan", "3D", "Motion", "Cosplay", "Collect"];
             GenericDelegate.SearchAction = new(SearchHandler);
+            Service = IocDependency.Resolve<IService<RifanModel>>();
             var LocalDATA = Service.QueryAll();
             CollectResult = [];
-            if (LocalDATA != null)
-            {
-                LocalDATA.ForEach(CollectResult.Add);
-            }
+            LocalDATA?.ForEach(CollectResult.Add);
         }
 
         #region Field
