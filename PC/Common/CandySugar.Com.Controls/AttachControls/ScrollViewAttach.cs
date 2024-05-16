@@ -40,7 +40,7 @@ namespace CandySugar.Com.Controls.AttachControls
                             ThreadFactory.Instance.StopTask("绑定事件");
                         }
                     });
-                }, "绑定事件",true);
+                }, "绑定事件",null,false);
             }
         }
 

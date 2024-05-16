@@ -64,7 +64,7 @@ namespace CandySugar.MainUI.ViewModels
                     });
                     Thread.Sleep(10000);
                 }
-            }, "InternetWorkCheck", true);
+            }, "InternetWorkCheck");
         }
 
         #region Property

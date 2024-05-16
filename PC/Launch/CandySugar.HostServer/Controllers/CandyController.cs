@@ -37,38 +37,74 @@ namespace CandySugar.HostServer.Controllers
             MusiceService = IocDependency.Resolve<IService<MusicModel>>();
         }
         [HttpGet]
-        public IActionResult GetAxgleBase() => new JsonResult(AxgleService.QueryAll());
-        [HttpGet]
-        public IActionResult GetComicBase() => new JsonResult(ComicService.QueryAll());
-        [HttpGet]
-        public IActionResult GetCosplayBase() => new JsonResult(CosplayService.QueryAll());
-        [HttpGet]
-        public IActionResult GetRifanBase() => new JsonResult(RifanService.QueryAll());
-        [HttpGet]
-        public IActionResult GetWallBase() => new JsonResult(WallService.QueryAll());
-        [HttpGet]
-        public IActionResult GetMusicBase() => new JsonResult(MusiceService.QueryAll());
+        public IActionResult Export(DataEnums type)
+        {
+            var bytes = type switch
+            {
+                DataEnums.Axgle => Encoding.UTF8.GetBytes(AxgleService.QueryAll().ToJson()),
+                DataEnums.Comic => Encoding.UTF8.GetBytes(ComicService.QueryAll().ToJson()),
+                DataEnums.Cosplay => Encoding.UTF8.GetBytes(CosplayService.QueryAll().ToJson()),
+                DataEnums.Rifan => Encoding.UTF8.GetBytes(RifanService.QueryAll().ToJson()),
+                DataEnums.Wallpaper => Encoding.UTF8.GetBytes(WallService.QueryAll().ToJson()),
+                DataEnums.Music => Encoding.UTF8.GetBytes(MusiceService.QueryAll().ToJson()),
+                _ => null
+            };
+
+            return new FileContentResult(bytes, "application/octet-stream")
+            {
+                FileDownloadName = $"{type}.json"
+            };
+           
+        }
         [HttpPost]
-        public void Upload(int type, IFormFile file)
+        public void Import(DataEnums type, IFormFile file)
         {
             using var memoryStream = new MemoryStream();
             file.OpenReadStream().CopyTo(memoryStream);
             memoryStream.Position = 0;
             using var streamReader = new StreamReader(memoryStream);
             var fileContent = streamReader.ReadToEnd();
-            if (type == 1)
+
+            switch (type)
             {
-                fileContent.ToModel<List<AxgleModel>>().ForEach(item =>
-                {
-                    AxgleService.Insert(item);
-                });
-            }
-            if (type == 2)
-            {
-                fileContent.ToModel<List<WallModel>>().ForEach(item =>
-                {
-                    WallService.Insert(item);
-                });
+                case DataEnums.Axgle:
+                    fileContent.ToModel<List<AxgleModel>>().ForEach(item =>
+                    {
+                        AxgleService.Insert(item);
+                    });
+                    break;
+                case DataEnums.Comic:
+                    fileContent.ToModel<List<ComicModel>>().ForEach(item =>
+                    {
+                        ComicService.Insert(item);
+                    });
+                    break;
+                case DataEnums.Cosplay:
+                    fileContent.ToModel<List<CosplayModel>>().ForEach(item =>
+                    {
+                        CosplayService.Insert(item);
+                    });
+                    break;
+                case DataEnums.Rifan:
+                    fileContent.ToModel<List<RifanModel>>().ForEach(item =>
+                    {
+                        RifanService.Insert(item);
+                    });
+                    break;
+                case DataEnums.Wallpaper:
+                    fileContent.ToModel<List<WallModel>>().ForEach(item =>
+                    {
+                        WallService.Insert(item);
+                    });
+                    break;
+                case DataEnums.Music:
+                    fileContent.ToModel<List<MusicModel>>().ForEach(item =>
+                    {
+                        MusiceService.Insert(item);
+                    });
+                    break;
+                default:
+                    break;
             }
         }
     }

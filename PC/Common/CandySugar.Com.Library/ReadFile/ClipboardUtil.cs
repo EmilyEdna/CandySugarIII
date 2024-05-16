@@ -27,7 +27,7 @@ namespace CandySugar.Com.Library.ReadFile
                     });
                     Thread.Sleep(300);
                 }
-            }, "ClipBoardCheck", true);
+            }, "ClipBoardCheck");
 
         }
     }
