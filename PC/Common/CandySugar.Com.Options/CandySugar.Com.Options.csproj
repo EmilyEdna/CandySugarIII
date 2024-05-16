@@ -42,6 +42,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="BatchCmd\DeleteService.bat">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="BatchCmd\InstallServcie.bat">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
