@@ -20,12 +20,6 @@
 		<ProjectReference Include="..\CandySugar.HostServer\CandySugar.HostServer.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Update="WinServcie.bat">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
-
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
 		<Exec Command="call PluginBuild.bat $(Configuration)" />
 	</Target>
