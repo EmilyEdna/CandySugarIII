@@ -41,7 +41,7 @@ namespace CandySugar.HostServer
                         endpoints.MapControllers();
                     });
                 });
-            }).Build().Start();
+            }).UseWindowsService().Build().Start();
         }
     }
 }
