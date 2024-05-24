@@ -13,12 +13,16 @@
             CollectResult = [];
             LocalDATA?.ForEach(CollectResult.Add);
             OnInit();
+            HttpSchedule.ReceiveAction += ReceiveProcess;
         }
 
         #region Field
         private int Total;
         private int PageIndex;
         private string Keyword;
+        private double Counts = 0;
+        private string Catalog = SyncStatic.CreateDir(Path.Combine(CommonHelper.DownloadPath, "NHentai"));
+        private bool IsDown = false;
         #endregion
 
         #region Property
@@ -122,6 +126,12 @@
                 NotifyType = NotifyType.ChangeControl,
                 ControlParam = Result.OriginImages
             });
+        }
+
+        public void DownCommand() 
+        {
+            ErrorNotify(CommonHelper.DownloadWait);
+            Download();
         }
         #endregion
 
@@ -252,13 +262,38 @@
             });
         }
 
-
         private void ErrorNotify(string Info = "")
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
                 new ScreenNotifyView(Info.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : Info).Show();
             });
+        }
+
+        private async void Download()
+        {
+            if (Result != null && IsDown == false)
+            {
+                Dictionary<string, string> data = new Dictionary<string, string>();
+                for (int index = 0; index < Result.ImageType.Count; index++)
+                {
+                    var fullName = Path.Combine(Catalog, $"{index + 1}.{Result.ImageType[index]}");
+
+                    data.Add(fullName, Result.OriginImages[index]);
+                }
+                await HttpSchedule.HttpDownload(data);
+                IsDown = true;
+            }
+        }
+        private void ReceiveProcess(double item, double num)
+        {
+            if (item == double.Parse((100 / num).ToString("F2")))
+                Counts += item;
+            if (Math.Ceiling(Counts) >= 100)
+            {
+                Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
+                IsDown = false;
+            }
         }
         #endregion
 
