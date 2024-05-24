@@ -85,12 +85,20 @@
                                                     <RowDefinition Height="30" />
                                                 </Grid.RowDefinitions>
                                                 <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
-                                                    <TextBox
-                                                        HorizontalAlignment="Center"
-                                                        ScrollViewer.CanContentScroll="True"
-                                                        Style="{DynamicResource CopyStyle}"
-                                                        Text="{Binding Name}"
-                                                        TextWrapping="Wrap" />
+                                                    <StackPanel>
+                                                        <TextBox
+                                                            HorizontalAlignment="Center"
+                                                            ScrollViewer.CanContentScroll="True"
+                                                            Style="{DynamicResource CopyStyle}"
+                                                            Text="{Binding Name}"
+                                                            TextWrapping="Wrap" />
+                                                        <TextBox
+                                                            HorizontalAlignment="Center"
+                                                            ScrollViewer.CanContentScroll="True"
+                                                            Style="{DynamicResource CopyStyle}"
+                                                            Text="{Binding UploadDate, StringFormat=上传时间:{0:yyyy-MM-dd}}"
+                                                            TextWrapping="Wrap" />
+                                                    </StackPanel>
                                                 </ScrollViewer>
                                                 <Button
                                                     Grid.Row="1"
@@ -113,7 +121,7 @@
                                             <i:InvokeCommandAction
                                                 s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
                                                 Command="{s:Action WatchCommand}"
-                                                CommandParameter="{Binding Route}" />
+                                                CommandParameter="{Binding .}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </uc:CandyImage>
@@ -173,12 +181,20 @@
                                                     <RowDefinition Height="30" />
                                                 </Grid.RowDefinitions>
                                                 <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
-                                                    <TextBox
-                                                        HorizontalAlignment="Center"
-                                                        ScrollViewer.CanContentScroll="True"
-                                                        Style="{DynamicResource CopyStyle}"
-                                                        Text="{Binding Name}"
-                                                        TextWrapping="Wrap" />
+                                                    <StackPanel>
+                                                        <TextBox
+                                                            HorizontalAlignment="Center"
+                                                            ScrollViewer.CanContentScroll="True"
+                                                            Style="{DynamicResource CopyStyle}"
+                                                            Text="{Binding Name}"
+                                                            TextWrapping="Wrap" />
+                                                        <TextBox
+                                                            HorizontalAlignment="Center"
+                                                            ScrollViewer.CanContentScroll="True"
+                                                            Style="{DynamicResource CopyStyle}"
+                                                            Text="{Binding UploadDate, StringFormat=上传时间:{0:yyyy-MM-dd}}"
+                                                            TextWrapping="Wrap" />
+                                                    </StackPanel>
                                                 </ScrollViewer>
                                                 <Button
                                                     Grid.Row="1"
@@ -201,7 +217,7 @@
                                             <i:InvokeCommandAction
                                                 s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
                                                 Command="{s:Action WatchCommand}"
-                                                CommandParameter="{Binding Route}" />
+                                                CommandParameter="{Binding .}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </uc:CandyImage>
@@ -257,53 +273,7 @@
                         Click="ColseEvent"
                         Content="关闭" />
                 </StackPanel>
-                <ListBox
-                    Grid.Row="1"
-                    ItemsSource="{Binding TagResult}"
-                    Style="{DynamicResource CandyListBoxStyle}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    VerticalAlignment="Top"
-                                    Style="{DynamicResource TextBlockStyle}"
-                                    Text="{Binding Category}" />
-                                <ListBox
-                                    Grid.Column="1"
-                                    ItemsSource="{Binding ElementResults}"
-                                    Style="{DynamicResource CandyListBoxStyle}">
-                                    <ListBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <UniformGrid Columns="3" />
-                                        </ItemsPanelTemplate>
-                                    </ListBox.ItemsPanel>
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                Margin="0,0,0,5"
-                                                Style="{DynamicResource TextBlockStyle}"
-                                                Text="{Binding Tag}">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                        <i:InvokeCommandAction
-                                                            s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                                            Command="{s:Action LinkCommand}"
-                                                            CommandParameter="{Binding .}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </TextBlock>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <uc:CandyListBox Grid.Row="2" ItemsSource="{Binding Preview}">
+                <uc:CandyListBox Grid.Row="2" ItemsSource="{Binding Result.ThumbImages}">
                     <uc:CandyListBox.ItemTemplate>
                         <DataTemplate>
                             <uc:CandyImage

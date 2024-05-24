@@ -1,14 +1,17 @@
-﻿using System.DirectoryServices;
-
-namespace CandySugar.NHViewer.ViewModels
+﻿namespace CandySugar.NHViewer.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
+        private IService<NHentaiModel> Service;
         public IndexViewModel()
         {
-            GenericDelegate.SearchAction = new(SearchHandler);
             Title = ["全部", "喜爱"];
+            GenericDelegate.SearchAction = new(SearchHandler);
+            Service = IocDependency.Resolve<IService<NHentaiModel>>();
+            var LocalDATA = Service.QueryAll();
+            CollectResult = [];
+            LocalDATA?.ForEach(CollectResult.Add);
             OnInit();
         }
 
@@ -25,11 +28,26 @@ namespace CandySugar.NHViewer.ViewModels
             get => _Title;
             set => SetAndNotify(ref _Title, value);
         }
+
+        private ObservableCollection<NHentaiModel> _CollectResult;
+        public ObservableCollection<NHentaiModel> CollectResult
+        {
+            get => _CollectResult;
+            set => SetAndNotify(ref _CollectResult, value);
+        }
+
         private ObservableCollection<InitElementResult> _Results;
         public ObservableCollection<InitElementResult> Results
         {
             get => _Results;
             set => SetAndNotify(ref _Results, value);
+        }
+
+        private InitElementResult _Result;
+        public InitElementResult Result
+        {
+            get => _Result;
+            set => SetAndNotify(ref _Result, value);
         }
         #endregion
 
@@ -75,16 +93,32 @@ namespace CandySugar.NHViewer.ViewModels
             }
         });
 
-        public void ChangeCommand(int ActiveAnime)
+        public void CollectCommand(InitElementResult input)
+        {
+            var Model = input.ToMapest<NHentaiModel>();
+            Model.PId = Service.Insert(Model);
+            CollectResult.Add(Model);
+        }
+
+        public void RemoveCommand(Guid id)
+        {
+            CollectResult.Remove(CollectResult.First(t => t.PId == id));
+            Service.Remove(id);
+        }
+
+        public void WatchCommand(InitElementResult input)
+        {
+            Result = input;
+            WeakReferenceMessenger.Default.Send(new MessageNotify
+            {
+                NotifyType = NotifyType.Notify
+            });
+        }
+
+        public void ViewCommand()
         {
 
         }
-
-        public void CollectCommand(InitElementResult input) 
-        { 
-        
-        }
-
         #endregion
 
         #region Method

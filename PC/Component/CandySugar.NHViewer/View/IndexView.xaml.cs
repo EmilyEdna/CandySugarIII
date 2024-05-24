@@ -10,18 +10,13 @@
         public Storyboard AnimeX2;
         private Storyboard BarOpen;
         private Storyboard BarClose;
-        private IndexViewModel ViewModel;
         public IndexView()
         {
             InitializeComponent();
-            Loaded += delegate { ViewModel = (IndexViewModel)this.DataContext; };
             AnimeX1 = (Storyboard)FindResource("X1Key");
             AnimeX2 = (Storyboard)FindResource("X2Key");
             BarOpen = (Storyboard)FindResource("NavListBarOpenKey");
             BarClose = (Storyboard)FindResource("NavListBarCloseKey");
-
-            AnimeX1.Completed += CompletedEvent;
-            AnimeX2.Completed += CompletedEvent;
 
             GenericDelegate.InformationAction = new((width, height) =>
             {
@@ -35,10 +30,6 @@
             });
         }
 
-        private void CompletedEvent(object sender, EventArgs e)
-        {
-            ViewModel.ChangeCommand(ActiveAnime);
-        }
         private void ColseEvent(object sender, RoutedEventArgs e)
         {
             BarClose.Begin();
