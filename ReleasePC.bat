@@ -4,7 +4,7 @@ cd /d %~dp0
 dotnet publish PC\Launch\CandySugar.MainUI\CandySugar.MainUI.csproj -c Release -o ..\CandySugar\Release -f net8.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
 dotnet publish PC\Launch\CandySugar.ModifyUI\CandySugar.ModifyUI.csproj -c Release -o ..\CandySugar\Release -f net8.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
 
-set List=LightNovel Novel Music Movie WallPaper Bilibili Anime Rifan Comic Axgle Cosplay Manga
+set List=LightNovel Novel Music Movie WallPaper Bilibili Anime Rifan Comic Axgle Cosplay Manga NHViewer
 for %%a in (%List%) do (
 dotnet publish PC\Component\CandySugar.%%a\CandySugar.%%a.csproj -c Release -o ..\CandySugar\Release -f net8.0-windows --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
 ) 

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CandySugar.Com.Library.FFMPegFactory;
+using CandySugar.Com.Library.FileWrite;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using CandySugar.Com.Library.FFMPegFactory;
-using CandySugar.Com.Library.FileWrite;
 
 
 namespace CandySugar.Com.Library.FFMPeg

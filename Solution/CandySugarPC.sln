@@ -55,9 +55,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Cosplay", "..\PC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Manga", "..\PC\Component\CandySugar.Manga\CandySugar.Manga.csproj", "{95CBB5B9-F866-4A1E-9994-1C6856B7B411}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Data", "..\PC\Common\CandySugar.Com.Data\CandySugar.Com.Data.csproj", "{C1B13695-F54F-4686-861D-34A373EF8873}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Data", "..\PC\Common\CandySugar.Com.Data\CandySugar.Com.Data.csproj", "{C1B13695-F54F-4686-861D-34A373EF8873}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.HostServer", "..\PC\Launch\CandySugar.HostServer\CandySugar.HostServer.csproj", "{55C3AB9F-A245-4A4C-9C90-570D5042625D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.HostServer", "..\PC\Launch\CandySugar.HostServer\CandySugar.HostServer.csproj", "{55C3AB9F-A245-4A4C-9C90-570D5042625D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.NHViewer", "..\PC\Component\CandySugar.NHViewer\CandySugar.NHViewer.csproj", "{8E199E23-8D3D-4461-BD61-048D47E7F16C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +147,10 @@ Global
 		{55C3AB9F-A245-4A4C-9C90-570D5042625D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55C3AB9F-A245-4A4C-9C90-570D5042625D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55C3AB9F-A245-4A4C-9C90-570D5042625D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E199E23-8D3D-4461-BD61-048D47E7F16C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E199E23-8D3D-4461-BD61-048D47E7F16C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E199E23-8D3D-4461-BD61-048D47E7F16C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E199E23-8D3D-4461-BD61-048D47E7F16C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +178,7 @@ Global
 		{95CBB5B9-F866-4A1E-9994-1C6856B7B411} = {9F85CA04-7D7D-486A-A12D-4D6E51D8C00D}
 		{C1B13695-F54F-4686-861D-34A373EF8873} = {60B0C081-CE17-48C5-831C-B949C55F2DAA}
 		{55C3AB9F-A245-4A4C-9C90-570D5042625D} = {6D16F055-2701-4C0E-AED3-07AB0E47516D}
+		{8E199E23-8D3D-4461-BD61-048D47E7F16C} = {2EC8956E-DFD4-48DE-8F5C-56768445C9BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A29A095-E5DB-4102-9EBD-9F87F2028B06}

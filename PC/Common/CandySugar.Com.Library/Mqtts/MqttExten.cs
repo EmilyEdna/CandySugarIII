@@ -1,13 +1,12 @@
-﻿using MQTTnet.Client;
-using MQTTnet.Protocol;
+﻿using CandySugar.Com.Library.Internet;
 using MQTTnet;
+using MQTTnet.Client;
+using MQTTnet.Protocol;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CandySugar.Com.Library.Internet;
 
 namespace CandySugar.Com.Library.Mqtts
 {
