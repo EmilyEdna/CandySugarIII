@@ -23,4 +23,8 @@
             return (T)Ctrl;
         }
     }
+    public class ModuleEnv
+    {
+        public static object GlobalTempParam { get; set; }
+    }
 }

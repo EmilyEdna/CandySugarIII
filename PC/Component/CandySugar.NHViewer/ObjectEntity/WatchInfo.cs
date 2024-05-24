@@ -1,6 +1,6 @@
-﻿namespace CandySugar.Comic.ObjectEntity
+﻿namespace CandySugar.NHViewer.ObjectEntity
 {
-    public class WatchInfo:PropertyChangedBase
+    public class WatchInfo : PropertyChangedBase
     {
         private int _Index;
         public int Index

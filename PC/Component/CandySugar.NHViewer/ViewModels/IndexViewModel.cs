@@ -117,7 +117,11 @@
 
         public void ViewCommand()
         {
-
+            WeakReferenceMessenger.Default.Send(new MessageNotify
+            {
+                NotifyType = NotifyType.ChangeControl,
+                ControlParam = Result.OriginImages
+            });
         }
         #endregion
 
