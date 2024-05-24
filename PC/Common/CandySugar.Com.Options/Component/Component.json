@@ -61,6 +61,12 @@
             "Description": "里漫"
         },
         {
+            "Plugin": "CandySugar.NHViwer.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module",
+            "Description": "熊猫"
+        },
+        {
             "Plugin": "CandySugar.Rifan.dll",
             "Bootstrapper": "MainView",
             "Ioc": "Module",
