@@ -1,4 +1,6 @@
-﻿namespace CandySugar.NHViewer.ViewModels
+﻿using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+
+namespace CandySugar.NHViewer.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
@@ -17,6 +19,7 @@
         }
 
         #region Field
+        private bool IsPreview = false;
         private int Total;
         private int PageIndex;
         private string Keyword;
@@ -121,6 +124,7 @@
 
         public void ViewCommand()
         {
+            IsPreview = true;
             WeakReferenceMessenger.Default.Send(new MessageNotify
             {
                 NotifyType = NotifyType.ChangeControl,
@@ -283,10 +287,12 @@
                 }
                 await HttpSchedule.HttpDownload(data);
                 IsDown = true;
+                IsPreview = false;
             }
         }
         private void ReceiveProcess(double item, double num)
         {
+            if (IsPreview == true) return;
             if (item == double.Parse((100 / num).ToString("F2")))
                 Counts += item;
             if (Math.Ceiling(Counts) >= 100)
