@@ -12,7 +12,8 @@
 
             IocDependency.Register(typeof(IndexView));
             IocDependency.Register(typeof(IndexViewModel));
-
+            IocDependency.Register(typeof(WatcherView));
+            IocDependency.Register(typeof(WatcherViewModel));
         }
 
         public T Resolve<T>() where T : UserControl

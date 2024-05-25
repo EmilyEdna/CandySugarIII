@@ -17,5 +17,7 @@ namespace CandySugar.Com.Data.Entity.NHentaiEntity
         [Column(IsIgnore = true)]
         public List<string> OriginImages {  get; set; }
         public string OriginImage { get; set; }
+        [Column(IsIgnore = true)]
+        public List<string> ImageType {  get; set; }
     }
 }

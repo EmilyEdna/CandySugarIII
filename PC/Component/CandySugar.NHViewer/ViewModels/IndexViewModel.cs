@@ -40,15 +40,15 @@
             set => SetAndNotify(ref _CollectResult, value);
         }
 
-        private ObservableCollection<InitElementResult> _Results;
-        public ObservableCollection<InitElementResult> Results
+        private ObservableCollection<NHentaiModel> _Results;
+        public ObservableCollection<NHentaiModel> Results
         {
             get => _Results;
             set => SetAndNotify(ref _Results, value);
         }
 
-        private InitElementResult _Result;
-        public InitElementResult Result
+        private NHentaiModel _Result;
+        public NHentaiModel Result
         {
             get => _Result;
             set => SetAndNotify(ref _Result, value);
@@ -110,7 +110,7 @@
             Service.Remove(id);
         }
 
-        public void WatchCommand(InitElementResult input)
+        public void WatchCommand(NHentaiModel input)
         {
             Result = input;
             WeakReferenceMessenger.Default.Send(new MessageNotify
@@ -155,7 +155,7 @@
                         };
                     }).RunsAsync()).InitResult;
                     Total = result.TotalPage;
-                    Results = new ObservableCollection<InitElementResult>(result.Results);
+                    Results = new ObservableCollection<NHentaiModel>(result.Results.ToMapest<List<NHentaiModel>>());
                 }
                 catch (Exception ex)
                 {
@@ -187,7 +187,7 @@
                         };
                     }).RunsAsync()).InitResult;
                     BindingOperations.EnableCollectionSynchronization(Results, LockObject);
-                    Application.Current.Dispatcher.Invoke(() => result.Results.ForEach(Results.Add));
+                    Application.Current.Dispatcher.Invoke(() => result.Results.ToMapest<List<NHentaiModel>>().ForEach(Results.Add));
                 }
                 catch (Exception ex)
                 {
@@ -219,7 +219,7 @@
                         };
                     }).RunsAsync()).InitResult;
                     Total = result.TotalPage;
-                    Results = new ObservableCollection<InitElementResult>(result.Results);
+                    Results = new ObservableCollection<NHentaiModel>(result.Results.ToMapest<List<NHentaiModel>>());
                 }
                 catch (Exception ex)
                 {
@@ -252,7 +252,7 @@
                         };
                     }).RunsAsync()).InitResult;
                     BindingOperations.EnableCollectionSynchronization(Results, LockObject);
-                    Application.Current.Dispatcher.Invoke(() => result.Results.ForEach(Results.Add));
+                    Application.Current.Dispatcher.Invoke(() => result.Results.ToMapest<List<NHentaiModel>>().ForEach(Results.Add));
                 }
                 catch (Exception ex)
                 {

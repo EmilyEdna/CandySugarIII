@@ -5,9 +5,9 @@
         public WatcherViewModel()
         {
             Views = new ObservableCollection<WatchInfo>();
-            if (ModuleEnv.GlobalTempParam != null && ModuleEnv.GlobalTempParam is ObservableCollection<string>)
+            if (ModuleEnv.GlobalTempParam != null && ModuleEnv.GlobalTempParam is List<string>)
             {
-                var Dat = (ObservableCollection<string>)ModuleEnv.GlobalTempParam;
+                var Dat = (List<string>)ModuleEnv.GlobalTempParam;
 
                 for (int index = 0; index < Dat.Count; index++)
                 {
