@@ -1,6 +1,4 @@
-﻿using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-
-namespace CandySugar.NHViewer.ViewModels
+﻿namespace CandySugar.NHViewer.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
