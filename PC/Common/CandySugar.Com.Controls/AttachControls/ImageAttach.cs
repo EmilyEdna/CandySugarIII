@@ -1,5 +1,6 @@
 ﻿using CandySugar.Com.Controls.ExtenControls;
 using CandySugar.Com.Library.BitConvert;
+using SkiaImageView;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,9 +39,9 @@ namespace CandySugar.Com.Controls.AttachControls
             if (@event.NewValue != null)
             {
                 var base64 = Convert.FromBase64String(@event.NewValue.ToString());
-                Image image = (Image)sender;
-                CandyImage candy = (CandyImage)((Image)sender).TemplatedParent;
-                image.Source= BitmapHelper.Bytes2Image(base64, candy.ImageThickness.Width, candy.ImageThickness.Height);
+                SKImageView image = (SKImageView)sender;
+                CandyImage candy = (CandyImage)((SKImageView)sender).TemplatedParent;
+                image.Source= SkiaBitmapHelper.Bytes2Image(base64, candy.ImageThickness.Width, candy.ImageThickness.Height);
             }
         }
 
@@ -48,8 +49,8 @@ namespace CandySugar.Com.Controls.AttachControls
         {
             if (!string.IsNullOrEmpty(@event.NewValue.ToString()))
             {
-                CandyImage candy = (CandyImage)((Image)sender).TemplatedParent;
-                Image image = (Image)sender;
+                CandyImage candy = (CandyImage)((SKImageView)sender).TemplatedParent;
+                SKImageView image = (SKImageView)sender;
                 DownloadQueue.Init(@event.NewValue.ToString(), image, candy);
             }
         }

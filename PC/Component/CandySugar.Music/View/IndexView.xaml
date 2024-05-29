@@ -4,12 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:lib="http://lib.candy.com"
     xmlns:local="clr-namespace:CandySugar.Music.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://github.com/canton7/Stylet"
+    xmlns:skia="https://github.com/kekyo/SkiaImageView"
     xmlns:uc="http://ctrl.candy.com"
     xmlns:vm="clr-namespace:CandySugar.Music.ViewModels"
     x:Name="IndexViewCtrl"
@@ -347,7 +347,7 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <uc:CandyBorder BorderType="Warning">
-                                            <Image
+                                            <skia:SKImageView
                                                 Width="80"
                                                 Height="80"
                                                 SnapsToDevicePixels="True"

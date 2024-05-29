@@ -4,11 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:local="clr-namespace:CandySugar.Anime.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://github.com/canton7/Stylet"
+    xmlns:skia="https://github.com/kekyo/SkiaImageView"
     xmlns:uc="http://ctrl.candy.com"
     xmlns:vm="clr-namespace:CandySugar.Anime.ViewModels"
     x:Name="AnimeIndexCtrl"
@@ -55,44 +54,38 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="8">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <Grid>
-                                    <Image
-                                        Width="220"
-                                        Height="300"
-                                        Source="{Binding Cover}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction
-                                                    s:View.ActionTarget="{Binding DataContext, ElementName=AnimeIndexCtrl}"
-                                                    Command="{s:Action DetailCommand}"
-                                                    CommandParameter="{Binding Route}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Image>
-                                    <StackPanel
-                                        Margin="10,0"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Bottom">
-                                        <Label
-                                            HorizontalAlignment="Right"
-                                            Content="{Binding Year}"
-                                            Style="{DynamicResource LabelStyle}" />
-                                        <Label Content="{Binding Update}" Style="{DynamicResource LabelStyle}" />
-                                    </StackPanel>
-                                </Grid>
-                                <Grid Grid.Row="1">
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        Style="{DynamicResource TextBlockStyle}"
-                                        Text="{Binding Title}"
-                                        TextTrimming="CharacterEllipsis" />
-                                </Grid>
-                            </Grid>
+                            <uc:CandyImage
+                                Width="220"
+                                Height="300"
+                                Margin="8"
+                                BorderThickness="0"
+                                Entity="{Binding .}"
+                                ImageThickness="220,300"
+                                MaskFill="#80e6cfe6"
+                                Source="{Binding Cover}">
+                                <uc:CandyImage.MaskTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Label Content="{Binding Year}" Style="{DynamicResource LabelStyle}" />
+                                            <Label Content="{Binding Update}" Style="{DynamicResource LabelStyle}" />
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                Foreground="Black"
+                                                Style="{DynamicResource TextBlockStyle}"
+                                                Text="{Binding Title}"
+                                                TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </uc:CandyImage.MaskTemplate>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction
+                                            s:View.ActionTarget="{Binding DataContext, ElementName=AnimeIndexCtrl}"
+                                            Command="{s:Action DetailCommand}"
+                                            CommandParameter="{Binding Route}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </uc:CandyImage>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -129,10 +122,11 @@
                     Grid.Row="1"
                     Margin="12,0,0,0"
                     HorizontalAlignment="Left">
-                    <Image
+                    <skia:SKImageView
                         Width="220"
                         Height="300"
-                        Source="{Binding DetailResult.Cover}" />
+                        Source="{Binding DetailResult.Cover, Converter={StaticResource SkiaBitConverter}}"
+                        Stretch="Fill" />
                     <TextBlock
                         Padding="5"
                         Style="{DynamicResource TextBlockStyle}"

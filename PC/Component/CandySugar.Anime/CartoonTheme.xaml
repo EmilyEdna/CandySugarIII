@@ -37,9 +37,10 @@
     </Style>
 
     <Style x:Key="LabelStyle" TargetType="Label">
-        <Setter Property="Margin" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Margin" Value="5,1" />
         <Setter Property="FontSize" Value="17" />
-        <Setter Property="Foreground" Value="#98F5F9" />
+        <Setter Property="Foreground" Value="Black" />
     </Style>
 
     <Storyboard x:Key="NavListBarOpenKey">

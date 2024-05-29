@@ -4,11 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:lib="http://lib.candy.com"
     xmlns:local="clr-namespace:CandySugar.Bilibili.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://github.com/canton7/Stylet"
+    xmlns:skia="https://github.com/kekyo/SkiaImageView"
     xmlns:uc="http://ctrl.candy.com"
     xmlns:vm="clr-namespace:CandySugar.Bilibili.ViewModels"
     x:Name="IndexViewCtrl"
@@ -106,7 +106,7 @@
                 <DataTemplate>
                     <uc:CandyBorder BorderType="Info">
                         <Grid>
-                            <Image
+                            <skia:SKImageView
                                 Width="265"
                                 Height="170"
                                 RenderOptions.BitmapScalingMode="HighQuality"

@@ -86,7 +86,7 @@ namespace CandySugar.Com.Library.FFMPeg
         /// 下载M4S流转音频无画面
         /// </summary>
         /// <param name="m4path"></param>
-        /// <param name="catalog"></param>
+        /// <param name="file"></param>
         /// <returns></returns>
         public static async Task<bool> M4Audio(this string m4path, string file)
         {

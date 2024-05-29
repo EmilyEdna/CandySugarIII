@@ -1,7 +1,7 @@
 ﻿using CandySugar.Com.Library.BitConvert;
 using CandySugar.Com.Library.DownPace;
+using SkiaImageView;
 using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -17,10 +17,10 @@ namespace CandySugar.Com.Controls.ExtenControls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CandyViewer), new FrameworkPropertyMetadata(typeof(CandyViewer)));
         }
 
-        private Image PART_IMG;
+        private SKImageView PART_IMG;
         public override void OnApplyTemplate()
         {
-            PART_IMG = (Image)this.Template.FindName("PART_IMG", this);
+            PART_IMG = (SKImageView)this.Template.FindName("PART_IMG", this);
             HttpSchedule.ProcessAction = (process) =>
             {
                 Application.Current.Dispatcher.Invoke(() =>
@@ -68,13 +68,13 @@ namespace CandySugar.Com.Controls.ExtenControls
             var result = Caches.RunTimeCacheGet<byte[]>(key);
             if (result != null)
             {
-                var data = BitmapHelper.Bytes2Image(result, (int)uc.Width, (int)uc.Height);
+                var data = SkiaBitmapHelper.Bytes2Image(result, (int)uc.Width, (int)uc.Height);
                 uc.PART_IMG.Source = data;
             }
             else
             {
                 var bytes = await HttpSchedule.HttpDownload(e.NewValue.ToString());
-                var data = BitmapHelper.Bytes2Image(bytes, (int)uc.Width, (int)uc.Height);
+                var data = SkiaBitmapHelper.Bytes2Image(bytes, (int)uc.Width, (int)uc.Height);
                 Caches.RunTimeCacheSet(key, bytes, 5);
                 uc.PART_IMG.Source = data;
             }
