@@ -9,27 +9,17 @@ namespace CandySugar.Com.Controls.AttachControls
 {
     internal class ImageAttach
     {
-        internal static string GetSourceAsync(DependencyObject obj)
-        {
-            return (string)obj.GetValue(SoucreAysncProperty);
-        }
-        internal static void SetSourceAsync(DependencyObject obj, string value)
-        {
-            obj.SetValue(SoucreAysncProperty, value);
-        }
+        internal static string GetSourceAsync(DependencyObject obj) => (string)obj.GetValue(SoucreAysncProperty);
+
+        internal static void SetSourceAsync(DependencyObject obj, string value) => obj.SetValue(SoucreAysncProperty, value);
+
         internal static readonly DependencyProperty SoucreAysncProperty =
             DependencyProperty.RegisterAttached("SourceAsync", typeof(string), typeof(ImageAttach), new PropertyMetadata(OnComplete));
 
 
-        internal static object GetBase64Soucre(DependencyObject obj)
-        {
-            return obj.GetValue(Base64SoucreProperty);
-        }
+        internal static object GetBase64Soucre(DependencyObject obj) => obj.GetValue(Base64SoucreProperty);
 
-        internal static void SetBase64Soucre(DependencyObject obj, string value) 
-        {
-            obj.SetValue(Base64SoucreProperty, value);
-        }
+        internal static void SetBase64Soucre(DependencyObject obj, string value) => obj.SetValue(Base64SoucreProperty, value);
 
         internal static readonly DependencyProperty Base64SoucreProperty =
             DependencyProperty.RegisterAttached("Base64Soucre", typeof(object), typeof(ImageAttach), new PropertyMetadata(OnStreamComplete));
@@ -41,7 +31,7 @@ namespace CandySugar.Com.Controls.AttachControls
                 var base64 = Convert.FromBase64String(@event.NewValue.ToString());
                 SKImageView image = (SKImageView)sender;
                 CandyImage candy = (CandyImage)((SKImageView)sender).TemplatedParent;
-                image.Source= SkiaBitmapHelper.Bytes2Image(base64, candy.ImageThickness.Width, candy.ImageThickness.Height);
+                image.Source = SkiaBitmapHelper.Bytes2Image(base64, candy.ImageThickness.Width, candy.ImageThickness.Height);
             }
         }
 
@@ -51,7 +41,12 @@ namespace CandySugar.Com.Controls.AttachControls
             {
                 CandyImage candy = (CandyImage)((SKImageView)sender).TemplatedParent;
                 SKImageView image = (SKImageView)sender;
-                DownloadQueue.Init(@event.NewValue.ToString(), image, candy);
+                QueueHelper.Push(new DownQueueDto
+                {
+                    URL = @event.NewValue.ToString(),
+                    SKImageView = image,
+                    CandyImage = candy
+                });
             }
         }
     }

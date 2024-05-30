@@ -3,10 +3,11 @@ using CandySugar.Com.Library.BitConvert;
 using SkiaImageView;
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -15,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Shapes;
-using XExten.Advance.CacheFramework.RunTimeCache;
+using XExten.Advance.CacheFramework;
 using XExten.Advance.LinqFramework;
 
 namespace CandySugar.Com.Controls.ExtenControls
@@ -397,80 +398,78 @@ namespace CandySugar.Com.Controls.ExtenControls
 
     }
 
-    internal static class DownloadQueue
+    internal class DownQueueDto
     {
-        private static Queue<Tuple<string, SKImageView, CandyImage>> Tiggers;
+        public string URL { get; internal set; }
+        public CandyImage CandyImage { get; internal set; }
+        public SKImageView SKImageView { get; internal set; }
+    }
+
+    internal static class QueueHelper
+    {
         private static AutoResetEvent AutoEvent;
-        static DownloadQueue()
+        private static ConcurrentQueue<DownQueueDto> WaitQueue;
+        private static HttpClient HttpClient;
+
+        static QueueHelper()
         {
+            HttpClient = new HttpClient();
             AutoEvent = new AutoResetEvent(true);
-            Tiggers = new Queue<Tuple<string, SKImageView, CandyImage>>();
-            (new Thread(new ThreadStart(DownMethod))
-            {
-                IsBackground = true
-            }).Start();
+            WaitQueue = new ConcurrentQueue<DownQueueDto>();
+            new Thread(new ThreadStart(WaitDown)) { IsBackground = true }.Start();
         }
 
-        private static async void DownMethod()
+        internal static async void Push(DownQueueDto dto)
+        {
+            if (dto.CandyImage.EnableAsyncLoad)
+            {
+                WaitQueue.Enqueue(dto);
+                AutoEvent.Set();
+            }
+            else
+            {
+                var result = await Cache(dto.URL, dto.CandyImage.EnableCache, dto.CandyImage.CacheSpan);
+                await Application.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    dto.SKImageView.Source = BitmapHelper.Bytes2Image(result, dto.CandyImage.ImageThickness.Width, dto.CandyImage.ImageThickness.Height);
+                });
+                dto.CandyImage.Complete = true;
+            }
+        }
+
+        private static async Task<byte[]> Cache(string route, bool enableCache, int cacheSpan)
+        {
+            if (!enableCache)
+            {
+                return await HttpClient.GetByteArrayAsync(route);
+            }
+            var result = Caches.RunTimeCacheGet<byte[]>(route.ToMd5());
+            if (result != null) return result;
+            else
+            {
+                var bytes = await HttpClient.GetByteArrayAsync(route);
+                Caches.RunTimeCacheSet(route.ToMd5(), bytes, cacheSpan);
+                return bytes;
+            }
+        }
+
+        private static async void WaitDown()
         {
             while (true)
             {
-                Tuple<string, SKImageView, CandyImage> Tigger = null;
-                lock (Tiggers)
-                {
-                    if (Tiggers.Count > 0)
-                    {
-                        Tigger = Tiggers.Dequeue();
-                    }
-                }
-                if (Tigger != null)
+                if (WaitQueue.TryDequeue(out DownQueueDto dto))
                 {
                     await Application.Current.Dispatcher.BeginInvoke(async () =>
                     {
-                        Tigger.Item3.Complete = false;
-                        var Bytes = Cache(await new HttpClient().GetByteArrayAsync(Tigger.Item1), Tigger.Item1, Tigger.Item3.EnableCache, Tigger.Item3.CacheSpan);
-                        Tigger.Item2.Source = SkiaBitmapHelper.Bytes2Image(Bytes, Tigger.Item3.ImageThickness.Width, Tigger.Item3.ImageThickness.Height);
-                        Tigger.Item3.Complete = true;
-                        Tigger.Item3.LoadAnimeStory.Stop();
+                        dto.CandyImage.Complete = false;
+                        var Bytes = await Cache(dto.URL, dto.CandyImage.EnableCache, dto.CandyImage.CacheSpan);
+                        dto.SKImageView.Source = BitmapHelper.Bytes2Image(Bytes, dto.CandyImage.ImageThickness.Width, dto.CandyImage.ImageThickness.Height);
+                        dto.CandyImage.Complete = true;
+                        dto.CandyImage.LoadAnimeStory.Stop();
                     });
                 }
-                if (Tiggers.Count > 0) continue;
-                //阻塞线程
+                if (!WaitQueue.IsEmpty) continue;
                 AutoEvent.WaitOne();
-            }
-        }
-
-        internal async static void Init(string route, SKImageView image, CandyImage candy)
-        {
-            if (candy.EnableAsyncLoad)
-            {
-                lock (Tiggers)
-                {
-                    Tiggers.Enqueue(Tuple.Create(route, image, candy));
-                    AutoEvent.Set();
-                }
-            }
-            else
-            {
-                var Bytes = Cache(await new HttpClient().GetByteArrayAsync(route), route, candy.EnableCache, candy.CacheSpan);
-                await candy.Dispatcher.BeginInvoke(() =>
-                {
-                    image.Source = SkiaBitmapHelper.Bytes2Image(Bytes, candy.ImageThickness.Width, candy.ImageThickness.Height);
-                });
-                candy.Complete = true;
-            }
-        }
-
-        internal static byte[] Cache(byte[] bytes, string route, bool enableCache, int cacheSpan)
-        {
-            if (!enableCache) return bytes;
-            var result = MemoryCaches.GetCache<byte[]>(route.ToMd5());
-            if (result != null)
-                return result;
-            else
-            {
-                MemoryCaches.AddCache(route.ToMd5(), bytes, cacheSpan);
-                return bytes;
             }
         }
     }

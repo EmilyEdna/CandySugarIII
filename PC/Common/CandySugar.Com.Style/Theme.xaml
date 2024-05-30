@@ -14,7 +14,7 @@
         <ResourceDictionary Source="pack://application:,,,/CandySugar.Com.Controls;component/Themes/CandyViwerStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <uc:SkiaBitMapConverter x:Key="SkiaBitConverter" />
+    <uc:SkiaBitConverter x:Key="SkiaBitConverter" />
     <uc:ObjectConverter x:Key="ObjectConverter" />
     <uc:NullConverter x:Key="NullConverter" />
     <uc:MultiConverter x:Key="MultiConverter" />
@@ -44,8 +44,6 @@
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
     <!--#endregion-->
-
-
 
     <!--#region Window-->
 
