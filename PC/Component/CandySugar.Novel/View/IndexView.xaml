@@ -28,77 +28,55 @@
                 Style="{DynamicResource CandyListBoxStyle}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="1" />
+                        <UniformGrid HorizontalAlignment="Center" Columns="3" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <uc:CandyBorder
-                                Width="160"
-                                Height="240"
-                                Margin="5"
-                                BorderType="Primary">
-                                <skia:SKImageView
-                                    Width="160"
-                                    Height="240"
-                                    Source="{Binding Cover}"
-                                    Stretch="Fill" />
-                            </uc:CandyBorder>
-                            <WrapPanel
-                                Grid.Column="1"
-                                Width="600"
-                                Margin="0,10,0,0"
-                                Orientation="Vertical">
-                                <TextBlock
-                                    Style="{DynamicResource TextBlockStyle}"
-                                    Text="{Binding BookName, StringFormat=书名：{0}}"
-                                    TextWrapping="Wrap" />
-                                <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Author, StringFormat=作者：{0}}" />
-                                <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Type, StringFormat=类别:{0}}" />
-                                <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Status, StringFormat=状态:{0}}" />
-                                <TextBlock
-                                    Style="{DynamicResource TextBlockStyle}"
-                                    Text="{Binding Tips, StringFormat=简介:{0}}"
-                                    TextWrapping="Wrap" />
-                                <StackPanel Orientation="Horizontal">
-                                    <uc:CandyButton
-                                        Margin="3"
-                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
-                                        ButtonType="Primary"
-                                        Command="{s:Action ChapterCommand}"
-                                        Content="铅笔源"
-                                        Tag="1">
-                                        <uc:CandyButton.CommandParameter>
-                                            <MultiBinding Converter="{StaticResource MultiConverter}">
-                                                <Binding Path="Tag" RelativeSource="{RelativeSource Mode=Self}" />
-                                                <Binding Path="BookName" />
-                                                <Binding Path="Route" />
-                                            </MultiBinding>
-                                        </uc:CandyButton.CommandParameter>
-                                    </uc:CandyButton>
-                                    <uc:CandyButton
-                                        Margin="3"
-                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
-                                        ButtonType="Primary"
-                                        Command="{s:Action ChapterCommand}"
-                                        Content="笔下源"
-                                        Tag="2">
-                                        <uc:CandyButton.CommandParameter>
-                                            <MultiBinding Converter="{StaticResource MultiConverter}">
-                                                <Binding Path="Tag" RelativeSource="{RelativeSource Mode=Self}" />
-                                                <Binding Path="BookName" />
-                                                <Binding Path="Route" />
-                                            </MultiBinding>
-                                        </uc:CandyButton.CommandParameter>
-                                    </uc:CandyButton>
-                                </StackPanel>
-                            </WrapPanel>
-                        </Grid>
+                        <WrapPanel
+                            Width="Auto"
+                            Margin="0,10,0,0"
+                            Orientation="Vertical">
+                            <TextBlock
+                                Style="{DynamicResource TextBlockStyle}"
+                                Text="{Binding BookName, StringFormat=书名：{0}}"
+                                TextWrapping="Wrap" />
+                            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Author, StringFormat=作者：{0}}" />
+                            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Type, StringFormat=类别:{0}}" />
+                            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Status, StringFormat=状态:{0}}" />
+                            <StackPanel Orientation="Horizontal">
+                                <uc:CandyButton
+                                    Margin="3"
+                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                                    ButtonType="Primary"
+                                    Command="{s:Action ChapterCommand}"
+                                    Content="顶点源"
+                                    Tag="1">
+                                    <uc:CandyButton.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource MultiConverter}">
+                                            <Binding Path="Tag" RelativeSource="{RelativeSource Mode=Self}" />
+                                            <Binding Path="BookName" />
+                                            <Binding Path="Route" />
+                                        </MultiBinding>
+                                    </uc:CandyButton.CommandParameter>
+                                </uc:CandyButton>
+                                <uc:CandyButton
+                                    Margin="3"
+                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                                    ButtonType="Primary"
+                                    Command="{s:Action ChapterCommand}"
+                                    Content="笔下源"
+                                    Tag="2">
+                                    <uc:CandyButton.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource MultiConverter}">
+                                            <Binding Path="Tag" RelativeSource="{RelativeSource Mode=Self}" />
+                                            <Binding Path="BookName" />
+                                            <Binding Path="Route" />
+                                        </MultiBinding>
+                                    </uc:CandyButton.CommandParameter>
+                                </uc:CandyButton>
+                            </StackPanel>
+                        </WrapPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -140,6 +118,7 @@
                                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
                                     Command="{s:Action ViewCommand}"
                                     Content="{Binding Chapter}"
+                                    Foreground="Indigo"
                                     Style="{DynamicResource CandyTextBlockButtonStyle}">
                                     <Button.CommandParameter>
                                         <MultiBinding Converter="{StaticResource MultiConverter}">

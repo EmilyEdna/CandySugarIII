@@ -79,7 +79,7 @@ namespace CandySugar.Novel.ViewModels
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
-                            PlatformType = PlatformEnum.Pencil,
+                            PlatformType = PlatformEnum.TopPoint,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Search,
                             Search = new NovelSearch { SearchKey = Keyword }
@@ -109,7 +109,7 @@ namespace CandySugar.Novel.ViewModels
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
-                            PlatformType = PlatformEnum.Pencil,
+                            PlatformType = PlatformEnum.TopPoint,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Init
                         };
@@ -135,7 +135,7 @@ namespace CandySugar.Novel.ViewModels
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
-                            PlatformType = PlatformEnum.Pencil,
+                            PlatformType = PlatformEnum.TopPoint,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Category,
                             Category = new NovelCategory { Route = CategoryRoute }
@@ -165,7 +165,7 @@ namespace CandySugar.Novel.ViewModels
                         opt.RequestParam = new Input
                         {
                             ProxyIP = Proxy.IP,
-                            PlatformType = Key == 1 ? PlatformEnum.Pencil : PlatformEnum.Pendown,
+                            PlatformType = Key == 1 ? PlatformEnum.TopPoint : PlatformEnum.Pendown,
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Detail,
@@ -201,7 +201,7 @@ namespace CandySugar.Novel.ViewModels
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
-                            PlatformType = PlatformEnum.Pencil,
+                            PlatformType = PlatformEnum.TopPoint,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Category,
                             Category = new NovelCategory
@@ -234,7 +234,7 @@ namespace CandySugar.Novel.ViewModels
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
-                            PlatformType = PlatformEnum.Pencil,
+                            PlatformType = PlatformEnum.TopPoint,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Search,
                             Search = new NovelSearch
@@ -330,7 +330,6 @@ namespace CandySugar.Novel.ViewModels
         public void ActiveCommand(string route)
         {
             HandleType = 1;
-
             CategoryRoute = route;
             OnInitCategory();
         }
