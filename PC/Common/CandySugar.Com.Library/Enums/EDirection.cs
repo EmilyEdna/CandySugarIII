@@ -3,8 +3,9 @@
     public enum EDirection
     {
         None = 1,
-        Top,
-        Bottom,
-        Arrow
+        /// <summary>
+        /// 上下
+        /// </summary>
+        UpDown
     }
 }

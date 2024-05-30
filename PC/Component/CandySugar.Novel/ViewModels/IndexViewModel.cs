@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CandySugar.Novel.Models;
+using System.Collections.Generic;
 using XExten.Advance.NetFramework.Enums;
 
 namespace CandySugar.Novel.ViewModels
@@ -343,11 +344,17 @@ namespace CandySugar.Novel.ViewModels
 
         public void ViewCommand(Dictionary<string, object> element)
         {
+            ContentDataModel Model = new ContentDataModel();
+            Model.Platform = Enum.Parse<PlatformEnum>(element["Key1"].AsString());
+            Model.Current = element["Key2"].AsString();
+            Model.Chapters = DetailResult.ToList();
+            Model.Index = DetailResult.ToList().FindIndex(0, t => t.Route == Model.Current);
+
             WeakReferenceMessenger.Default.Send(new MessageNotify
             {
                 NotifyType = NotifyType.ChangeControl,
                 ControlType = 2,
-                ControlParam = element
+                ControlParam = Model
             });
         }
         #endregion

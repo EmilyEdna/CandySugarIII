@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using CandySugar.Novel.Models;
 
 namespace CandySugar.Novel.ViewModels
 {
     public class ReaderViewModel : PropertyChangedBase
     {
+        private ContentDataModel DataModel;
         public ReaderViewModel()
         {
+            DataModel = (ContentDataModel)ModuleEnv.GlobalTempParam;
             OnInitContent();
         }
 
@@ -27,8 +29,6 @@ namespace CandySugar.Novel.ViewModels
         /// </summary>
         private void OnInitContent()
         {
-            var Param = ((Dictionary<string, object>)ModuleEnv.GlobalTempParam);
-            var Platform = Enum.Parse<PlatformEnum>(Param["Key1"].AsString());
             Task.Run(async () =>
             {
                 try
@@ -38,14 +38,14 @@ namespace CandySugar.Novel.ViewModels
                     {
                         opt.RequestParam = new Input
                         {
-                            PlatformType = Platform,
+                            PlatformType = DataModel.Platform,
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Content,
                             Content = new NovelContent
                             {
-                                Route = Param["Key2"].ToString()
+                                Route = DataModel.Current
                             }
                         };
                     }).RunsAsync()).ContentResult.ElementResult;
@@ -76,7 +76,33 @@ namespace CandySugar.Novel.ViewModels
                 ControlType = 1
             });
         }
+        #endregion
 
+        #region method
+        public void KeyHandler(int cat)
+        {
+            if (cat == 0) BackCommand();
+            if (cat == -1)
+            {
+                if (DataModel.Index + cat < 0) return;
+                else
+                {
+                    DataModel.Index += cat;
+                    DataModel.Current = DataModel.Chapters[DataModel.Index].Route;
+                    OnInitContent();
+                }
+            }
+            if (cat == 1) 
+            {
+                if (DataModel.Index + cat >= DataModel.Chapters.Count) return;
+                else
+                {
+                    DataModel.Index += cat;
+                    DataModel.Current = DataModel.Chapters[DataModel.Index].Route;
+                    OnInitContent();
+                }
+            }
+        }
         #endregion
     }
 }

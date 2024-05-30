@@ -39,7 +39,7 @@
             </StackPanel>
             <WrapPanel Grid.Row="1" HorizontalAlignment="Center">
                 <ListBox
-                    uc:ScrollViewAttach.PressCommand="Arrow"
+                    uc:ScrollViewAttach.PressCommand="UpDown"
                     ItemsSource="{Binding Element.Content, IsAsync=True}"
                     Style="{DynamicResource CandyListBoxStyle}">
                     <ListBox.ItemsPanel>

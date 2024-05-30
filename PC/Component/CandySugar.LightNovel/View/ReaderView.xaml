@@ -33,7 +33,7 @@
         <Grid Width="{Binding Width, ElementName=ReaderViewCtrl}" Height="{Binding Height, ElementName=ReaderViewCtrl}">
             <WrapPanel Margin="50,0,50,35" HorizontalAlignment="Center">
                 <ListBox
-                    uc:ScrollViewAttach.PressCommand="Arrow"
+                    uc:ScrollViewAttach.PressCommand="UpDown"
                     ItemsSource="{Binding Words}"
                     Style="{DynamicResource CandyListBoxStyle}">
                     <ListBox.ItemsPanel>

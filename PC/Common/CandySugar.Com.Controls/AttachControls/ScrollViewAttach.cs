@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Xml.Linq;
 using CandySugar.Com.Library.Enums;
 using CandySugar.Com.Library.VisualTree;
 using XExten.Advance.ThreadFramework;
@@ -40,7 +41,7 @@ namespace CandySugar.Com.Controls.AttachControls
                             ThreadFactory.Instance.StopTask("绑定事件");
                         }
                     });
-                }, "绑定事件",null,false);
+                }, "绑定事件", null, false);
             }
         }
 
@@ -48,14 +49,28 @@ namespace CandySugar.Com.Controls.AttachControls
         {
             ListBox element = sender as ListBox;
             EDirection press = (EDirection)element.GetValue(PressCommandProperty);
+
             ScrollViewer scrollViewer = element.FindChildren<ScrollViewer>().FirstOrDefault();
-            if (e.Key == Key.Up && (press == EDirection.Top || press == EDirection.Arrow))
+            if (e.Key == Key.Up && press == EDirection.UpDown)
                 scrollViewer.ScrollToVerticalOffset(-5d);
-            if (e.Key == Key.Down && (press == EDirection.Bottom || press == EDirection.Arrow))
+            if (e.Key == Key.Down && press == EDirection.UpDown)
             {
                 scrollViewer.ScrollToVerticalOffset(5d);
                 if (scrollViewer.VerticalOffset + scrollViewer.ViewportHeight >= scrollViewer.ExtentHeight)
                     scrollViewer.ScrollToEnd();
+            }
+            if (e.Key == Key.Left) Around(element, -1);
+            if (e.Key == Key.Right) Around(element, 1);
+            if (e.Key == Key.Escape) Around(element, 0);
+        }
+
+        private static void Around(ListBox element,int param)
+        {
+            var uc = element.FindParent<UserControl>();
+            if (uc.DataContext != null)
+            {
+                var method = uc.DataContext.GetType().GetMethod("KeyHandler");
+                method?.Invoke(element.DataContext, new object[] { param });
             }
         }
     }
