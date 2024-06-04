@@ -27,8 +27,7 @@ namespace CandySugar.Com.Library.DLLoader
             if (Filter.Contains(name.Name)) return null;
             string expectedPath = Path.Combine(_Path, name.Name + ".dll");
             if (File.Exists(expectedPath)) return context.LoadFromAssemblyPath(expectedPath);
-            Log.Logger.Error($"依赖文件不存在：{expectedPath}");
-            return null;
+            else return null;
         }
         #endregion
 
