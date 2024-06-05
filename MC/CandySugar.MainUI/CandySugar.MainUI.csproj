@@ -55,10 +55,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Remove="Resources\Fonts\FontAwesome6Thin.otf" />
-		<None Remove="Resources\Images\head.png" />
-		<None Remove="Resources\Images\heart.png" />
-		<None Remove="Resources\Raw\Inner.html" />
+	  <Content Include="Resources\Fonts\FontAwesome6Thin.otf" />
+	  <Content Include="Resources\Images\head.png" />
+	  <Content Include="Resources\Images\heart.png" />
+	  <Content Include="Resources\Raw\Inner.html" />
 	</ItemGroup>
 
 	<ItemGroup>
