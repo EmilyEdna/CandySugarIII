@@ -431,7 +431,7 @@ namespace CandySugar.Com.Controls.ExtenControls
                 var result = await Cache(dto.URL, dto.CandyImage.EnableCache, dto.CandyImage.CacheSpan);
                 await Application.Current.Dispatcher.BeginInvoke(() =>
                 {
-                    dto.SKImageView.Source = BitmapHelper.Bytes2Image(result, dto.CandyImage.ImageThickness.Width, dto.CandyImage.ImageThickness.Height);
+                    dto.SKImageView.Source = SkiaBitmapHelper.Bytes2Image(result, dto.CandyImage.ImageThickness.Width, dto.CandyImage.ImageThickness.Height);
                 });
                 dto.CandyImage.Complete = true;
             }
@@ -463,7 +463,7 @@ namespace CandySugar.Com.Controls.ExtenControls
                     {
                         dto.CandyImage.Complete = false;
                         var Bytes = await Cache(dto.URL, dto.CandyImage.EnableCache, dto.CandyImage.CacheSpan);
-                        dto.SKImageView.Source = BitmapHelper.Bytes2Image(Bytes, dto.CandyImage.ImageThickness.Width, dto.CandyImage.ImageThickness.Height);
+                        dto.SKImageView.Source = SkiaBitmapHelper.Bytes2Image(Bytes, dto.CandyImage.ImageThickness.Width, dto.CandyImage.ImageThickness.Height);
                         dto.CandyImage.Complete = true;
                         dto.CandyImage.LoadAnimeStory.Stop();
                     });

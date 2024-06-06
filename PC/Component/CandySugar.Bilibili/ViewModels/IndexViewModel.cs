@@ -1,10 +1,4 @@
-﻿using CandySugar.Bilibili.Models;
-using CandySugar.Com.Controls.ExtenControls;
-using CandySugar.Com.Library.Timers;
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.VisualBasic.ApplicationServices;
-using System.Collections.Concurrent;
-using System.Collections.ObjectModel;
+﻿using System.Threading;
 
 namespace CandySugar.Bilibili.ViewModels
 {
@@ -41,7 +35,7 @@ namespace CandySugar.Bilibili.ViewModels
         /// </summary>
         private void CompleteActionEvent()
         {
-            if (!Complete.Values.Any(t => t==false))
+            if (!Complete.Values.Any(t => t == false))
             {
                 Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
                 Complete.Clear();
@@ -71,7 +65,7 @@ namespace CandySugar.Bilibili.ViewModels
                         header.Add(ConstDefault.Referer, "https://www.bilibili.com/");
                     });
                 });
-               
+
             });
         }
         #endregion
@@ -116,6 +110,11 @@ namespace CandySugar.Bilibili.ViewModels
         #endregion
 
         #region Command
+        public void ClearCommand()
+        {
+            InfoResults.Clear();
+            DataResults.Clear();
+        }
         /// <summary>
         /// 批量合成音频
         /// </summary>
@@ -395,9 +394,22 @@ namespace CandySugar.Bilibili.ViewModels
                         }
                     };
                 }).RunsAsync()).InfoResult;
-                if (InfoResults.FirstOrDefault(t => t.CID == result.CID && t.BVID == result.BVID) == null)
-                    InfoResults.Add(result.ToMapest<BiliVideoInfoModel>());
-                OnInitData(result.ToMapest<BiliVideoInfoModel>());
+
+                result.CIDName.ForDicEach((CID,Title) =>
+                {
+                    if (InfoResults.FirstOrDefault(t => t.CID == CID && t.BVID == result.BVID) == null)
+                    {
+                        var Model = new BiliVideoInfoModel
+                        {
+                            BVID = result.BVID,
+                            CID = CID,
+                            Cover = result.Cover,
+                            Title = Title,
+                        };
+                        InfoResults.Add(Model);
+                        OnInitData(Model);
+                    }
+                });
             }
             catch (Exception ex)
             {
@@ -521,8 +533,8 @@ namespace CandySugar.Bilibili.ViewModels
                                 Counts = 0;
                                 if (IsBatchVideo)
                                 {
-                                    if(Complete.ContainsKey(InfoResult.BVID))
-                                         Complete[InfoResult.BVID] = true;
+                                    if (Complete.ContainsKey(InfoResult.BVID))
+                                        Complete[InfoResult.BVID] = true;
 
                                     await Task.Delay(1500);
                                     TimerHelper.Start();

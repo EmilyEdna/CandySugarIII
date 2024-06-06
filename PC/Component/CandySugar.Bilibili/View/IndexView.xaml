@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:lib="http://lib.candy.com"
     xmlns:local="clr-namespace:CandySugar.Bilibili.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -32,6 +33,11 @@
                     ButtonType="Info"
                     Command="{s:Action CookieCommand}"
                     Content="设置Cookie" />
+                <uc:CandyButton
+                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
+                    ButtonType="Info"
+                    Command="{s:Action ClearCommand}"
+                    Content="清空" />
                 <uc:CandyButton
                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexViewCtrl}"
                     ButtonType="Primary"
@@ -112,6 +118,12 @@
                                 RenderOptions.BitmapScalingMode="HighQuality"
                                 Source="{Binding Cover}"
                                 Stretch="Fill" />
+                            <TextBlock
+                                FontSize="10"
+                                Foreground="#fdf5e6"
+                                Text="{Binding Title}"
+                                TextWrapping="WrapWithOverflow"
+                                ToolTip="{Binding Title}" />
                             <Button
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"

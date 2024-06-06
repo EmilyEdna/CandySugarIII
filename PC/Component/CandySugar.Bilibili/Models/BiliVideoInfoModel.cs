@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CandySugar.Bilibili.Models
+﻿namespace CandySugar.Bilibili.Models
 {
-   public class BiliVideoInfoModel: PropertyChangedBase
+    public class BiliVideoInfoModel: PropertyChangedBase
     {
         public string Cover { get; set; }
 
