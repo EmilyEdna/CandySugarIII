@@ -1,17 +1,11 @@
-﻿using System;
+﻿using CliWrap;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CandySugar.Com.Controls.UIExtenControls
@@ -58,7 +52,14 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 sv.GenerateItem(e.NewValue as IList<object>);
             }
         }
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
 
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(ScreenWaterButtonView), new PropertyMetadata(default));
         #endregion
 
         #region 成员变量
@@ -375,6 +376,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
         {
             WaterButtonViewRoutedEventArgs args = new WaterButtonViewRoutedEventArgs(ClickRoutedEvent, this);
             args.Index = -1;
+            Command?.Execute(args);
             RaiseEvent(args);
         }
 
@@ -390,6 +392,8 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 Button btn = e.OriginalSource as Button;
                 WaterButtonViewRoutedEventArgs args = new WaterButtonViewRoutedEventArgs(ClickRoutedEvent, this);
                 args.Index = int.Parse(btn.Name.Substring(4, 1));
+                args.Name = btn.Content.ToString();
+                Command?.Execute(args);
                 RaiseEvent(args);
             }
         }
@@ -401,5 +405,6 @@ namespace CandySugar.Com.Controls.UIExtenControls
         public WaterButtonViewRoutedEventArgs(RoutedEvent routedEvent, object source) : base(routedEvent, source) { }
 
         public int Index { get; set; }
+        public string Name { get; set; }
     }
 }

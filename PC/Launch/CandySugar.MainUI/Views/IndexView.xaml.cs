@@ -57,7 +57,7 @@ namespace CandySugar.MainUI.Views
                 if (this.WindowState == WindowState.Normal)
                     point = new Point(targetSize.Width / 2.5, targetSize.Height / 10);
                 CustomPopupPlacement placement = new(point, PopupPrimaryAxis.None);
-                return new CustomPopupPlacement[] { placement };
+                return [placement];
             });
             WeakReferenceMessenger.Default.Register<DefaultNotify>(this, (recip, notify) =>
             {

@@ -5,7 +5,6 @@ using Microsoft.Web.WebView2.Core;
 using Serilog;
 using System;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace CandySugar.Com.Controls.UIExtenControls
 {

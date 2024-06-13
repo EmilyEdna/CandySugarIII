@@ -8,12 +8,9 @@ using LibVLCSharp.Shared;
 using Microsoft.Win32;
 using Stylet;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -210,7 +207,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
         {
             if (MediaInfo == null) return;
             var Param = ((Button)sender).CommandParameter.ToString().AsInt();
-            if (Param == 1)
+            if (Param == 1) //减少播放速率
             {
                 Rate /= 2;
                 Rate = Rate <= 1f ? 1f : Rate;
@@ -236,7 +233,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 this.Play.Visibility = Visibility.Visible;
                 this.Pause.Visibility = Visibility.Collapsed;
             }
-            if (Param == 4)
+            if (Param == 4)//增加播放速率
             {
                 Rate *= 2f;
                 Rate = Rate >= 4f ? 4f : Rate;
@@ -307,7 +304,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
 
         public string Value { get; set; }
         /// <summary>
-        /// 类型
+        /// 类型 非0 就是Axgle
         /// </summary>
         public int Type { get;set; }
     }
