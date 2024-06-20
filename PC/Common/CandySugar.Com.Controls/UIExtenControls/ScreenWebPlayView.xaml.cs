@@ -4,7 +4,6 @@ using Microsoft.Web.WebView2.Core;
 using Serilog;
 using Stylet;
 using System;
-using System.Windows;
 
 namespace CandySugar.Com.Controls.UIExtenControls
 {

@@ -20,8 +20,8 @@
 		<ProjectReference Include="..\CandySugar.HostServer\CandySugar.HostServer.csproj" />
 	</ItemGroup>
 
-	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+	<!--<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
 		<Exec Command="call PluginBuild.bat $(Configuration)" />
-	</Target>
+	</Target>-->
 
 </Project>
