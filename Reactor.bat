@@ -22,7 +22,7 @@ rd /S /Q Release\CandySugar.Com.Library_Secure
 rd /S /Q Release\CandySugar.Com.Options_Secure
 rd /S /Q Release\CandySugar.Com.Style_Secure
 rd /S /Q Release\CandySugar.Com.Data_Secure
-rd /S /Q Release\CandySugar.Com.HostServer_Secure
+rd /S /Q Release\CandySugar.HostServer_Secure
 rd /S /Q Release\Sdk.Component_Secure
 rd /S /Q Release\Sdk.Component.Vip_Secure
 rd /S /Q Release\Sdk.Plugins_Secure
