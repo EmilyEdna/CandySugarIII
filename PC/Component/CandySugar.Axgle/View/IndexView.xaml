@@ -79,7 +79,7 @@
                                                         <RowDefinition Height="30" />
                                                     </Grid.RowDefinitions>
                                                     <StackPanel>
-                                                        <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
+                                                        <ScrollViewer Height="Auto" VerticalScrollBarVisibility="Hidden">
                                                             <TextBox
                                                                 HorizontalAlignment="Center"
                                                                 ScrollViewer.CanContentScroll="True"
@@ -87,18 +87,11 @@
                                                                 Text="{Binding Title}"
                                                                 TextWrapping="Wrap" />
                                                         </ScrollViewer>
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding Latest, StringFormat=更新：{0}}" />
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding Duration, StringFormat=时常：{0}}" />
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding ViewCount, StringFormat=浏览量：{0}}" />
+                                                        <TextBlock HorizontalAlignment="Left" Style="{DynamicResource TextBlockStyle}">
+                                                            <Run Text="{Binding Latest, StringFormat=更新:{0}}" />
+                                                            <Run Text="{Binding Duration, StringFormat=时常:{0}}" />
+                                                            <Run Text="{Binding ViewCount, StringFormat=播放:{0}}" />
+                                                        </TextBlock>
                                                     </StackPanel>
                                                     <Button
                                                         Grid.Row="1"
@@ -180,7 +173,7 @@
                                                         <RowDefinition Height="30" />
                                                     </Grid.RowDefinitions>
                                                     <StackPanel>
-                                                        <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
+                                                        <ScrollViewer Height="Auto" VerticalScrollBarVisibility="Hidden">
                                                             <TextBox
                                                                 HorizontalAlignment="Center"
                                                                 ScrollViewer.CanContentScroll="True"
@@ -188,18 +181,11 @@
                                                                 Text="{Binding Title}"
                                                                 TextWrapping="Wrap" />
                                                         </ScrollViewer>
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding Latest, StringFormat=更新：{0}}" />
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding Duration, StringFormat=时常：{0}}" />
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding ViewCount, StringFormat=浏览量：{0}}" />
+                                                        <TextBlock HorizontalAlignment="Left" Style="{DynamicResource TextBlockStyle}">
+                                                            <Run Text="{Binding Latest, StringFormat=更新:{0}}" />
+                                                            <Run Text="{Binding Duration, StringFormat=时常:{0}}" />
+                                                            <Run Text="{Binding ViewCount, StringFormat=播放:{0}}" />
+                                                        </TextBlock>
                                                     </StackPanel>
                                                     <Button
                                                         Grid.Row="1"
@@ -281,7 +267,7 @@
                                                         <RowDefinition Height="30" />
                                                     </Grid.RowDefinitions>
                                                     <StackPanel>
-                                                        <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
+                                                        <ScrollViewer Height="Auto" VerticalScrollBarVisibility="Hidden">
                                                             <TextBox
                                                                 HorizontalAlignment="Center"
                                                                 ScrollViewer.CanContentScroll="True"
@@ -289,18 +275,11 @@
                                                                 Text="{Binding Title}"
                                                                 TextWrapping="Wrap" />
                                                         </ScrollViewer>
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding Latest, StringFormat=更新：{0}}" />
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding Duration, StringFormat=时常：{0}}" />
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding ViewCount, StringFormat=浏览量：{0}}" />
+                                                        <TextBlock HorizontalAlignment="Left" Style="{DynamicResource TextBlockStyle}">
+                                                            <Run Text="{Binding Latest, StringFormat=更新:{0}}" />
+                                                            <Run Text="{Binding Duration, StringFormat=时常:{0}}" />
+                                                            <Run Text="{Binding ViewCount, StringFormat=播放:{0}}" />
+                                                        </TextBlock>
                                                     </StackPanel>
                                                     <Button
                                                         Grid.Row="1"
@@ -383,7 +362,7 @@
                                                         <RowDefinition Height="30" />
                                                     </Grid.RowDefinitions>
                                                     <StackPanel>
-                                                        <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
+                                                        <ScrollViewer Height="Auto" VerticalScrollBarVisibility="Hidden">
                                                             <TextBox
                                                                 HorizontalAlignment="Center"
                                                                 ScrollViewer.CanContentScroll="True"
@@ -391,18 +370,11 @@
                                                                 Text="{Binding Title}"
                                                                 TextWrapping="Wrap" />
                                                         </ScrollViewer>
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding Latest, StringFormat=更新：{0}}" />
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding Duration, StringFormat=时常：{0}}" />
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding ViewCount, StringFormat=浏览量：{0}}" />
+                                                        <TextBlock HorizontalAlignment="Left" Style="{DynamicResource TextBlockStyle}">
+                                                            <Run Text="{Binding Latest, StringFormat=更新:{0}}" />
+                                                            <Run Text="{Binding Duration, StringFormat=时常:{0}}" />
+                                                            <Run Text="{Binding ViewCount, StringFormat=播放:{0}}" />
+                                                        </TextBlock>
                                                     </StackPanel>
                                                     <Button
                                                         Grid.Row="1"

@@ -1,4 +1,6 @@
-﻿namespace CandySugar.Axgle.ViewModels
+﻿using StackExchange.Redis;
+
+namespace CandySugar.Axgle.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
@@ -87,6 +89,7 @@
                PlatformType = PlatformEnum.Skb;
             this.Keyword = string.Empty;
             InitPage = SearchPage = 1;
+            Results = [];
         }
         /// <summary>
         /// 收藏
@@ -347,9 +350,16 @@
                             }
                         };
                     }).RunsAsync()).PlayResult.Play;
+
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        new ScreenPlayView(Tuple.Create(result, input.Title)) { Width = 1200, Height = 700 }.Show();
+                        new ScreenWebPlayView
+                        {
+                            DataContext = new ScreenWebPlayViewModel
+                            {
+                                Route = result
+                            }
+                        }.Show();
                     });
                 }
                 catch (Exception ex)
