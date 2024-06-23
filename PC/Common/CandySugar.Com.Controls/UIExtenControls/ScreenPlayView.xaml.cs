@@ -37,21 +37,18 @@ namespace CandySugar.Com.Controls.UIExtenControls
         private bool IsNavOpen = false;
         public int PlayModel = 1;
         private ScreenPlayViewModel Vm;
-        private bool IsAx = false;
-        private string AxReferrer = "https://avgle.com/";
         public ScreenPlayView()
         {
             InitializeComponent();
             Init();
         }
 
-        public ScreenPlayView(Tuple<string, string> MediaInfo, bool IsAx = false)
+        public ScreenPlayView(Tuple<string, string> MediaInfo)
         {
-            this.IsAx = IsAx;
             this.MediaInfo = MediaInfo;
             InitializeComponent();
             Init();
-            Vm.SetHistory(MediaInfo.Item2, MediaInfo.Item1,1);
+            Vm.SetHistory(MediaInfo.Item2, MediaInfo.Item1);
         }
         void Init()
         {
@@ -101,19 +98,8 @@ namespace CandySugar.Com.Controls.UIExtenControls
         {
             var His = (sender as Button).CommandParameter as History;
             MediaInfo = Tuple.Create(His.Value, His.Key);
-            if (His.Type == 0)
-            {
-                using Media media = new Media(VlcLibVLC, new Uri(His.Value));
-                VideoPlayer.MediaPlayer.Play(media);
-            }
-            else {
-                VlcLibVLC.Dispose();
-                VlcPlayer.Dispose();
-                IsAx = true;
-                InitVLC();
-                using Media media = new Media(VlcLibVLC, new Uri(His.Value));
-                VideoPlayer.MediaPlayer.Play(media);
-            }
+            using Media media = new Media(VlcLibVLC, new Uri(His.Value));
+            VideoPlayer.MediaPlayer.Play(media);
             VedioTitle.Text = His.Key;
         }
 
@@ -136,18 +122,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
         void InitVLC()
         {
             Core.Initialize(Path.Combine(CommonHelper.AppPath, "vlclib"));
-            if (IsAx)
-            {
-                string[] options = { 
-                    $"--http-referrer={AxReferrer}", 
-                    $"--http-user-agent={ConstDefault.UserAgentValue}",
-                    "--file-caching=10000",
-                    "--http-caching=10000",
-                    "--http-continuous",
-                };
-                VlcLibVLC = new LibVLC(options);
-            }
-            else VlcLibVLC = new LibVLC();
+            VlcLibVLC = new LibVLC();
             VlcPlayer = new VLCPlayer(VlcLibVLC);
             VlcPlayer.TimeChanged += TimeChanged;
             VlcPlayer.PositionChanged += PositionChanged;
@@ -269,7 +244,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 if (dialog.ShowDialog() == true)
                 {
                     var FileName = Path.GetFileName(dialog.FileName);
-                    Vm.SetHistory(FileName, dialog.FileName,0);
+                    Vm.SetHistory(FileName, dialog.FileName);
                     MediaInfo = Tuple.Create(dialog.FileName, FileName);
                     PlayHandlerEvent(sender, e);
                 }
@@ -303,10 +278,6 @@ namespace CandySugar.Com.Controls.UIExtenControls
         public string Key { get; set; }
 
         public string Value { get; set; }
-        /// <summary>
-        /// 类型 非0 就是Axgle
-        /// </summary>
-        public int Type { get;set; }
     }
 
     public class ScreenPlayViewModel : PropertyChangedBase
@@ -334,14 +305,13 @@ namespace CandySugar.Com.Controls.UIExtenControls
             set => SetAndNotify(ref _History, value);
         }
 
-        public void SetHistory(string fileName, string route,int type)
+        public void SetHistory(string fileName, string route)
         {
             if (History.Any(t => t.Key == fileName)) return;
             History his = new History
             {
                 Key = fileName,
-                Value = route,
-                Type=type
+                Value = route
             };
             History.Add(his);
             JsonHandler.Insert(his).ExuteInsert().SaveChange();

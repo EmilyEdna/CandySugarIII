@@ -17,11 +17,7 @@
     d:DesignWidth="1200"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CandySugar.Axgle;component/AxgleTheme.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary Source="/CandySugar.Axgle;component/AxgleTheme.xaml" />
     </UserControl.Resources>
     <Canvas>
         <Grid Width="{Binding Width, ElementName=IndexCtrl}" Height="{Binding Height, ElementName=IndexCtrl}">
@@ -56,7 +52,7 @@
                         </Rectangle>
                         <ListBox
                             uc:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
-                            ItemsSource="{Binding CateResult, IsAsync=True}"
+                            ItemsSource="{Binding Results, IsAsync=True}"
                             Style="{DynamicResource CandyListBoxStyle}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -74,7 +70,7 @@
                                         Entity="{Binding .}"
                                         ImageThickness="320,200"
                                         MaskFill="#80e6cfe6"
-                                        Source="{Binding Preview}">
+                                        Source="{Binding Cover}">
                                         <uc:CandyImage.MaskTemplate>
                                             <DataTemplate>
                                                 <Grid>
@@ -94,11 +90,15 @@
                                                         <TextBlock
                                                             HorizontalAlignment="Center"
                                                             Style="{DynamicResource TextBlockStyle}"
+                                                            Text="{Binding Latest, StringFormat=更新：{0}}" />
+                                                        <TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            Style="{DynamicResource TextBlockStyle}"
                                                             Text="{Binding Duration, StringFormat=时常：{0}}" />
                                                         <TextBlock
                                                             HorizontalAlignment="Center"
                                                             Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding Views, StringFormat=浏览量：{0}}" />
+                                                            Text="{Binding ViewCount, StringFormat=浏览量：{0}}" />
                                                     </StackPanel>
                                                     <Button
                                                         Grid.Row="1"
@@ -132,6 +132,208 @@
                 </uc:CandyBorder>
                 <uc:CandyBorder
                     x:Name="X2"
+                    Width="{c:Binding (Width*0.95),
+                                      ElementName=IndexCtrl}"
+                    Height="{c:Binding (Height-90),
+                                       ElementName=IndexCtrl}"
+                    BorderType="Info">
+                    <uc:CandyBorder.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </uc:CandyBorder.RenderTransform>
+                    <Grid>
+                        <Rectangle Fill="#50fff0f5">
+                            <Rectangle.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="15"
+                                    Direction="300"
+                                    Opacity="1" />
+                            </Rectangle.Effect>
+                        </Rectangle>
+                        <ListBox
+                            uc:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
+                            ItemsSource="{Binding Results, IsAsync=True}"
+                            Style="{DynamicResource CandyListBoxStyle}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="3" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <uc:CandyImage
+                                        Width="320"
+                                        Height="200"
+                                        Margin="8"
+                                        BorderBrush="SkyBlue"
+                                        BorderThickness="1"
+                                        Entity="{Binding .}"
+                                        ImageThickness="320,200"
+                                        MaskFill="#80e6cfe6"
+                                        Source="{Binding Cover}">
+                                        <uc:CandyImage.MaskTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition />
+                                                        <RowDefinition Height="30" />
+                                                    </Grid.RowDefinitions>
+                                                    <StackPanel>
+                                                        <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
+                                                            <TextBox
+                                                                HorizontalAlignment="Center"
+                                                                ScrollViewer.CanContentScroll="True"
+                                                                Style="{DynamicResource CopyStyle}"
+                                                                Text="{Binding Title}"
+                                                                TextWrapping="Wrap" />
+                                                        </ScrollViewer>
+                                                        <TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            Style="{DynamicResource TextBlockStyle}"
+                                                            Text="{Binding Latest, StringFormat=更新：{0}}" />
+                                                        <TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            Style="{DynamicResource TextBlockStyle}"
+                                                            Text="{Binding Duration, StringFormat=时常：{0}}" />
+                                                        <TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            Style="{DynamicResource TextBlockStyle}"
+                                                            Text="{Binding ViewCount, StringFormat=浏览量：{0}}" />
+                                                    </StackPanel>
+                                                    <Button
+                                                        Grid.Row="1"
+                                                        Margin="10,0"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Top"
+                                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                        Command="{s:Action CollectCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        Content="{x:Static lib:FontIcon.Star}"
+                                                        Cursor="Hand"
+                                                        FontSize="17"
+                                                        Foreground="#ffe4c4"
+                                                        Style="{DynamicResource CandyFontButtonStyle}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </uc:CandyImage.MaskTemplate>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                    Command="{s:Action WatchCommand}"
+                                                    CommandParameter="{Binding .}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </uc:CandyImage>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </uc:CandyBorder>
+                <uc:CandyBorder
+                    x:Name="X3"
+                    Width="{c:Binding (Width*0.95),
+                                      ElementName=IndexCtrl}"
+                    Height="{c:Binding (Height-90),
+                                       ElementName=IndexCtrl}"
+                    BorderType="Info">
+                    <uc:CandyBorder.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </uc:CandyBorder.RenderTransform>
+                    <Grid>
+                        <Rectangle Fill="#50fff0f5">
+                            <Rectangle.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="15"
+                                    Direction="300"
+                                    Opacity="1" />
+                            </Rectangle.Effect>
+                        </Rectangle>
+                        <ListBox
+                            uc:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
+                            ItemsSource="{Binding Results, IsAsync=True}"
+                            Style="{DynamicResource CandyListBoxStyle}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="3" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <uc:CandyImage
+                                        Width="320"
+                                        Height="200"
+                                        Margin="8"
+                                        BorderBrush="SkyBlue"
+                                        BorderThickness="1"
+                                        Entity="{Binding .}"
+                                        ImageThickness="320,200"
+                                        MaskFill="#80e6cfe6"
+                                        Source="{Binding Cover}">
+                                        <uc:CandyImage.MaskTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition />
+                                                        <RowDefinition Height="30" />
+                                                    </Grid.RowDefinitions>
+                                                    <StackPanel>
+                                                        <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
+                                                            <TextBox
+                                                                HorizontalAlignment="Center"
+                                                                ScrollViewer.CanContentScroll="True"
+                                                                Style="{DynamicResource CopyStyle}"
+                                                                Text="{Binding Title}"
+                                                                TextWrapping="Wrap" />
+                                                        </ScrollViewer>
+                                                        <TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            Style="{DynamicResource TextBlockStyle}"
+                                                            Text="{Binding Latest, StringFormat=更新：{0}}" />
+                                                        <TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            Style="{DynamicResource TextBlockStyle}"
+                                                            Text="{Binding Duration, StringFormat=时常：{0}}" />
+                                                        <TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            Style="{DynamicResource TextBlockStyle}"
+                                                            Text="{Binding ViewCount, StringFormat=浏览量：{0}}" />
+                                                    </StackPanel>
+                                                    <Button
+                                                        Grid.Row="1"
+                                                        Margin="10,0"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Top"
+                                                        s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                        Command="{s:Action CollectCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        Content="{x:Static lib:FontIcon.Star}"
+                                                        Cursor="Hand"
+                                                        FontSize="17"
+                                                        Foreground="#ffe4c4"
+                                                        Style="{DynamicResource CandyFontButtonStyle}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </uc:CandyImage.MaskTemplate>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
+                                                    Command="{s:Action WatchCommand}"
+                                                    CommandParameter="{Binding .}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </uc:CandyImage>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </uc:CandyBorder>
+                <uc:CandyBorder
+                    x:Name="X4"
                     Width="{c:Binding (Width*0.95),
                                       ElementName=IndexCtrl}"
                     Height="{c:Binding (Height-90),
@@ -172,7 +374,7 @@
                                         Entity="{Binding .}"
                                         ImageThickness="320,200"
                                         MaskFill="#80e6cfe6"
-                                        Source="{Binding Preview}">
+                                        Source="{Binding Cover}">
                                         <uc:CandyImage.MaskTemplate>
                                             <DataTemplate>
                                                 <Grid>
@@ -192,11 +394,15 @@
                                                         <TextBlock
                                                             HorizontalAlignment="Center"
                                                             Style="{DynamicResource TextBlockStyle}"
+                                                            Text="{Binding Latest, StringFormat=更新：{0}}" />
+                                                        <TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            Style="{DynamicResource TextBlockStyle}"
                                                             Text="{Binding Duration, StringFormat=时常：{0}}" />
                                                         <TextBlock
                                                             HorizontalAlignment="Center"
                                                             Style="{DynamicResource TextBlockStyle}"
-                                                            Text="{Binding Views, StringFormat=浏览量：{0}}" />
+                                                            Text="{Binding ViewCount, StringFormat=浏览量：{0}}" />
                                                     </StackPanel>
                                                     <Button
                                                         Grid.Row="1"
@@ -218,7 +424,7 @@
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                 <i:InvokeCommandAction
                                                     s:View.ActionTarget="{Binding DataContext, ElementName=IndexCtrl}"
-                                                    Command="{s:Action WatchCommand}"
+                                                    Command="{s:Action PlayCommand}"
                                                     CommandParameter="{Binding .}" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
@@ -261,7 +467,7 @@
                 </Rectangle>
                 <ListBox
                     Margin="2"
-                    ItemsSource="{Binding InitResult}"
+                    ItemsSource="{Binding Mode}"
                     Style="{DynamicResource CandyListBoxStyle}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -273,8 +479,8 @@
                                 BorderThickness="0"
                                 ButtonType="Primary"
                                 Command="{s:Action ActiveCommand}"
-                                CommandParameter="{Binding AId}"
-                                Content="{Binding ShortName}" />
+                                CommandParameter="{Binding .}"
+                                Content="{Binding .}" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

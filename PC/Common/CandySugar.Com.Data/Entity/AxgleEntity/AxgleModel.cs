@@ -2,10 +2,11 @@
 {
     public class AxgleModel : BasicEntity
     {
-        public string Preview {  get; set; }
-        public string Play {  get; set; }
+        public string Cover {  get; set; }
+        public string Route {  get; set; }
         public string Duration { get; set; }
         public string Title { get; set; }
-        public int Views {  get; set; }
+        public string ViewCount {  get; set; }
+        public string Latest { get; set; }
     }
 }
