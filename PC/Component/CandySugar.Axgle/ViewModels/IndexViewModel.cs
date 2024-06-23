@@ -9,6 +9,7 @@
             CollectResult = [];
             Title = ["最新", "热门", "好评", "收藏"];
             Mode = ["Jav", "Skb"];
+            PlatformType = PlatformEnum.Jav;
             GenericDelegate.SearchAction = new(SearchHandler);
             Service = IocDependency.Resolve<IService<AxgleModel>>();
             var LocalDATA = Service.QueryAll();
