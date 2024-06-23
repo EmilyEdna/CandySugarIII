@@ -18,6 +18,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
             IBarStatus.Instance.HiddenStatusBar();
             IDirection.Instance.LockOrientation(OrientationEnum.Landscape);
 #endif
+            DeviceDisplay.Current.KeepScreenOn = true;
         }
 
         #region Property
