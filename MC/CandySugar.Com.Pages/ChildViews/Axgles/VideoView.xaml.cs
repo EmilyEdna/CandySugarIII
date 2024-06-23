@@ -14,11 +14,11 @@ public partial class VideoView : ContentPage
         this.BindingContext = new VideoViewModel();
         this.Disappearing += delegate
         {
+            Media.Handler?.DisconnectHandler();
 #if ANDROID
             IBarStatus.Instance.ShowStatusBar();
             IDirection.Instance.LockOrientation(OrientationEnum.Portrait);
 #endif
-            DeviceDisplay.Current.KeepScreenOn = false;
         };
 
     }

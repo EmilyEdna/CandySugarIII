@@ -9,5 +9,11 @@
     x:DataType="vm:VideoViewModel"
     Shell.NavBarIsVisible="False">
     <!--<uc:MediaUIViewer x:Name="Player" Source="{Binding Route}" />-->
-    <WebView Source="{Binding Route}" />
+    <!--<WebView Source="{Binding Route}" />-->
+    <toolkit:MediaElement
+        x:Name="Media"
+        ShouldAutoPlay="False"
+        ShouldKeepScreenOn="True"
+        ShouldShowPlaybackControls="True"
+        Source="{Binding Route}" />
 </ContentPage>
