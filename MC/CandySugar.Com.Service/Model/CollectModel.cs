@@ -9,7 +9,7 @@ namespace CandySugar.Com.Service
     public class CollectModel : BasicEntity
     {
         /// <summary>
-        /// 1漫画2里番3小说4动漫5文库6车牌
+        /// 1里番2动漫3车牌
         /// </summary>
         public int Category { get; set; }
         public string Cover { get; set; }

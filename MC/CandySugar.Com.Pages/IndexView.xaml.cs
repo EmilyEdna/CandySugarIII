@@ -28,10 +28,9 @@ public partial class IndexView : Shell
     {
         int Type = -1;
         var action = await DisplayActionSheet("导入类型", "确定", null, "漫画", "里番", "动漫", "车牌");
-        if (action.Equals("漫画")) Type = 1;
-        if (action.Equals("里番")) Type = 2;
-        if (action.Equals("动漫")) Type = 4;
-        if (action.Equals("车牌")) Type = 6;
+        if (action.Equals("里番")) Type = 1;
+        if (action.Equals("动漫")) Type = 2;
+        if (action.Equals("车牌")) Type = 3;
         if (Type > 0)
         {
             PickAndShow(Type);

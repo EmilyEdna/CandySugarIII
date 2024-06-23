@@ -19,7 +19,6 @@ public partial class VideoView : ContentPage
             IDirection.Instance.LockOrientation(OrientationEnum.Portrait);
 #endif
             DeviceDisplay.Current.KeepScreenOn = false;
-            Player.Dispose();
         };
 
     }

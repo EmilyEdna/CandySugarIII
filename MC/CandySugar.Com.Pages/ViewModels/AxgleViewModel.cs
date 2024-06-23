@@ -1,15 +1,15 @@
-﻿using CandySugar.Com.Library;
+﻿using System.Collections.ObjectModel;
+using CandySugar.Com.Library;
 using CandySugar.Com.Library.Model;
 using CandySugar.Com.Pages.ChildViews.Axgles;
 using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Sdk.Component.Vip.Axgle.sdk;
-using Sdk.Component.Vip.Axgle.sdk.ViewModel;
-using Sdk.Component.Vip.Axgle.sdk.ViewModel.Enums;
-using Sdk.Component.Vip.Axgle.sdk.ViewModel.Request;
-using Sdk.Component.Vip.Axgle.sdk.ViewModel.Response;
-using System.Collections.ObjectModel;
+using Sdk.Component.Vip.Jron.sdk;
+using Sdk.Component.Vip.Jron.sdk.ViewModel;
+using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
+using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
+using Sdk.Component.Vip.Jron.sdk.ViewModel.Response;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 
@@ -19,20 +19,31 @@ namespace CandySugar.Com.Pages.ViewModels
     {
         public AxgleViewModel()
         {
-            Application.Current.Dispatcher.DispatchAsync(InitAsync);
+            Results = [];
+            Platform = PlatformEnum.Jav;
+            Bar = [
+                new BarModel { Name = "Jav", Route = "Jav" },
+                new BarModel { Name = "Skb", Route = "Skb" },
+                new BarModel { Name = "最新", Route = "1" },
+                new BarModel { Name = "热门", Route = "2" },
+                new BarModel { Name = "好评", Route = "3" },
+                ];
         }
 
         #region Field
-        private int CId;
-        private int Total;
-        private int Page=0;
+        private PlatformEnum Platform;
+        private ModeEnum Mode;
+        private int InitTotal;
+        private int InitPage;
+        private int SearchPage;
+        private int SearchTotal;
         #endregion
 
         #region Property
         [ObservableProperty]
         private ObservableCollection<BarModel> _Bar;
         [ObservableProperty]
-        private ObservableCollection<AxgleCategoryElementResult> _CateResult;
+        private ObservableCollection<JronElemetInitResult> _Results;
         [ObservableProperty]
         private string _QueryKey;
         #endregion
@@ -42,53 +53,84 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             try
             {
-                var result = (await AxgleFactory.Axgle(opt =>
+                var result = (await JronFactory.Jron(opt =>
                 {
                     opt.RequestParam = new Input
                     {
 
-                        AxgleType = AxgleEnum.Init,
+                        JronType = JronEnum.Init,
+                        PlatformType = Platform,
                         CacheSpan = 5,
+                        Init = new JronInit
+                        {
+                            ModeType = Mode,
+                            Page = 1,
+                        }
                     };
-                }).RunsAsync()).InitResults;
-                var data = result.Select(t => new BarModel
-                {
-                    Name = t.ShortName,
-                    Route = t.AId
-                }).ToList();
-                Bar = new(data);
-
+                }).RunsAsync()).InitResult;
+                InitTotal = result.Total;
+                Results = new(result.ElementResults);
             }
             catch (Exception ex)
             {
                 ex.Message.Info();
             }
         }
+
+        private async void InitMoreAsync()
+        {
+            try
+            {
+                var result = (await JronFactory.Jron(opt =>
+                {
+                    opt.RequestParam = new Input
+                    {
+
+                        JronType = JronEnum.Init,
+                        PlatformType = Platform,
+                        CacheSpan = 5,
+                        Init = new JronInit
+                        {
+                            ModeType = Mode,
+                            Page = InitPage,
+                        }
+                    };
+                }).RunsAsync()).InitResult;
+                result.ElementResults.ForEach(Results.Add);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.Info();
+            }
+        }
+
         private async void SearchAsync()
         {
             try
             {
-                var result = (await AxgleFactory.Axgle(opt =>
+                var result = (await JronFactory.Jron(opt =>
                 {
                     opt.RequestParam = new Input
                     {
 
-                        AxgleType = AxgleEnum.Search,
+                        JronType = JronEnum.Search,
+                        PlatformType = Platform,
                         CacheSpan = 5,
-                        Search = new AxgleSearch { 
-                         Page=Page,
-                         KeyWord=QueryKey
+                        Search = new JronSearch
+                        {
+                            Page = SearchPage,
+                            Keyword = QueryKey
                         }
                     };
                 }).RunsAsync()).SearchResult;
 
-                if (Page == 0)
+                if (SearchPage == 1)
                 {
-                    Total = result.Total;
-                    CateResult = new(result.ElementResult.ToMapest<List<AxgleCategoryElementResult>>());
+                    SearchTotal = result.Total;
+                    Results = new(result.ElementResults.ToMapest<List<JronElemetInitResult>>());
                 }
                 else
-                    result.ElementResult.ToMapest<List<AxgleCategoryElementResult>>().ForEach(CateResult.Add);
+                    result.ElementResults.ToMapest<List<JronElemetInitResult>>().ForEach(Results.Add);
 
             }
             catch (Exception ex)
@@ -96,30 +138,27 @@ namespace CandySugar.Com.Pages.ViewModels
                 ex.Message.Info();
             }
         }
-        private async void CateAsync()
+
+        private async void PlayAsync(JronElemetInitResult input)
         {
             try
             {
-                var result = (await AxgleFactory.Axgle(opt =>
+                var result = (await JronFactory.Jron(opt =>
                 {
                     opt.RequestParam = new Input
                     {
 
-                        AxgleType = AxgleEnum.Category,
+                        JronType = JronEnum.Detail,
+                        PlatformType = Platform,
                         CacheSpan = 5,
-                        Category= new AxgleCategory { 
-                         Desc= AxgleDescEnum.MostViewed,
-                         CId= CId,
-                         Page=Page
+                        Play = new  JronPlay
+                        {
+                            Route = input.Route
                         }
                     };
-                }).RunsAsync()).CategoryResult;
-                if (Page == 0)
-                {
-                    Total = result.Total;
-                    CateResult = new(result.ElementResult);
-                }else
-                    result.ElementResult.ForEach(CateResult.Add);
+                }).RunsAsync()).PlayResult;
+
+                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", result.Play } });
             }
             catch (Exception ex)
             {
@@ -127,57 +166,76 @@ namespace CandySugar.Com.Pages.ViewModels
             }
         }
 
-        private async void NextAsync(AxgleCategoryElementResult input) 
-        {
-            await Shell.Current.GoToAsync(Extend.RouteMap[nameof(AjaxView)], new Dictionary<string, object> { { "Param", input.Play }, { "Title", input.Title } });
-        }
-
-        private async void Insert(AxgleCategoryElementResult result)
+        private async void Insert(JronElemetInitResult result)
         {
             await IocDependency.Resolve<ICandyService>().Add(new CollectModel
             {
-                Category = 6,
-                Cover = result.Preview,
+                Category = 3,
+                Cover = result.Cover,
                 Name = result.Title,
-                Route = result.Play,
+                Route = result.Route,
             });
         }
 
         #endregion
 
         #region Command
-        public RelayCommand MoreCommand => new(() =>
+        [RelayCommand]
+        public void More()
         {
             if (QueryKey.IsNullOrEmpty())
             {
-                Page += 1;
-                if (Page <= Total)
-                    Application.Current.Dispatcher.DispatchAsync(CateAsync);
+                InitPage += 1;
+                if (InitPage <= InitTotal)
+                    Application.Current.Dispatcher.DispatchAsync(InitMoreAsync);
             }
             else
             {
-                Page += 1;
-                if (Page <= Total)
+                SearchPage += 1;
+                if (SearchPage <= SearchTotal)
                     Application.Current.Dispatcher.DispatchAsync(SearchAsync);
+            }
+        }
+
+        [RelayCommand]
+        public void Query() 
+        {
+            if (QueryKey.IsNullOrEmpty()) return;
+            SearchPage = 1;
+            SearchTotal = 0;
+            Results = [];
+            Application.Current.Dispatcher.DispatchAsync(SearchAsync);
+        }
+
+        public RelayCommand<string> CatalogCommand => new(obj =>
+        {
+            Results = [];
+            if (obj == "Jav")
+            {
+                Platform = PlatformEnum.Jav;
+            }
+            else if (obj == "Skb")
+            {
+                Platform = PlatformEnum.Skb;
+            }
+            else
+            {
+                var type = obj.AsInt();
+                if (type == 1)
+                    Mode = ModeEnum.Latest;
+                else if (type == 2)
+                    Mode = ModeEnum.Hot;
+                else
+                    Mode = ModeEnum.Praised;
+                InitPage = 1;
+                QueryKey = string.Empty;
+                InitAsync();
             }
         });
 
-        public RelayCommand QueryCommand => new(() =>
-        {
-            if (QueryKey.IsNullOrEmpty()) return;
-            Page = 0;
-            Application.Current.Dispatcher.DispatchAsync(SearchAsync);
-        });
+        public RelayCommand<JronElemetInitResult> CollectCommand => new(Insert);
 
-        public RelayCommand<string> CatalogCommand => new(obj => {
-            CId = obj.AsInt();
-            Page = 0;
-            Application.Current.Dispatcher.DispatchAsync(CateAsync);
-        });
-
-        public RelayCommand<AxgleCategoryElementResult> CollectCommand => new(Insert);
-
-        public RelayCommand<AxgleCategoryElementResult> PlayCommand => new(NextAsync);
+        public RelayCommand<JronElemetInitResult> PlayCommand => new(PlayAsync);
         #endregion
     }
 }

@@ -8,5 +8,6 @@
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Axgles"
     x:DataType="vm:VideoViewModel"
     Shell.NavBarIsVisible="False">
-    <uc:MediaUIViewer x:Name="Player" Source="{Binding Route}" />
+    <!--<uc:MediaUIViewer x:Name="Player" Source="{Binding Route}" />-->
+    <WebView Source="{Binding Route}" />
 </ContentPage>

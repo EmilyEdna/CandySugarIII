@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:lib="clr-namespace:CandySugar.Com.Library;assembly=CandySugar.Com.Library"
-    xmlns:sdk="clr-namespace:Sdk.Component.Vip.Axgle.sdk.ViewModel.Response;assembly=Sdk.Component.Vip"
+    xmlns:sdk="clr-namespace:Sdk.Component.Vip.Jron.sdk.ViewModel.Response;assembly=Sdk.Component.Vip"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels"
     lib:ToolBarAttach.BarSource="{Binding Bar}"
     x:DataType="vm:AxgleViewModel"
@@ -23,21 +23,21 @@
     </Shell.SearchHandler>
     <CollectionView
         ItemSizingStrategy="MeasureAllItems"
-        ItemsSource="{Binding CateResult}"
+        ItemsSource="{Binding Results}"
         RemainingItemsThreshold="0"
         RemainingItemsThresholdReachedCommand="{Binding MoreCommand}">
         <CollectionView.ItemsLayout>
             <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
         </CollectionView.ItemsLayout>
         <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="sdk:AxgleCategoryElementResult">
+            <DataTemplate x:DataType="sdk:JronElemetInitResult">
                 <Border Stroke="{DynamicResource PotoBrushSafe}">
                     <Grid BackgroundColor="{DynamicResource BasicContainer}" ColumnDefinitions="Auto,*">
                         <Border
                             HeightRequest="120"
                             StrokeShape="RoundRectangle 0"
                             WidthRequest="170">
-                            <Image Aspect="Fill" Source="{Binding Preview}" />
+                            <Image Aspect="Fill" Source="{Binding Cover}" />
                         </Border>
                         <StackLayout Grid.Column="1" VerticalOptions="StartAndExpand">
                             <Label
@@ -50,8 +50,12 @@
                                 <Label Text="{Binding Duration}" TextColor="{DynamicResource Basic}" />
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Margin="10,0,0,0">
+                                <Label Text="更新：" TextColor="{DynamicResource Basic}" />
+                                <Label Text="{Binding Latest}" TextColor="{DynamicResource Basic}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="10,0,0,0">
                                 <Label Text="浏览次数：" TextColor="{DynamicResource Basic}" />
-                                <Label Text="{Binding Views}" TextColor="{DynamicResource Basic}" />
+                                <Label Text="{Binding ViewCount}" TextColor="{DynamicResource Basic}" />
                             </HorizontalStackLayout>
                             <HorizontalStackLayout>
                                 <Button

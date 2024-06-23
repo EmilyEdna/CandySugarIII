@@ -1,20 +1,20 @@
 ﻿using System.Collections.ObjectModel;
 using CandySugar.Com.Library;
 using CandySugar.Com.Library.Model;
-using CandySugar.Com.Pages.ChildViews.Comics;
+using CandySugar.Com.Pages.ChildViews.Animes;
+using CandySugar.Com.Pages.ChildViews.Axgles;
+using CandySugar.Com.Pages.ChildViews.Rifans;
 using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using ComicSearch = Sdk.Component.Vip.Comic.sdk.ViewModel.Response.SearchElementResult;
-using RifanSearch = Sdk.Component.Vip.Anime.sdk.ViewModel.Response.SearchElementResult;
+using Sdk.Component.Cart.sdk.ViewModel.Response;
+using Sdk.Component.Vip.Jron.sdk;
+using Sdk.Component.Vip.Jron.sdk.ViewModel;
+using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
+using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
-using CandySugar.Com.Pages.ChildViews.Rifans;
-using CandySugar.Com.Pages.ChildViews.Novels;
-using CandySugar.Com.Pages.ChildViews.Animes;
-using Sdk.Component.Cart.sdk.ViewModel.Response;
-using CandySugar.Com.Pages.ChildViews.Lights;
-using CandySugar.Com.Pages.ChildViews.Axgles;
+using RifanSearch = Sdk.Component.Vip.Anime.sdk.ViewModel.Response.SearchElementResult;
 
 namespace CandySugar.Com.Pages.ViewModels
 {
@@ -25,12 +25,9 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             Bar = new ObservableCollection<BarModel>
             {
-               new BarModel{ Name="漫画", Route="1" },
-               new BarModel{ Name="里番", Route="2" },
-               new BarModel{ Name="小说", Route="3" },
-               new BarModel{ Name="动漫", Route="4" },
-               new BarModel{ Name="文库", Route="5" },
-               new BarModel{ Name="车牌", Route="6" },
+               new BarModel{ Name="里番", Route="1" },
+               new BarModel{ Name="动漫", Route="2" },
+               new BarModel{ Name="车牌", Route="3" },
             };
             GetLocalData();
         }
@@ -69,17 +66,28 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             GetLocalData();
             if (Model.Category == 1)
-                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CatalogView)], new Dictionary<string, object> { { "Param", new ComicSearch { Cover = Model.Cover, Name = Model.Name, Route = Model.Route } } });
-            if (Model.Category == 2)
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(DetailView)], new Dictionary<string, object> { { "Param", new RifanSearch { Cover = Model.Cover, Name = Model.Name, Route = Model.Route } } });
-            if (Model.Category == 3)
-                await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(ChapterView)]}?Type={Model.Commom}&Name={Model.Name}&Route={Model.Route}&Cover={Model.Cover}");
-            if (Model.Category == 4)
+            if (Model.Category == 2)
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CollectView)], new Dictionary<string, object> { { "Param", new CartInitElementResult { Title = Model.Name, Route = Model.Route, Cover = Model.Cover } } });
-            if (Model.Category == 5)
-                await Shell.Current.GoToAsync($"{Extend.RouteMap[nameof(ChaptersView)]}?Name={Model.Name}&Route={Model.Route}&Cover={Model.Cover}");
-            if (Model.Category == 6)
-                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(AjaxView)], new Dictionary<string, object> { { "Param", Model.Route }, { "Title", Model.Name } });
+            if (Model.Category == 3)
+            {
+                var result = (await JronFactory.Jron(opt =>
+                {
+                    opt.RequestParam = new Input
+                    {
+
+                        JronType = JronEnum.Init,
+                        PlatformType = Model.Route.Contains("javbangers")? PlatformEnum.Jav: PlatformEnum.Skb,
+                        CacheSpan = 5,
+                        Play = new JronPlay
+                        {
+                            Route = Model.Route
+                        }
+                    };
+                }).RunsAsync()).PlayResult;
+
+                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", result.Play } });
+            }
         }
         #endregion
 
@@ -96,7 +104,7 @@ namespace CandySugar.Com.Pages.ViewModels
             if (Page <= Total)
                 GetLocalData();
         });
-        public RelayCommand<CollectModel> NextCommand => new(Next);
+        public RelayCommand<CollectModel> NextCommand => new RelayCommand<CollectModel>(Next);
         public RelayCommand<dynamic> RemoveCommand => new(input => DeleteLocalData(input));
         #endregion
     }
