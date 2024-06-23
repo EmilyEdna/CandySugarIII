@@ -370,10 +370,14 @@
                                                                 Text="{Binding Title}"
                                                                 TextWrapping="Wrap" />
                                                         </ScrollViewer>
-                                                        <TextBlock HorizontalAlignment="Left" Style="{DynamicResource TextBlockStyle}">
+                                                        <TextBlock
+                                                            HorizontalAlignment="Left"
+                                                            Style="{DynamicResource TextBlockStyle}"
+                                                            TextWrapping="Wrap">
                                                             <Run Text="{Binding Latest, StringFormat=更新:{0}}" />
                                                             <Run Text="{Binding Duration, StringFormat=时常:{0}}" />
                                                             <Run Text="{Binding ViewCount, StringFormat=播放:{0}}" />
+                                                            <Run Text="{Binding Platfrom, StringFormat=平台:{0}}" />
                                                         </TextBlock>
                                                     </StackPanel>
                                                     <Button

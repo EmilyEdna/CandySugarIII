@@ -8,5 +8,6 @@
         public string Title { get; set; }
         public string ViewCount {  get; set; }
         public string Latest { get; set; }
+        public string Platfrom {  get; set; }
     }
 }

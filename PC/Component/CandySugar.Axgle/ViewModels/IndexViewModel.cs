@@ -98,6 +98,7 @@ namespace CandySugar.Axgle.ViewModels
         public void CollectCommand(JronElemetInitResult element)
         {
             var Model = element.ToMapest<AxgleModel>();
+            Model.Platfrom = PlatformType.AsString();
             Model.PId = Service.Insert(Model);
             CollectResult.Add(Model);
         }
