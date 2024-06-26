@@ -8,17 +8,15 @@
         public int ActiveAnime = 1;
         public Storyboard AnimeX1;
         public Storyboard AnimeX2;
-        private IndexViewModel ViewModel;
+        public Storyboard AnimeX3;
+        public Storyboard AnimeX4;
         public IndexView()
         {
             InitializeComponent();
-            Loaded += delegate { ViewModel = (IndexViewModel)this.DataContext; };
             AnimeX1 = (Storyboard)FindResource("X1Key");
             AnimeX2 = (Storyboard)FindResource("X2Key");
-
-            AnimeX1.Completed += CompletedEvent;
-            AnimeX2.Completed += CompletedEvent;
-
+            AnimeX3 = (Storyboard)FindResource("X3Key");
+            AnimeX4 = (Storyboard)FindResource("X4Key");
             GenericDelegate.InformationAction = new((width, height) =>
             {
                 Canvas.SetTop(FloatBtn, height - 160);

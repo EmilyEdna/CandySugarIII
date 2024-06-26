@@ -73,7 +73,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Rifans
         {
             await IocDependency.Resolve<ICandyService>().Add(new CollectModel
             {
-                Category = 2,
+                Category = 1,
                 Cover = result.Cover,
                 Name = result.Name,
                 Route = result.Route,

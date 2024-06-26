@@ -1,26 +1,31 @@
-﻿namespace CandySugar.Axgle.ViewModels
+﻿using StackExchange.Redis;
+
+namespace CandySugar.Axgle.ViewModels
 {
     public class IndexViewModel : PropertyChangedBase
     {
         private object LockObject = new object();
         private IService<AxgleModel> Service;
-        private bool IsDirty = false;
         public IndexViewModel()
         {
-            Title = ["常规", "收藏"];
+            CollectResult = [];
+            Title = ["最新", "热门", "好评", "收藏"];
+            Mode = ["Jav", "Skb"];
+            PlatformType = PlatformEnum.Jav;
             GenericDelegate.SearchAction = new(SearchHandler);
             Service = IocDependency.Resolve<IService<AxgleModel>>();
             var LocalDATA = Service.QueryAll();
-            CollectResult = [];
             LocalDATA?.ForEach(CollectResult.Add);
-            OnInit();
         }
 
         #region Field
-        private int CId;
-        private int Total;
-        private int PageIndex;
+        private int SearchTotal;
+        private int SearchPage;
+        private int InitPage;
+        private int InitTotal;
         private string Keyword;
+        private ModeEnum ModeType;
+        private PlatformEnum PlatformType;
         #endregion
 
         #region Property
@@ -31,17 +36,18 @@
             set => SetAndNotify(ref _Title, value);
         }
 
-        private ObservableCollection<AxgleInitResult> _InitResult;
-        public ObservableCollection<AxgleInitResult> InitResult
+        private ObservableCollection<string> _Mode;
+        public ObservableCollection<string> Mode
         {
-            get => _InitResult;
-            set => SetAndNotify(ref _InitResult, value);
+            get => _Mode;
+            set => SetAndNotify(ref _Mode, value);
         }
-        private ObservableCollection<AxgleCategoryElementResult> _CateResult;
-        public ObservableCollection<AxgleCategoryElementResult> CateResult
+
+        private ObservableCollection<JronElemetInitResult> _Results;
+        public ObservableCollection<JronElemetInitResult> Results
         {
-            get => _CateResult;
-            set => SetAndNotify(ref _CateResult, value);
+            get => _Results;
+            set => SetAndNotify(ref _Results, value);
         }
 
         private ObservableCollection<AxgleModel> _CollectResult;
@@ -57,28 +63,42 @@
         /// 浏览
         /// </summary>
         /// <param name="element"></param>
-        public void WatchCommand(AxgleCategoryElementResult element)
+        public void WatchCommand(JronElemetInitResult element)
         {
             OnDetail(element);
         }
+
+        /// <summary>
+        /// 浏览
+        /// </summary>
+        /// <param name="element"></param>
+        public void PlayCommand(AxgleModel element)
+        {
+            OnDetail(element.ToMapest<JronElemetInitResult>());
+        }
+
         /// <summary>
         /// 激活模块
         /// </summary>
-        /// <param name="cid"></param>
-        public void ActiveCommand(string cid)
+        /// <param name="param"></param>
+        public void ActiveCommand(string param)
         {
-            PageIndex = 0;
-            CId = cid.AsInt();
+            if (param == "Jav")
+                PlatformType = PlatformEnum.Jav;
+            else
+               PlatformType = PlatformEnum.Skb;
             this.Keyword = string.Empty;
-            OnCategory();
+            InitPage = SearchPage = 1;
+            Results = [];
         }
         /// <summary>
         /// 收藏
         /// </summary>
         /// <param name="element"></param>
-        public void CollectCommand(AxgleCategoryElementResult element)
+        public void CollectCommand(JronElemetInitResult element)
         {
             var Model = element.ToMapest<AxgleModel>();
+            Model.Platfrom = PlatformType.AsString();
             Model.PId = Service.Insert(Model);
             CollectResult.Add(Model);
         }
@@ -99,15 +119,30 @@
             var Target = ((CandyToggleItem)item);
             if (Target.FindParent<UserControl>() is IndexView View)
             {
-                if (Target.Tag.ToString().AsInt() == 0)
+                var Temp = Target.Tag.ToString().AsInt();
+                this.Keyword = string.Empty;
+                InitPage = 1;
+                if (Temp == 0)
                 {
-                    IsDirty = true;
+                    ModeType = ModeEnum.Latest;
+                    OnInit();
                     View.AnimeX1.Begin();
+                }
+                else if (Temp == 1)
+                {
+                    ModeType = ModeEnum.Hot;
+                    OnInit();
+                    View.AnimeX2.Begin();
+                }
+                else if (Temp == 2)
+                {
+                    ModeType = ModeEnum.Praised;
+                    OnInit();
+                    View.AnimeX3.Begin();
                 }
                 else
                 {
-                    IsDirty = false;
-                    View.AnimeX2.Begin();
+                    View.AnimeX4.Begin();
                 }
             }
         });
@@ -116,14 +151,21 @@
         /// </summary>
         public RelayCommand<ScrollChangedEventArgs> ScrollCommand => new((obj) =>
         {
-            if (!IsDirty) return;
-            if (PageIndex <= Total && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+            if (this.Keyword.IsNullOrEmpty())
             {
-                PageIndex += 1;
-                if (this.Keyword.IsNullOrEmpty())
-                    OnLoadMoreCategory();
-                else
+                if (InitPage <= InitTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+                {
+                    InitPage += 1;
+                    OnLoadMoreInit();
+                }
+            }
+            else {
+                if (SearchPage <= SearchTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+                {
+                    SearchPage += 1;
                     OnLoadMoreSearch();
+                }
+
             }
         });
         #endregion
@@ -145,19 +187,64 @@
                 try
                 {
                     var Proxy = Module.IocModule.Proxy;
-                    var res = (await AxgleFactory.Axgle(opt =>
+                    var res = (await JronFactory.Jron(opt =>
                     {
                         opt.RequestParam = new Input
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            AxgleType = AxgleEnum.Init,
+                            Init = new JronInit
+                            {
+                                Page = InitPage,
+                                ModeType = ModeType
+                            },
+                            PlatformType= PlatformEnum.Jav,
+                            JronType= JronEnum.Init
                         };
-                    }).RunsAsync()).InitResults;
-                    InitResult = new ObservableCollection<AxgleInitResult>(res);
+                    }).RunsAsync()).InitResult;
+                    InitTotal = res.Total;
+                    Results = new(res.ElementResults);
                     // 这一句很关键，开启集合的异步访问支持
-                    BindingOperations.EnableCollectionSynchronization(InitResult, LockObject);
+                    BindingOperations.EnableCollectionSynchronization(Results, LockObject);
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, "");
+                    ErrorNotify();
+                }
+            });
+        }
+
+        private void OnLoadMoreInit() 
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    var Proxy = Module.IocModule.Proxy;
+                    var res = (await JronFactory.Jron(opt =>
+                    {
+                        opt.RequestParam = new Input
+                        {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
+                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                            Init = new JronInit
+                            {
+                                Page = InitPage,
+                                ModeType = ModeType
+                            },
+                            PlatformType = PlatformEnum.Jav,
+                            JronType = JronEnum.Init
+                        };
+                    }).RunsAsync()).InitResult;
+                    // 这一句很关键，开启集合的异步访问支持
+                    BindingOperations.EnableCollectionSynchronization(Results, LockObject);
+                    Application.Current.Dispatcher.Invoke(() =>
+                    { 
+                       res.ElementResults.ForEach(Results.Add); 
+                    });
                 }
                 catch (Exception ex)
                 {
@@ -174,25 +261,26 @@
                 try
                 {
                     var Proxy = Module.IocModule.Proxy;
-                    var res = (await AxgleFactory.Axgle(opt =>
+                    var res = (await JronFactory.Jron(opt =>
                     {
                         opt.RequestParam = new Input
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            AxgleType = AxgleEnum.Search,
-                            Search = new AxgleSearch
+                            JronType = JronEnum.Search,
+                            PlatformType = PlatformType,
+                            Search = new JronSearch
                             {
-                                KeyWord = this.Keyword,
-                                Page = PageIndex
+                                Keyword = this.Keyword,
+                                Page = SearchPage
                             }
                         };
                     }).RunsAsync()).SearchResult;
-                    Total = res.Total;
-                    CateResult = new ObservableCollection<AxgleCategoryElementResult>(res.ElementResult.ToMapest<List<AxgleCategoryElementResult>>());
+                    SearchTotal = res.Total;
+                    Results = new (res.ElementResults.ToMapest<List<JronElemetInitResult>>());
                     // 这一句很关键，开启集合的异步访问支持
-                    BindingOperations.EnableCollectionSynchronization(CateResult, LockObject);
+                    BindingOperations.EnableCollectionSynchronization(Results, LockObject);
                 }
                 catch (Exception ex)
                 {
@@ -209,24 +297,28 @@
                 try
                 {
                     var Proxy = Module.IocModule.Proxy;
-                    var res = (await AxgleFactory.Axgle(opt =>
+                    var res = (await JronFactory.Jron(opt =>
                     {
                         opt.RequestParam = new Input
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            AxgleType = AxgleEnum.Search,
-                            Search = new AxgleSearch
+                            JronType = JronEnum.Search,
+                            PlatformType= PlatformType,
+                            Search = new JronSearch
                             {
-                                KeyWord = this.Keyword,
-                                Page = PageIndex
+                                Keyword = this.Keyword,
+                                Page = SearchPage
                             }
                         };
                     }).RunsAsync()).SearchResult;
                     // 这一句很关键，开启集合的异步访问支持
-                    BindingOperations.EnableCollectionSynchronization(CateResult, LockObject);
-                    Application.Current.Dispatcher.Invoke(() => { res.ElementResult.ToMapest<List<AxgleCategoryElementResult>>().ForEach(CateResult.Add); });
+                    BindingOperations.EnableCollectionSynchronization(Results, LockObject);
+                    Application.Current.Dispatcher.Invoke(() => 
+                    { 
+                        res.ElementResults.ToMapest<List<JronElemetInitResult>>().ForEach(Results.Add); 
+                    });
                 }
                 catch (Exception ex)
                 {
@@ -236,106 +328,37 @@
             });
         }
 
-        private void OnCategory()
-        {
-            Task.Run(async () =>
-            {
-                try
-                {
-                    var Proxy = Module.IocModule.Proxy;
-                    var res = (await AxgleFactory.Axgle(opt =>
-                    {
-                        opt.RequestParam = new Input
-                        {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            AxgleType = AxgleEnum.Category,
-                            Category = new AxgleCategory
-                            {
-                                Desc = AxgleDescEnum.MostViewed,
-                                CId = CId,
-                                Page = PageIndex
-                            }
-                        };
-                    }).RunsAsync()).CategoryResult;
-                    Total = res.Total;
-                    CateResult = new ObservableCollection<AxgleCategoryElementResult>(res.ElementResult);
-                    // 这一句很关键，开启集合的异步访问支持
-                    BindingOperations.EnableCollectionSynchronization(CateResult, LockObject);
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
-        }
 
-        private void OnLoadMoreCategory()
+        private void OnDetail(JronElemetInitResult input)
         {
             Task.Run(async () =>
             {
                 try
                 {
                     var Proxy = Module.IocModule.Proxy;
-                    var res = (await AxgleFactory.Axgle(opt =>
+                    var result = (await JronFactory.Jron(opt =>
                     {
                         opt.RequestParam = new Input
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            AxgleType = AxgleEnum.Category,
-                            Category = new AxgleCategory
+                            JronType = JronEnum.Detail,
+                            PlatformType = PlatformType,
+                            Play = new JronPlay
                             {
-                                Desc = AxgleDescEnum.MostViewed,
-                                CId = CId,
-                                Page = PageIndex
+                                Route = input.Route
                             }
                         };
-                    }).RunsAsync()).CategoryResult;
-                    // 这一句很关键，开启集合的异步访问支持
-                    BindingOperations.EnableCollectionSynchronization(CateResult, LockObject);
-                    Application.Current.Dispatcher.Invoke(() =>{ res.ElementResult.ForEach(CateResult.Add); });               
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
-        }
+                    }).RunsAsync()).PlayResult.Play;
 
-        private void OnDetail(AxgleCategoryElementResult input)
-        {
-            Task.Run(async () =>
-            {
-                try
-                {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await AxgleFactory.Axgle(opt =>
-                    {
-                        opt.RequestParam = new Input
-                        {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            AxgleType = AxgleEnum.Detail,
-                            Detail = new AxgleDetail
-                            {
-                                FrameURL = input.Play
-                            }
-                        };
-                    }).RunsAsync()).DetailResult.Route;
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         new ScreenWebPlayView
                         {
                             DataContext = new ScreenWebPlayViewModel
                             {
-                                Route = result,
-                                Name= input.Title
+                                Route = result
                             }
                         }.Show();
                     });
@@ -357,6 +380,7 @@
         private void SearchHandler(string keyword)
         {
             this.Keyword = keyword;
+            this.SearchPage = 1;
             OnSearch();
         }
         #endregion

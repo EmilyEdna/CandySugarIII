@@ -3,8 +3,8 @@
 	<PropertyGroup>
 		<TargetFrameworks>net8.0-android;</TargetFrameworks>
 		<OutputType>Exe</OutputType>
-		<RootNamespace>CandySugar.MainUI</RootNamespace>
 		<UseMaui>true</UseMaui>
+		<RootNamespace>CandySugar.MainUI</RootNamespace>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<!-- Display name -->
@@ -21,7 +21,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">29.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
 		<RunAOTCompilation>False</RunAOTCompilation>
 		<AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
 		<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
@@ -31,7 +31,7 @@
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
 		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 		<AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
 		<DebugType>full</DebugType>
@@ -101,6 +101,14 @@
 	  <Compile Update="Resources\Styles\ControlStyle.xaml.cs">
 	    <DependentUpon>ControlStyle.xaml</DependentUpon>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.60" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.60" />
 	</ItemGroup>
 
 </Project>

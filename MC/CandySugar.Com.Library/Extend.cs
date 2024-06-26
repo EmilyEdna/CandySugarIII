@@ -44,20 +44,8 @@ namespace CandySugar.Com.Library
         {
              {"RootView","//RootView" },
              {"RifanView","//RifanView" },
-             {"NovelView","//NovelView" },
-             {"LightView","//LightView" },
-             {"ComicView","//ComicView" },
              {"AnimeView","//AnimeView" },
              {"AxgleView","//AxgleView" },
-
-             {"ChapterView","//NovelView/ChapterView" },
-             {"ReaderView","//NovelView/ChapterView/ReaderView" },
-
-             {"ChaptersView","//LightView/ChaptersView" },
-             {"ReadersView" ,"//LightView/ChaptersView//ReadersView"},
-
-             {"CatalogView","//ComicView/CatalogView" },
-             {"VisitView","//ComicView/CatalogView/VisitView" },
 
              {"CollectView","//AnimeView/CollectView" },
              {"PlayView","//AnimeView/CollectView/PlayView" },
@@ -65,8 +53,7 @@ namespace CandySugar.Com.Library
             { "DetailView","//RifanView/DetailView"},
             { "WatchView","//RifanView/DetailView/WatchView"},
 
-            { "AjaxView","//AxgleView/AjaxView"},
-            { "VideoView","//AxgleView/AjaxView/VideoView"},
+            { "VideoView","//AxgleView/VideoView"},
          };
     }
 }

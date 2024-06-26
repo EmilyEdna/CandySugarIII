@@ -13,12 +13,12 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
     {
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            Route = (string)query["Input"];
-            DeviceDisplay.Current.KeepScreenOn = true;
+            Route = (string)query["Param"];
 #if ANDROID
             IBarStatus.Instance.HiddenStatusBar();
             IDirection.Instance.LockOrientation(OrientationEnum.Landscape);
 #endif
+            DeviceDisplay.Current.KeepScreenOn = true;
         }
 
         #region Property
