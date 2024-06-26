@@ -86,7 +86,7 @@ namespace CandySugar.Axgle.ViewModels
             if (param == "Jav")
                 PlatformType = PlatformEnum.Jav;
             else
-               PlatformType = PlatformEnum.Skb;
+                PlatformType = PlatformEnum.Skb;
             this.Keyword = string.Empty;
             InitPage = SearchPage = 1;
             Results = [];
@@ -111,6 +111,14 @@ namespace CandySugar.Axgle.ViewModels
             CollectResult.Remove(CollectResult.First(t => t.PId == id));
             Service.Remove(id);
         }
+
+        public void ChangeCommand(int ActiveAnime)
+        {
+            this.Keyword = string.Empty;
+            InitPage = 1;
+            if (ActiveAnime != 4)
+                OnInit();
+        }
         /// <summary>
         /// 切换功能
         /// </summary>
@@ -120,28 +128,27 @@ namespace CandySugar.Axgle.ViewModels
             if (Target.FindParent<UserControl>() is IndexView View)
             {
                 var Temp = Target.Tag.ToString().AsInt();
-                this.Keyword = string.Empty;
-                InitPage = 1;
                 if (Temp == 0)
                 {
                     ModeType = ModeEnum.Latest;
-                    OnInit();
+                    View.ActiveAnime = 1;
                     View.AnimeX1.Begin();
                 }
                 else if (Temp == 1)
                 {
                     ModeType = ModeEnum.Hot;
-                    OnInit();
+                    View.ActiveAnime = 2;
                     View.AnimeX2.Begin();
                 }
                 else if (Temp == 2)
                 {
                     ModeType = ModeEnum.Praised;
-                    OnInit();
+                    View.ActiveAnime = 3;
                     View.AnimeX3.Begin();
                 }
                 else
                 {
+                    View.ActiveAnime = 4;
                     View.AnimeX4.Begin();
                 }
             }
@@ -159,7 +166,8 @@ namespace CandySugar.Axgle.ViewModels
                     OnLoadMoreInit();
                 }
             }
-            else {
+            else
+            {
                 if (SearchPage <= SearchTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
                 {
                     SearchPage += 1;
@@ -199,8 +207,8 @@ namespace CandySugar.Axgle.ViewModels
                                 Page = InitPage,
                                 ModeType = ModeType
                             },
-                            PlatformType= PlatformEnum.Jav,
-                            JronType= JronEnum.Init
+                            PlatformType = PlatformEnum.Jav,
+                            JronType = JronEnum.Init
                         };
                     }).RunsAsync()).InitResult;
                     InitTotal = res.Total;
@@ -216,7 +224,7 @@ namespace CandySugar.Axgle.ViewModels
             });
         }
 
-        private void OnLoadMoreInit() 
+        private void OnLoadMoreInit()
         {
             Task.Run(async () =>
             {
@@ -242,8 +250,8 @@ namespace CandySugar.Axgle.ViewModels
                     // 这一句很关键，开启集合的异步访问支持
                     BindingOperations.EnableCollectionSynchronization(Results, LockObject);
                     Application.Current.Dispatcher.Invoke(() =>
-                    { 
-                       res.ElementResults.ForEach(Results.Add); 
+                    {
+                        res.ElementResults.ForEach(Results.Add);
                     });
                 }
                 catch (Exception ex)
@@ -278,7 +286,7 @@ namespace CandySugar.Axgle.ViewModels
                         };
                     }).RunsAsync()).SearchResult;
                     SearchTotal = res.Total;
-                    Results = new (res.ElementResults.ToMapest<List<JronElemetInitResult>>());
+                    Results = new(res.ElementResults.ToMapest<List<JronElemetInitResult>>());
                     // 这一句很关键，开启集合的异步访问支持
                     BindingOperations.EnableCollectionSynchronization(Results, LockObject);
                 }
@@ -305,7 +313,7 @@ namespace CandySugar.Axgle.ViewModels
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             JronType = JronEnum.Search,
-                            PlatformType= PlatformType,
+                            PlatformType = PlatformType,
                             Search = new JronSearch
                             {
                                 Keyword = this.Keyword,
@@ -315,9 +323,9 @@ namespace CandySugar.Axgle.ViewModels
                     }).RunsAsync()).SearchResult;
                     // 这一句很关键，开启集合的异步访问支持
                     BindingOperations.EnableCollectionSynchronization(Results, LockObject);
-                    Application.Current.Dispatcher.Invoke(() => 
-                    { 
-                        res.ElementResults.ToMapest<List<JronElemetInitResult>>().ForEach(Results.Add); 
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        res.ElementResults.ToMapest<List<JronElemetInitResult>>().ForEach(Results.Add);
                     });
                 }
                 catch (Exception ex)
