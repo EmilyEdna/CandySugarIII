@@ -10,9 +10,11 @@ namespace CandySugar.WallPaper
         {
             IocModule = this;
 
-            IocDependency.Register(typeof(IndexView));
+            IocDependency.Register(typeof(WallhavView));
+            IocDependency.Register(typeof(WallchanView));
 
-            IocDependency.Register(typeof(IndexViewModel));
+            IocDependency.Register(typeof(WallhavViewModel));
+            IocDependency.Register(typeof(WallchanViewModel));
         }
 
         public T Resolve<T>() where T : UserControl
