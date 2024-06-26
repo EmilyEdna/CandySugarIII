@@ -8,14 +8,12 @@ namespace CandySugar.Axgle.ViewModels
         private IService<AxgleModel> Service;
         public IndexViewModel()
         {
-            CollectResult = [];
             Title = ["最新", "热门", "好评", "收藏"];
             Mode = ["Jav", "Skb"];
             PlatformType = PlatformEnum.Jav;
             GenericDelegate.SearchAction = new(SearchHandler);
             Service = IocDependency.Resolve<IService<AxgleModel>>();
-            var LocalDATA = Service.QueryAll();
-            LocalDATA?.ForEach(CollectResult.Add);
+            CollectResult = new(Service.QueryAll());
         }
 
         #region Field
@@ -118,6 +116,8 @@ namespace CandySugar.Axgle.ViewModels
             InitPage = 1;
             if (ActiveAnime != 4)
                 OnInit();
+            else
+                CollectResult=new(Service.QueryAll());
         }
         /// <summary>
         /// 切换功能

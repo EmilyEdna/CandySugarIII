@@ -6,11 +6,18 @@ namespace CandySugar.Com.Data.Entity.WallEntity
 {
     public class WallModel : BasicEntity
     {
-        public string Preview {  get; set; }
+        public string Id { get; set; }
+
+        public string Author { get; set; }
+
+        public string Cover { get; set; }
+
         public string Original { get; set; }
-        public string OriginalPng {  get; set; }
-        public string OriginalJepg {  get; set; }
-        public string Pixel { get; set; }
-        public int Platform {  get; set; }
+
+        public DateTime CreateAt { get; set; }
+
+        public double Width { get; set; }
+
+        public double Height { get; set; }
     }
 }
