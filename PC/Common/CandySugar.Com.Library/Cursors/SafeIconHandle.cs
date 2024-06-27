@@ -3,7 +3,7 @@ using System.Security.Permissions;
 
 namespace CandySugar.Com.Library.Cursors
 {
-    [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
+    //[SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
     public class SafeIconHandle: SafeHandleZeroOrMinusOneIsInvalid
     {
         public SafeIconHandle() : base(true) { }
