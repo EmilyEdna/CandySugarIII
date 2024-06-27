@@ -13,11 +13,7 @@
     d:DesignWidth="1200"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CandySugar.Novel;component/NovelTheme.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary Source="/CandySugar.Novel;component/NovelTheme.xaml" />
     </UserControl.Resources>
     <Canvas>
         <Button

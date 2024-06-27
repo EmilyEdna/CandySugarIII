@@ -19,11 +19,7 @@
     Background="Transparent"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CandySugar.LightNovel;component/LightTheme.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary Source="/CandySugar.LightNovel;component/LightTheme.xaml" />
     </UserControl.Resources>
     <Canvas>
         <Grid Width="{Binding Width, ElementName=IndexViewCtrl}" Height="{Binding Height, ElementName=IndexViewCtrl}">

@@ -16,11 +16,7 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CandySugar.Movie;component/MovieTheme.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary Source="/CandySugar.Movie;component/MovieTheme.xaml" />
     </UserControl.Resources>
     <Grid Width="{Binding Width, ElementName=MovCtrl}" Height="{Binding Height, ElementName=MovCtrl}">
         <Grid.RowDefinitions>

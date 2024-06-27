@@ -5,7 +5,8 @@
 
         public IndexViewModel()
         {
-            Service = IocDependency.Resolve<IService<WallModel>>();
+            Service = IocDependency.Resolve<IService<WallModel>>(); 
+            GenericDelegate.SearchAction = new(SearchHandler);
             Platform = PlatformEnum.Wallhaven;
             Title = ["常规", "一般", "可疑", "收藏"];
             Mode = ["WallHaven", "Konachan", "下载选中", "删除选中", "无声相册", "音乐相册"];
@@ -145,7 +146,7 @@
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            WallType = WallEnum.Init,
+                            WallType = WallEnum.Search,
                             PlatformType = Platform,
                             Search = new WallSearch
                             {
@@ -180,7 +181,7 @@
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            WallType = WallEnum.Init,
+                            WallType = WallEnum.Search,
                             PlatformType = Platform,
                             Search = new WallSearch
                             {

@@ -16,11 +16,7 @@
     d:DesignWidth="1200"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CandySugar.Manga;component/MangaTheme.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary Source="/CandySugar.Manga;component/MangaTheme.xaml" />
     </UserControl.Resources>
     <Canvas>
         <Grid Width="{Binding Width, ElementName=IndexCtrl}" Height="{Binding Height, ElementName=IndexCtrl}">
