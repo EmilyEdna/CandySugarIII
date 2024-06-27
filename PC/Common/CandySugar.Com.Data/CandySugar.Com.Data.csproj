@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.825" />
+    <PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.831" />
   </ItemGroup>
 
 </Project>
