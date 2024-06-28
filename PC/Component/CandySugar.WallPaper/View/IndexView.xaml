@@ -341,8 +341,9 @@
                                                             <ColumnDefinition />
                                                         </Grid.ColumnDefinitions>
                                                         <CheckBox
-                                                            HorizontalAlignment="Right"
-                                                            VerticalAlignment="Top"
+                                                            Margin="10,0,0,0"
+                                                            HorizontalAlignment="Left"
+                                                            VerticalAlignment="Center"
                                                             Background="Transparent">
                                                             <i:Interaction.Triggers>
                                                                 <i:EventTrigger EventName="Checked">
