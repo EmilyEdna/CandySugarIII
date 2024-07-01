@@ -1,0 +1,99 @@
+{
+    "ComponentInfos": {
+        "Normal": [
+            {
+                "Plugin": "CandySugar.LightNovel.dll",
+                "Bootstrapper": "MainView",
+                "Ioc": "Module",
+                "Description": "轻小说",
+                "Code": 1
+            },
+            {
+                "Plugin": "CandySugar.Novel.dll",
+                "Bootstrapper": "MainView",
+                "Ioc": "Module",
+                "Description": "小说",
+                "Code": 2
+            },
+            {
+                "Plugin": "CandySugar.Music.dll",
+                "Bootstrapper": "MainView",
+                "Ioc": "Module",
+                "Description": "音乐",
+                "Code": 3
+            },
+            {
+                "Plugin": "CandySugar.Movie.dll",
+                "Bootstrapper": "MainView",
+                "Ioc": "Module",
+                "Description": "影剧",
+                "Code": 4
+            },
+            {
+                "Plugin": "CandySugar.Anime.dll",
+                "Bootstrapper": "MainView",
+                "Ioc": "Module",
+                "Description": "动漫",
+                "Code": 5
+            },
+            {
+                "Plugin": "CandySugar.Manga.dll",
+                "Bootstrapper": "MainView",
+                "Ioc": "Module",
+                "Description": "漫画",
+                "Code": 6
+            },
+            {
+                "Plugin": "CandySugar.Bilibili.dll",
+                "Bootstrapper": "MainView",
+                "Ioc": "Module",
+                "Description": "B站",
+                "Code": 7
+            }
+        ],
+        "Vip": [
+            {
+                "Plugin": "CandySugar.WallPaper.dll",
+                "Bootstrapper": "MainView",
+                "Ioc": "Module",
+                "Description": "壁纸",
+                "Code": 8
+            },
+            {
+                "Plugin": "CandySugar.Cosplay.dll",
+                "Bootstrapper": "MainView",
+                "Ioc": "Module",
+                "Description": "写真",
+                "Code": 9
+            },
+            {
+                "Plugin": "CandySugar.Comic.dll",
+                "Bootstrapper": "MainView",
+                "Ioc": "Module",
+                "Description": "里漫",
+                "Code": 10
+            },
+            {
+                "Plugin": "CandySugar.NHViewer.dll",
+                "Bootstrapper": "MainView",
+                "Ioc": "Module",
+                "Description": "熊猫",
+                "Code": 11
+            },
+            {
+                "Plugin": "CandySugar.Rifan.dll",
+                "Bootstrapper": "MainView",
+                "Ioc": "Module",
+                "Description": "里番",
+                "Code": 12
+            },
+            {
+                "Plugin": "CandySugar.Axgle.dll",
+                "Bootstrapper": "MainView",
+                "Ioc": "Module",
+                "Description": "车牌",
+                "Code": 13
+            }
+        ]
+    }
+}

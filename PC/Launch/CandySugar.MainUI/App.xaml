@@ -1,0 +1,21 @@
+﻿<Application
+    x:Class="CandySugar.MainUI.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cs="http://style.candy.com"
+    xmlns:ct="https://github.com/canton7/Stylet"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:CandySugar.MainUI">
+    <Application.Resources>
+        <ct:ApplicationLoader>
+            <ct:ApplicationLoader.Bootstrapper>
+                <local:Bootstrapper />
+            </ct:ApplicationLoader.Bootstrapper>
+
+            <ct:ApplicationLoader.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/CandySugar.Com.Style;component/Theme.xaml" />
+                <hc:Theme />
+            </ct:ApplicationLoader.MergedDictionaries>
+        </ct:ApplicationLoader>
+    </Application.Resources>
+</Application>

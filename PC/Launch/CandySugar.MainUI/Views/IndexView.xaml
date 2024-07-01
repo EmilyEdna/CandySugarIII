@@ -1,0 +1,49 @@
+﻿<eda:CandyWindow
+    x:Class="CandySugar.MainUI.Views.IndexView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:eda="http://edacoder.github.io"
+    xmlns:local="clr-namespace:CandySugar.MainUI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:CandySugar.MainUI.ViewModels"
+    x:Name="Index"
+    Title="{Binding Title}"
+    Width="1000"
+    Height="550"
+    d:DataContext="{d:DesignInstance vm:IndexViewModel}"
+    eda:MenuBox="{Binding Mnues}"
+    BlurRadius="15"
+    FontFamily="{DynamicResource FontStyle}"
+    mc:Ignorable="d">
+    <eda:CandyWindow.Background>
+        <ImageBrush ImageSource="/CandySugar.Com.Style;component/Resources/MusicBackgroud.jpg" />
+    </eda:CandyWindow.Background>
+    <eda:CandyWindow.SearchBox>
+        <eda:CandySearchBox
+            AutoKeyCommand="{Binding AutoSelectActiveCommand}"
+            BorderBrush="LightSkyBlue"
+            BorderThickness="0,0,0,.5"
+            BoxWidth="200"
+            EnterCommand="{Binding SearchActiveCommand}"
+            ItemsSource="{Binding SearchHistory}"
+            ShowClear="False"
+            Text="{Binding Keyword, Mode=TwoWay}"
+            UseAutoComplete="True">
+            <eda:CandySearchBox.AutoComplete>
+                <DataTemplate>
+                    <Button
+                        Width="{Binding BoxWidth, RelativeSource={RelativeSource AncestorType=eda:CandySearchBox}}"
+                        HorizontalContentAlignment="Left"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{Binding EnterCommand, RelativeSource={RelativeSource AncestorType=eda:CandySearchBox}}"
+                        CommandParameter="{Binding .}"
+                        Content="{Binding .}"
+                        FontSize="16"
+                        Foreground="White" />
+                </DataTemplate>
+            </eda:CandySearchBox.AutoComplete>
+        </eda:CandySearchBox>
+    </eda:CandyWindow.SearchBox>
+</eda:CandyWindow>

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
+		<ApplicationIcon>favicon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Common\CandySugar.Com.Style\CandySugar.Com.Style.csproj" />
+	  <ProjectReference Include="..\CandySugar.HostServer\CandySugar.HostServer.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="CandyControls">
+	    <HintPath>..\..\..\Lib\CandyControls.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+</Project>

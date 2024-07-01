@@ -1,0 +1,20 @@
+﻿<ResourceDictionary
+    x:Class="CandySugar.Com.Style.Theme"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:eda="http://edacoder.github.io"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:lib="http://lib.candy.com"
+    xmlns:uc="http://ctrl.candy.com">
+
+
+    <FontFamily x:Key="FontStyle">/CandySugar.Com.Style;component/Fonts/#HappyZcool-2016</FontFamily>
+    <FontFamily x:Key="Regular">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Regular</FontFamily>
+    <FontFamily x:Key="Thin">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Thin</FontFamily>
+    <FontFamily x:Key="Solid">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Solid</FontFamily>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/CandyControls;component/Themes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

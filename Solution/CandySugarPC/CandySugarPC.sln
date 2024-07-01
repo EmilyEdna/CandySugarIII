@@ -1,0 +1,88 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "启动", "启动", "{8802B723-CAF2-419F-9FA1-DD6EE96B8ED6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "配置", "配置", "{293CA34B-5365-4995-8424-55DBB5D1E755}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "类库", "类库", "{44290246-6FFD-48A6-8A3C-554BD6291B3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "资源", "资源", "{FEDCB6E1-1CAB-44E8-90E2-981658089939}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "插件", "插件", "{A92F09A4-BA92-4AB1-9AC6-0B801066EA5F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "控件", "控件", "{5AFE4FDF-32F7-4654-B56B-232E37DCFE74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "会员插件", "会员插件", "{0E5BD4EA-CC43-4A0C-935A-D976F0C1AA18}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "基本插件", "基本插件", "{365D3069-1933-4B8D-ACFE-C7F0D80DFF16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Options", "..\..\PC\Common\CandySugar.Com.Options\CandySugar.Com.Options.csproj", "{3BC3CF8B-9896-4331-93D1-4A6E61136385}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.MainUI", "..\..\PC\Launch\CandySugar.MainUI\CandySugar.MainUI.csproj", "{6E3DEC06-C6DF-405C-B38A-B1951776DF19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Style", "..\..\PC\Common\CandySugar.Com.Style\CandySugar.Com.Style.csproj", "{35941CF4-E6B7-4473-9D05-038CAFC7A3A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Data", "..\..\PC\Common\CandySugar.Com.Data\CandySugar.Com.Data.csproj", "{BF6DE9BF-496B-458C-8DDF-0A10297F0710}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Library", "..\..\PC\Common\CandySugar.Com.Library\CandySugar.Com.Library.csproj", "{2DFD3573-02AE-4819-AB66-10BD558C69CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Controls", "..\..\PC\Common\CandySugar.Com.Controls\CandySugar.Com.Controls.csproj", "{5A2AACDA-B970-4A7A-9583-E5E6523DC488}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.HostServer", "..\..\PC\Launch\CandySugar.HostServer\CandySugar.HostServer.csproj", "{905BD2CE-65CC-433B-B337-F5A72333E284}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BC3CF8B-9896-4331-93D1-4A6E61136385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BC3CF8B-9896-4331-93D1-4A6E61136385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BC3CF8B-9896-4331-93D1-4A6E61136385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BC3CF8B-9896-4331-93D1-4A6E61136385}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E3DEC06-C6DF-405C-B38A-B1951776DF19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E3DEC06-C6DF-405C-B38A-B1951776DF19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E3DEC06-C6DF-405C-B38A-B1951776DF19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E3DEC06-C6DF-405C-B38A-B1951776DF19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35941CF4-E6B7-4473-9D05-038CAFC7A3A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35941CF4-E6B7-4473-9D05-038CAFC7A3A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35941CF4-E6B7-4473-9D05-038CAFC7A3A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35941CF4-E6B7-4473-9D05-038CAFC7A3A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF6DE9BF-496B-458C-8DDF-0A10297F0710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF6DE9BF-496B-458C-8DDF-0A10297F0710}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF6DE9BF-496B-458C-8DDF-0A10297F0710}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF6DE9BF-496B-458C-8DDF-0A10297F0710}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DFD3573-02AE-4819-AB66-10BD558C69CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DFD3573-02AE-4819-AB66-10BD558C69CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DFD3573-02AE-4819-AB66-10BD558C69CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DFD3573-02AE-4819-AB66-10BD558C69CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A2AACDA-B970-4A7A-9583-E5E6523DC488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A2AACDA-B970-4A7A-9583-E5E6523DC488}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A2AACDA-B970-4A7A-9583-E5E6523DC488}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A2AACDA-B970-4A7A-9583-E5E6523DC488}.Release|Any CPU.Build.0 = Release|Any CPU
+		{905BD2CE-65CC-433B-B337-F5A72333E284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{905BD2CE-65CC-433B-B337-F5A72333E284}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{905BD2CE-65CC-433B-B337-F5A72333E284}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{905BD2CE-65CC-433B-B337-F5A72333E284}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0E5BD4EA-CC43-4A0C-935A-D976F0C1AA18} = {A92F09A4-BA92-4AB1-9AC6-0B801066EA5F}
+		{365D3069-1933-4B8D-ACFE-C7F0D80DFF16} = {A92F09A4-BA92-4AB1-9AC6-0B801066EA5F}
+		{3BC3CF8B-9896-4331-93D1-4A6E61136385} = {293CA34B-5365-4995-8424-55DBB5D1E755}
+		{6E3DEC06-C6DF-405C-B38A-B1951776DF19} = {8802B723-CAF2-419F-9FA1-DD6EE96B8ED6}
+		{35941CF4-E6B7-4473-9D05-038CAFC7A3A4} = {FEDCB6E1-1CAB-44E8-90E2-981658089939}
+		{BF6DE9BF-496B-458C-8DDF-0A10297F0710} = {293CA34B-5365-4995-8424-55DBB5D1E755}
+		{2DFD3573-02AE-4819-AB66-10BD558C69CC} = {44290246-6FFD-48A6-8A3C-554BD6291B3C}
+		{5A2AACDA-B970-4A7A-9583-E5E6523DC488} = {5AFE4FDF-32F7-4654-B56B-232E37DCFE74}
+		{905BD2CE-65CC-433B-B337-F5A72333E284} = {FEDCB6E1-1CAB-44E8-90E2-981658089939}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BEDC387F-177A-4DDF-A902-8C474D1FD7DF}
+	EndGlobalSection
+EndGlobal

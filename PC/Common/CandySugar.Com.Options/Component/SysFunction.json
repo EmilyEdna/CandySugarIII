@@ -1,0 +1,12 @@
+{
+    "System": [
+        {
+            "Description": "系统设置",
+            "Code": 14
+        },
+        {
+            "Description": "视频播放",
+            "Code": 15
+        }
+    ]
+}
