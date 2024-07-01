@@ -1,10 +1,14 @@
 ﻿using CandyControls;
 using CandySugar.Com.Library;
+using CandySugar.Com.Library.DLLoader;
 using CandySugar.Com.Library.Enums;
 using CandySugar.MainUI.Views;
 using CommunityToolkit.Mvvm.Input;
 using Stylet;
+using StyletIoC;
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,8 +18,12 @@ namespace CandySugar.MainUI.ViewModels
 {
     public class IndexViewModel : Conductor<IScreen>
     {
-        public IndexViewModel()
+        public IContainer Container;
+        public IWindowManager WindowManager;
+        public IndexViewModel(IContainer Container, IWindowManager WindowManager)
         {
+            this.Container = Container;
+            this.WindowManager = WindowManager;
             this.Title = $"甜糖V{Assembly.GetExecutingAssembly().GetName().Version}";
 
         }
@@ -55,6 +63,14 @@ namespace CandySugar.MainUI.ViewModels
             get => _SearchHistory;
             set => SetAndNotify(ref _SearchHistory, value);
         }
+
+        private Control _CandyControl;
+        public Control CandyControl
+        {
+            get => _CandyControl;
+            set => SetAndNotify(ref _CandyControl, value);
+        }
+
         #endregion
 
         #region UI
@@ -62,6 +78,16 @@ namespace CandySugar.MainUI.ViewModels
         {
             var Menu = new CandyMenu();
             Menu.SetResourceReference(CandyMenu.FontFamilyProperty, "FontStyle");
+            var IMainItem = new CandyMenuItem
+            {
+                Header = "首页",
+                CommandParameter = EHandle.Index,
+            };
+            IMainItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
+            {
+                Path = new PropertyPath("ActiveCommad", EHandle.Index),
+                Source = ((IndexView)View).DataContext
+            });
             var FMainItem = new CandyMenuItem
             {
                 Header = "基础插件",
@@ -107,6 +133,7 @@ namespace CandySugar.MainUI.ViewModels
                 });
                 TMainItem.Items.Add(SubItem);
             });
+            Menu.Items.Add(IMainItem);
             Menu.Items.Add(FMainItem);
             Menu.Items.Add(SMainItem);
             Menu.Items.Add(TMainItem);
@@ -117,7 +144,16 @@ namespace CandySugar.MainUI.ViewModels
         #region 命令
         public RelayCommand<EHandle> ActiveCommad => new(obj =>
         {
-            var x = obj;
+            if (obj < EHandle.Setting)
+            {
+               var Plugin= AssemblyLoader.Dll.FirstOrDefault(t => t.Handle == (int)obj);
+                this.View.Dispatcher.Invoke(() =>
+                {
+                    var Ctrl = (Control)Activator.CreateInstance(Plugin.InstanceType);
+                    Ctrl.DataContext = Activator.CreateInstance(Plugin.InstanceViewModel);
+                    CandyControl = Ctrl;
+                });
+            }
         });
 
         public RelayCommand<string> AutoSelectActiveCommand => new(obj =>
@@ -127,6 +163,10 @@ namespace CandySugar.MainUI.ViewModels
         public RelayCommand<string> SearchActiveCommand => new(obj =>
         {
 
+        });
+        public RelayCommand<EMenu> TaskBarCommand => new(obj => { 
+        
+        
         });
         #endregion
     }

@@ -19,19 +19,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "会员插件", "会员插�
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "基本插件", "基本插件", "{365D3069-1933-4B8D-ACFE-C7F0D80DFF16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Options", "..\..\PC\Common\CandySugar.Com.Options\CandySugar.Com.Options.csproj", "{3BC3CF8B-9896-4331-93D1-4A6E61136385}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Options", "..\PC\Common\CandySugar.Com.Options\CandySugar.Com.Options.csproj", "{3BC3CF8B-9896-4331-93D1-4A6E61136385}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.MainUI", "..\..\PC\Launch\CandySugar.MainUI\CandySugar.MainUI.csproj", "{6E3DEC06-C6DF-405C-B38A-B1951776DF19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.MainUI", "..\PC\Launch\CandySugar.MainUI\CandySugar.MainUI.csproj", "{6E3DEC06-C6DF-405C-B38A-B1951776DF19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Style", "..\..\PC\Common\CandySugar.Com.Style\CandySugar.Com.Style.csproj", "{35941CF4-E6B7-4473-9D05-038CAFC7A3A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Style", "..\PC\Common\CandySugar.Com.Style\CandySugar.Com.Style.csproj", "{35941CF4-E6B7-4473-9D05-038CAFC7A3A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Data", "..\..\PC\Common\CandySugar.Com.Data\CandySugar.Com.Data.csproj", "{BF6DE9BF-496B-458C-8DDF-0A10297F0710}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Data", "..\PC\Common\CandySugar.Com.Data\CandySugar.Com.Data.csproj", "{BF6DE9BF-496B-458C-8DDF-0A10297F0710}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Library", "..\..\PC\Common\CandySugar.Com.Library\CandySugar.Com.Library.csproj", "{2DFD3573-02AE-4819-AB66-10BD558C69CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Library", "..\PC\Common\CandySugar.Com.Library\CandySugar.Com.Library.csproj", "{2DFD3573-02AE-4819-AB66-10BD558C69CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Controls", "..\..\PC\Common\CandySugar.Com.Controls\CandySugar.Com.Controls.csproj", "{5A2AACDA-B970-4A7A-9583-E5E6523DC488}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Controls", "..\PC\Common\CandySugar.Com.Controls\CandySugar.Com.Controls.csproj", "{5A2AACDA-B970-4A7A-9583-E5E6523DC488}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.HostServer", "..\..\PC\Launch\CandySugar.HostServer\CandySugar.HostServer.csproj", "{905BD2CE-65CC-433B-B337-F5A72333E284}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.HostServer", "..\PC\Launch\CandySugar.HostServer\CandySugar.HostServer.csproj", "{905BD2CE-65CC-433B-B337-F5A72333E284}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

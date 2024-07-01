@@ -1,4 +1,5 @@
 ﻿using System;
+using CandySugar.Com.Library.Enums;
 
 namespace CandySugar.Com.Library.DLLoader
 {
@@ -9,5 +10,6 @@ namespace CandySugar.Com.Library.DLLoader
         public Type InstanceViewModel { get; set; }
         public bool IsEnable { get; set; }
         public string Description { get; set; }
+        public int Handle { get; set; }
     }
 }

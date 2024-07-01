@@ -4,8 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:eda="http://edacoder.github.io"
+    xmlns:lib="http://lib.candy.com"
     xmlns:local="clr-namespace:CandySugar.MainUI.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:taskbar="http://www.hardcodet.net/taskbar"
     xmlns:vm="clr-namespace:CandySugar.MainUI.ViewModels"
     x:Name="Index"
     Title="{Binding Title}"
@@ -17,7 +19,7 @@
     FontFamily="{DynamicResource FontStyle}"
     mc:Ignorable="d">
     <eda:CandyWindow.Background>
-        <ImageBrush ImageSource="/CandySugar.Com.Style;component/Resources/MusicBackgroud.jpg" />
+        <ImageBrush ImageSource="/CandySugar.Com.Style;component/Resources/Backgroud.jpg" />
     </eda:CandyWindow.Background>
     <eda:CandyWindow.SearchBox>
         <eda:CandySearchBox
@@ -46,4 +48,37 @@
             </eda:CandySearchBox.AutoComplete>
         </eda:CandySearchBox>
     </eda:CandyWindow.SearchBox>
+    <Grid>
+        <ContentControl Content="{Binding CandyControl}" />
+        <taskbar:TaskbarIcon x:Name="Tray">
+            <taskbar:TaskbarIcon.ContextMenu>
+                <ContextMenu
+                    Background="White"
+                    FontFamily="{DynamicResource FontStyle}"
+                    Foreground="#e63995">
+                    <eda:CandyMenuItem
+                        Command="{Binding TaskBarCommand}"
+                        CommandParameter="{x:Static lib:EMenu.About}"
+                        Header="关于作者" />
+                    <eda:CandyMenuItem
+                        Command="{Binding TaskBarCommand}"
+                        CommandParameter="{x:Static lib:EMenu.Exit}"
+                        Header="退出软件" />
+                </ContextMenu>
+            </taskbar:TaskbarIcon.ContextMenu>
+            <taskbar:TaskbarIcon.TrayToolTip>
+                <Border
+                    Padding="1"
+                    Background="#FFF"
+                    BorderThickness="0"
+                    CornerRadius="5">
+                    <TextBlock
+                        x:Name="Version"
+                        FontFamily="{DynamicResource FontStyle}"
+                        Foreground="#e63995"
+                        Text="甜糖" />
+                </Border>
+            </taskbar:TaskbarIcon.TrayToolTip>
+        </taskbar:TaskbarIcon>
+    </Grid>
 </eda:CandyWindow>

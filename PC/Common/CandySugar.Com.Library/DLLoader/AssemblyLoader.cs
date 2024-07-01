@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using CandySugar.Com.Options.ComponentObject;
+using Serilog;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -52,6 +53,31 @@ namespace CandySugar.Com.Library.DLLoader
             catch (Exception ex)
             {
                 Log.Logger.Error(ex,$"当前资源不存在：{ex.Message}");
+            }
+        }
+
+        public void Loads(ComponentObjectModel objectModel)
+        {
+            try
+            {
+                string path = Path.Combine(_Path, objectModel.Plugin);
+                var assembly = this.LoadFromAssemblyName(new AssemblyName(Path.GetFileNameWithoutExtension(path)));
+                Type InstanceType = assembly.GetTypes().FirstOrDefault(t => t.Name.ToLower().Equals(objectModel.Bootstrapper.ToLower()));
+                Type ViewModel = assembly.GetTypes().FirstOrDefault(t => t.Name.ToLower().Contains($"{objectModel.Bootstrapper}Model".ToLower()));
+                Type IocModule = assembly.GetTypes().FirstOrDefault(t => t.Name.ToLower().Equals(objectModel.Ioc.ToLower()));
+                Dll.Add(new DLLInformations
+                {
+                    InstanceViewModel = ViewModel,
+                    InstanceType = InstanceType,
+                    IocModule = IocModule,
+                    Description = objectModel.Description,
+                    IsEnable = true,
+                    Handle = objectModel.Code
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, $"当前资源不存在：{ex.Message}");
             }
         }
 

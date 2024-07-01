@@ -1,4 +1,8 @@
-﻿using CandyControls;
+﻿using System.IO;
+using System;
+using CandyControls;
+using CandySugar.Com.Style;
+using System.Drawing;
 
 namespace CandySugar.MainUI.Views
 {
@@ -10,6 +14,7 @@ namespace CandySugar.MainUI.Views
         public IndexView()
         {
             InitializeComponent();
+            Tray.Icon = new Icon(new MemoryStream(Convert.FromBase64String(ICO.ICOBase64)));
         }
     }
 }
