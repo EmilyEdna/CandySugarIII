@@ -29,7 +29,6 @@ namespace CandySugar.MainUI
         /// </summary>
         protected override void OnStart()
         {
-
 #if RELEASE
             //创建桌面快捷方式
             Com.Library.Lnk.Shortcut.Instance.CreateLnk("Candy");
