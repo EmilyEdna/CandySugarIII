@@ -207,7 +207,7 @@ namespace CandySugar.Axgle.ViewModels
                                 Page = InitPage,
                                 ModeType = ModeType
                             },
-                            PlatformType = PlatformEnum.Jav,
+                            PlatformType = PlatformType,
                             JronType = JronEnum.Init
                         };
                     }).RunsAsync()).InitResult;
@@ -243,7 +243,7 @@ namespace CandySugar.Axgle.ViewModels
                                 Page = InitPage,
                                 ModeType = ModeType
                             },
-                            PlatformType = PlatformEnum.Jav,
+                            PlatformType = PlatformType,
                             JronType = JronEnum.Init
                         };
                     }).RunsAsync()).InitResult;

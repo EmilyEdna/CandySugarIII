@@ -248,6 +248,14 @@
                                                 </Grid>
                                             </DataTemplate>
                                         </uc:CandyImage.MaskTemplate>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction
+                                                    s:View.ActionTarget="{Binding DataContext, ElementName=MovCtrl}"
+                                                    Command="{s:Action DetailCommand}"
+                                                    CommandParameter="{Binding .}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
                                     </uc:CandyImage>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -283,7 +291,7 @@
                 Style="{DynamicResource CandyListBoxStyle}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="3" />
+                        <WrapPanel Width="275" Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>

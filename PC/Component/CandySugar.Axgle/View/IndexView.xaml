@@ -129,7 +129,8 @@
                                       ElementName=IndexCtrl}"
                     Height="{c:Binding (Height-90),
                                        ElementName=IndexCtrl}"
-                    BorderType="Info">
+                    BorderType="Info"
+                    Visibility="Hidden">
                     <uc:CandyBorder.RenderTransform>
                         <TransformGroup>
                             <TranslateTransform />
@@ -223,7 +224,8 @@
                                       ElementName=IndexCtrl}"
                     Height="{c:Binding (Height-90),
                                        ElementName=IndexCtrl}"
-                    BorderType="Info">
+                    BorderType="Info"
+                    Visibility="Hidden">
                     <uc:CandyBorder.RenderTransform>
                         <TransformGroup>
                             <TranslateTransform />
