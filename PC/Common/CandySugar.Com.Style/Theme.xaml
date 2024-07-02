@@ -7,6 +7,9 @@
     xmlns:lib="http://lib.candy.com"
     xmlns:uc="http://ctrl.candy.com">
 
+    <uc:ThickObjectConverter x:Key="ThickObjectConverter" />
+    <uc:NullVisibilityConvterter x:Key="NullVisibilityConvterter" />
+
     <FontFamily x:Key="FontStyle">/CandySugar.Com.Style;component/Fonts/#HappyZcool-2016</FontFamily>
     <FontFamily x:Key="Regular">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Regular</FontFamily>
     <FontFamily x:Key="Thin">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Thin</FontFamily>
@@ -89,7 +92,6 @@
     </Style>
 
     <!--#endregion-->
-
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/CandyControls;component/Themes.xaml" />

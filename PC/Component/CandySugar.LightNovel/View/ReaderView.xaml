@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:eda="http://edacoder.github.io"
     xmlns:local="clr-namespace:CandySugar.LightNovel.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:CandySugar.LightNovel.ViewModels"
@@ -15,59 +16,38 @@
         <ResourceDictionary Source="/CandySugar.LightNovel;component/LightTheme.xaml" />
     </UserControl.Resources>
     <Grid>
-        <WrapPanel HorizontalAlignment="Center">
-            <FlowDocumentScrollViewer Background="Transparent" BorderThickness="0">
-                <FlowDocument Background="Transparent">
-                    <Paragraph>
-                        <ItemsControl ItemsSource="{Binding Words}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock
-                                        Style="{DynamicResource TextBlockReaderStyle}"
-                                        Text="{Binding .}"
-                                        TextWrapping="WrapWithOverflow" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </Paragraph>
-                </FlowDocument>
-            </FlowDocumentScrollViewer>
-
-            <!--<ListBox
-               uc:ScrollViewAttach.PressCommand="UpDown"
-               ItemsSource="{Binding Words}"
-               Style="{DynamicResource CandyListBoxStyle}">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock
-                           Style="{DynamicResource TextBlockReaderStyle}"
-                           Text="{Binding .}"
-                           TextWrapping="Wrap" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox ItemsSource="{Binding Picture, IsAsync=True}" Style="{DynamicResource CandyListBoxStyle}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <uc:CandyImage
-                           Width="{c:Binding (Width*0.9),
-                                             ElementName=ReaderViewCtrl}"
-                           Height="{c:Binding (Height*0.9),
-                                              ElementName=ReaderViewCtrl}"
-                           Margin="0,10"
-                           BorderBrush="SkyBlue"
-                           BorderThickness="1"
-                           EnableMask="False"
-                           ImageThickness="{Binding ., RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource ObjectConverter}}"
-                           Source="{Binding .}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>-->
-        </WrapPanel>
+        <eda:CandyFlowScroll Command="{Binding BackCommand}" InnerMargin="{Binding MarginThickness}">
+            <FlowDocument Background="Transparent">
+                <Paragraph>
+                    <ItemsControl ItemsSource="{Binding Words}" Visibility="{Binding Words, Converter={StaticResource NullVisibilityConvterter}}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Style="{DynamicResource TextBlockReaderStyle}"
+                                    Text="{Binding .}"
+                                    TextWrapping="WrapWithOverflow" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <ItemsControl ItemsSource="{Binding Picture}" Visibility="{Binding Picture, Converter={StaticResource NullVisibilityConvterter}}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Center">
+                                    <eda:CandyImage
+                                        Width="{Binding DataContext.Width, ElementName=Reader}"
+                                        Height="{Binding DataContext.Height, ElementName=Reader}"
+                                        Margin="0,10"
+                                        BorderBrush="SkyBlue"
+                                        BorderThickness="1"
+                                        EnableMask="False"
+                                        ImageThickness="{Binding ., RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource ThickObjectConverter}}"
+                                        Source="{Binding .}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Paragraph>
+            </FlowDocument>
+        </eda:CandyFlowScroll>
     </Grid>
 </UserControl>

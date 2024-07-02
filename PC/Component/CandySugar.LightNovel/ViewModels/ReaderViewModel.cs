@@ -6,17 +6,59 @@ namespace CandySugar.LightNovel.ViewModels
     {
         public ReaderViewModel()
         {
+            GenericDelegate.WindowStateEvent += WindowStateEvent;
+            if (GlobalParam.WindowState == WindowState.Maximized)
+            {
+                Height = 1400;
+                Width = SystemParameters.FullPrimaryScreenWidth;
+                MarginThickness = new Thickness(0, 0, 20, 55);
+            } else
+            {
+                Height = 1200;
+                Width = 1000;
+                MarginThickness = new Thickness(0, 0, 10, 0);
+            }
+   
+        
             OnContent();
         }
+        #region 事件
+        private void WindowStateEvent(WindowState state)
+        {
+            if (state == WindowState.Normal || state == WindowState.Minimized)
+            {
+                MarginThickness = new Thickness(0, 0, 10, 0);
+                Height = 1200;
+                Width = 1000;
+                var temp = Picture.ToList();
+                Picture = new(temp);
+            }
+            else
+            {
+                MarginThickness = new Thickness(0, 0, 20, 55);
+                Height = 1400;
+                Width = SystemParameters.FullPrimaryScreenWidth;
+                var temp = Picture.ToList();
+                Picture = new(temp);
+            }
+        }
+        #endregion
+
         #region  字段
         public ReaderView Views;
         #endregion
 
         #region 属性
         [ObservableProperty]
+        private Thickness _MarginThickness;
+        [ObservableProperty]
         private ObservableCollection<string> _Words;
         [ObservableProperty]
         private ObservableCollection<string> _Picture;
+        [ObservableProperty]
+        private double _Width;
+        [ObservableProperty]
+        private double _Height;
         #endregion
 
         #region 方法
@@ -29,7 +71,6 @@ namespace CandySugar.LightNovel.ViewModels
             {
                 try
                 {
-                    ///novel/2/2003/70892.htm
                     var Proxy = Module.IocModule.Proxy;
                     var result = (await LovelFactory.Lovel(opt =>
                     {
@@ -41,7 +82,7 @@ namespace CandySugar.LightNovel.ViewModels
                             LovelType = LovelEnum.Content,
                             Content = new LovelContent
                             {
-                                ChapterRoute = "/novel/2/2003/70892.htm"//Module.Param.ToString()
+                                ChapterRoute = Module.Param.ToString()
                             }
                         };
                     }).RunsAsync()).ContentResult;
@@ -74,6 +115,14 @@ namespace CandySugar.LightNovel.ViewModels
             {
                 new ScreenNotifyView(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show();
             });
+        }
+        #endregion
+
+        #region 命令
+        [RelayCommand]
+        public void Back(string input)
+        {
+            ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext).Changed(false);
         }
         #endregion
     }

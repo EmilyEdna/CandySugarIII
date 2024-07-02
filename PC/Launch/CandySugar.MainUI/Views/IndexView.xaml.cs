@@ -1,4 +1,5 @@
 ﻿using CandyControls;
+using CandySugar.Com.Options;
 using CandySugar.Com.Options.ComponentGeneric;
 using CandySugar.Com.Style;
 using System;
@@ -17,6 +18,7 @@ namespace CandySugar.MainUI.Views
             InitializeComponent();
             Tray.Icon = new Icon(new MemoryStream(Convert.FromBase64String(ICO.ICOBase64)));
             this.StateChanged += delegate {
+                GlobalParam.WindowState=this.WindowState;
                 GenericDelegate.WindowStateAction(this.WindowState);
             };
         }

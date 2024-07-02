@@ -18,7 +18,6 @@
 
 	<ItemGroup>
 	  <Folder Include="ExtenControls\" />
-	  <Folder Include="UIConverter\" />
 	</ItemGroup>
 
 </Project>

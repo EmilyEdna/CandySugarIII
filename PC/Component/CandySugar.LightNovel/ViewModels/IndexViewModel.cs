@@ -6,6 +6,7 @@
         {
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
+            MarginThickness = GlobalParam.WindowState == WindowState.Maximized ? new Thickness(0, 0, 60, 70) : new Thickness(0, 0, 60, 15);
             MarginThickness = new Thickness(0, 0, 60, 15);
             ChapterVisibility = Visibility.Collapsed;
             OnInit();
