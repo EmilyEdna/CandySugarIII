@@ -3,9 +3,8 @@ using System.Runtime.Versioning;
 using System.Reflection;
 
 //[assembly: XmlnsDefinition("http://ctrl.candy.com", "CandySugar.Com.Controls.ExtenControls")]
-//[assembly: XmlnsDefinition("http://ctrl.candy.com", "CandySugar.Com.Controls.AttachControls")]
 //[assembly: XmlnsDefinition("http://ctrl.candy.com", "CandySugar.Com.Controls.UIConverter")]
-//[assembly: XmlnsDefinition("http://ctrl.candy.com", "CandySugar.Com.Controls.UIExtenControls")]
+[assembly: XmlnsDefinition("http://ctrl.candy.com", "CandySugar.Com.Controls.UIExtenControls")]
 [assembly: AssemblyDescription("847432003@qq.com")]
 [assembly: AssemblyFileVersion("3.0.0.0")]
 [assembly: AssemblyVersion("3.0.0.0")]

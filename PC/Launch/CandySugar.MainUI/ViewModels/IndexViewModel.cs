@@ -2,6 +2,7 @@
 using CandySugar.Com.Library;
 using CandySugar.Com.Library.DLLoader;
 using CandySugar.Com.Library.Enums;
+using CandySugar.Com.Options.ComponentGeneric;
 using CandySugar.MainUI.Views;
 using CommunityToolkit.Mvvm.Input;
 using Stylet;
@@ -41,13 +42,6 @@ namespace CandySugar.MainUI.ViewModels
         {
             get => _Title;
             set => SetAndNotify(ref _Title, value);
-        }
-
-        private string _Keyword;
-        public string Keyword
-        {
-            get => _Keyword;
-            set => SetAndNotify(ref _Keyword, value);
         }
 
         private Control _Menus;
@@ -156,13 +150,9 @@ namespace CandySugar.MainUI.ViewModels
             }
         });
 
-        public RelayCommand<string> AutoSelectActiveCommand => new(obj =>
-        {
-           
-        });
         public RelayCommand<string> SearchActiveCommand => new(obj =>
         {
-
+            GenericDelegate.SearchAction?.Invoke(obj);
         });
         public RelayCommand<EMenu> TaskBarCommand => new(obj => { 
         

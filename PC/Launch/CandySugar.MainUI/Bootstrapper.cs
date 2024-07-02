@@ -1,4 +1,5 @@
-﻿using CandySugar.Com.Data;
+﻿using CandySugar.Com.Controls.UIExtenControls;
+using CandySugar.Com.Data;
 using CandySugar.Com.Library;
 using CandySugar.Com.Library.DLLoader;
 using CandySugar.Com.Library.ReadFile;
@@ -39,7 +40,7 @@ namespace CandySugar.MainUI
                 .WriteTo.File(CommonHelper.LogPath, rollingInterval: RollingInterval.Day)
                 .CreateLogger().AddSdkLogger().AddEmailLogger();
             //代理配置
-            //GlobalProxy.Instance.ChangeUseProxy();
+            GlobalProxy.Instance.ChangeUseProxy();
             //读取本地配置
             JsonReader.JsonRead(CommonHelper.OptionPath, CommonHelper.OptionFile);
             //读取本地插件配置
@@ -54,22 +55,22 @@ namespace CandySugar.MainUI
             HttpEvent.HttpActionEvent = new Action<HttpClient, Exception>((client, ex) =>
             {
                 Log.Logger.Error(ex, "HTTP全局请求异常捕获");
-                //Application.Current.Dispatcher.Invoke(() =>
-                //{
-                //    new ScreenNotifyView($"HTTP网络内部异常，请看日志!").Show();
-                //});
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    new ScreenNotifyView($"HTTP网络内部异常，请看日志!").Show();
+                });
             });
             HttpEvent.RestActionEvent = new Action<RestClient, Exception>((client, ex) =>
             {
                 Log.Logger.Error(ex, "REST全局请求异常捕获");
-                //Application.Current.Dispatcher.Invoke(() =>
-                //{
-                //    new ScreenNotifyView($"REST网络内部异常，请看日志!").Show();
-                //});
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    new ScreenNotifyView($"REST网络内部异常，请看日志!").Show();
+                });
             });
             //防止多开程序
-           // if (SyncStatic.MultiOpenCheck())
-                //new ScreenNotifyView("已经有一个实例在运行中").ShowDialog();
+            if (SyncStatic.MultiOpenCheck())
+                new ScreenNotifyView("已经有一个实例在运行中").ShowDialog();
         }
 
         /// <summary>
@@ -78,14 +79,14 @@ namespace CandySugar.MainUI
         /// <param name="builder"></param>
         protected override void ConfigureIoC(IStyletIoCBuilder builder)
         {
-            /*builder.Bind<OptionViewModel>().ToSelf();
-            builder.Bind<AboutViewModel>().ToSelf();
+            //builder.Bind<OptionViewModel>().ToSelf();
+            // builder.Bind<AboutViewModel>().ToSelf();
             AssemblyLoader.Dll.ForEach(item =>
             {
                 if (item.IocModule != null)
                     Activator.CreateInstance(item.IocModule);
             });
-            Module.Services.ForDicEach((key,value)=>IocDependency.Register(value,key));*/
+            Module.Services.ForDicEach((key, value) => IocDependency.Register(value, key));
         }
 
         /// <summary>

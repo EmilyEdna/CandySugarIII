@@ -1,4 +1,4 @@
-﻿//using CandySugar.Com.Options.ComponentGeneric;
+﻿using CandySugar.Com.Options.ComponentGeneric;
 using System.Threading;
 using System.Windows;
 using XExten.Advance.ThreadFramework;
@@ -18,9 +18,9 @@ namespace CandySugar.Com.Library.ReadFile
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        //if (Clipboard.ContainsText())
-                        //    if (Clipboard.GetText().Contains("www.bilibili.com/video"))
-                        //        GenericDelegate.ClipboardAction?.Invoke(Clipboard.GetText());
+                        if (Clipboard.ContainsText())
+                            if (Clipboard.GetText().Contains("www.bilibili.com/video"))
+                                GenericDelegate.ClipboardAction?.Invoke(Clipboard.GetText());
                     });
                     Thread.Sleep(300);
                 }

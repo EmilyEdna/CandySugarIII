@@ -19,19 +19,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "会员插件", "会员插�
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "基本插件", "基本插件", "{365D3069-1933-4B8D-ACFE-C7F0D80DFF16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Options", "..\PC\Common\CandySugar.Com.Options\CandySugar.Com.Options.csproj", "{3BC3CF8B-9896-4331-93D1-4A6E61136385}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Options", "..\PC\Common\CandySugar.Com.Options\CandySugar.Com.Options.csproj", "{3BC3CF8B-9896-4331-93D1-4A6E61136385}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.MainUI", "..\PC\Launch\CandySugar.MainUI\CandySugar.MainUI.csproj", "{6E3DEC06-C6DF-405C-B38A-B1951776DF19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.MainUI", "..\PC\Launch\CandySugar.MainUI\CandySugar.MainUI.csproj", "{6E3DEC06-C6DF-405C-B38A-B1951776DF19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Style", "..\PC\Common\CandySugar.Com.Style\CandySugar.Com.Style.csproj", "{35941CF4-E6B7-4473-9D05-038CAFC7A3A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Style", "..\PC\Common\CandySugar.Com.Style\CandySugar.Com.Style.csproj", "{35941CF4-E6B7-4473-9D05-038CAFC7A3A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Data", "..\PC\Common\CandySugar.Com.Data\CandySugar.Com.Data.csproj", "{BF6DE9BF-496B-458C-8DDF-0A10297F0710}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Data", "..\PC\Common\CandySugar.Com.Data\CandySugar.Com.Data.csproj", "{BF6DE9BF-496B-458C-8DDF-0A10297F0710}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Library", "..\PC\Common\CandySugar.Com.Library\CandySugar.Com.Library.csproj", "{2DFD3573-02AE-4819-AB66-10BD558C69CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Library", "..\PC\Common\CandySugar.Com.Library\CandySugar.Com.Library.csproj", "{2DFD3573-02AE-4819-AB66-10BD558C69CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Com.Controls", "..\PC\Common\CandySugar.Com.Controls\CandySugar.Com.Controls.csproj", "{5A2AACDA-B970-4A7A-9583-E5E6523DC488}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Controls", "..\PC\Common\CandySugar.Com.Controls\CandySugar.Com.Controls.csproj", "{5A2AACDA-B970-4A7A-9583-E5E6523DC488}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.HostServer", "..\PC\Launch\CandySugar.HostServer\CandySugar.HostServer.csproj", "{905BD2CE-65CC-433B-B337-F5A72333E284}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.HostServer", "..\PC\Launch\CandySugar.HostServer\CandySugar.HostServer.csproj", "{905BD2CE-65CC-433B-B337-F5A72333E284}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.LightNovel", "..\PC\Component\CandySugar.LightNovel\CandySugar.LightNovel.csproj", "{0F9AA369-07D9-4AA2-A1E2-9F0076CAA835}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{905BD2CE-65CC-433B-B337-F5A72333E284}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{905BD2CE-65CC-433B-B337-F5A72333E284}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{905BD2CE-65CC-433B-B337-F5A72333E284}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F9AA369-07D9-4AA2-A1E2-9F0076CAA835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F9AA369-07D9-4AA2-A1E2-9F0076CAA835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F9AA369-07D9-4AA2-A1E2-9F0076CAA835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F9AA369-07D9-4AA2-A1E2-9F0076CAA835}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{2DFD3573-02AE-4819-AB66-10BD558C69CC} = {44290246-6FFD-48A6-8A3C-554BD6291B3C}
 		{5A2AACDA-B970-4A7A-9583-E5E6523DC488} = {5AFE4FDF-32F7-4654-B56B-232E37DCFE74}
 		{905BD2CE-65CC-433B-B337-F5A72333E284} = {FEDCB6E1-1CAB-44E8-90E2-981658089939}
+		{0F9AA369-07D9-4AA2-A1E2-9F0076CAA835} = {365D3069-1933-4B8D-ACFE-C7F0D80DFF16}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BEDC387F-177A-4DDF-A902-8C474D1FD7DF}

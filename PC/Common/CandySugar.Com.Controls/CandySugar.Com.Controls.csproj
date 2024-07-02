@@ -10,4 +10,8 @@
 		<ProjectReference Include="..\CandySugar.Com.Library\CandySugar.Com.Library.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="UIConverter\" />
+	</ItemGroup>
+
 </Project>

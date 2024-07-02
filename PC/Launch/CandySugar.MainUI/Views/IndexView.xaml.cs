@@ -3,6 +3,8 @@ using System;
 using CandyControls;
 using CandySugar.Com.Style;
 using System.Drawing;
+using CandySugar.Com.Options;
+using CandySugar.Com.Options.ComponentGeneric;
 
 namespace CandySugar.MainUI.Views
 {
@@ -15,6 +17,9 @@ namespace CandySugar.MainUI.Views
         {
             InitializeComponent();
             Tray.Icon = new Icon(new MemoryStream(Convert.FromBase64String(ICO.ICOBase64)));
+            this.StateChanged += delegate {
+                GenericDelegate.WindowStateAction(this.WindowState);
+            };
         }
     }
 }

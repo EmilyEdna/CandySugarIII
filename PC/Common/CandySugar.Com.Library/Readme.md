@@ -3,9 +3,7 @@
 1. <u>DLLoader</u>为组件加载功能。
 1. <u>HotKey</u>系统全局热键功能。
 1. <u>Internet</u>网络检查功能。
-1. <u>Mqtts</u>消息队列功能。
 1. <u>ReadFile</u>配置文件读取功能
-1. <u>VisualTree</u>控件对象遍历功能。
 1. <u>Audios</u>音频播放功能。
 1. <u>BitConvert</u>图片转换功能。
 1. <u>DownQueue</u>图片多线程后台下载功能。

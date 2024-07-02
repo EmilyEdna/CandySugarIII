@@ -7,11 +7,53 @@
     xmlns:lib="http://lib.candy.com"
     xmlns:uc="http://ctrl.candy.com">
 
-
     <FontFamily x:Key="FontStyle">/CandySugar.Com.Style;component/Fonts/#HappyZcool-2016</FontFamily>
     <FontFamily x:Key="Regular">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Regular</FontFamily>
     <FontFamily x:Key="Thin">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Thin</FontFamily>
     <FontFamily x:Key="Solid">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Solid</FontFamily>
+
+    <!--#region  ListBox-->
+
+    <Style x:Key="CandyListBoxStyle" TargetType="ListBox">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource CandyListBoxItemStyle}" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel
+                        Margin="5"
+                        HorizontalAlignment="Center"
+                        FocusVisualStyle="{x:Null}" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CandyListBoxItemStyle" TargetType="ListBoxItem">
+        <Setter Property="UIElement.SnapsToDevicePixels" Value="True" />
+        <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType=ItemsControl}}" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <ContentPresenter
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--#endregion-->
+
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/CandyControls;component/Themes.xaml" />

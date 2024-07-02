@@ -1,0 +1,79 @@
+﻿<UserControl
+    x:Class="CandySugar.LightNovel.View.IndexView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:eda="http://edacoder.github.io"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:CandySugar.LightNovel.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:opt="clr-namespace:CandySugar.Com.Options;assembly=CandySugar.Com.Options"
+    xmlns:vm="clr-namespace:CandySugar.LightNovel.ViewModels"
+    x:Name="Index"
+    d:DataContext="{d:DesignInstance vm:IndexViewModel}"
+    d:DesignHeight="550"
+    d:DesignWidth="1000"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/CandySugar.LightNovel;component/LightTheme.xaml" />
+    </UserControl.Resources>
+    <Grid>
+        <ListBox
+            eda:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
+            ItemsSource="{Binding Category, IsAsync=True}"
+            Style="{DynamicResource CandyListBoxStyle}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="1" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding DataContext.ChapterCommand, ElementName=Index}" CommandParameter="{Binding DetailAddress}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <eda:CandyImage
+                            Width="160"
+                            Height="240"
+                            Margin="5"
+                            BorderBrush="SkyBlue"
+                            BorderThickness="1"
+                            EnableMask="False"
+                            Source="{Binding Cover}" />
+                        <WrapPanel
+                            Grid.Column="1"
+                            Width="350"
+                            Orientation="Vertical">
+                            <TextBlock
+                                Style="{DynamicResource TextBlockStyle}"
+                                Text="{Binding BookName, StringFormat=书名：{0}}"
+                                TextWrapping="Wrap" />
+                            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Author, StringFormat=作者：{0}}" />
+                            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Category, StringFormat=类别:{0}}" />
+                            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Status, StringFormat=状态:{0}}" />
+                            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Press, StringFormat=出版:{0}}" />
+                            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="{Binding Date, StringFormat=最近更新:{0:yyyy-MM-dd HH:mm:ss}}" />
+                            <TextBlock
+                                Style="{DynamicResource TextBlockStyle}"
+                                Text="{Binding Description, StringFormat=简介:{0}}"
+                                TextWrapping="Wrap" />
+                        </WrapPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <eda:CandyWaterButton
+            Margin="{Binding MarginThickness}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Command="{Binding ActiveCommand}"
+            ItemSource="{Binding MenuData, IsAsync=True}" />
+    </Grid>
+</UserControl>
