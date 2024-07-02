@@ -12,6 +12,42 @@
     <FontFamily x:Key="Thin">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Thin</FontFamily>
     <FontFamily x:Key="Solid">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Solid</FontFamily>
 
+    <!--#region Button-->
+    <Style x:Key="CandyTextBlockButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="#fdf5e6" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="MyBackgroundElement"
+                        Margin="1,2"
+                        BorderBrush="Transparent"
+                        BorderThickness="0">
+                        <TextBlock
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Text="{TemplateBinding Content}"
+                            TextTrimming="CharacterEllipsis" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="MyBackgroundElement" Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground" Value="#ffb3bf" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="MyBackgroundElement" Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground" Value="#ffb3bf" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
     <!--#region  ListBox-->
 
     <Style x:Key="CandyListBoxStyle" TargetType="ListBox">

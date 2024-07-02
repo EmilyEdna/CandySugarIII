@@ -1,8 +1,4 @@
-﻿using CandySugar.Com.Options.Anonymous;
-using CandySugar.Com.Options.ComponentGeneric;
-using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace CandySugar.LightNovel.ViewModels
+﻿namespace CandySugar.LightNovel.ViewModels
 {
     public partial class IndexViewModel : ObservableObject
     {
@@ -11,12 +7,13 @@ namespace CandySugar.LightNovel.ViewModels
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             MarginThickness = new Thickness(0, 0, 60, 15);
+            ChapterVisibility = Visibility.Collapsed;
             OnInit();
         }
         #region 事件
         private void WindowStateEvent(WindowState state)
         {
-            MarginThickness= state == WindowState.Normal || state == WindowState.Minimized ? new Thickness(0, 0, 60, 15) : new Thickness(0, 0, 60, 70);
+            MarginThickness = state == WindowState.Normal || state == WindowState.Minimized ? new Thickness(0, 0, 60, 15) : new Thickness(0, 0, 60, 70);
         }
         #endregion
 
@@ -31,6 +28,7 @@ namespace CandySugar.LightNovel.ViewModels
         /// 操作类型 1:分类 2:查询
         /// </summary>
         private int HandleType = 1;
+        public IndexView Views;
         #endregion
 
         #region 属性
@@ -40,6 +38,10 @@ namespace CandySugar.LightNovel.ViewModels
         private ObservableCollection<LovelCategoryElementResult> _Category;
         [ObservableProperty]
         private Thickness _MarginThickness;
+        [ObservableProperty]
+        private ObservableCollection<LovelViewResult> _ViewResult;
+        [ObservableProperty]
+        private Visibility _ChapterVisibility;
         #endregion
 
         #region 命令
@@ -47,6 +49,7 @@ namespace CandySugar.LightNovel.ViewModels
         public void Active(object input)
         {
             HandleType = 1;
+            Keyword = string.Empty;
             string Route = input.ToMapest<AnonymousWater>().SelectValue.AsString();
             if (!Route.IsNullOrEmpty())
             {
@@ -69,6 +72,28 @@ namespace CandySugar.LightNovel.ViewModels
                     SearchPage += 1;
                     OnLoadMoreSearch();
                 }
+        }
+        [RelayCommand]
+        public void Chapter(string Route) => OnChapter(Route);
+        [RelayCommand]
+        public void Close()
+        {
+            ChapterVisibility = Visibility.Collapsed;
+            ViewResult = [];
+        }
+        [RelayCommand]
+        public void View(LovelViewResult view)
+        {
+            if (view.IsDown)
+            {
+                new ScreenNotifyView("后台下载中请稍后!").Show();
+                OnDownload(view.ChapterRoute, view.BookName);
+            }
+            else
+            {
+                Module.Param = view.ChapterRoute;
+                ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext).Changed(true);
+            }
         }
         #endregion
 
@@ -245,95 +270,95 @@ namespace CandySugar.LightNovel.ViewModels
                 }
             });
         }
-        ///// <summary>
-        ///// 初始化章节
-        ///// </summary>
-        ///// <param name="ChapterRoute"></param>
-        //private void OnInitChapter(string ChapterRoute)
-        //{
-        //    Task.Run(async () =>
-        //    {
-        //        try
-        //        {
-        //            var Proxy = Module.IocModule.Proxy;
-        //            var ChapterResult = (await LovelFactory.Lovel(opt =>
-        //            {
-        //                opt.RequestParam = new Input
-        //                {
-        //                    ProxyIP = Proxy.IP,
-        //                    ProxyPort = Proxy.Port,
-        //                    CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-        //                    LovelType = LovelEnum.Detail,
-        //                    Detail = new LovelDetail
-        //                    {
-        //                        Route = ChapterRoute
-        //                    }
-        //                };
-        //            }).RunsAsync()).DetailResult;
-        //            await Task.Delay(1000);
-        //            var result = (await LovelFactory.Lovel(opt =>
-        //            {
-        //                opt.RequestParam = new Input
-        //                {
-        //                    ProxyIP = Proxy.IP,
-        //                    ProxyPort = Proxy.Port,
-        //                    CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-        //                    LovelType = LovelEnum.View,
-        //                    View = new LovelView
-        //                    {
-        //                        Route = ChapterResult.Route
-        //                    }
-        //                };
-        //            }).RunsAsync()).ViewResult;
-        //            ViewResult = new ObservableCollection<LovelViewResult>(result);
-        //            WeakReferenceMessenger.Default.Send(new MessageNotify { SliderStatus = 1 });
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Log.Logger.Error(ex, "");
-        //            ErrorNotify();
-        //        }
-        //    });
-        //}
-        ///// <summary>
-        ///// 初始化后台下载
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <param name="bookName"></param>
-        //private void OnDownload(string id, string bookName)
-        //{
-        //    Task.Run(async () =>
-        //    {
-        //        try
-        //        {
-        //            var Proxy = Module.IocModule.Proxy;
-        //            var result = (await LovelFactory.Lovel(opt =>
-        //            {
-        //                opt.RequestParam = new Input
-        //                {
-        //                    ProxyIP = Proxy.IP,
-        //                    ProxyPort = Proxy.Port,
-        //                    CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-        //                    LovelType = LovelEnum.Download,
-        //                    Down = new LovelDown
-        //                    {
-        //                        BookName = bookName,
-        //                        UId = id.AsInt()
-        //                    }
-        //                };
-        //            }).RunsAsync()).DownResult.Bytes;
-        //            result.FileCreate(bookName, FileTypes.Txt, "LightNovel", (catalog, fileName) =>
-        //            {
-        //                new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show();
-        //            });
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Log.Logger.Error(ex, "");
-        //            ErrorNotify();
-        //        }
-        //    });
-        //}
+        /// <summary>
+        /// 初始化章节
+        /// </summary>
+        /// <param name="ChapterRoute"></param>
+        private void OnChapter(string ChapterRoute)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    var Proxy = Module.IocModule.Proxy;
+                    var ChapterResult = (await LovelFactory.Lovel(opt =>
+                    {
+                        opt.RequestParam = new Input
+                        {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
+                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                            LovelType = LovelEnum.Detail,
+                            Detail = new LovelDetail
+                            {
+                                Route = ChapterRoute
+                            }
+                        };
+                    }).RunsAsync()).DetailResult;
+                    await Task.Delay(1000);
+                    var result = (await LovelFactory.Lovel(opt =>
+                    {
+                        opt.RequestParam = new Input
+                        {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
+                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                            LovelType = LovelEnum.View,
+                            View = new LovelView
+                            {
+                                Route = ChapterResult.Route
+                            }
+                        };
+                    }).RunsAsync()).ViewResult;
+                    ViewResult = new ObservableCollection<LovelViewResult>(result);
+                    ChapterVisibility = Visibility.Visible;
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, "");
+                    ErrorNotify();
+                }
+            });
+        }
+        /// <summary>
+        /// 初始化后台下载
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="bookName"></param>
+        private void OnDownload(string id, string bookName)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    var Proxy = Module.IocModule.Proxy;
+                    var result = (await LovelFactory.Lovel(opt =>
+                    {
+                        opt.RequestParam = new Input
+                        {
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
+                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                            LovelType = LovelEnum.Download,
+                            Down = new LovelDown
+                            {
+                                BookName = bookName,
+                                UId = id.AsInt()
+                            }
+                        };
+                    }).RunsAsync()).DownResult.Bytes;
+                    result.FileCreate(bookName, FileTypes.Txt, "LightNovel", (catalog, fileName) =>
+                    {
+                        new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show();
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, "");
+                    ErrorNotify();
+                }
+            });
+        }
 
         private void ErrorNotify()
         {

@@ -69,6 +69,63 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Grid
+            Width="200"
+            Height="350"
+            Margin="0,20,20,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Visibility="{Binding ChapterVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Rectangle Grid.RowSpan="2" Fill="#20DADADA" />
+            <ListBox
+                x:Name="PART_CHAPTER"
+                Grid.RowSpan="2"
+                ItemsSource="{Binding ViewResult}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                Style="{DynamicResource CandyListBoxStyle}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="2,3">
+                            <Button
+                                Command="{Binding DataContext.ViewCommand, ElementName=Index}"
+                                CommandParameter="{Binding .}"
+                                Content="{Binding ChapterName}"
+                                Style="{DynamicResource CandyTextBlockButtonStyle}"
+                                ToolTip="{Binding ChapterName}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button
+                Width="30"
+                Height="30"
+                Margin="0,5,5,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding CloseCommand}"
+                Style="{DynamicResource CaptionButtonStyle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <Grid Width="12" Height="12">
+                            <Path
+                                Data="M 12,12 L16.4,16.4"
+                                Stretch="Fill"
+                                Stroke="White"
+                                StrokeThickness="1" />
+                            <Path
+                                Data="M 12,16.4 L 16.4,12 "
+                                Stretch="Fill"
+                                Stroke="White"
+                                StrokeThickness="1" />
+                        </Grid>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </Grid>
         <eda:CandyWaterButton
             Margin="{Binding MarginThickness}"
             HorizontalAlignment="Right"

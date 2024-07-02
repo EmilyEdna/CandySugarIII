@@ -1,10 +1,9 @@
-﻿using System.IO;
-using System;
-using CandyControls;
-using CandySugar.Com.Style;
-using System.Drawing;
-using CandySugar.Com.Options;
+﻿using CandyControls;
 using CandySugar.Com.Options.ComponentGeneric;
+using CandySugar.Com.Style;
+using System;
+using System.Drawing;
+using System.IO;
 
 namespace CandySugar.MainUI.Views
 {
