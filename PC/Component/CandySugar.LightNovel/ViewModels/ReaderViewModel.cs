@@ -1,6 +1,4 @@
-﻿using NPOI.Util;
-
-namespace CandySugar.LightNovel.ViewModels
+﻿namespace CandySugar.LightNovel.ViewModels
 {
     public partial class ReaderViewModel : ObservableObject
     {

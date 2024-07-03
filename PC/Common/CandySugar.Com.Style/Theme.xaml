@@ -9,13 +9,95 @@
 
     <uc:ThickObjectConverter x:Key="ThickObjectConverter" />
     <uc:NullVisibilityConvterter x:Key="NullVisibilityConvterter" />
+    <uc:MultiParamConverter x:Key="MultiParamConverter" />
 
     <FontFamily x:Key="FontStyle">/CandySugar.Com.Style;component/Fonts/#HappyZcool-2016</FontFamily>
     <FontFamily x:Key="Regular">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Regular</FontFamily>
     <FontFamily x:Key="Thin">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Thin</FontFamily>
     <FontFamily x:Key="Solid">/CandySugar.Com.Style;component/Fonts/#Font Awesome 6 Pro Solid</FontFamily>
 
+    <!--#region TextBox-->
+
+    <Style x:Key="CandyTextboxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="Width" Value="600" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border BorderBrush="#fdf5e6" BorderThickness="0,0,0,1">
+                        <Grid>
+                            <Rectangle
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                Fill="#401e90ff"
+                                Opacity=".5" />
+                            <TextBlock
+                                x:Name="PlaceHolder"
+                                Margin="6,2"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                Foreground="#fafad2"
+                                Text="{TemplateBinding Tag}"
+                                Visibility="{Binding Text, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullVisibilityConvterter}, RelativeSource={RelativeSource AncestorType=TextBox}, Mode=TwoWay}" />
+                            <TextBox
+                                x:Name="TextContent"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Foreground="#fdf5e6"
+                                Text="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}, Mode=TwoWay}" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="TextContent" Property="IsFocused" Value="True">
+                            <Setter TargetName="PlaceHolder" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
     <!--#region Button-->
+
+    <Style x:Key="IconButton" TargetType="Button">
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontFamily" Value="{DynamicResource Thin}" />
+        <Setter Property="Foreground" Value="#fff0f5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="MyBackgroundElement"
+                        BorderBrush="Transparent"
+                        BorderThickness="0">
+                        <ContentPresenter
+                            x:Name="ButtonContentPresenter"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="MyBackgroundElement" Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground" Value="#ffb3bf" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="MyBackgroundElement" Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground" Value="#ffb3bf" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="CandyTextBlockButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />

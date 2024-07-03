@@ -1,0 +1,194 @@
+﻿<UserControl
+    x:Class="CandySugar.Bilibili.View.IndexView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:eda="http://edacoder.github.io"
+    xmlns:lib="http://lib.candy.com"
+    xmlns:local="clr-namespace:CandySugar.Bilibili.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:skia="https://github.com/kekyo/SkiaImageView"
+    xmlns:vm="clr-namespace:CandySugar.Bilibili.ViewModels"
+    x:Name="Index"
+    d:DataContext="{d:DesignInstance vm:IndexViewModel}"
+    d:DesignHeight="550"
+    d:DesignWidth="1000"
+    mc:Ignorable="d">
+    <Grid Margin="0,50,0,0" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".3*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel
+            Width="800"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal">
+                <eda:CandyButton
+                    ButtonType="Info"
+                    Command="{Binding CookieCommand}"
+                    Content="设置Cookie" />
+                <eda:CandyButton
+                    ButtonType="Info"
+                    Command="{Binding ClearCommand}"
+                    Content="清空" />
+                <eda:CandyButton
+                    ButtonType="Primary"
+                    Command="{Binding QeuryCommand}"
+                    Content="获取视频" />
+                <eda:CandyButton
+                    ButtonType="Success"
+                    Command="{Binding FavCommand}"
+                    Content="获取收藏" />
+                <eda:CandyButton
+                    ButtonType="Warning"
+                    Command="{Binding BatchAudioCommand}"
+                    CommandParameter="1"
+                    Content="批量封面" />
+                <eda:CandyButton
+                    ButtonType="Error"
+                    Command="{Binding BatchAudioCommand}"
+                    CommandParameter="2"
+                    Content="批量音频" />
+                <eda:CandyButton
+                    ButtonType="Fatal"
+                    Command="{Binding BatchAudioCommand}"
+                    CommandParameter="3"
+                    Content="批量视频" />
+            </StackPanel>
+            <TextBox
+                Width="800"
+                HorizontalAlignment="Left"
+                Style="{DynamicResource CandyTextboxStyle}"
+                Tag="输入B站视频地址或者博主ID"
+                Text="{Binding Route, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+        <ListBox
+            Grid.Row="1"
+            Width="800"
+            ItemsSource="{Binding Collects}"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+            Style="{DynamicResource CandyListBoxStyle}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <eda:CandyButton
+                        ButtonType="Primary"
+                        Command="{Binding DataContext.CollectCommand, ElementName=Index}"
+                        CommandParameter="{Binding .}"
+                        Content="{Binding Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox
+            Grid.Row="2"
+            Width="800"
+            Height="{Binding NavHeight}"
+            ItemsSource="{Binding InfoResults}"
+            Style="{DynamicResource CandyListBoxStyle}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="3" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <eda:CandyBorder BorderType="Info">
+                        <Grid>
+                            <skia:SKImageView
+                                Width="265"
+                                Height="170"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Source="{Binding Cover}"
+                                Stretch="Fill" />
+                            <TextBlock
+                                FontSize="10"
+                                Foreground="#fdf5e6"
+                                Text="{Binding Title}"
+                                TextWrapping="WrapWithOverflow"
+                                ToolTip="{Binding Title}" />
+                            <Button
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Command="{Binding DataContext.TranshCammnd, ElementName=Index}"
+                                CommandParameter="{Binding .}"
+                                Content="{x:Static lib:FontIcon.CircleX}"
+                                FontSize="15"
+                                Style="{DynamicResource IconButton}" />
+                            <StackPanel
+                                Margin="0,0,0,3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom">
+                                <UniformGrid Columns="4">
+                                    <eda:CandyButton
+                                        Width="60"
+                                        Height="20"
+                                        ButtonType="Primary"
+                                        Command="{Binding DataContext.HandleCommand, ElementName=Index}"
+                                        Content="保存封面">
+                                        <eda:CandyButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                <Binding Source="1" />
+                                                <Binding Path="." />
+                                            </MultiBinding>
+                                        </eda:CandyButton.CommandParameter>
+                                    </eda:CandyButton>
+                                    <eda:CandyButton
+                                        Width="60"
+                                        Height="20"
+                                        ButtonType="Success"
+                                        Command="{Binding DataContext.HandleCommand, ElementName=Index}"
+                                        Content="保存视频">
+                                        <eda:CandyButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                <Binding Source="2" />
+                                                <Binding Path="." />
+                                            </MultiBinding>
+                                        </eda:CandyButton.CommandParameter>
+                                    </eda:CandyButton>
+                                    <eda:CandyButton
+                                        Width="60"
+                                        Height="20"
+                                        ButtonType="Warning"
+                                        Command="{Binding DataContext.HandleCommand, ElementName=Index}"
+                                        Content="保存音频">
+                                        <eda:CandyButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                <Binding Source="3" />
+                                                <Binding Path="." />
+                                            </MultiBinding>
+                                        </eda:CandyButton.CommandParameter>
+                                    </eda:CandyButton>
+                                    <eda:CandyButton
+                                        Width="60"
+                                        Height="20"
+                                        ButtonType="Error"
+                                        Command="{Binding DataContext.HandleCommand, ElementName=Index}"
+                                        Content="合并视音">
+                                        <eda:CandyButton.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                <Binding Source="4" />
+                                                <Binding Path="." />
+                                            </MultiBinding>
+                                        </eda:CandyButton.CommandParameter>
+                                    </eda:CandyButton>
+                                </UniformGrid>
+                            </StackPanel>
+                            <Border
+                                Width="{Binding Width, Mode=TwoWay}"
+                                Height="4"
+                                VerticalAlignment="Bottom"
+                                Background="Black" />
+                        </Grid>
+                    </eda:CandyBorder>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

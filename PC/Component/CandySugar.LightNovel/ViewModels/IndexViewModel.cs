@@ -16,7 +16,7 @@
             if (GlobalParam.WindowState == WindowState.Maximized)
             {
                 MarginThickness = new Thickness(0, 0, 60, 70);
-                NavHeight *= 2.5;
+                NavHeight = (NavHeight == 0 ? 350 : NavHeight) * 2.5;
             }
             else
             {
