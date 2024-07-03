@@ -68,6 +68,7 @@
                 OnCategory();
             }
         }
+
         [RelayCommand]
         public void Scroll(ScrollChangedEventArgs obj)
         {
@@ -84,14 +85,17 @@
                     OnLoadMoreSearch();
                 }
         }
+
         [RelayCommand]
         public void Chapter(string Route) => OnChapter(Route);
+
         [RelayCommand]
         public void Close()
         {
             ChapterVisibility = Visibility.Collapsed;
             ViewResult = [];
         }
+
         [RelayCommand]
         public void View(LovelViewResult view)
         {

@@ -7,7 +7,6 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:CandySugar.LightNovel.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:opt="clr-namespace:CandySugar.Com.Options;assembly=CandySugar.Com.Options"
     xmlns:vm="clr-namespace:CandySugar.LightNovel.ViewModels"
     x:Name="Index"
     d:DataContext="{d:DesignInstance vm:IndexViewModel}"
@@ -86,7 +85,7 @@
                 x:Name="PART_CHAPTER"
                 Grid.RowSpan="2"
                 ItemsSource="{Binding ViewResult}"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 Style="{DynamicResource CandyListBoxStyle}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
