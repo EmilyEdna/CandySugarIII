@@ -56,44 +56,36 @@ namespace CandySugar.Novel.ViewModels
         /// <summary>
         /// 初始化内容
         /// </summary>
-        private void OnContent()
+        private async void OnContent()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                Element = (await NovelFactory.Novel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    Element = (await NovelFactory.Novel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        PlatformType = DataModel.Platform,
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        NovelType = NovelEnum.Content,
+                        Content = new NovelContent
                         {
-                            PlatformType = DataModel.Platform,
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            NovelType = NovelEnum.Content,
-                            Content = new NovelContent
-                            {
-                                Route = DataModel.Current
-                            }
-                        };
-                    }).RunsAsync()).ContentResult.ElementResult;
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                            Route = DataModel.Current
+                        }
+                    };
+                }).RunsAsync()).ContentResult.ElementResult;
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
 
-        private void ErrorNotify(string input = "")
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                new ScreenNotifyView(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show();
-            });
-        }
+        private void ErrorNotify(string input = "") =>
+            Application.Current.Dispatcher.Invoke(() => new ScreenNotifyView(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
         #endregion
 
         #region 命令

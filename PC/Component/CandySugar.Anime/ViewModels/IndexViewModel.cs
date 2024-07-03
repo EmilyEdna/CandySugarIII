@@ -53,207 +53,184 @@ namespace CandySugar.Anime.ViewModels
         /// <summary>
         /// 初始化
         /// </summary>
-        private void OnInit()
+        private async void OnInit()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await CartFactory.Car(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await CartFactory.Car(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
-                        {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            CartType = CartEnum.Init,
-                            Init = new CartInit()
-                        };
-                    }).RunsAsync()).InitResult;
-                    Total = result.Total;
-                    InitResult = new(result.ElementResults);
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        CartType = CartEnum.Init,
+                        Init = new CartInit()
+                    };
+                }).RunsAsync()).InitResult;
+                Total = result.Total;
+                InitResult = new(result.ElementResults);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
         /// <summary>
         /// 初始化加载更多
         /// </summary>
-        private void OnLoadMoreInit()
+        private async void OnLoadMoreInit()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await CartFactory.Car(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await CartFactory.Car(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        CartType = CartEnum.Init,
+                        Init = new CartInit
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            CartType = CartEnum.Init,
-                            Init = new CartInit
-                            {
-                                Page = PageIndex
-                            }
-                        };
-                    }).RunsAsync()).InitResult;
+                            Page = PageIndex
+                        }
+                    };
+                }).RunsAsync()).InitResult;
 
-                    Application.Current.Dispatcher.Invoke(() => result.ElementResults.ForEach(InitResult.Add));
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                result.ElementResults.ForEach(InitResult.Add);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
         /// <summary>
         /// 详情
         /// </summary>
-        private void OnDetail()
+        private async void OnDetail()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                DetailResult = (await CartFactory.Car(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    DetailResult = (await CartFactory.Car(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        CartType = CartEnum.Detail,
+                        Detail = new CartDetail
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            CartType = CartEnum.Detail,
-                            Detail = new CartDetail
-                            {
-                                Route = Route
-                            }
-                        };
-                    }).RunsAsync()).DetailResult;
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                            Route = Route
+                        }
+                    };
+                }).RunsAsync()).DetailResult;
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
         /// <summary>
         /// 搜索
         /// </summary>
-        private void OnSearch()
+        private async void OnSearch()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await CartFactory.Car(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await CartFactory.Car(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        CartType = CartEnum.Search,
+                        Search = new CartSearch
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            CartType = CartEnum.Search,
-                            Search = new CartSearch
-                            {
-                                Keyword = this.Keyword
-                            }
-                        };
-                    }).RunsAsync()).SearchResult;
-                    SearchTotal = result.Total;
-                    InitResult = new(result.ElementResults.ToMapest<List<CartInitElementResult>>());
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                            Keyword = this.Keyword
+                        }
+                    };
+                }).RunsAsync()).SearchResult;
+                SearchTotal = result.Total;
+                InitResult = new(result.ElementResults.ToMapest<List<CartInitElementResult>>());
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
         /// <summary>
         /// 获取真实播放地址
         /// </summary>
-        private void OnPlay(string args)
+        private async void OnPlay(string args)
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await CartFactory.Car(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await CartFactory.Car(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        CartType = CartEnum.Play,
+                        Play = new CartPlay
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            CartType = CartEnum.Play,
-                            Play = new CartPlay
-                            {
-                                Route = args
-                            }
-                        };
-                    }).RunsAsync()).PlayResult.PlayRoute;
-                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result).Show());
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                            Route = args
+                        }
+                    };
+                }).RunsAsync()).PlayResult.PlayRoute;
+                Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result).Show());
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
         /// <summary>
         /// 加载更多检索结果
         /// </summary>
-        private void OnLoadMoreSearch()
+        private async void OnLoadMoreSearch()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await CartFactory.Car(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await CartFactory.Car(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        CartType = CartEnum.Search,
+                        Search = new CartSearch
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            CartType = CartEnum.Search,
-                            Search = new CartSearch
-                            {
-                                Keyword = this.Keyword
-                            }
-                        };
-                    }).RunsAsync()).SearchResult;
-                    Application.Current.Dispatcher.Invoke(() => result.ElementResults.ToMapest<List<CartInitElementResult>>().ForEach(InitResult.Add));
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
-        }
-        private void ErrorNotify()
-        {
-            Application.Current.Dispatcher.Invoke(() =>
+                            Keyword = this.Keyword
+                        }
+                    };
+                }).RunsAsync()).SearchResult;
+                result.ElementResults.ToMapest<List<CartInitElementResult>>().ForEach(InitResult.Add);
+            }
+            catch (Exception ex)
             {
-                new ScreenNotifyView(CommonHelper.ComponentErrorInformation).Show();
-            });
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
+        private void ErrorNotify(string input = "") =>
+                    Application.Current.Dispatcher.Invoke(() => new ScreenNotifyView(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
         #endregion
 
         #region 命令

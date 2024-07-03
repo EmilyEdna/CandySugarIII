@@ -94,166 +94,151 @@
                 }
             });
         }
-        private void OnInit()
+        private async void OnInit()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var Result = (await NovelFactory.Novel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var Result = (await NovelFactory.Novel(opt =>
-                     {
-                         opt.RequestParam = new Input
-                         {
-                             ProxyIP = Proxy.IP,
-                             ProxyPort = Proxy.Port,
-                             PlatformType = PlatformEnum.TopPoint,
-                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                             NovelType = NovelEnum.Init
-                         };
-                     }).RunsAsync()).InitResult;
-                    MenuData = Result.ElementResults.ToDictionary(t => t.Name, t => t.Route);
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
-        }
-        private void OnCategory()
-        {
-            Task.Run(async () =>
-            {
-                try
-                {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await NovelFactory.Novel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
-                        {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            PlatformType = PlatformEnum.TopPoint,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            NovelType = NovelEnum.Category,
-                            Category = new NovelCategory
-                            {
-                                Route = CateRoute
-                            }
-                        };
-                    }).RunsAsync()).CategoryResult;
-                    CateTotal = result.Total;
-                    CategoryResult = new ObservableCollection<NovelCategoryElementResult>(result.ElementResults);
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        PlatformType = PlatformEnum.TopPoint,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        NovelType = NovelEnum.Init
+                    };
+                }).RunsAsync()).InitResult;
+                MenuData = Result.ElementResults.ToDictionary(t => t.Name, t => t.Route);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
-        private void OnChapter(Dictionary<string, object> element)
+        private async void OnCategory()
+        {
+            try
+            {
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await NovelFactory.Novel(opt =>
+                {
+                    opt.RequestParam = new Input
+                    {
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        PlatformType = PlatformEnum.TopPoint,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        NovelType = NovelEnum.Category,
+                        Category = new NovelCategory
+                        {
+                            Route = CateRoute
+                        }
+                    };
+                }).RunsAsync()).CategoryResult;
+                CateTotal = result.Total;
+                CategoryResult = new ObservableCollection<NovelCategoryElementResult>(result.ElementResults);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
+        }
+        private async void OnChapter(Dictionary<string, object> element)
         {
             RootChapterPageIndex = 1;
             var Key = element["Key1"].AsString().AsInt();
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                RootDetail = (await NovelFactory.Novel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    RootDetail = (await NovelFactory.Novel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        PlatformType = Key == 1 ? PlatformEnum.TopPoint : PlatformEnum.Pendown,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        NovelType = NovelEnum.Detail,
+                        Detail = new NovelDetail
                         {
-                            ProxyIP = Proxy.IP,
-                            PlatformType = Key == 1 ? PlatformEnum.TopPoint : PlatformEnum.Pendown,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            NovelType = NovelEnum.Detail,
-                            Detail = new NovelDetail
-                            {
-                                BookName = element["Key2"].AsString(),
-                                Route = element["Key3"].AsString()
-                            }
-                        };
-                    }).RunsAsync()).DetailResult;
-                    RootChapterTotal = RootDetail.Total;
-                    Platform = RootDetail.NovelPlatformType.Value;
-                    DetailResult = new ObservableCollection<NovelDetailElementResult>(RootDetail.ElementResults);
-                    ChapterVisibility = Visibility.Visible;
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                            BookName = element["Key2"].AsString(),
+                            Route = element["Key3"].AsString()
+                        }
+                    };
+                }).RunsAsync()).DetailResult;
+                RootChapterTotal = RootDetail.Total;
+                Platform = RootDetail.NovelPlatformType.Value;
+                DetailResult = new ObservableCollection<NovelDetailElementResult>(RootDetail.ElementResults);
+                ChapterVisibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
-        private void OnLoadMoreCategory()
+        private async void OnLoadMoreCategory()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await NovelFactory.Novel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await NovelFactory.Novel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        PlatformType = PlatformEnum.TopPoint,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        NovelType = NovelEnum.Category,
+                        Category = new NovelCategory
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            PlatformType = PlatformEnum.TopPoint,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            NovelType = NovelEnum.Category,
-                            Category = new NovelCategory
-                            {
-                                Page = CatePageIndex,
-                                Route = CateRoute
-                            }
-                        };
-                    }).RunsAsync()).CategoryResult;
-                    Application.Current.Dispatcher.Invoke(() => result.ElementResults.ForEach(CategoryResult.Add));
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                            Page = CatePageIndex,
+                            Route = CateRoute
+                        }
+                    };
+                }).RunsAsync()).CategoryResult;
+                result.ElementResults.ForEach(CategoryResult.Add);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
-        private void OnLoadMoreSearch()
+        private async void OnLoadMoreSearch()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await NovelFactory.Novel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await NovelFactory.Novel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        PlatformType = PlatformEnum.TopPoint,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        NovelType = NovelEnum.Search,
+                        Search = new NovelSearch
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            PlatformType = PlatformEnum.TopPoint,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            NovelType = NovelEnum.Search,
-                            Search = new NovelSearch
-                            {
-                                SearchKey = Keyword,
-                                Page = SearchPageIndex
-                            }
-                        };
-                    }).RunsAsync()).SearchResult;
-                    var Model = result.ElementResults.ToMapest<List<NovelCategoryElementResult>>();
-                    Application.Current.Dispatcher.Invoke(() => Model.ForEach(CategoryResult.Add));
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                            SearchKey = Keyword,
+                            Page = SearchPageIndex
+                        }
+                    };
+                }).RunsAsync()).SearchResult;
+                var Model = result.ElementResults.ToMapest<List<NovelCategoryElementResult>>();
+                Model.ForEach(CategoryResult.Add);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
         private async void OnLoadMoreChapter()
         {
@@ -276,7 +261,7 @@
                         }
                     };
                 }).RunsAsync()).DetailResult.ElementResults;
-                Application.Current.Dispatcher.Invoke(() => result.ForEach(DetailResult.Add));
+                result.ForEach(DetailResult.Add);
             }
             catch (Exception ex)
             {
@@ -284,13 +269,8 @@
                 ErrorNotify();
             }
         }
-        private void ErrorNotify(string Info = "")
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                new ScreenNotifyView(Info.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : Info).Show();
-            });
-        }
+        private void ErrorNotify(string input = "") => 
+            Application.Current.Dispatcher.Invoke(() => new ScreenNotifyView(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
         #endregion
 
         #region 命令

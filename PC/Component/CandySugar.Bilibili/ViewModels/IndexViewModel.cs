@@ -524,13 +524,8 @@
             }
         }
 
-        private void ErrorNotify()
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                new ScreenNotifyView(CommonHelper.ComponentErrorInformation).Show();
-            });
-        }
+        private void ErrorNotify(string input = "") =>
+                    Application.Current.Dispatcher.Invoke(() => new ScreenNotifyView(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
         #endregion
     }
 }

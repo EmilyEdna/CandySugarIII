@@ -52,57 +52,49 @@
         /// <summary>
         /// 初始化内容
         /// </summary>
-        private void OnContent()
+        private async void OnContent()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await LovelFactory.Lovel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await LovelFactory.Lovel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        LovelType = LovelEnum.Content,
+                        Content = new LovelContent
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            LovelType = LovelEnum.Content,
-                            Content = new LovelContent
-                            {
-                                ChapterRoute = Module.Param.ToString()
-                            }
-                        };
-                    }).RunsAsync()).ContentResult;
-                    if (result.Content != null || result.Image != null)
-                    {
-                        if (result.Content != null)
-                        {
-                            if (result.Content.Equals("因版权问题，文库不再提供该小说的阅读！"))
-                            {
-                                ErrorNotify("因版权问题，请前往下载!");
-                                return;
-                            }
-                            Words = new ObservableCollection<string>(result.Content);
+                            ChapterRoute = Module.Param.ToString()
                         }
-                        else
-                            Picture = new ObservableCollection<string>(result.Image ?? new List<string>());
-                    }
-                }
-                catch (Exception ex)
+                    };
+                }).RunsAsync()).ContentResult;
+                if (result.Content != null || result.Image != null)
                 {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
+                    if (result.Content != null)
+                    {
+                        if (result.Content.Equals("因版权问题，文库不再提供该小说的阅读！"))
+                        {
+                            ErrorNotify("因版权问题，请前往下载!");
+                            return;
+                        }
+                        Words = new ObservableCollection<string>(result.Content);
+                    }
+                    else
+                        Picture = new ObservableCollection<string>(result.Image ?? new List<string>());
                 }
-            });
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
 
-        private void ErrorNotify(string input = "")
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                new ScreenNotifyView(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show();
-            });
-        }
+        private void ErrorNotify(string input = "") =>
+            Application.Current.Dispatcher.Invoke(() => new ScreenNotifyView(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
         #endregion
 
         #region 命令

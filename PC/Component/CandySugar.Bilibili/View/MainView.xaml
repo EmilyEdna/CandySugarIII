@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:CandySugar.Bilibili.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:CandySugar.Bilibili.ViewModels"
+    x:Name="Main"
     d:DataContext="{d:DesignInstance vm:MainViewModel}"
     d:DesignHeight="550"
     d:DesignWidth="1000"

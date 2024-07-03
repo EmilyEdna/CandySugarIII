@@ -116,271 +116,245 @@
         /// <summary>
         /// 初始化
         /// </summary>
-        private void OnInit()
+        private async void OnInit()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await LovelFactory.Lovel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await LovelFactory.Lovel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
-                        {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            LovelType = LovelEnum.Init,
-                            Login = new()
-                        };
-                    }).RunsAsync()).InitResults;
-                    MenuData = result.ToDictionary(t => t.Name, t => t.Route);
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        LovelType = LovelEnum.Init,
+                        Login = new()
+                    };
+                }).RunsAsync()).InitResults;
+                MenuData = result.ToDictionary(t => t.Name, t => t.Route);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
         /// <summary>
         /// 初始化分类
         /// </summary>
-        private void OnCategory()
+        private async void OnCategory()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await LovelFactory.Lovel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await LovelFactory.Lovel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        LovelType = LovelEnum.Category,
+                        Category = new LovelCategory
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            LovelType = LovelEnum.Category,
-                            Category = new LovelCategory
-                            {
-                                Page = 1,
-                                Route = CateRoute
-                            }
-                        };
-                    }).RunsAsync()).CategoryResult;
-                    CateTotal = result.Total;
-                    Category = new ObservableCollection<LovelCategoryElementResult>(result.ElementResults);
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                            Page = 1,
+                            Route = CateRoute
+                        }
+                    };
+                }).RunsAsync()).CategoryResult;
+                CateTotal = result.Total;
+                Category = new ObservableCollection<LovelCategoryElementResult>(result.ElementResults);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
         /// <summary>
         /// 加载更多分类
         /// </summary>
-        private void OnLoadMoreCategory()
+        private async void OnLoadMoreCategory()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await LovelFactory.Lovel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await LovelFactory.Lovel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        LovelType = LovelEnum.Category,
+                        Category = new LovelCategory
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            LovelType = LovelEnum.Category,
-                            Category = new LovelCategory
-                            {
-                                Page = CatePage,
-                                Route = CateRoute
-                            }
-                        };
-                    }).RunsAsync()).CategoryResult;
-                    Application.Current.Dispatcher.Invoke(() => result.ElementResults.ForEach(Category.Add));
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                            Page = CatePage,
+                            Route = CateRoute
+                        }
+                    };
+                }).RunsAsync()).CategoryResult;
+                result.ElementResults.ForEach(Category.Add);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
         /// <summary>
         /// 初始化搜索
         /// </summary>
-        private void OnSearch()
+        private async void OnSearch()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await LovelFactory.Lovel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await LovelFactory.Lovel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        LovelType = LovelEnum.Search,
+                        Search = new LovelSearch
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            LovelType = LovelEnum.Search,
-                            Search = new LovelSearch
-                            {
-                                Page = 1,
-                                SearchType = LovelSearchEnum.ArticleName,
-                                KeyWord = Keyword
-                            }
-                        };
-                    }).RunsAsync()).SearchResult;
-                    SearchTotal = result.Total;
-                    var info = result.ElementResults.ToMapest<List<LovelCategoryElementResult>>();
-                    Category = new(info);
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                            Page = 1,
+                            SearchType = LovelSearchEnum.ArticleName,
+                            KeyWord = Keyword
+                        }
+                    };
+                }).RunsAsync()).SearchResult;
+                SearchTotal = result.Total;
+                var info = result.ElementResults.ToMapest<List<LovelCategoryElementResult>>();
+                Category = new(info);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
         /// <summary>
         /// 加载更多搜索
         /// </summary>
-        private void OnLoadMoreSearch()
+        private async void OnLoadMoreSearch()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await LovelFactory.Lovel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await LovelFactory.Lovel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        LovelType = LovelEnum.Search,
+                        Search = new LovelSearch
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            LovelType = LovelEnum.Search,
-                            Search = new LovelSearch
-                            {
-                                Page = SearchPage,
-                                SearchType = LovelSearchEnum.ArticleName,
-                                KeyWord = Keyword
-                            }
-                        };
-                    }).RunsAsync()).SearchResult;
-                    Application.Current.Dispatcher.Invoke(() => result.ElementResults.ToMapest<List<LovelCategoryElementResult>>().ForEach(Category.Add));
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                            Page = SearchPage,
+                            SearchType = LovelSearchEnum.ArticleName,
+                            KeyWord = Keyword
+                        }
+                    };
+                }).RunsAsync()).SearchResult;
+                result.ElementResults.ToMapest<List<LovelCategoryElementResult>>().ForEach(Category.Add);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
         /// <summary>
         /// 初始化章节
         /// </summary>
         /// <param name="ChapterRoute"></param>
-        private void OnChapter(string ChapterRoute)
+        private async void OnChapter(string ChapterRoute)
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var ChapterResult = (await LovelFactory.Lovel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var ChapterResult = (await LovelFactory.Lovel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        LovelType = LovelEnum.Detail,
+                        Detail = new LovelDetail
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            LovelType = LovelEnum.Detail,
-                            Detail = new LovelDetail
-                            {
-                                Route = ChapterRoute
-                            }
-                        };
-                    }).RunsAsync()).DetailResult;
-                    await Task.Delay(1000);
-                    var result = (await LovelFactory.Lovel(opt =>
-                    {
-                        opt.RequestParam = new Input
-                        {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            LovelType = LovelEnum.View,
-                            View = new LovelView
-                            {
-                                Route = ChapterResult.Route
-                            }
-                        };
-                    }).RunsAsync()).ViewResult;
-                    ViewResult = new ObservableCollection<LovelViewResult>(result);
-                    ChapterVisibility = Visibility.Visible;
-                }
-                catch (Exception ex)
+                            Route = ChapterRoute
+                        }
+                    };
+                }).RunsAsync()).DetailResult;
+                await Task.Delay(1000);
+                var result = (await LovelFactory.Lovel(opt =>
                 {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                    opt.RequestParam = new Input
+                    {
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        LovelType = LovelEnum.View,
+                        View = new LovelView
+                        {
+                            Route = ChapterResult.Route
+                        }
+                    };
+                }).RunsAsync()).ViewResult;
+                ViewResult = new ObservableCollection<LovelViewResult>(result);
+                ChapterVisibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
         /// <summary>
         /// 初始化后台下载
         /// </summary>
         /// <param name="id"></param>
         /// <param name="bookName"></param>
-        private void OnDownload(string id, string bookName)
+        private  async void OnDownload(string id, string bookName)
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await LovelFactory.Lovel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await LovelFactory.Lovel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        LovelType = LovelEnum.Download,
+                        Down = new LovelDown
                         {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            LovelType = LovelEnum.Download,
-                            Down = new LovelDown
-                            {
-                                BookName = bookName,
-                                UId = id.AsInt()
-                            }
-                        };
-                    }).RunsAsync()).DownResult.Bytes;
-                    result.FileCreate(bookName, FileTypes.Txt, "LightNovel", (catalog, fileName) =>
-                    {
-                        new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show();
-                    });
-                }
-                catch (Exception ex)
+                            BookName = bookName,
+                            UId = id.AsInt()
+                        }
+                    };
+                }).RunsAsync()).DownResult.Bytes;
+                result.FileCreate(bookName, FileTypes.Txt, "LightNovel", (catalog, fileName) =>
                 {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                    new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show();
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
 
-        private void ErrorNotify()
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                new ScreenNotifyView(CommonHelper.ComponentErrorInformation).Show();
-            });
-        }
+        private void ErrorNotify(string input = "") =>
+            Application.Current.Dispatcher.Invoke(() => new ScreenNotifyView(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
 
         #endregion
 

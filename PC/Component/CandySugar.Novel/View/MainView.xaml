@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:CandySugar.Novel.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:CandySugar.Novel.ViewModels"
+    x:Name="Main"
     d:DataContext="{d:DesignInstance vm:MainViewModel}"
     d:DesignHeight="700"
     d:DesignWidth="1200"
