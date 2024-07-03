@@ -7,37 +7,26 @@ namespace CandySugar.LightNovel.ViewModels
         public ReaderViewModel()
         {
             GenericDelegate.WindowStateEvent += WindowStateEvent;
+            WindowStateEvent();
+            OnContent();
+        }
+        #region 事件
+        private void WindowStateEvent()
+        {
             if (GlobalParam.WindowState == WindowState.Maximized)
             {
                 Height = 1400;
                 Width = SystemParameters.FullPrimaryScreenWidth;
                 MarginThickness = new Thickness(0, 0, 20, 55);
-            } else
-            {
-                Height = 1200;
-                Width = 1000;
-                MarginThickness = new Thickness(0, 0, 10, 0);
-            }
-   
-        
-            OnContent();
-        }
-        #region 事件
-        private void WindowStateEvent(WindowState state)
-        {
-            if (state == WindowState.Normal || state == WindowState.Minimized)
-            {
-                MarginThickness = new Thickness(0, 0, 10, 0);
-                Height = 1200;
-                Width = 1000;
-                var temp = Picture.ToList();
-                Picture = new(temp);
             }
             else
             {
-                MarginThickness = new Thickness(0, 0, 20, 55);
-                Height = 1400;
-                Width = SystemParameters.FullPrimaryScreenWidth;
+                Height = 1200;
+                Width = 1000;
+                MarginThickness = new Thickness(0, 0, 10, 0);
+            }
+            if (Picture != null)
+            {
                 var temp = Picture.ToList();
                 Picture = new(temp);
             }

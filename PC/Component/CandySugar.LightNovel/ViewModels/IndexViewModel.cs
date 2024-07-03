@@ -6,15 +6,23 @@
         {
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
-            MarginThickness = GlobalParam.WindowState == WindowState.Maximized ? new Thickness(0, 0, 60, 70) : new Thickness(0, 0, 60, 15);
-            MarginThickness = new Thickness(0, 0, 60, 15);
             ChapterVisibility = Visibility.Collapsed;
+            WindowStateEvent();
             OnInit();
         }
         #region 事件
-        private void WindowStateEvent(WindowState state)
+        private void WindowStateEvent()
         {
-            MarginThickness = state == WindowState.Normal || state == WindowState.Minimized ? new Thickness(0, 0, 60, 15) : new Thickness(0, 0, 60, 70);
+            if (GlobalParam.WindowState == WindowState.Maximized)
+            {
+                MarginThickness = new Thickness(0, 0, 60, 70);
+                NavHeight *= 2.5;
+            }
+            else
+            {
+                MarginThickness = new Thickness(0, 0, 60, 15);
+                NavHeight = 350;
+            }
         }
         #endregion
 
@@ -43,6 +51,8 @@
         private ObservableCollection<LovelViewResult> _ViewResult;
         [ObservableProperty]
         private Visibility _ChapterVisibility;
+        [ObservableProperty]
+        private double _NavHeight;
         #endregion
 
         #region 命令
@@ -97,7 +107,6 @@
             }
         }
         #endregion
-
 
         #region 方法
         /// <summary>

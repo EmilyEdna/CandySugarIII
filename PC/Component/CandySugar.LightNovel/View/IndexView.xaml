@@ -71,7 +71,8 @@
         </ListBox>
         <Grid
             Width="200"
-            Height="350"
+            Height="{Binding NavHeight}"
+            MinHeight="350"
             Margin="0,20,20,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"

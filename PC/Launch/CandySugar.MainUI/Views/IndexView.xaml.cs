@@ -19,7 +19,7 @@ namespace CandySugar.MainUI.Views
             Tray.Icon = new Icon(new MemoryStream(Convert.FromBase64String(ICO.ICOBase64)));
             this.StateChanged += delegate {
                 GlobalParam.WindowState=this.WindowState;
-                GenericDelegate.WindowStateAction(this.WindowState);
+                GenericDelegate.WindowAction();
             };
         }
     }

@@ -4,7 +4,7 @@
     {
         public MainViewModel()
         {
-            ComponentControl = Module.IocModule.Resolve<ReaderView>();
+            ComponentControl = Module.IocModule.Resolve<IndexView>();
         }
 
 
