@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CandySugar.Novel.Models
+﻿namespace CandySugar.Novel.Models
 {
     internal class ContentDataModel
     {

@@ -39,13 +39,9 @@ namespace CandySugar.Anime.ViewModels
         private void WindowStateEvent()
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
-            {
                 NavHeight = (NavHeight == 0 ? 350 : NavHeight) * 2.5;
-            }
             else
-            {
                 NavHeight = 350;
-            }
         }
         #endregion
 

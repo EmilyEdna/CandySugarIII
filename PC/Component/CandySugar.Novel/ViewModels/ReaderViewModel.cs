@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Media3D;
-
-namespace CandySugar.Novel.ViewModels
+﻿namespace CandySugar.Novel.ViewModels
 {
     public partial class ReaderViewModel : ObservableObject
     {
@@ -28,27 +21,15 @@ namespace CandySugar.Novel.ViewModels
         private Thickness _MarginThickness;
         [ObservableProperty]
         private NovelContentElementResult _Element;
-        [ObservableProperty]
-        private double _Width;
-        [ObservableProperty]
-        private double _Height;
         #endregion
 
         #region 事件
         private void WindowStateEvent()
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
-            {
-                Height = 1400;
-                Width = SystemParameters.FullPrimaryScreenWidth;
                 MarginThickness = new Thickness(0, 0, 20, 55);
-            }
             else
-            {
-                Height = 1200;
-                Width = 1000;
                 MarginThickness = new Thickness(0, 0, 10, 0);
-            }
         }
         #endregion
 

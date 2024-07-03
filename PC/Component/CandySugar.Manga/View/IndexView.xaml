@@ -1,12 +1,125 @@
-﻿<UserControl x:Class="CandySugar.Manga.View.IndexView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CandySugar.Manga.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="CandySugar.Manga.View.IndexView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:eda="http://edacoder.github.io"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:lib="http://lib.candy.com"
+    xmlns:local="clr-namespace:CandySugar.Manga.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:CandySugar.Manga.ViewModels"
+    x:Name="Index"
+    d:DataContext="{d:DesignInstance vm:IndexViewModel}"
+    d:DesignHeight="550"
+    d:DesignWidth="1000"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/CandySugar.Manga;component/MangaTheme.xaml" />
+    </UserControl.Resources>
     <Grid>
-            
+        <ListBox
+            eda:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
+            ItemsSource="{Binding CateResult, IsAsync=True}"
+            Style="{DynamicResource CandyListBoxStyle}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <eda:CandyImage
+                        Width="200"
+                        Height="260"
+                        Margin="8"
+                        BorderBrush="SkyBlue"
+                        BorderThickness="1"
+                        Entity="{Binding .}"
+                        ImageThickness="200,260"
+                        MaskFill="#80e6cfe6"
+                        Source="{Binding Cover}">
+                        <eda:CandyImage.MaskTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Style="{DynamicResource TextBlockStyle}"
+                                    Text="{Binding Name}"
+                                    TextTrimming="CharacterEllipsis" />
+                            </DataTemplate>
+                        </eda:CandyImage.MaskTemplate>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding DataContext.DetailCommand, ElementName=Index}" CommandParameter="{Binding Route}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </eda:CandyImage>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid
+            Width="200"
+            Height="{Binding NavHeight}"
+            MinHeight="350"
+            Margin="0,20,20,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Visibility="{Binding ChapterVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Rectangle Grid.RowSpan="2" Fill="#20DADADA" />
+            <ListBox
+                x:Name="PART_CHAPTER"
+                Grid.RowSpan="2"
+                ItemsSource="{Binding Chapter}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                Style="{DynamicResource CandyListBoxStyle}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="2,3">
+                            <Button
+                                Command="{Binding DataContext.ViewCommand, ElementName=Index}"
+                                CommandParameter="{Binding Route}"
+                                Content="{Binding Title}"
+                                Style="{DynamicResource CandyTextBlockButtonStyle}"
+                                ToolTip="{Binding Title}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button
+                Width="30"
+                Height="30"
+                Margin="0,5,5,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding CloseCommand}"
+                Style="{DynamicResource CaptionButtonStyle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <Grid Width="12" Height="12">
+                            <Path
+                                Data="M 12,12 L16.4,16.4"
+                                Stretch="Fill"
+                                Stroke="White"
+                                StrokeThickness="1" />
+                            <Path
+                                Data="M 12,16.4 L 16.4,12 "
+                                Stretch="Fill"
+                                Stroke="White"
+                                StrokeThickness="1" />
+                        </Grid>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </Grid>
+        <eda:CandyWaterButton
+            Margin="{Binding MarginThickness}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Command="{Binding ActiveCommand}"
+            ItemSource="{Binding MenuData, IsAsync=True}" />
     </Grid>
 </UserControl>

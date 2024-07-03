@@ -1,19 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace CandySugar.Manga.View
+﻿namespace CandySugar.Manga.View
 {
     /// <summary>
     /// IndexView.xaml 的交互逻辑
@@ -23,6 +8,9 @@ namespace CandySugar.Manga.View
         public IndexView()
         {
             InitializeComponent();
+            Loaded += delegate {
+                ((IndexViewModel)this.DataContext).Views = this;
+            };
         }
     }
 }

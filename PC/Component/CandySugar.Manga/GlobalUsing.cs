@@ -22,7 +22,7 @@ global using Sdk.Component.Manga.sdk.ViewModel.Enums;
 global using Sdk.Component.Manga.sdk.ViewModel.Request;
 global using Sdk.Component.Manga.sdk.ViewModel.Response;
 global using Serilog;
-global using Stylet;
+global using CandyControls;
 global using XExten.Advance.IocFramework;
 global using XExten.Advance.LinqFramework;
 global using CandySugar.Com.Controls.ExtenControls;

@@ -1,12 +1,43 @@
-﻿<UserControl x:Class="CandySugar.Manga.View.ReaderView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CandySugar.Manga.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="CandySugar.Manga.View.ReaderView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:eda="http://edacoder.github.io"
+    xmlns:local="clr-namespace:CandySugar.Manga.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:CandySugar.Manga.ViewModels"
+    x:Name="Reader"
+    d:DataContext="{d:DesignInstance vm:ReaderViewModel}"
+    d:DesignHeight="550"
+    d:DesignWidth="1000"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/CandySugar.Manga;component/MangaTheme.xaml" />
+    </UserControl.Resources>
     <Grid>
-            
+        <eda:CandyFlowScroll Command="{Binding HandleCommand}" InnerMargin="{Binding MarginThickness}">
+            <FlowDocument Background="Transparent">
+                <Paragraph>
+                    <ItemsControl ItemsSource="{Binding Picture}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Center">
+                                    <eda:CandyImage
+                                        Width="{Binding DataContext.Width, ElementName=Reader}"
+                                        Height="{Binding DataContext.Height, ElementName=Reader}"
+                                        Margin="0,10"
+                                        Base64Source="{Binding .}"
+                                        BorderBrush="SkyBlue"
+                                        BorderThickness="1"
+                                        EnableMask="False"
+                                        ImageThickness="{Binding ., RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource ThickObjectConverter}}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Paragraph>
+            </FlowDocument>
+        </eda:CandyFlowScroll>
     </Grid>
 </UserControl>
