@@ -52,45 +52,48 @@
         /// <summary>
         /// 初始化内容
         /// </summary>
-        private async void OnContent()
+        private void OnContent()
         {
-            try
+            Task.Run(async () =>
             {
-                var Proxy = Module.IocModule.Proxy;
-                var result = (await LovelFactory.Lovel(opt =>
+                try
                 {
-                    opt.RequestParam = new Input
+                    var Proxy = Module.IocModule.Proxy;
+                    var result = (await LovelFactory.Lovel(opt =>
                     {
-                        ProxyIP = Proxy.IP,
-                        ProxyPort = Proxy.Port,
-                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                        LovelType = LovelEnum.Content,
-                        Content = new LovelContent
+                        opt.RequestParam = new Input
                         {
-                            ChapterRoute = Module.Param.ToString()
-                        }
-                    };
-                }).RunsAsync()).ContentResult;
-                if (result.Content != null || result.Image != null)
-                {
-                    if (result.Content != null)
+                            ProxyIP = Proxy.IP,
+                            ProxyPort = Proxy.Port,
+                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                            LovelType = LovelEnum.Content,
+                            Content = new LovelContent
+                            {
+                                ChapterRoute = Module.Param.ToString()
+                            }
+                        };
+                    }).RunsAsync()).ContentResult;
+                    if (result.Content != null || result.Image != null)
                     {
-                        if (result.Content.Equals("因版权问题，文库不再提供该小说的阅读！"))
+                        if (result.Content != null)
                         {
-                            ErrorNotify("因版权问题，请前往下载!");
-                            return;
+                            if (result.Content.Equals("因版权问题，文库不再提供该小说的阅读！"))
+                            {
+                                ErrorNotify("因版权问题，请前往下载!");
+                                return;
+                            }
+                            Words = new ObservableCollection<string>(result.Content);
                         }
-                        Words = new ObservableCollection<string>(result.Content);
+                        else
+                            Picture = new ObservableCollection<string>(result.Image ?? new List<string>());
                     }
-                    else
-                        Picture = new ObservableCollection<string>(result.Image ?? new List<string>());
                 }
-            }
-            catch (Exception ex)
-            {
-                Log.Logger.Error(ex, "");
-                ErrorNotify();
-            }
+                catch (Exception ex)
+                {
+                    Log.Logger.Error(ex, "");
+                    ErrorNotify();
+                }
+            });
         }
 
         private void ErrorNotify(string input = "") =>
