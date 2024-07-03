@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-
-namespace CandySugar.Bilibili.ViewModels
+﻿namespace CandySugar.Bilibili.ViewModels
 {
     public partial class IndexViewModel : ObservableObject
     {
