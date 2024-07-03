@@ -1,7 +1,4 @@
-﻿using CandyControls;
-using CandySugar.Com.Options.Anonymous;
-
-namespace CandySugar.Axgle.ViewModels
+﻿namespace CandySugar.Axgle.ViewModels
 {
     public partial class IndexViewModel : ObservableObject
     {
