@@ -13,6 +13,9 @@
     d:DesignHeight="550"
     d:DesignWidth="1000"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/CandySugar.Novel;component/NovelTheme.xaml" />
+    </UserControl.Resources>
     <Grid>
         <ListBox
             eda:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
@@ -20,14 +23,14 @@
             Style="{DynamicResource CandyListBoxStyle}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid HorizontalAlignment="Center" Columns="3" />
+                    <UniformGrid Columns="1" />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel
                         Width="Auto"
-                        Margin="0,30,0,0"
+                        Margin="30,30,0,0"
                         Orientation="Vertical">
                         <TextBlock
                             Style="{DynamicResource TextBlockStyle}"
@@ -88,7 +91,7 @@
                 Grid.RowSpan="2"
                 eda:ListBoxAttach.ScrollCommand="{Binding ChapterScrollCommand}"
                 ItemsSource="{Binding DetailResult}"
-                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 Style="{DynamicResource CandyListBoxStyle}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -140,6 +143,6 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             Command="{Binding ActiveCommand}"
-            ItemSource="{Binding InitResult.ElementResults, IsAsync=True}" />
+            ItemSource="{Binding MenuData, IsAsync=True}" />
     </Grid>
 </UserControl>

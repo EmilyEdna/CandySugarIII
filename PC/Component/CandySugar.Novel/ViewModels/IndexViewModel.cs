@@ -46,6 +46,8 @@
 
         #region 属性
         [ObservableProperty]
+        private Dictionary<string, string> _MenuData;
+        [ObservableProperty]
         private Thickness _MarginThickness;
         [ObservableProperty]
         private Visibility _ChapterVisibility;
@@ -53,8 +55,6 @@
         private double _NavHeight;
         [ObservableProperty]
         private PlatformEnum _Platform;
-        [ObservableProperty]
-        private NovelInitRootResult _InitResult;
         [ObservableProperty]
         private ObservableCollection<NovelSearchElementResult> _SearchResult;
         [ObservableProperty]
@@ -101,17 +101,18 @@
                 try
                 {
                     var Proxy = Module.IocModule.Proxy;
-                    InitResult = (await NovelFactory.Novel(opt =>
-                    {
-                        opt.RequestParam = new Input
-                        {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            PlatformType = PlatformEnum.TopPoint,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            NovelType = NovelEnum.Init
-                        };
-                    }).RunsAsync()).InitResult;
+                    var Result = (await NovelFactory.Novel(opt =>
+                     {
+                         opt.RequestParam = new Input
+                         {
+                             ProxyIP = Proxy.IP,
+                             ProxyPort = Proxy.Port,
+                             PlatformType = PlatformEnum.TopPoint,
+                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                             NovelType = NovelEnum.Init
+                         };
+                     }).RunsAsync()).InitResult;
+                    MenuData = Result.ElementResults.ToDictionary(t => t.Name, t => t.Route);
                 }
                 catch (Exception ex)
                 {
@@ -136,8 +137,9 @@
                             PlatformType = PlatformEnum.TopPoint,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             NovelType = NovelEnum.Category,
-                            Category = new NovelCategory {
-                                Route = CateRoute 
+                            Category = new NovelCategory
+                            {
+                                Route = CateRoute
                             }
                         };
                     }).RunsAsync()).CategoryResult;
@@ -329,7 +331,7 @@
         }
 
         [RelayCommand]
-        public void ChapterScroll(ScrollChangedEventArgs obj) 
+        public void ChapterScroll(ScrollChangedEventArgs obj)
         {
             if (!RootDetail.BookCode.IsNullOrEmpty() && RootDetail.NovelPlatformType == PlatformEnum.Pendown)
             {

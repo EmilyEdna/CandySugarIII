@@ -85,7 +85,7 @@
                 x:Name="PART_CHAPTER"
                 Grid.RowSpan="2"
                 ItemsSource="{Binding ViewResult}"
-                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 Style="{DynamicResource CandyListBoxStyle}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
