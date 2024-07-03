@@ -1,4 +1,6 @@
-﻿namespace CandySugar.Manga.ViewModels
+﻿using CandySugar.Com.Options.Anonymous;
+
+namespace CandySugar.Manga.ViewModels
 {
     public partial class IndexViewModel : ObservableObject
     {
@@ -15,11 +17,11 @@
         #region 字段
         public IndexView Views;
         private string Keyword;
-        private int SearchPageIndex = 1;
+        private int SearchPage = 1;
         private int SearchTotal;
-        private string CategoryRoute;
-        private int CategoryPageIndex = 1;
-        private int CategoryTotal;
+        private string CateRoute;
+        private int CatePage = 1;
+        private int CateTotal;
         #endregion
 
         #region 事件
@@ -32,7 +34,7 @@
             }
             else
             {
-                MarginThickness = new Thickness(0, 0, 60, 15);
+                MarginThickness = new Thickness(0, 0, 60, 60);
                 NavHeight = 350;
             }
         }
@@ -99,11 +101,11 @@
                             Category = new MangaCategory
                             {
                                 Page = 1,
-                                Route = CategoryRoute
+                                Route = CateRoute
                             }
                         };
                     }).RunsAsync();
-                    CategoryTotal = result.CategoryResult.Total;
+                    CateTotal = result.CategoryResult.Total;
                     CateResult = new ObservableCollection<MangaCategoryElementResult>(result.CategoryResult.ElementResults);
                 }
                 catch (Exception ex)
@@ -131,8 +133,8 @@
                             MangaType = MangaEnum.Category,
                             Category = new MangaCategory
                             {
-                                Page = CategoryPageIndex,
-                                Route = CategoryRoute
+                                Page = CatePage,
+                                Route = CateRoute
                             }
                         };
                     }).RunsAsync();
@@ -230,7 +232,7 @@
                             Search = new MangaSearch
                             {
                                 KeyWord = Keyword,
-                                Page = SearchPageIndex
+                                Page = SearchPage
                             }
                         };
                     }).RunsAsync();
@@ -299,12 +301,16 @@
 
         #region 命令
         [RelayCommand]
-        public void Active(string input)
+        public void Active(object input)
         {
             Keyword = string.Empty;
-            CategoryPageIndex = 1;
-            CategoryRoute = input;
-            OnCate();
+            CatePage = 1;
+            var Route = input.ToMapest<AnonymousWater>().SelectValue.AsString();
+            if (!Route.IsNullOrEmpty())
+            {
+                CateRoute = Route;
+                OnCate();
+            }
         }
 
         [RelayCommand]
@@ -326,17 +332,17 @@
         {
             if (Keyword.IsNullOrEmpty())
             {
-                if (CategoryPageIndex <= CategoryTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+                if (CatePage <= CateTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
                 {
-                    CategoryPageIndex += 1;
+                    CatePage += 1;
                     OnLoadMoreCate();
                 }
             }
             else
             {
-                if (SearchPageIndex <= SearchTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+                if (SearchPage <= SearchTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
                 {
-                    SearchPageIndex += 1;
+                    SearchPage += 1;
                     OnLoadMoreSearch();
                 }
             }
@@ -350,7 +356,7 @@
         /// <param name="keyword"></param>
         private void SearchHandler(string keyword)
         {
-            SearchPageIndex = 1;
+            SearchPage = 1;
             Keyword = keyword;
             OnSearch();
         }

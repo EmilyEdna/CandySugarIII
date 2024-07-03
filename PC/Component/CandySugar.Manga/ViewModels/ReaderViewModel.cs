@@ -6,6 +6,7 @@
         {
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             WindowStateEvent();
+            Oninit();
         }
 
         #region 字段

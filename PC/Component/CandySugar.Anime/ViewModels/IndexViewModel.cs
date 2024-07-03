@@ -17,10 +17,10 @@ namespace CandySugar.Anime.ViewModels
 
         #region 字段
         private int Total;
-        private int PageIndex = 1;
+        private int Page = 1;
         private string Route;
         private string Keyword;
-        private int SearchPageIndex = 1;
+        private int SearchPage = 1;
         private int SearchTotal;
         #endregion
 
@@ -97,7 +97,7 @@ namespace CandySugar.Anime.ViewModels
                             CartType = CartEnum.Init,
                             Init = new CartInit
                             {
-                                Page = PageIndex
+                                Page = Page
                             }
                         };
                     }).RunsAsync()).InitResult;
@@ -260,17 +260,17 @@ namespace CandySugar.Anime.ViewModels
         {
             if (this.Keyword.IsNullOrEmpty())
             {
-                if (PageIndex <= Total && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+                if (Page <= Total && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
                 {
-                    PageIndex += 1;
+                    Page += 1;
                     OnLoadMoreInit();
                 }
             }
             else
             {
-                if (SearchPageIndex <= SearchTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
+                if (SearchPage <= SearchTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
                 {
-                    SearchPageIndex += 1;
+                    SearchPage += 1;
                     OnLoadMoreSearch();
                 }
             }
@@ -296,7 +296,7 @@ namespace CandySugar.Anime.ViewModels
         private void SearchHandler(string keyword)
         {
             this.Keyword = keyword;
-            SearchPageIndex = 1;
+            SearchPage = 1;
             if (!this.Keyword.IsNullOrEmpty())
                 OnSearch();
             else
