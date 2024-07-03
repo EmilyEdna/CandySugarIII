@@ -35,13 +35,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.HostServer", "..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.LightNovel", "..\PC\Component\CandySugar.LightNovel\CandySugar.LightNovel.csproj", "{0F9AA369-07D9-4AA2-A1E2-9F0076CAA835}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Bilibili", "..\PC\Component\CandySugar.Bilibili\CandySugar.Bilibili.csproj", "{F79BBE5D-3C4A-45C6-B4D8-42117F55B551}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Bilibili", "..\PC\Component\CandySugar.Bilibili\CandySugar.Bilibili.csproj", "{F79BBE5D-3C4A-45C6-B4D8-42117F55B551}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Anime", "..\PC\Component\CandySugar.Anime\CandySugar.Anime.csproj", "{FCBDDF67-B1EE-473B-82C2-AE4DD7EB9C1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Anime", "..\PC\Component\CandySugar.Anime\CandySugar.Anime.csproj", "{FCBDDF67-B1EE-473B-82C2-AE4DD7EB9C1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Novel", "..\PC\Component\CandySugar.Novel\CandySugar.Novel.csproj", "{05CA16FD-4D4C-4F8B-A31F-FB7A21B17AA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Novel", "..\PC\Component\CandySugar.Novel\CandySugar.Novel.csproj", "{05CA16FD-4D4C-4F8B-A31F-FB7A21B17AA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Manga", "..\PC\Component\CandySugar.Manga\CandySugar.Manga.csproj", "{764F1173-BD76-411C-AF62-ADED56EC0F1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Manga", "..\PC\Component\CandySugar.Manga\CandySugar.Manga.csproj", "{764F1173-BD76-411C-AF62-ADED56EC0F1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Axgle", "..\PC\Component\CandySugar.Axgle\CandySugar.Axgle.csproj", "{F8918A44-B028-48F9-840A-5DF7DE3B3623}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +99,10 @@ Global
 		{764F1173-BD76-411C-AF62-ADED56EC0F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{764F1173-BD76-411C-AF62-ADED56EC0F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{764F1173-BD76-411C-AF62-ADED56EC0F1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8918A44-B028-48F9-840A-5DF7DE3B3623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8918A44-B028-48F9-840A-5DF7DE3B3623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8918A44-B028-48F9-840A-5DF7DE3B3623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8918A44-B028-48F9-840A-5DF7DE3B3623}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +122,7 @@ Global
 		{FCBDDF67-B1EE-473B-82C2-AE4DD7EB9C1E} = {365D3069-1933-4B8D-ACFE-C7F0D80DFF16}
 		{05CA16FD-4D4C-4F8B-A31F-FB7A21B17AA5} = {365D3069-1933-4B8D-ACFE-C7F0D80DFF16}
 		{764F1173-BD76-411C-AF62-ADED56EC0F1A} = {365D3069-1933-4B8D-ACFE-C7F0D80DFF16}
+		{F8918A44-B028-48F9-840A-5DF7DE3B3623} = {0E5BD4EA-CC43-4A0C-935A-D976F0C1AA18}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BEDC387F-177A-4DDF-A902-8C474D1FD7DF}
