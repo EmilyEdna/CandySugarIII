@@ -1,6 +1,3 @@
-using CandySugar.Com.Options.ComponentObject;
-using CandySugar.Com.Options;
-
 namespace CandySugar.Anime
 {
     public class Module

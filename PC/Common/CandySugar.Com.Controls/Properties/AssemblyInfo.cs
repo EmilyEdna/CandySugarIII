@@ -2,7 +2,7 @@
 using System.Runtime.Versioning;
 using System.Reflection;
 
-//[assembly: XmlnsDefinition("http://ctrl.candy.com", "CandySugar.Com.Controls.ExtenControls")]
+[assembly: XmlnsDefinition("http://ctrl.candy.com", "CandySugar.Com.Controls.ExtenControls")]
 [assembly: XmlnsDefinition("http://ctrl.candy.com", "CandySugar.Com.Controls.UIConverter")]
 [assembly: XmlnsDefinition("http://ctrl.candy.com", "CandySugar.Com.Controls.UIExtenControls")]
 [assembly: AssemblyDescription("847432003@qq.com")]
