@@ -10,10 +10,4 @@
 		<ProjectReference Include="..\CandySugar.Com.Library\CandySugar.Com.Library.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Reference Include="CandyControls">
-			<HintPath>..\..\..\Lib\CandyControls.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-
 </Project>

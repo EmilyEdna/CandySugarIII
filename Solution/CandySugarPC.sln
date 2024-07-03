@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Anime", "..\PC\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Novel", "..\PC\Component\CandySugar.Novel\CandySugar.Novel.csproj", "{05CA16FD-4D4C-4F8B-A31F-FB7A21B17AA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Manga", "..\PC\Component\CandySugar.Manga\CandySugar.Manga.csproj", "{764F1173-BD76-411C-AF62-ADED56EC0F1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{05CA16FD-4D4C-4F8B-A31F-FB7A21B17AA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05CA16FD-4D4C-4F8B-A31F-FB7A21B17AA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05CA16FD-4D4C-4F8B-A31F-FB7A21B17AA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{764F1173-BD76-411C-AF62-ADED56EC0F1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{764F1173-BD76-411C-AF62-ADED56EC0F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{764F1173-BD76-411C-AF62-ADED56EC0F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{764F1173-BD76-411C-AF62-ADED56EC0F1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{F79BBE5D-3C4A-45C6-B4D8-42117F55B551} = {365D3069-1933-4B8D-ACFE-C7F0D80DFF16}
 		{FCBDDF67-B1EE-473B-82C2-AE4DD7EB9C1E} = {365D3069-1933-4B8D-ACFE-C7F0D80DFF16}
 		{05CA16FD-4D4C-4F8B-A31F-FB7A21B17AA5} = {365D3069-1933-4B8D-ACFE-C7F0D80DFF16}
+		{764F1173-BD76-411C-AF62-ADED56EC0F1A} = {365D3069-1933-4B8D-ACFE-C7F0D80DFF16}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BEDC387F-177A-4DDF-A902-8C474D1FD7DF}

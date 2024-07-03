@@ -23,10 +23,7 @@
             <FlowDocument Background="Transparent">
                 <Paragraph>
                     <Bold>
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            Style="{DynamicResource TextBlockReaderStyle}"
-                            Text="{Binding Element.ChapterName}" />
+                        <TextBlock Style="{DynamicResource TextBlockReaderStyle}" Text="{Binding Element.ChapterName}" />
                     </Bold>
                 </Paragraph>
                 <Paragraph>

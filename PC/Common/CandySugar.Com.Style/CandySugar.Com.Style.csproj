@@ -15,12 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="CandyControls">
-			<HintPath>..\..\..\Lib\CandyControls.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-
-	<ItemGroup>
 		<Resource Include="Fonts\FontAwesome6Regular.otf" />
 		<Resource Include="Fonts\FontAwesome6Solid.otf" />
 		<Resource Include="Fonts\FontAwesome6Thin.otf" />
