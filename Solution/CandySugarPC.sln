@@ -43,9 +43,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Novel", "..\PC\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Manga", "..\PC\Component\CandySugar.Manga\CandySugar.Manga.csproj", "{764F1173-BD76-411C-AF62-ADED56EC0F1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Axgle", "..\PC\Component\CandySugar.Axgle\CandySugar.Axgle.csproj", "{F8918A44-B028-48F9-840A-5DF7DE3B3623}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Axgle", "..\PC\Component\CandySugar.Axgle\CandySugar.Axgle.csproj", "{F8918A44-B028-48F9-840A-5DF7DE3B3623}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Rifan", "..\PC\Component\CandySugar.Rifan\CandySugar.Rifan.csproj", "{CB1A276C-E44F-41F0-AFE1-D4F224D68651}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Rifan", "..\PC\Component\CandySugar.Rifan\CandySugar.Rifan.csproj", "{CB1A276C-E44F-41F0-AFE1-D4F224D68651}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Movie", "..\PC\Component\CandySugar.Movie\CandySugar.Movie.csproj", "{574D7327-288D-4A91-AB83-0D2B192130F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +111,10 @@ Global
 		{CB1A276C-E44F-41F0-AFE1-D4F224D68651}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB1A276C-E44F-41F0-AFE1-D4F224D68651}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB1A276C-E44F-41F0-AFE1-D4F224D68651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{574D7327-288D-4A91-AB83-0D2B192130F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{574D7327-288D-4A91-AB83-0D2B192130F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{574D7327-288D-4A91-AB83-0D2B192130F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{574D7327-288D-4A91-AB83-0D2B192130F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +136,7 @@ Global
 		{764F1173-BD76-411C-AF62-ADED56EC0F1A} = {365D3069-1933-4B8D-ACFE-C7F0D80DFF16}
 		{F8918A44-B028-48F9-840A-5DF7DE3B3623} = {0E5BD4EA-CC43-4A0C-935A-D976F0C1AA18}
 		{CB1A276C-E44F-41F0-AFE1-D4F224D68651} = {0E5BD4EA-CC43-4A0C-935A-D976F0C1AA18}
+		{574D7327-288D-4A91-AB83-0D2B192130F1} = {365D3069-1933-4B8D-ACFE-C7F0D80DFF16}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BEDC387F-177A-4DDF-A902-8C474D1FD7DF}

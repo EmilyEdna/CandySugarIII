@@ -51,7 +51,6 @@ namespace CandySugar.Rifan.ViewModels
         private int ChangeType = 1;
         #endregion
 
-
         #region 属性
         [ObservableProperty]
         private double _NavHeight;

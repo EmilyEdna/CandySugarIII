@@ -201,7 +201,7 @@ namespace CandySugar.Anime.ViewModels
                             }
                         };
                     }).RunsAsync()).PlayResult.PlayRoute;
-                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result).Show());
+                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result,true).Show());
                 }
                 catch (Exception ex)
                 {
