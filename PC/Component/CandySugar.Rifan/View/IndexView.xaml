@@ -57,13 +57,12 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <eda:CandyImage
-                                    Width="200"
-                                    Height="280"
+                                    Width="180"
+                                    Height="250"
                                     Margin="8"
-                                    BorderBrush="SkyBlue"
-                                    BorderThickness="1"
+                                    BorderThickness="0"
                                     Entity="{Binding .}"
-                                    ImageThickness="200,280"
+                                    ImageThickness="180,250"
                                     MaskFill="#80e6cfe6"
                                     Source="{Binding Cover}">
                                     <eda:CandyImage.MaskTemplate>
@@ -92,7 +91,7 @@
                                                 </StackPanel>
                                                 <Button
                                                     Grid.Row="1"
-                                                    Margin="0,0,25,0"
+                                                    Margin="0,0,10,0"
                                                     HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
                                                     Command="{Binding DataContext.CollectCommand, ElementName=Index}"
@@ -101,7 +100,7 @@
                                                     Cursor="Hand"
                                                     FontSize="17"
                                                     Foreground="#ffe4c4"
-                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                                    Style="{DynamicResource IconButton}" />
                                             </Grid>
                                         </DataTemplate>
                                     </eda:CandyImage.MaskTemplate>
@@ -148,13 +147,12 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <eda:CandyImage
-                                    Width="200"
-                                    Height="280"
+                                    Width="180"
+                                    Height="250"
                                     Margin="8"
-                                    BorderBrush="SkyBlue"
-                                    BorderThickness="1"
+                                    BorderThickness="0"
                                     Entity="{Binding .}"
-                                    ImageThickness="200,280"
+                                    ImageThickness="180,250"
                                     MaskFill="#80e6cfe6"
                                     Source="{Binding Cover}">
                                     <eda:CandyImage.MaskTemplate>
@@ -183,7 +181,7 @@
                                                 </StackPanel>
                                                 <Button
                                                     Grid.Row="1"
-                                                    Margin="0,0,25,0"
+                                                    Margin="0,0,10,0"
                                                     HorizontalAlignment="Right"
                                                     VerticalAlignment="Top"
                                                     Command="{Binding DataContext.CollectCommand, ElementName=Index}"
@@ -192,7 +190,7 @@
                                                     Cursor="Hand"
                                                     FontSize="17"
                                                     Foreground="#ffe4c4"
-                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                                    Style="{DynamicResource IconButton}" />
                                             </Grid>
                                         </DataTemplate>
                                     </eda:CandyImage.MaskTemplate>
@@ -239,13 +237,12 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <eda:CandyImage
-                                    Width="200"
-                                    Height="280"
+                                    Width="180"
+                                    Height="250"
                                     Margin="8"
-                                    BorderBrush="SkyBlue"
-                                    BorderThickness="1"
+                                    BorderThickness="0"
                                     Entity="{Binding .}"
-                                    ImageThickness="200,280"
+                                    ImageThickness="180,250"
                                     MaskFill="#80e6cfe6"
                                     Source="{Binding Cover}">
                                     <eda:CandyImage.MaskTemplate>
@@ -283,7 +280,7 @@
                                                     Cursor="Hand"
                                                     FontSize="17"
                                                     Foreground="#ffe4c4"
-                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                                    Style="{DynamicResource IconButton}" />
                                             </Grid>
                                         </DataTemplate>
                                     </eda:CandyImage.MaskTemplate>
@@ -330,13 +327,12 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <eda:CandyImage
-                                    Width="200"
-                                    Height="280"
+                                    Width="180"
+                                    Height="250"
                                     Margin="8"
-                                    BorderBrush="SkyBlue"
-                                    BorderThickness="1"
+                                    BorderThickness="0"
                                     Entity="{Binding .}"
-                                    ImageThickness="200,280"
+                                    ImageThickness="180,250"
                                     MaskFill="#80e6cfe6"
                                     Source="{Binding Cover}">
                                     <eda:CandyImage.MaskTemplate>
@@ -374,7 +370,7 @@
                                                     Cursor="Hand"
                                                     FontSize="17"
                                                     Foreground="#ffe4c4"
-                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                                    Style="{DynamicResource IconButton}" />
                                             </Grid>
                                         </DataTemplate>
                                     </eda:CandyImage.MaskTemplate>
@@ -421,13 +417,12 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <eda:CandyImage
-                                    Width="200"
-                                    Height="280"
+                                    Width="180"
+                                    Height="250"
                                     Margin="8"
-                                    BorderBrush="SkyBlue"
-                                    BorderThickness="1"
+                                    BorderThickness="0"
                                     Entity="{Binding .}"
-                                    ImageThickness="200,280"
+                                    ImageThickness="180,250"
                                     MaskFill="#80e6cfe6"
                                     Source="{Binding Cover}">
                                     <eda:CandyImage.MaskTemplate>
@@ -465,7 +460,7 @@
                                                     Cursor="Hand"
                                                     FontSize="17"
                                                     Foreground="#ffe4c4"
-                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                                    Style="{DynamicResource IconButton}" />
                                             </Grid>
                                         </DataTemplate>
                                     </eda:CandyImage.MaskTemplate>
@@ -512,13 +507,12 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <eda:CandyImage
-                                    Width="200"
-                                    Height="280"
+                                    Width="180"
+                                    Height="250"
                                     Margin="8"
-                                    BorderBrush="SkyBlue"
-                                    BorderThickness="1"
+                                    BorderThickness="0"
                                     Entity="{Binding .}"
-                                    ImageThickness="200,280"
+                                    ImageThickness="180,250"
                                     MaskFill="#80e6cfe6"
                                     Source="{Binding Cover}">
                                     <eda:CandyImage.MaskTemplate>
@@ -556,7 +550,7 @@
                                                     Cursor="Hand"
                                                     FontSize="17"
                                                     Foreground="#ffe4c4"
-                                                    Style="{DynamicResource CandyFontButtonStyle}" />
+                                                    Style="{DynamicResource IconButton}" />
                                             </Grid>
                                         </DataTemplate>
                                     </eda:CandyImage.MaskTemplate>
@@ -638,13 +632,12 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <eda:CandyImage
-                                Width="200"
-                                Height="280"
+                                Width="180"
+                                Height="250"
                                 Margin="8"
-                                BorderBrush="SkyBlue"
-                                BorderThickness="1"
+                                BorderThickness="0"
                                 Entity="{Binding .}"
-                                ImageThickness="200,280"
+                                ImageThickness="180,250"
                                 MaskFill="#80e6cfe6"
                                 Source="{Binding Cover}">
                                 <eda:CandyImage.MaskTemplate>
@@ -682,7 +675,7 @@
                                                 Cursor="Hand"
                                                 FontSize="17"
                                                 Foreground="#ffe4c4"
-                                                Style="{DynamicResource CandyFontButtonStyle}" />
+                                                Style="{DynamicResource IconButton}" />
                                         </Grid>
                                     </DataTemplate>
                                 </eda:CandyImage.MaskTemplate>
