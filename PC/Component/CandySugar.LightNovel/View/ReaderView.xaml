@@ -16,7 +16,10 @@
         <ResourceDictionary Source="/CandySugar.LightNovel;component/LightTheme.xaml" />
     </UserControl.Resources>
     <Grid>
-        <eda:CandyFlowScroll Command="{Binding BackCommand}" InnerMargin="{Binding MarginThickness}">
+        <eda:CandyFlowScroll
+            HorizontalAlignment="Center"
+            Command="{Binding BackCommand}"
+            InnerMargin="{Binding MarginThickness}">
             <FlowDocument Background="Transparent">
                 <Paragraph>
                     <ItemsControl ItemsSource="{Binding Words}" Visibility="{Binding Words, Converter={StaticResource NullVisibilityConvterter}}">
@@ -34,8 +37,8 @@
                             <DataTemplate>
                                 <Grid HorizontalAlignment="Center">
                                     <eda:CandyImage
-                                        Width="{Binding DataContext.Width, ElementName=Reader}"
-                                        Height="{Binding DataContext.Height, ElementName=Reader}"
+                                        Width="{Binding DataContext.BorderWidth, ElementName=Reader}"
+                                        Height="{Binding DataContext.BorderHeight, ElementName=Reader}"
                                         Margin="0,10"
                                         BorderThickness="0"
                                         EnableMask="False"

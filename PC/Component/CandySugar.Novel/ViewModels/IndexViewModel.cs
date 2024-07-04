@@ -1,12 +1,12 @@
 ﻿namespace CandySugar.Novel.ViewModels
 {
-    public partial class IndexViewModel : ObservableObject
+    public partial class IndexViewModel : BasicObservableObject
     {
         public IndexViewModel()
         {
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
-            ChapterVisibility = Visibility.Collapsed;
+            NavVisible = Visibility.Collapsed;
             WindowStateEvent();
             OnInit();
         }
@@ -32,27 +32,16 @@
         private void WindowStateEvent()
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
-            {
                 MarginThickness = new Thickness(0, 0, 60, 70);
-                NavHeight = (NavHeight == 0 ? 350 : NavHeight) * 2.5;
-            }
             else
-            {
                 MarginThickness = new Thickness(0, 0, 60, 15);
-                NavHeight = 350;
-            }
+            NavLength = GlobalParam.NavLength;
         }
         #endregion
 
         #region 属性
         [ObservableProperty]
         private Dictionary<string, string> _MenuData;
-        [ObservableProperty]
-        private Thickness _MarginThickness;
-        [ObservableProperty]
-        private Visibility _ChapterVisibility;
-        [ObservableProperty]
-        private double _NavHeight;
         [ObservableProperty]
         private PlatformEnum _Platform;
         [ObservableProperty]
@@ -181,7 +170,7 @@
                     RootChapterTotal = RootDetail.Total;
                     Platform = RootDetail.NovelPlatformType.Value;
                     DetailResult = new ObservableCollection<NovelDetailElementResult>(RootDetail.ElementResults);
-                    ChapterVisibility = Visibility.Visible;
+                    NavVisible = Visibility.Visible;
                 }
                 catch (Exception ex)
                 {
@@ -321,7 +310,7 @@
         [RelayCommand]
         public void Close()
         {
-            ChapterVisibility = Visibility.Collapsed;
+            NavVisible = Visibility.Collapsed;
             DetailResult = [];
         }
 

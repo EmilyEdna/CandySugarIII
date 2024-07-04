@@ -1,6 +1,6 @@
 ﻿namespace CandySugar.Novel.ViewModels
 {
-    public partial class ReaderViewModel : ObservableObject
+    public partial class ReaderViewModel : BasicObservableObject
     {
 
         public ReaderViewModel()
@@ -18,8 +18,6 @@
 
         #region 属性
         [ObservableProperty]
-        private Thickness _MarginThickness;
-        [ObservableProperty]
         private NovelContentElementResult _Element;
         #endregion
 
@@ -30,6 +28,16 @@
                 MarginThickness = new Thickness(0, 0, 20, 55);
             else
                 MarginThickness = new Thickness(0, 0, 10, 0);
+            if (Element != null)
+            {
+                var Name = Element.ChapterName;
+                var Words = Element.Content;
+                Element = new()
+                {
+                    ChapterName = Name,
+                    Content = Words
+                };
+            }
         }
         #endregion
 

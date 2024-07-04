@@ -16,7 +16,11 @@
         <ResourceDictionary Source="/CandySugar.Manga;component/MangaTheme.xaml" />
     </UserControl.Resources>
     <Grid>
-        <eda:CandyFlowScroll Command="{Binding HandleCommand}" InnerMargin="{Binding MarginThickness}">
+        <eda:CandyFlowScroll
+            Width="{Binding BorderWidth}"
+            HorizontalAlignment="Center"
+            Command="{Binding HandleCommand}"
+            InnerMargin="{Binding MarginThickness}">
             <FlowDocument Background="Transparent">
                 <Paragraph>
                     <ItemsControl ItemsSource="{Binding Picture}">

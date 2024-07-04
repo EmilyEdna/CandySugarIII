@@ -1,6 +1,6 @@
 ﻿namespace CandySugar.Novel.ViewModels
 {
-    public partial class MainViewModel : ObservableObject
+    public partial class MainViewModel : BasicObservableObject
     {
         public MainViewModel()
         {

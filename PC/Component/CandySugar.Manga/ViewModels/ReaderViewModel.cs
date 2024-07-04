@@ -18,8 +18,8 @@
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
             {
-                BorderHeight = 1600;
-                BorderWidth = SystemParameters.FullPrimaryScreenWidth;
+                BorderHeight = 1400;
+                BorderWidth = 1200;
                 MarginThickness = new Thickness(0, 0, 20, 55);
             }
             else
@@ -28,7 +28,8 @@
                 BorderWidth = 1000;
                 MarginThickness = new Thickness(0, 0, 10, 0);
             }
-            Picture = new(Picture.ToList());
+            if(Picture!=null)
+                Picture = new(Picture.ToList());
         }
         #endregion
 

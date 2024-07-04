@@ -1,6 +1,6 @@
 ﻿namespace CandySugar.LightNovel.ViewModels
 {
-    public partial class ReaderViewModel : ObservableObject
+    public partial class ReaderViewModel : BasicObservableObject
     {
         public ReaderViewModel()
         {
@@ -13,21 +13,20 @@
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
             {
-                Height = 1400;
-                Width = SystemParameters.FullPrimaryScreenWidth;
+                BorderHeight = 1400;
+                BorderWidth = Picture==null? SystemParameters.FullPrimaryScreenWidth:1200;
                 MarginThickness = new Thickness(0, 0, 20, 55);
             }
             else
             {
-                Height = 1200;
-                Width = 1000;
+                BorderHeight = 1200;
+                BorderWidth = 1000;
                 MarginThickness = new Thickness(0, 0, 10, 0);
             }
             if (Picture != null)
-            {
-                var temp = Picture.ToList();
-                Picture = new(temp);
-            }
+                Picture = new(Picture.ToList());
+            if(Words!=null)
+                Words = new(Words.ToList());
         }
         #endregion
 
@@ -37,15 +36,9 @@
 
         #region 属性
         [ObservableProperty]
-        private Thickness _MarginThickness;
-        [ObservableProperty]
         private ObservableCollection<string> _Words;
         [ObservableProperty]
         private ObservableCollection<string> _Picture;
-        [ObservableProperty]
-        private double _Width;
-        [ObservableProperty]
-        private double _Height;
         #endregion
 
         #region 方法
