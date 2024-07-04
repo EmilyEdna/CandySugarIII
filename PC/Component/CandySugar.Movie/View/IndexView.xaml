@@ -32,7 +32,7 @@
             <Grid x:Name="ContentGird" Grid.Row="1">
                 <eda:CandyBorder
                     x:Name="X1"
-                    Width="960"
+                    Width="{Binding BorderWidth}"
                     Height="{Binding BorderHeight}"
                     BorderType="Info">
                     <eda:CandyBorder.RenderTransform>
@@ -86,7 +86,7 @@
                                 Style="{DynamicResource CandyListBoxStyle}">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <UniformGrid Columns="5" />
+                                        <UniformGrid Columns="{Binding DataContext.Cols, ElementName=Index}" />
                                     </ItemsPanelTemplate>
                                 </ListBox.ItemsPanel>
                                 <ListBox.ItemTemplate>
@@ -143,7 +143,7 @@
                 </eda:CandyBorder>
                 <eda:CandyBorder
                     x:Name="X2"
-                    Width="960"
+                    Width="{Binding BorderWidth}"
                     Height="{Binding BorderHeight}"
                     BorderType="Info"
                     Visibility="Hidden">
@@ -198,7 +198,7 @@
                                 Style="{DynamicResource CandyListBoxStyle}">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <UniformGrid Columns="5" />
+                                        <UniformGrid Columns="{Binding DataContext.Cols, ElementName=Index}" />
                                     </ItemsPanelTemplate>
                                 </ListBox.ItemsPanel>
                                 <ListBox.ItemTemplate>
@@ -257,43 +257,19 @@
         </Grid>
         <Grid
             Width="200"
-            Height="{Binding NavHeight}"
+            Height="{Binding NavLength}"
             MinHeight="350"
             Margin="0,20,20,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
-            Visibility="{Binding CollectVisibility}">
+            Visibility="{Binding NavVisible}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Rectangle Grid.RowSpan="2" Fill="#20DADADA" />
-            <ListBox
-                x:Name="PART_CHAPTER"
-                Grid.Row="1"
-                ItemsSource="{Binding DetailResult.ElementResults}"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                Style="{DynamicResource CandyListBoxStyle}">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="2,3">
-                            <eda:CandyButton
-                                Width="50"
-                                ButtonType="Primary"
-                                Command="{Binding DataContext.WatchCommand, ElementName=Index}"
-                                CommandParameter="{Binding PlayView}"
-                                Content="{Binding Address}" />
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
             <Button
-                Grid.RowSpan="2"
+                Grid.RowSpan="1"
                 Width="30"
                 Height="30"
                 Margin="0,5,5,0"
@@ -318,6 +294,30 @@
                     </DataTemplate>
                 </Button.ContentTemplate>
             </Button>
+            <ListBox
+                x:Name="PART_CHAPTER"
+                Grid.Row="2"
+                ItemsSource="{Binding DetailResult.ElementResults}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                Style="{DynamicResource CandyListBoxStyle}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="2,3">
+                            <eda:CandyButton
+                                Width="50"
+                                ButtonType="Primary"
+                                Command="{Binding DataContext.WatchCommand, ElementName=Index}"
+                                CommandParameter="{Binding PlayView}"
+                                Content="{Binding Address}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
     </Grid>
 </UserControl>

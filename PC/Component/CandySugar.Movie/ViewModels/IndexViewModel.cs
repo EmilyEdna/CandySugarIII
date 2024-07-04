@@ -1,18 +1,13 @@
-﻿using CandyControls;
-using CandySugar.Com.Controls.ExtenControls;
-using LibVLCSharp.Shared;
-using XExten.Advance.NetFramework.Enums;
-
-namespace CandySugar.Movie.ViewModels
+﻿namespace CandySugar.Movie.ViewModels
 {
-    public partial class IndexViewModel:ObservableObject
+    public partial class IndexViewModel : BasicObservableObject
     {
         public IndexViewModel()
         {
             Title = ["电影", "剧集"];
             Platform = PlatformEnum.Film;
-            CollectVisibility = Visibility.Collapsed;
-            InitKey = new Dictionary<string, string> { {"T","" },{"Y",""},{"P",""},{ "C",""} };
+            NavVisible = Visibility.Collapsed;
+            InitKey = new Dictionary<string, string> { { "T", "" }, { "Y", "" }, { "P", "" }, { "C", "" } };
             WindowStateEvent();
             GenericDelegate.WindowStateEvent += WindowStateEvent;
         }
@@ -21,15 +16,12 @@ namespace CandySugar.Movie.ViewModels
         private void WindowStateEvent()
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
-            {
-                BorderHeight = 530;
-                NavHeight = (NavHeight == 0 ? 350 : NavHeight) * 2.5;
-            }
-            else
-            {
-                BorderHeight = 400;
-                NavHeight = 350;
-            }
+                Cols = (int)(GlobalParam.MAXWidth/210);
+            if (GlobalParam.WindowState == WindowState.Normal)
+                Cols = 5;
+            BorderWidth = GlobalParam.MAXWidth;
+            BorderHeight = GlobalParam.MAXHeight;
+            NavLength = GlobalParam.NavLength;
         }
         #endregion
 
@@ -54,12 +46,6 @@ namespace CandySugar.Movie.ViewModels
         private ObservableCollection<MovieInitElementResult> _InitResult;
         [ObservableProperty]
         private MovieDetailRootResult _DetailResult;
-        [ObservableProperty]
-        private double _NavHeight;
-        [ObservableProperty]
-        private Visibility _CollectVisibility;
-        [ObservableProperty]
-        private double _BorderHeight;
         #endregion
 
         #region 方法
@@ -133,7 +119,7 @@ namespace CandySugar.Movie.ViewModels
                             }
                         };
                     }).RunsAsync()).DetailResult;
-                    CollectVisibility= Visibility.Visible;
+                    NavVisible = Visibility.Visible;
                 }
                 catch (Exception ex)
                 {
@@ -192,7 +178,7 @@ namespace CandySugar.Movie.ViewModels
             OnInit();
         }
         [RelayCommand]
-        public void Scroll(ScrollChangedEventArgs obj) 
+        public void Scroll(ScrollChangedEventArgs obj)
         {
             if (PageIndex <= Total && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
             {
@@ -208,13 +194,13 @@ namespace CandySugar.Movie.ViewModels
             OnDetail();
         }
         [RelayCommand]
-        public void Close() 
+        public void Close()
         {
-            CollectVisibility = Visibility.Collapsed;
+            NavVisible = Visibility.Collapsed;
             DetailResult = null;
         }
         [RelayCommand]
-        public void Watch(string input)=> new CandyWebPlayControl(input, false).Show();
+        public void Watch(string input) => new CandyWebPlayControl(input, false).Show();
         #endregion
     }
 }
