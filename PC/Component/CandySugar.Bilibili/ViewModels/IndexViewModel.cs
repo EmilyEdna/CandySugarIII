@@ -1,6 +1,6 @@
 ﻿namespace CandySugar.Bilibili.ViewModels
 {
-    public partial class IndexViewModel : ObservableObject
+    public partial class IndexViewModel : BasicObservableObject
     {
         public IndexViewModel()
         {
@@ -22,8 +22,7 @@
 
         private void WindowStateEvent()
         {
-            if (GlobalParam.WindowState == WindowState.Maximized) NavHeight = (NavHeight == 0 ? 350 : NavHeight) * 2.5;
-            else NavHeight = 350;
+            NavLength = GlobalParam.NavLength;
         }
 
         /// <summary>
@@ -79,8 +78,6 @@
         #endregion
 
         #region 属性
-        [ObservableProperty]
-        private double _NavHeight;
         [ObservableProperty]
         private string _Route;
         [ObservableProperty]

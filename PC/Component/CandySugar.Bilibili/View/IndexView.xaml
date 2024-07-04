@@ -89,7 +89,7 @@
         <ListBox
             Grid.Row="2"
             Width="800"
-            Height="{Binding NavHeight}"
+            Height="{Binding NavLength}"
             ItemsSource="{Binding InfoResults}"
             Style="{DynamicResource CandyListBoxStyle}">
             <ListBox.ItemsPanel>

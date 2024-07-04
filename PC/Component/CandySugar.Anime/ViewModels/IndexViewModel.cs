@@ -1,16 +1,12 @@
-﻿using CandySugar.Com.Controls.ExtenControls;
-using CommunityToolkit.Mvvm.Input;
-
-namespace CandySugar.Anime.ViewModels
+﻿namespace CandySugar.Anime.ViewModels
 {
-    public partial class IndexViewModel : ObservableObject
+    public partial class IndexViewModel : BasicObservableObject
     {
-
         public IndexViewModel()
         {
             OnInit();
             WindowStateEvent();
-            CollectVisibility = Visibility.Collapsed;
+            NavVisible = Visibility.Collapsed;
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
         }
@@ -29,19 +25,14 @@ namespace CandySugar.Anime.ViewModels
         private ObservableCollection<CartInitElementResult> _InitResult;
         [ObservableProperty]
         private CartDetailRootResult _DetailResult;
-        [ObservableProperty]
-        private double _NavHeight;
-        [ObservableProperty]
-        private Visibility _CollectVisibility;
+
         #endregion
 
         #region 事件
         private void WindowStateEvent()
         {
-            if (GlobalParam.WindowState == WindowState.Maximized)
-                NavHeight = (NavHeight == 0 ? 350 : NavHeight) * 2.5;
-            else
-                NavHeight = 350;
+            BorderHeight = GlobalParam.MAXHeight;
+            NavLength = GlobalParam.NavLength;
         }
         #endregion
 
@@ -251,7 +242,7 @@ namespace CandySugar.Anime.ViewModels
         [RelayCommand]
         public void Close()
         {
-            CollectVisibility = Visibility.Collapsed;
+            NavVisible = Visibility.Collapsed;
             DetailResult = null;
         }
 
@@ -279,7 +270,7 @@ namespace CandySugar.Anime.ViewModels
         [RelayCommand]
         public void Detail(string route)
         {
-            CollectVisibility = Visibility.Visible;
+            NavVisible = Visibility.Visible;
             Route = route;
             OnDetail();
         }
