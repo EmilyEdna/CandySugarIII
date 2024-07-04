@@ -1,14 +1,11 @@
-﻿using CandyControls;
-using CliWrap;
-
-namespace CandySugar.Rifan.ViewModels
+﻿namespace CandySugar.Rifan.ViewModels
 {
-    public partial class IndexViewModel : ObservableObject
+    public partial class IndexViewModel : BasicObservableObject
     {
 
         public IndexViewModel()
         {
-            ChapterVisibility = Visibility.Collapsed;
+            NavVisible = Visibility.Collapsed;
             Title = ["All", "Rifan", "3D", "Motion", "Cosplay", "Collect"];
             Service = IocDependency.Resolve<IService<RifanModel>>();
             GenericDelegate.WindowStateEvent += WindowStateEvent;
@@ -19,15 +16,12 @@ namespace CandySugar.Rifan.ViewModels
         private void WindowStateEvent()
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
-            {
-                BorderHeight = 530;
-                NavHeight = (NavHeight == 0 ? 350 : NavHeight) * 2.5;
-            }
+                Cols = (int)(GlobalParam.MAXWidth / 200);
             else
-            {
-                BorderHeight = 400;
-                NavHeight = 350;
-            }
+                Cols = 5;
+            BorderWidth = GlobalParam.MAXWidth;
+            BorderHeight = GlobalParam.MAXHeight;
+            NavLength = GlobalParam.NavLength;
         }
         #endregion
 
@@ -52,12 +46,6 @@ namespace CandySugar.Rifan.ViewModels
         #endregion
 
         #region 属性
-        [ObservableProperty]
-        private double _NavHeight;
-        [ObservableProperty]
-        private double _BorderHeight;
-        [ObservableProperty]
-        private Visibility _ChapterVisibility;
         [ObservableProperty]
         private ObservableCollection<string> _Title;
         [ObservableProperty]
@@ -108,14 +96,14 @@ namespace CandySugar.Rifan.ViewModels
                 OnCosplayInit();
         }
         [RelayCommand]
-        public void Play(PlayInfo input) 
-        { 
-        
+        public void Play(PlayInfo input)
+        {
+
         }
         [RelayCommand]
-        public void Close()=> ChapterVisibility = Visibility.Collapsed;
+        public void Close() => NavVisible = Visibility.Collapsed;
         [RelayCommand]
-        public void Changed(object item) 
+        public void Changed(object item)
         {
             var Target = ((CandyToggleItem)item);
             if (Target.FindParent<UserControl>() is IndexView View)
@@ -155,7 +143,8 @@ namespace CandySugar.Rifan.ViewModels
             }
         }
         [RelayCommand]
-        public void Scroll(ScrollChangedEventArgs obj) {
+        public void Scroll(ScrollChangedEventArgs obj)
+        {
             if (ChangeType == 1)
             {
                 if (AllPageIndex <= AllTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
@@ -621,7 +610,7 @@ namespace CandySugar.Rifan.ViewModels
                     Company = result.Company;
                     Tags = result.CurrentTag;
                     LinkResult = new ObservableCollection<SearchElementResult>(result.Results.ToMapest<List<SearchElementResult>>());
-                    ChapterVisibility= Visibility.Visible;
+                    NavVisible = Visibility.Visible;
                 }
                 catch (Exception ex)
                 {

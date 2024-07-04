@@ -28,7 +28,7 @@
         <Grid x:Name="ContentGird" Grid.Row="1">
             <eda:CandyBorder
                 x:Name="X1"
-                Width="960"
+                Width="{Binding BorderWidth}"
                 Height="{Binding BorderHeight}"
                 BorderType="Info">
                 <eda:CandyBorder.RenderTransform>
@@ -117,7 +117,7 @@
             </eda:CandyBorder>
             <eda:CandyBorder
                 x:Name="X2"
-                Width="960"
+                Width="{Binding BorderWidth}"
                 Height="{Binding BorderHeight}"
                 BorderType="Info"
                 Visibility="Hidden">
@@ -207,7 +207,7 @@
             </eda:CandyBorder>
             <eda:CandyBorder
                 x:Name="X3"
-                Width="960"
+                Width="{Binding BorderWidth}"
                 Height="{Binding BorderHeight}"
                 BorderType="Info"
                 Visibility="Hidden">
@@ -297,7 +297,7 @@
             </eda:CandyBorder>
             <eda:CandyBorder
                 x:Name="X4"
-                Width="960"
+                Width="{Binding BorderWidth}"
                 Height="{Binding BorderHeight}"
                 BorderType="Info"
                 Visibility="Hidden">
@@ -387,7 +387,7 @@
             </eda:CandyBorder>
             <eda:CandyBorder
                 x:Name="X5"
-                Width="960"
+                Width="{Binding BorderWidth}"
                 Height="{Binding BorderHeight}"
                 BorderType="Info"
                 Visibility="Hidden">
@@ -477,7 +477,7 @@
             </eda:CandyBorder>
             <eda:CandyBorder
                 x:Name="X6"
-                Width="960"
+                Width="{Binding BorderWidth}"
                 Height="{Binding BorderHeight}"
                 BorderType="Info"
                 Visibility="Hidden">
@@ -568,12 +568,12 @@
         </Grid>
         <Grid
             Width="200"
-            Height="{Binding NavHeight}"
+            Height="{Binding NavLength}"
             MinHeight="350"
             Margin="0,20,20,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
-            Visibility="{Binding ChapterVisibility}">
+            Visibility="{Binding NavVisible}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
