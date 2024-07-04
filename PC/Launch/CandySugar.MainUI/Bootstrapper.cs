@@ -1,17 +1,15 @@
-﻿using CandySugar.Com.Controls.UIExtenControls;
+﻿using CandySugar.Com.Controls.ExtenControls;
 using CandySugar.Com.Data;
 using CandySugar.Com.Library;
 using CandySugar.Com.Library.DLLoader;
 using CandySugar.Com.Library.ReadFile;
 using CandySugar.Com.Options;
-using CandySugar.HostServer;
 using CandySugar.MainUI.ViewModels;
 using RestSharp;
 using Serilog;
 using Stylet;
 using StyletIoC;
 using System;
-using System.Linq;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Threading;
@@ -57,7 +55,7 @@ namespace CandySugar.MainUI
                 Log.Logger.Error(ex, "HTTP全局请求异常捕获");
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    new ScreenNotifyView($"HTTP网络内部异常，请看日志!").Show();
+                    new CandyNotifyControl($"HTTP网络内部异常，请看日志!").Show();
                 });
             });
             HttpEvent.RestActionEvent = new Action<RestClient, Exception>((client, ex) =>
@@ -65,12 +63,12 @@ namespace CandySugar.MainUI
                 Log.Logger.Error(ex, "REST全局请求异常捕获");
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    new ScreenNotifyView($"REST网络内部异常，请看日志!").Show();
+                    new CandyNotifyControl($"REST网络内部异常，请看日志!").Show();
                 });
             });
             //防止多开程序
             if (SyncStatic.MultiOpenCheck())
-                new ScreenNotifyView("已经有一个实例在运行中").ShowDialog();
+                new CandyNotifyControl("已经有一个实例在运行中").ShowDialog();
         }
 
         /// <summary>

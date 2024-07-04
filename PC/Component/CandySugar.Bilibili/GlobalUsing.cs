@@ -34,3 +34,4 @@ global using XExten.Advance.IocFramework;
 global using XExten.Advance.LinqFramework;
 global using XExten.Advance.NetFramework;
 global using XExten.Advance.StaticFramework;
+global using CandySugar.Com.Controls.ExtenControls;

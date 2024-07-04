@@ -117,7 +117,7 @@
         {
             if (SessionCode.IsNullOrEmpty())
             {
-                new ScreenNotifyView(CommonHelper.CookieError).Show();
+                new CandyNotifyControl(CommonHelper.CookieError).Show();
                 return;
             }
             var userId = SessionCode.WithRegex("UserID=\\d+").WithRegex("\\d+");
@@ -353,7 +353,7 @@
         {
             if (IsBatchVideo)
             {
-                new ScreenNotifyView(CommonHelper.DownloadWait).Show();
+                new CandyNotifyControl(CommonHelper.DownloadWait).Show();
                 return;
             }
             if (DataResults.Count <= 0 || InfoResults.Count <= 0) return;
@@ -522,7 +522,7 @@
         }
 
         private void ErrorNotify(string input = "") =>
-                    Application.Current.Dispatcher.Invoke(() => new ScreenNotifyView(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
+                    Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
         #endregion
     }
 }

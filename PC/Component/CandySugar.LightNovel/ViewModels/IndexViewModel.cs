@@ -90,7 +90,7 @@
         {
             if (view.IsDown)
             {
-                new ScreenNotifyView("后台下载中请稍后!").Show();
+                new CandyNotifyControl("后台下载中请稍后!").Show();
                 OnDownload(view.ChapterRoute, view.BookName);
             }
             else
@@ -364,7 +364,7 @@
         }
 
         private void ErrorNotify(string input = "") =>
-                    Application.Current.Dispatcher.Invoke(() => new ScreenNotifyView(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
+                    Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
 
         #endregion
 

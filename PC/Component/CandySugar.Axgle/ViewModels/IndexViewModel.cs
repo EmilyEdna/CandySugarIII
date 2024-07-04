@@ -58,7 +58,7 @@
         #region 方法
 
         private void ErrorNotify(string input = "") =>
-                   Application.Current.Dispatcher.Invoke(() => new ScreenNotifyView(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
+                   Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
 
         public void ChangeActive(int ActiveAnime)
         {

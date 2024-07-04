@@ -1,4 +1,5 @@
 ﻿using CandyControls;
+using CandySugar.Com.Controls.ExtenControls;
 using CandySugar.Com.Controls.UIExtenControls;
 using CandySugar.Com.Library;
 using CandySugar.Com.Library.DLLoader;

@@ -25,3 +25,4 @@ global using System.Windows;
 global using System.Windows.Controls;
 global using XExten.Advance.IocFramework;
 global using XExten.Advance.LinqFramework;
+global using CandySugar.Com.Controls.ExtenControls;
