@@ -1,6 +1,6 @@
 ﻿namespace CandySugar.Axgle.ViewModels
 {
-    public partial class IndexViewModel : ObservableObject
+    public partial class IndexViewModel : BasicObservableObject
     {
         public IndexViewModel()
         {
@@ -11,6 +11,7 @@
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             WindowStateEvent();
+           
         }
 
         #region 事件
@@ -18,14 +19,16 @@
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
             {
-                NavHeight = 530;
+                Cols = (int)(GlobalParam.MAXWidth / 320);
                 MarginThickness = new Thickness(0, 0, 15, 70);
             }
             else
             {
-                NavHeight = 400;
+                Cols = (int)(GlobalParam.MAXWidth / 320);
                 MarginThickness = new Thickness(0, 0, 15, 15);
             }
+            BorderHeight = GlobalParam.MAXHeight;
+            BorderWidth = GlobalParam.MAXWidth;
         }
         #endregion
 
@@ -41,10 +44,6 @@
         #endregion
 
         #region 属性
-        [ObservableProperty]
-        private double _NavHeight;
-        [ObservableProperty]
-        private Thickness _MarginThickness;
         [ObservableProperty]
         private ObservableCollection<string> _Title;
         [ObservableProperty]

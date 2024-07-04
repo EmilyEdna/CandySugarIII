@@ -29,8 +29,8 @@
             <Grid x:Name="ContentGird" Grid.Row="1">
                 <eda:CandyBorder
                     x:Name="X1"
-                    Width="960"
-                    Height="{Binding NavHeight}"
+                    Width="{Binding BorderWidth}"
+                    Height="{Binding BorderHeight}"
                     BorderType="Info">
                     <eda:CandyBorder.RenderTransform>
                         <TransformGroup>
@@ -52,7 +52,7 @@
                             Style="{DynamicResource CandyListBoxStyle}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <UniformGrid Columns="3" />
+                                    <UniformGrid Columns="{Binding DataContext.Cols, ElementName=Index}" />
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
@@ -117,8 +117,8 @@
                 </eda:CandyBorder>
                 <eda:CandyBorder
                     x:Name="X2"
-                    Width="960"
-                    Height="{Binding NavHeight}"
+                    Width="{Binding BorderWidth}"
+                    Height="{Binding BorderHeight}"
                     BorderType="Info"
                     Visibility="Hidden">
                     <eda:CandyBorder.RenderTransform>
@@ -141,7 +141,7 @@
                             Style="{DynamicResource CandyListBoxStyle}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <UniformGrid Columns="3" />
+                                    <UniformGrid Columns="{Binding DataContext.Cols, ElementName=Index}" />
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
@@ -206,8 +206,8 @@
                 </eda:CandyBorder>
                 <eda:CandyBorder
                     x:Name="X3"
-                    Width="960"
-                    Height="{Binding NavHeight}"
+                    Width="{Binding BorderWidth}"
+                    Height="{Binding BorderHeight}"
                     BorderType="Info"
                     Visibility="Hidden">
                     <eda:CandyBorder.RenderTransform>
@@ -230,7 +230,7 @@
                             Style="{DynamicResource CandyListBoxStyle}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <UniformGrid Columns="3" />
+                                    <UniformGrid Columns="{Binding DataContext.Cols, ElementName=Index}" />
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
@@ -295,8 +295,8 @@
                 </eda:CandyBorder>
                 <eda:CandyBorder
                     x:Name="X4"
-                    Width="960"
-                    Height="{Binding NavHeight}"
+                    Width="{Binding BorderWidth}"
+                    Height="{Binding BorderHeight}"
                     BorderType="Info"
                     Visibility="Hidden">
                     <eda:CandyBorder.RenderTransform>
@@ -319,7 +319,7 @@
                             Style="{DynamicResource CandyListBoxStyle}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <UniformGrid Columns="3" />
+                                    <UniformGrid Columns="{Binding DataContext.Cols, ElementName=Index}" />
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
