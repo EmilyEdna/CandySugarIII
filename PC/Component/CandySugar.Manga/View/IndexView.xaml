@@ -19,6 +19,7 @@
     </UserControl.Resources>
     <Grid>
         <ListBox
+            Height="{Binding BorderHeight}"
             eda:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
             ItemsSource="{Binding CateResult, IsAsync=True}"
             Style="{DynamicResource CandyListBoxStyle}">
@@ -59,12 +60,12 @@
         </ListBox>
         <Grid
             Width="200"
-            Height="{Binding NavHeight}"
+            Height="{Binding NavLength}"
             MinHeight="350"
             Margin="0,20,20,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
-            Visibility="{Binding ChapterVisibility}">
+            Visibility="{Binding NavVisible}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />

@@ -1,6 +1,6 @@
 ﻿namespace CandySugar.Manga.ViewModels
 {
-    public partial class ReaderViewModel : ObservableObject
+    public partial class ReaderViewModel : BasicObservableObject
     {
         public ReaderViewModel()
         {
@@ -18,26 +18,21 @@
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
             {
-                Height = 1400;
-                Width = SystemParameters.FullPrimaryScreenWidth;
+                BorderHeight = 1600;
+                BorderWidth = SystemParameters.FullPrimaryScreenWidth;
                 MarginThickness = new Thickness(0, 0, 20, 55);
             }
             else
             {
-                Height = 1200;
-                Width = 1000;
+                BorderHeight = 1200;
+                BorderWidth = 1000;
                 MarginThickness = new Thickness(0, 0, 10, 0);
             }
+            Picture = new(Picture.ToList());
         }
         #endregion
 
         #region 属性          
-        [ObservableProperty]
-        private Thickness _MarginThickness;
-        [ObservableProperty]
-        private double _Width;
-        [ObservableProperty]
-        private double _Height;
         [ObservableProperty]
         private ObservableCollection<string> _Picture;
         #endregion

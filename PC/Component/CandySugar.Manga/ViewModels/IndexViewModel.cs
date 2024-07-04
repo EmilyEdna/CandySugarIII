@@ -1,15 +1,13 @@
-﻿using CandySugar.Com.Options.Anonymous;
-
-namespace CandySugar.Manga.ViewModels
+﻿namespace CandySugar.Manga.ViewModels
 {
-    public partial class IndexViewModel : ObservableObject
+    public partial class IndexViewModel : BasicObservableObject
     {
 
         public IndexViewModel()
         {
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
-            ChapterVisibility = Visibility.Collapsed;
+            NavVisible = Visibility.Collapsed;
             WindowStateEvent();
             OnInit();
         }
@@ -28,27 +26,17 @@ namespace CandySugar.Manga.ViewModels
         private void WindowStateEvent()
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
-            {
                 MarginThickness = new Thickness(0, 0, 60, 70);
-                NavHeight = (NavHeight == 0 ? 350 : NavHeight) * 2.5;
-            }
             else
-            {
                 MarginThickness = new Thickness(0, 0, 60, 60);
-                NavHeight = 350;
-            }
+            BorderHeight =GlobalParam.MAXHeight;
+            NavLength = GlobalParam.NavLength;
         }
         #endregion
 
         #region 属性
         [ObservableProperty]
         private Dictionary<string,string> _MenuData;
-        [ObservableProperty]
-        private Thickness _MarginThickness;
-        [ObservableProperty]
-        private Visibility _ChapterVisibility;
-        [ObservableProperty]
-        private double _NavHeight;
         [ObservableProperty]
         private ObservableCollection<MangaCategoryElementResult> _CateResult;
         [ObservableProperty]
@@ -170,7 +158,7 @@ namespace CandySugar.Manga.ViewModels
                         };
                     }).RunsAsync();
                     Chapter = new ObservableCollection<MangaChapterDetailResult>(result.ChapterResults);
-                    ChapterVisibility = Visibility.Visible;
+                    NavVisible = Visibility.Visible;
                 }
                 catch (Exception ex)
                 {
@@ -323,7 +311,7 @@ namespace CandySugar.Manga.ViewModels
         [RelayCommand]
         public void Close()
         {
-            ChapterVisibility = Visibility.Collapsed;
+            NavVisible = Visibility.Collapsed;
             Chapter = [];
         }
 

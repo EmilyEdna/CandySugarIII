@@ -16,5 +16,7 @@ namespace CandySugar.Com.Options
         private double _BorderWidth;
         [ObservableProperty]
         private int _Cols;
+        [ObservableProperty]
+        private Thickness _MarginThickness;
     }
 }

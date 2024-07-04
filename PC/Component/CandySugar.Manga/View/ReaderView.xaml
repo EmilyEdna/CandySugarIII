@@ -24,8 +24,8 @@
                             <DataTemplate>
                                 <Grid HorizontalAlignment="Center">
                                     <eda:CandyImage
-                                        Width="{Binding DataContext.Width, ElementName=Reader}"
-                                        Height="{Binding DataContext.Height, ElementName=Reader}"
+                                        Width="{Binding DataContext.BorderWidth, ElementName=Reader}"
+                                        Height="{Binding DataContext.BorderHeight, ElementName=Reader}"
                                         Margin="0,10"
                                         Base64Source="{Binding .}"
                                         BorderThickness="0"
