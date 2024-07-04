@@ -51,6 +51,7 @@
         #region 方法
         public void ChangeActive(int ActiveAnime)
         {
+            InitKey = new Dictionary<string, string> { { "T", "" }, { "Y", "" }, { "P", "" }, { "C", "" } };
             if (ActiveAnime == 1) Platform = PlatformEnum.Film;
             else Platform = PlatformEnum.Video;
             OnInit();

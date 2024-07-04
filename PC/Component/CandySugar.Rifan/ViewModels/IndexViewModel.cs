@@ -8,6 +8,7 @@
             NavVisible = Visibility.Collapsed;
             Title = ["All", "Rifan", "3D", "Motion", "Cosplay", "Collect"];
             Service = IocDependency.Resolve<IService<RifanModel>>();
+            GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             WindowStateEvent();
         }
@@ -207,7 +208,9 @@
 
         public void ChangeActive(int ActiveAnime)
         {
+            Keyword = string.Empty;
             ChangeType = ActiveAnime;
+            AllPageIndex = RifanPageIndex = MotionPageIndex = CubicPageIndex = CosplayPageIndex = 1;
             if (ChangeType == 1 && AllResult == null)
                 OnAllInit();
             if (ChangeType == 2 && RifanResult == null)
@@ -621,5 +624,26 @@
         }
         #endregion
 
+        #region ExternalCalls
+        /// <summary>
+        /// 检索数据
+        /// </summary>
+        /// <param name="keyword"></param>
+        private void SearchHandler(string keyword)
+        {
+            this.Keyword = keyword;
+            AllPageIndex = RifanPageIndex = MotionPageIndex = CubicPageIndex = CosplayPageIndex = 1;
+            if (ChangeType == 1)
+                OnAllInit();
+            if (ChangeType == 2)
+                OnRifanInit();
+            if (ChangeType == 3)
+                OnMotionInit();
+            if (ChangeType == 4)
+                OnCubicInit();
+            if (ChangeType == 5)
+                OnCosplayInit();
+        }
+        #endregion
     }
 }

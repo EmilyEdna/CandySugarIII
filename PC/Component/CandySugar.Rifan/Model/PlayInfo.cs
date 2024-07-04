@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CandySugar.Rifan.Model
+﻿namespace CandySugar.Rifan.Model
 {
-    public partial class PlayInfo: ObservableObject
+    public partial class PlayInfo: BasicObservableObject
     {
         [ObservableProperty]
         private string _Name;

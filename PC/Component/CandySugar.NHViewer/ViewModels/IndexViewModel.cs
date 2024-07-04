@@ -1,84 +1,89 @@
 ﻿namespace CandySugar.NHViewer.ViewModels
 {
-    public class IndexViewModel : PropertyChangedBase
+    public partial class IndexViewModel : BasicObservableObject
     {
-        private object LockObject = new object();
-        private IService<NHentaiModel> Service;
         public IndexViewModel()
         {
             Title = ["全部", "喜爱"];
-            GenericDelegate.SearchAction = new(SearchHandler);
+            NavVisible = Visibility.Collapsed;
             Service = IocDependency.Resolve<IService<NHentaiModel>>();
-            var LocalDATA = Service.QueryAll();
-            CollectResult = [];
-            LocalDATA?.ForEach(CollectResult.Add);
-            OnInit();
+            Catalog = SyncStatic.CreateDir(Path.Combine(CommonHelper.DownloadPath, "NHentai"));
+            GenericDelegate.SearchAction = new(SearchHandler);
             HttpSchedule.ReceiveAction += ReceiveProcess;
+            GenericDelegate.WindowStateEvent += WindowStateEvent;
+            WindowStateEvent();
         }
+        #region 事件
+        private void WindowStateEvent()
+        {
+            if (GlobalParam.WindowState == WindowState.Maximized)
+                Cols = (int)(GlobalParam.MAXWidth / 200);
+            else
+                Cols = 5;
+            BorderWidth = GlobalParam.MAXWidth;
+            BorderHeight = GlobalParam.MAXHeight;
+            NavLength = GlobalParam.NavLength;
+        }
+        private void ReceiveProcess(double item, double num)
+        {
+            if (IsPreview == true) return;
+            if (item == double.Parse((100 / num).ToString("F2")))
+                Counts += item;
+            if (Math.Ceiling(Counts) >= 100)
+            {
+                Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
+                IsDown = false;
+            }
+        }
+        #endregion
 
-        #region Field
-        private bool IsPreview = false;
+        #region 字段
+        public IndexView Views;
+
+        private bool IsPreview;
         private int Total;
         private int PageIndex;
         private string Keyword;
-        private double Counts = 0;
-        private string Catalog = SyncStatic.CreateDir(Path.Combine(CommonHelper.DownloadPath, "NHentai"));
-        private bool IsDown = false;
+        private double Counts;
+        private string Catalog;
+        private bool IsDown;
+        private IService<NHentaiModel> Service;
         #endregion
 
-        #region Property
+        #region 属性
+        [ObservableProperty]
         private ObservableCollection<string> _Title;
-        public ObservableCollection<string> Title
-        {
-            get => _Title;
-            set => SetAndNotify(ref _Title, value);
-        }
-
+        [ObservableProperty]
         private ObservableCollection<NHentaiModel> _CollectResult;
-        public ObservableCollection<NHentaiModel> CollectResult
-        {
-            get => _CollectResult;
-            set => SetAndNotify(ref _CollectResult, value);
-        }
-
+        [ObservableProperty]
         private ObservableCollection<NHentaiModel> _Results;
-        public ObservableCollection<NHentaiModel> Results
-        {
-            get => _Results;
-            set => SetAndNotify(ref _Results, value);
-        }
-
+        [ObservableProperty]
         private NHentaiModel _Result;
-        public NHentaiModel Result
-        {
-            get => _Result;
-            set => SetAndNotify(ref _Result, value);
-        }
         #endregion
 
-        #region Command
-        public RelayCommand<object> ChangedCommand => new((item) =>
+        #region 命令
+        [RelayCommand]
+        public void Changed(object item)
         {
             var Target = ((CandyToggleItem)item);
             if (Target.FindParent<UserControl>() is IndexView View)
             {
-                if (Target.Tag.ToString().AsInt() == 0)
+                var Index = Target.Tag.ToString().AsInt();
+
+                if (Index == 0)
                 {
                     View.ActiveAnime = 1;
                     View.AnimeX1.Begin();
                 }
-                else
+                if (Index == 1)
                 {
                     View.ActiveAnime = 2;
                     View.AnimeX2.Begin();
                 }
             }
-        });
-
-        /// <summary>
-        /// 加载更多
-        /// </summary>
-        public RelayCommand<ScrollChangedEventArgs> ScrollCommand => new((obj) =>
+        }
+        [RelayCommand]
+        public void Scroll(ScrollChangedEventArgs obj)
         {
             if (this.Keyword.IsNullOrEmpty())
             {
@@ -96,47 +101,73 @@
                     OnLoadMoreSearch();
                 }
             }
-        });
-
-        public void CollectCommand(NHentaiModel Model)
-        {
-            Model.PId = Service.Insert(Model);
-            CollectResult.Add(Model);
         }
-
-        public void RemoveCommand(Guid id)
+        [RelayCommand]
+        public void Collect(NHentaiModel input)
+        {
+            input.PId = Service.Insert(input);
+            CollectResult.Add(input);
+        }
+        [RelayCommand]
+        public void Remove(Guid id)
         {
             CollectResult.Remove(CollectResult.First(t => t.PId == id));
             Service.Remove(id);
         }
-
-        public void WatchCommand(NHentaiModel input)
+        [RelayCommand]
+        public void Close()
+        {
+            NavVisible = Visibility.Collapsed;
+        }
+        [RelayCommand]
+        public void Watch(NHentaiModel input)
         {
             Result = input;
-            WeakReferenceMessenger.Default.Send(new MessageNotify
-            {
-                NotifyType = NotifyType.Notify
-            });
+            NavVisible = Visibility.Visible;
         }
-
-        public void ViewCommand()
+        [RelayCommand]
+        public void View()
         {
             IsPreview = true;
-            WeakReferenceMessenger.Default.Send(new MessageNotify
-            {
-                NotifyType = NotifyType.ChangeControl,
-                ControlParam = Result.OriginImages
-            });
+            Module.Param = Result.OriginImages;
+            ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext).Changed(true);
         }
-
-        public void DownCommand() 
+        [RelayCommand]
+        public void DownCommand()
         {
             ErrorNotify(CommonHelper.DownloadWait);
             Download();
         }
         #endregion
 
-        #region Method
+        #region 方法
+        private async void Download()
+        {
+            if (Result != null && IsDown == false)
+            {
+                Dictionary<string, string> data = new Dictionary<string, string>();
+                for (int index = 0; index < Result.ImageType.Count; index++)
+                {
+                    var fullName = Path.Combine(Catalog, $"{index + 1}.{Result.ImageType[index]}");
+
+                    data.Add(fullName, Result.OriginImages[index]);
+                }
+                await HttpSchedule.HttpDownload(data);
+                IsDown = true;
+                IsPreview = false;
+            }
+        }
+
+        public void ChangeActive(int ActiveAnime)
+        {
+            PageIndex = 1;
+            Keyword = string.Empty;
+            if (ActiveAnime == 1)
+                OnInit();
+            else
+                CollectResult = new(Service.QueryAll());
+        }
+
         public async void OnInit()
         {
             await Task.Run(async () =>
@@ -156,7 +187,8 @@
                         };
                     }).RunsAsync()).InitResult;
                     Total = result.TotalPage;
-                    Results = new ObservableCollection<NHentaiModel>(result.Results.ToMapest<List<NHentaiModel>>());
+                    var data = result.Results.ToMapest<List<NHentaiModel>>();
+                    Results = new(data);
                 }
                 catch (Exception ex)
                 {
@@ -187,7 +219,6 @@
                             }
                         };
                     }).RunsAsync()).InitResult;
-                    BindingOperations.EnableCollectionSynchronization(Results, LockObject);
                     Application.Current.Dispatcher.Invoke(() => result.Results.ToMapest<List<NHentaiModel>>().ForEach(Results.Add));
                 }
                 catch (Exception ex)
@@ -252,7 +283,6 @@
                             }
                         };
                     }).RunsAsync()).InitResult;
-                    BindingOperations.EnableCollectionSynchronization(Results, LockObject);
                     Application.Current.Dispatcher.Invoke(() => result.Results.ToMapest<List<NHentaiModel>>().ForEach(Results.Add));
                 }
                 catch (Exception ex)
@@ -263,41 +293,8 @@
             });
         }
 
-        private void ErrorNotify(string Info = "")
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                new ScreenNotifyView(Info.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : Info).Show();
-            });
-        }
-
-        private async void Download()
-        {
-            if (Result != null && IsDown == false)
-            {
-                Dictionary<string, string> data = new Dictionary<string, string>();
-                for (int index = 0; index < Result.ImageType.Count; index++)
-                {
-                    var fullName = Path.Combine(Catalog, $"{index + 1}.{Result.ImageType[index]}");
-
-                    data.Add(fullName, Result.OriginImages[index]);
-                }
-                await HttpSchedule.HttpDownload(data);
-                IsDown = true;
-                IsPreview = false;
-            }
-        }
-        private void ReceiveProcess(double item, double num)
-        {
-            if (IsPreview == true) return;
-            if (item == double.Parse((100 / num).ToString("F2")))
-                Counts += item;
-            if (Math.Ceiling(Counts) >= 100)
-            {
-                Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
-                IsDown = false;
-            }
-        }
+        private void ErrorNotify(string input = "") =>
+                Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
         #endregion
 
         #region ExternalCalls
