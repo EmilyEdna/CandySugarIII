@@ -98,7 +98,7 @@
         [RelayCommand]
         public void Play(PlayInfo input)
         {
-
+            new CandyVlcPlayView($"{input.Name}_{input.Clarity}", input.Route).Show();
         }
         [RelayCommand]
         public void Close() => NavVisible = Visibility.Collapsed;

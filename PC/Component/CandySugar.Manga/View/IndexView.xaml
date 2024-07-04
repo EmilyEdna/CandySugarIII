@@ -84,7 +84,7 @@
                                 Command="{Binding DataContext.ViewCommand, ElementName=Index}"
                                 CommandParameter="{Binding Route}"
                                 Content="{Binding Title}"
-                                Style="{DynamicResource CandyTextBlockButtonStyle}"
+                                Style="{DynamicResource TextButton}"
                                 ToolTip="{Binding Title}" />
                         </Grid>
                     </DataTemplate>

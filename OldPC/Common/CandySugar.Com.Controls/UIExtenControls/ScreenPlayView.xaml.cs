@@ -103,12 +103,6 @@ namespace CandySugar.Com.Controls.UIExtenControls
             VedioTitle.Text = His.Key;
         }
 
-        private void MouseUpChanged(object sender, MouseButtonEventArgs e)
-        {
-            var ListItem = sender as ListBoxItem;
-            var CK = ListItem.Tag.ToString().AsInt();
-        }
-
         private void PositionChanged(object sender, MouseButtonEventArgs e)
         {
             if (VideoPlayer.MediaPlayer.IsPlaying)

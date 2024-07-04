@@ -1,4 +1,5 @@
 ﻿using CandyControls;
+using CandySugar.Com.Controls.UIExtenControls;
 using CandySugar.Com.Library;
 using CandySugar.Com.Library.DLLoader;
 using CandySugar.Com.Library.Enums;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -140,7 +142,7 @@ namespace CandySugar.MainUI.ViewModels
         {
             if (obj < EHandle.Setting)
             {
-               var Plugin= AssemblyLoader.Dll.FirstOrDefault(t => t.Handle == (int)obj);
+                var Plugin = AssemblyLoader.Dll.FirstOrDefault(t => t.Handle == (int)obj);
                 this.View.Dispatcher.Invoke(() =>
                 {
                     var Ctrl = (Control)Activator.CreateInstance(Plugin.InstanceType);
@@ -148,15 +150,22 @@ namespace CandySugar.MainUI.ViewModels
                     CandyControl = Ctrl;
                 });
             }
+            else
+            {
+                if (obj == EHandle.Video)
+                    new CandyVlcPlayView().Show();
+            }
+
         });
 
         public RelayCommand<string> SearchActiveCommand => new(obj =>
         {
             GenericDelegate.SearchAction?.Invoke(obj);
         });
-        public RelayCommand<EMenu> TaskBarCommand => new(obj => { 
-        
-        
+        public RelayCommand<EMenu> TaskBarCommand => new(obj =>
+        {
+
+
         });
         #endregion
     }

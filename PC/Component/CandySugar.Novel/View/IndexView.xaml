@@ -99,7 +99,7 @@
                             <Button
                                 Command="{Binding DataContext.ViewCommand, ElementName=Index}"
                                 Content="{Binding Chapter}"
-                                Style="{DynamicResource CandyTextBlockButtonStyle}"
+                                Style="{DynamicResource TextButton}"
                                 ToolTip="{Binding Chapter}">
                                 <Button.CommandParameter>
                                     <MultiBinding Converter="{StaticResource MultiParamConverter}">
