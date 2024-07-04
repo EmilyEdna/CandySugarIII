@@ -269,7 +269,6 @@
             </Grid.RowDefinitions>
             <Rectangle Grid.RowSpan="2" Fill="#20DADADA" />
             <Button
-                Grid.RowSpan="1"
                 Width="30"
                 Height="30"
                 Margin="0,5,5,0"

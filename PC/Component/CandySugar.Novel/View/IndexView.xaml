@@ -86,32 +86,6 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Rectangle Grid.RowSpan="2" Fill="#20DADADA" />
-            <ListBox
-                x:Name="PART_CHAPTER"
-                Grid.RowSpan="2"
-                eda:ListBoxAttach.ScrollCommand="{Binding ChapterScrollCommand}"
-                ItemsSource="{Binding DetailResult}"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                Style="{DynamicResource CandyListBoxStyle}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="2,3">
-                            <Button
-                                Command="{Binding DataContext.ViewCommand, ElementName=Index}"
-                                Content="{Binding Chapter}"
-                                Style="{DynamicResource TextButton}"
-                                ToolTip="{Binding Chapter}">
-                                <Button.CommandParameter>
-                                    <MultiBinding Converter="{StaticResource MultiParamConverter}">
-                                        <Binding ElementName="Index" Path="DataContext.Platform" />
-                                        <Binding Path="Route" />
-                                    </MultiBinding>
-                                </Button.CommandParameter>
-                            </Button>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
             <Button
                 Width="30"
                 Height="30"
@@ -137,6 +111,32 @@
                     </DataTemplate>
                 </Button.ContentTemplate>
             </Button>
+            <ListBox
+                x:Name="PART_CHAPTER"
+                Grid.Row="1"
+                eda:ListBoxAttach.ScrollCommand="{Binding ChapterScrollCommand}"
+                ItemsSource="{Binding DetailResult}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                Style="{DynamicResource CandyListBoxStyle}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="2,3">
+                            <Button
+                                Command="{Binding DataContext.ViewCommand, ElementName=Index}"
+                                Content="{Binding Chapter}"
+                                Style="{DynamicResource TextButton}"
+                                ToolTip="{Binding Chapter}">
+                                <Button.CommandParameter>
+                                    <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                        <Binding ElementName="Index" Path="DataContext.Platform" />
+                                        <Binding Path="Route" />
+                                    </MultiBinding>
+                                </Button.CommandParameter>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
         <eda:CandyWaterButton
             Margin="{Binding MarginThickness}"

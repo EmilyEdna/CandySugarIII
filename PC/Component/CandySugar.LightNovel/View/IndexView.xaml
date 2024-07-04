@@ -81,25 +81,6 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Rectangle Grid.RowSpan="2" Fill="#20DADADA" />
-            <ListBox
-                x:Name="PART_CHAPTER"
-                Grid.RowSpan="2"
-                ItemsSource="{Binding ViewResult}"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                Style="{DynamicResource CandyListBoxStyle}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="2,3">
-                            <Button
-                                Command="{Binding DataContext.ViewCommand, ElementName=Index}"
-                                CommandParameter="{Binding .}"
-                                Content="{Binding ChapterName}"
-                                Style="{DynamicResource TextButton}"
-                                ToolTip="{Binding ChapterName}" />
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
             <Button
                 Width="30"
                 Height="30"
@@ -125,6 +106,25 @@
                     </DataTemplate>
                 </Button.ContentTemplate>
             </Button>
+            <ListBox
+                x:Name="PART_CHAPTER"
+                Grid.Row="1"
+                ItemsSource="{Binding ViewResult}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                Style="{DynamicResource CandyListBoxStyle}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="2,3">
+                            <Button
+                                Command="{Binding DataContext.ViewCommand, ElementName=Index}"
+                                CommandParameter="{Binding .}"
+                                Content="{Binding ChapterName}"
+                                Style="{DynamicResource TextButton}"
+                                ToolTip="{Binding ChapterName}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
         <eda:CandyWaterButton
             Margin="{Binding MarginThickness}"

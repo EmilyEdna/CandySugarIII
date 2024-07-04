@@ -71,43 +71,11 @@
             Visibility="{Binding NavVisible}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Rectangle Grid.RowSpan="2" Fill="#20DADADA" />
-            <StackPanel
-                Grid.Row="0"
-                Margin="12,0,0,0"
-                HorizontalAlignment="Left">
-                <TextBlock Style="{DynamicResource TextBlockTitleStyle}" Text="{Binding DetailResult.Title, StringFormat=名称：{0}}" />
-                <TextBlock Style="{DynamicResource TextBlockTitleStyle}" Text="{Binding DetailResult.Alias, StringFormat=别名：{0}}" />
-                <TextBlock Style="{DynamicResource TextBlockTitleStyle}" Text="{Binding DetailResult.Tag, StringFormat=标签：{0}}" />
-            </StackPanel>
-            <ListBox
-                x:Name="PART_CHAPTER"
-                Grid.Row="1"
-                ItemsSource="{Binding DetailResult.ElementResults}"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                Style="{DynamicResource CandyListBoxStyle}">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="2,3">
-                            <eda:CandyButton
-                                Width="50"
-                                ButtonType="Primary"
-                                Command="{Binding DataContext.WatchCommand, ElementName=Index}"
-                                CommandParameter="{Binding .}"
-                                Content="{Binding Collect}" />
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <Rectangle Grid.RowSpan="3" Fill="#20DADADA" />
             <Button
-                Grid.RowSpan="2"
                 Width="30"
                 Height="30"
                 Margin="0,5,5,0"
@@ -132,6 +100,39 @@
                     </DataTemplate>
                 </Button.ContentTemplate>
             </Button>
+            <StackPanel
+                Grid.Row="1"
+                Margin="12,0,0,0"
+                HorizontalAlignment="Left">
+                <TextBlock Style="{DynamicResource TextBlockTitleStyle}" Text="{Binding DetailResult.Title, StringFormat=名称：{0}}" />
+                <TextBlock Style="{DynamicResource TextBlockTitleStyle}" Text="{Binding DetailResult.Alias, StringFormat=别名：{0}}" />
+                <TextBlock Style="{DynamicResource TextBlockTitleStyle}" Text="{Binding DetailResult.Tag, StringFormat=标签：{0}}" />
+            </StackPanel>
+            <ListBox
+                x:Name="PART_CHAPTER"
+                Grid.Row="2"
+                ItemsSource="{Binding DetailResult.ElementResults}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                Style="{DynamicResource CandyListBoxStyle}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="2,3">
+                            <eda:CandyButton
+                                Width="50"
+                                ButtonType="Primary"
+                                Command="{Binding DataContext.WatchCommand, ElementName=Index}"
+                                CommandParameter="{Binding .}"
+                                Content="{Binding Collect}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
         </Grid>
     </Grid>
 </UserControl>

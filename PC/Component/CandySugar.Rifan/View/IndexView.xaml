@@ -579,7 +579,32 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Rectangle Grid.RowSpan="2" Fill="#20DADADA" />
-            <Grid Grid.RowSpan="2">
+            <Button
+                Width="30"
+                Height="30"
+                Margin="0,5,5,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding CloseCommand}"
+                Style="{DynamicResource CaptionButtonStyle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <Grid Width="12" Height="12">
+                            <Path
+                                Data="M 12,12 L16.4,16.4"
+                                Stretch="Fill"
+                                Stroke="White"
+                                StrokeThickness="1" />
+                            <Path
+                                Data="M 12,16.4 L 16.4,12 "
+                                Stretch="Fill"
+                                Stroke="White"
+                                StrokeThickness="1" />
+                        </Grid>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+            <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -689,31 +714,6 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
-            <Button
-                Width="30"
-                Height="30"
-                Margin="0,5,5,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Command="{Binding CloseCommand}"
-                Style="{DynamicResource CaptionButtonStyle}">
-                <Button.ContentTemplate>
-                    <DataTemplate>
-                        <Grid Width="12" Height="12">
-                            <Path
-                                Data="M 12,12 L16.4,16.4"
-                                Stretch="Fill"
-                                Stroke="White"
-                                StrokeThickness="1" />
-                            <Path
-                                Data="M 12,16.4 L 16.4,12 "
-                                Stretch="Fill"
-                                Stroke="White"
-                                StrokeThickness="1" />
-                        </Grid>
-                    </DataTemplate>
-                </Button.ContentTemplate>
-            </Button>
         </Grid>
     </Grid>
 </UserControl>
