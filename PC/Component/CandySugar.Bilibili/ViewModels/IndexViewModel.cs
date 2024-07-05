@@ -22,7 +22,7 @@
 
         private void WindowStateEvent()
         {
-            NavLength = GlobalParam.NavLength;
+            NavHeight = GlobalParam.NavHeight;
         }
 
         /// <summary>

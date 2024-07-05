@@ -101,13 +101,13 @@ namespace CandySugar.Com.Controls.UIExtenControls
                 {
                     this.Width = SystemParameters.FullPrimaryScreenWidth;
                     this.Height = SystemParameters.FullPrimaryScreenHeight - 80;
-                    this.Nav.Height = this.Nav.MinHeight * 2.5;
+                    this.Nav.Height = (SystemParameters.FullPrimaryScreenHeight - 20) / 1.3;
                 }
                 else
                 {
                     this.Width = this.MinWidth;
                     this.Height = this.MinHeight;
-                    this.Nav.Height = 350;
+                    this.Nav.Height = 500;
                 }
                 _VLCPlayer.AspectRatio = this.Width + ":" + this.Height;
                 PlayBar.Width = this.Width - 450;

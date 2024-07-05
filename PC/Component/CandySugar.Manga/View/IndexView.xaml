@@ -11,8 +11,8 @@
     xmlns:vm="clr-namespace:CandySugar.Manga.ViewModels"
     x:Name="Index"
     d:DataContext="{d:DesignInstance vm:IndexViewModel}"
-    d:DesignHeight="550"
-    d:DesignWidth="1000"
+    d:DesignHeight="700"
+    d:DesignWidth="1200"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary Source="/CandySugar.Manga;component/MangaTheme.xaml" />
@@ -60,8 +60,8 @@
         </ListBox>
         <Grid
             Width="200"
-            Height="{Binding NavLength}"
-            MinHeight="350"
+            Height="{Binding NavHeight}"
+            MinHeight="500"
             Margin="0,20,20,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"

@@ -23,7 +23,8 @@
                 Cols = 5;
             BorderWidth = GlobalParam.MAXWidth;
             BorderHeight = GlobalParam.MAXHeight;
-            NavLength = GlobalParam.NavLength;
+            NavHeight = GlobalParam.NavHeight;
+            NavWidth = GlobalParam.NavWidth;
         }
         private void ReceiveProcess(double item, double num)
         {

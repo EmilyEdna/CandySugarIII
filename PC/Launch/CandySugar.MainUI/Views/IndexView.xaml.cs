@@ -26,7 +26,7 @@ namespace CandySugar.MainUI.Views
                 {
                     GlobalParam.MAXWidth = SystemParameters.FullPrimaryScreenWidth * .9;
                     GlobalParam.MAXHeight = (SystemParameters.FullPrimaryScreenHeight - 60) * .9;
-                    GlobalParam.NavLength = (SystemParameters.FullPrimaryScreenHeight - 100) / 1.3;
+                    GlobalParam.NavHeight = (SystemParameters.FullPrimaryScreenHeight - 100) / 1.3;
                 }
                 if (this.WindowState == WindowState.Normal)
                     InitUI();
@@ -35,9 +35,10 @@ namespace CandySugar.MainUI.Views
         }
         private void InitUI() 
         {
-            GlobalParam.MAXWidth = 960;
-            GlobalParam.MAXHeight = 400;
-            GlobalParam.NavLength = 350;
+            GlobalParam.MAXWidth = 1160;
+            GlobalParam.MAXHeight = 550;
+            GlobalParam.NavHeight = 500;
+            GlobalParam.NavWidth = 250;
         }
     }
 }

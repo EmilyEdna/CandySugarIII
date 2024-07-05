@@ -9,7 +9,9 @@ namespace CandySugar.Com.Options
         [ObservableProperty]
         private Visibility _NavVisible;
         [ObservableProperty]
-        private double _NavLength;
+        private double _NavHeight;
+        [ObservableProperty]
+        private double _NavWidth;
         [ObservableProperty]
         private double _BorderHeight;
         [ObservableProperty]

@@ -11,8 +11,8 @@
     xmlns:vm="clr-namespace:CandySugar.NHViewer.ViewModels"
     x:Name="Index"
     d:DataContext="{d:DesignInstance vm:IndexViewModel}"
-    d:DesignHeight="550"
-    d:DesignWidth="1000"
+    d:DesignHeight="700"
+    d:DesignWidth="1200"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary Source="/CandySugar.NHViewer;component/NHViewerTheme.xaml" />
@@ -58,13 +58,13 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <eda:CandyImage
-                                        Width="180"
-                                        Height="250"
+                                        Width="200"
+                                        Height="280"
                                         Margin="8"
                                         BorderBrush="SkyBlue"
                                         BorderThickness="1"
                                         Entity="{Binding .}"
-                                        ImageThickness="180,250"
+                                        ImageThickness="200,280"
                                         MaskFill="#80e6cfe6"
                                         Source="{Binding Cover}">
                                         <eda:CandyImage.MaskTemplate>
@@ -148,8 +148,8 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <eda:CandyImage
-                                        Width="180"
-                                        Height="250"
+                                        Width="200"
+                                        Height="280"
                                         Margin="8"
                                         BorderBrush="SkyBlue"
                                         BorderThickness="1"
@@ -209,9 +209,10 @@
             </Grid>
         </Grid>
         <Grid
-            Width="200"
-            Height="{Binding NavLength}"
-            MinHeight="350"
+            Width="{Binding NavWidth}"
+            Height="{Binding NavHeight}"
+            MinWidth="250"
+            MinHeight="500"
             Margin="0,20,20,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
@@ -272,13 +273,13 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <eda:CandyImage
-                            Width="180"
-                            Height="230"
+                            Width="200"
+                            Height="280"
                             Margin="3"
                             BorderBrush="SkyBlue"
                             BorderThickness="1"
                             EnableMask="False"
-                            ImageThickness="180,230"
+                            ImageThickness="200,280"
                             MaskFill="#80e6cfe6"
                             Source="{Binding .}" />
                     </DataTemplate>

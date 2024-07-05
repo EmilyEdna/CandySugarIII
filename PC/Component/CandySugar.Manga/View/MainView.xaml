@@ -8,8 +8,8 @@
     xmlns:vm="clr-namespace:CandySugar.Manga.ViewModels"
     x:Name="Main"
     d:DataContext="{d:DesignInstance vm:MainViewModel}"
-    d:DesignHeight="550"
-    d:DesignWidth="1000"
+    d:DesignHeight="700"
+    d:DesignWidth="1200"
     mc:Ignorable="d">
     <ContentControl Content="{Binding ComponentControl}" />
 </UserControl>

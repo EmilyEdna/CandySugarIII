@@ -32,7 +32,7 @@
         private void WindowStateEvent()
         {
             BorderHeight = GlobalParam.MAXHeight;
-            NavLength = GlobalParam.NavLength;
+            NavHeight = GlobalParam.NavHeight;
         }
         #endregion
 

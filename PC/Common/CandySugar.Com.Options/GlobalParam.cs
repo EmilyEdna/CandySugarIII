@@ -12,6 +12,7 @@ namespace CandySugar.Com.Options
         public static WindowState WindowState { get; set; } = WindowState.Normal;
         public static double MAXWidth {  get; set; }
         public static double MAXHeight { get; set; }
-        public static double NavLength {  get; set; }
+        public static double NavHeight {  get; set; }
+        public static double NavWidth {  get; set; }
     }
 }

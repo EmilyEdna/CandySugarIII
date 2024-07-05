@@ -34,12 +34,12 @@ namespace CandySugar.WallPaper.ViewModels
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
             {
-                Cols = (int)(GlobalParam.MAXWidth / 320);
+                Cols = (int)(GlobalParam.MAXWidth / 360);
                 MarginThickness = new Thickness(0, 0, 60, 70);
             }
             else
             {
-                Cols = (int)(GlobalParam.MAXWidth / 320);
+                Cols = (int)(GlobalParam.MAXWidth / 360);
                 MarginThickness = new Thickness(0, 0, 60, 15);
             }
             BorderHeight = GlobalParam.MAXHeight;

@@ -12,7 +12,7 @@
     x:Name="Index"
     d:DataContext="{d:DesignInstance vm:IndexViewModel}"
     d:DesignHeight="550"
-    d:DesignWidth="1000"
+    d:DesignWidth="1200"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary Source="/CandySugar.WallPaper;component/WallPaperTheme.xaml" />
@@ -58,13 +58,13 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <eda:CandyImage
-                                        Width="300"
-                                        Height="200"
+                                        Width="360"
+                                        Height="250"
                                         Margin="8"
                                         BorderBrush="SkyBlue"
                                         BorderThickness="1"
                                         Entity="{Binding .}"
-                                        ImageThickness="300,200"
+                                        ImageThickness="360,250"
                                         MaskFill="#80e6cfe6"
                                         Source="{Binding Cover}">
                                         <eda:CandyImage.MaskTemplate>
@@ -138,13 +138,13 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <eda:CandyImage
-                                        Width="300"
-                                        Height="200"
+                                        Width="360"
+                                        Height="250"
                                         Margin="8"
                                         BorderBrush="SkyBlue"
                                         BorderThickness="1"
                                         Entity="{Binding .}"
-                                        ImageThickness="300,200"
+                                        ImageThickness="360,250"
                                         MaskFill="#80e6cfe6"
                                         Source="{Binding Cover}">
                                         <eda:CandyImage.MaskTemplate>
@@ -218,13 +218,13 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <eda:CandyImage
-                                        Width="300"
-                                        Height="200"
+                                        Width="360"
+                                        Height="250"
                                         Margin="8"
                                         BorderBrush="SkyBlue"
                                         BorderThickness="1"
                                         Entity="{Binding .}"
-                                        ImageThickness="300,200"
+                                        ImageThickness="360,250"
                                         MaskFill="#80e6cfe6"
                                         Source="{Binding Cover}">
                                         <eda:CandyImage.MaskTemplate>
@@ -295,13 +295,13 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <eda:CandyImage
-                                        Width="300"
-                                        Height="200"
+                                        Width="360"
+                                        Height="250"
                                         Margin="8"
                                         BorderBrush="SkyBlue"
                                         BorderThickness="1"
                                         Entity="{Binding .}"
-                                        ImageThickness="300,200"
+                                        ImageThickness="360,250"
                                         MaskFill="#80e6cfe6"
                                         Source="{Binding Cover}">
                                         <eda:CandyImage.MaskTemplate>

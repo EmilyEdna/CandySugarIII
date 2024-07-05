@@ -21,7 +21,7 @@
                 Cols = 5;
             BorderWidth = GlobalParam.MAXWidth;
             BorderHeight = GlobalParam.MAXHeight;
-            NavLength = GlobalParam.NavLength;
+            NavHeight = GlobalParam.NavHeight;
         }
         #endregion
 
