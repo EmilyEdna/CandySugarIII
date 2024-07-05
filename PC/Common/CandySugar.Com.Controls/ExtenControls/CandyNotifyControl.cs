@@ -1,5 +1,8 @@
-﻿using CandySugar.Com.Library;
+﻿using CandyControls;
+using CandyControls.ControlsModel.Enums;
+using CandySugar.Com.Library;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,11 +15,16 @@ namespace CandySugar.Com.Controls.ExtenControls
     public class CandyNotifyControl : Window
     {
         private TextBlock Infos;
-        public CandyNotifyControl(string msg)
+        private string _Catalog;
+        public CandyNotifyControl(string msg, bool IsConfirm = false, string Catalog = "")
         {
             CreateStyle();
-            CreateUI();
+            if (IsConfirm)
+                CreateConfirmUI();
+            else
+                CreateNotifyUI();
             this.Loaded += WindowLoad;
+            this._Catalog = Catalog;
             Infos.Text = msg;
         }
 
@@ -68,9 +76,8 @@ namespace CandySugar.Com.Controls.ExtenControls
 
             this.Template = customTemplate;
         }
-        private void CreateUI()
+        private void CreateNotifyUI()
         {
-
             Grid GridContent = new Grid
             {
                 Margin = new Thickness(3),
@@ -88,7 +95,7 @@ namespace CandySugar.Com.Controls.ExtenControls
                 Foreground = Brushes.DeepSkyBlue,
                 FontWeight = FontWeights.Bold,
                 UseLayoutRounding = true,
-                Content=FontIcon.Xmark,
+                Content = FontIcon.Xmark,
             };
             Close.SetResourceReference(Button.FontFamilyProperty, "Thin");
             TextOptions.SetTextFormattingMode(Close, TextFormattingMode.Display);
@@ -100,7 +107,7 @@ namespace CandySugar.Com.Controls.ExtenControls
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 FontSize = 15,
-                FontWeight= FontWeights.Bold,
+                FontWeight = FontWeights.Bold,
                 UseLayoutRounding = true,
                 Foreground = Brushes.DeepSkyBlue,
             };
@@ -108,6 +115,88 @@ namespace CandySugar.Com.Controls.ExtenControls
             TextOptions.SetTextFormattingMode(Infos, TextFormattingMode.Display);
             GridContent.Children.Add(Close);
             GridContent.Children.Add(Infos);
+            this.Content = GridContent;
+        }
+        private void CreateConfirmUI()
+        {
+            Grid GridContent = new Grid
+            {
+                Margin = new Thickness(3),
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#40e6cfe6"))
+            };
+            GridContent.RowDefinitions.Add(new RowDefinition());
+            GridContent.RowDefinitions.Add(new RowDefinition());
+            GridContent.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.1) });
+
+            Button Close = new Button
+            {
+                Margin = new Thickness(5),
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                Background = Brushes.Transparent,
+                BorderThickness = new Thickness(0),
+                FontSize = 16,
+                Foreground = Brushes.DeepSkyBlue,
+                FontWeight = FontWeights.Bold,
+                UseLayoutRounding = true,
+                Content = FontIcon.Xmark,
+            };
+            Close.SetResourceReference(Button.FontFamilyProperty, "Thin");
+            TextOptions.SetTextFormattingMode(Close, TextFormattingMode.Display);
+            Close.Click += CloseEvent;
+            Grid.SetRow(Close, 0);
+
+            Infos = new TextBlock
+            {
+                Margin = new Thickness(0, 15, 0, 0),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                FontSize = 15,
+                FontWeight = FontWeights.Bold,
+                UseLayoutRounding = true,
+                Foreground = Brushes.DeepSkyBlue,
+            };
+            Infos.SetResourceReference(TextBlock.FontFamilyProperty, "FontStyle");
+            TextOptions.SetTextFormattingMode(Infos, TextFormattingMode.Display);
+            Grid.SetRow(Infos, 1);
+
+            Grid InnerGrid = new Grid
+            {
+                Width = 210
+            };
+
+            CandyButton OK = new CandyButton
+            {
+                Height = 30,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                ButtonType = ECatagory.Primary,
+                Content = "确定",
+                Foreground = Brushes.White,
+                UseLayoutRounding = true
+            };
+            TextOptions.SetTextFormattingMode(OK, TextFormattingMode.Display);
+            OK.Click += OKEvent;
+
+            CandyButton NO = new CandyButton
+            {
+                Height = 30,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                ButtonType = ECatagory.Primary,
+                Content = "取消",
+                Foreground = Brushes.White,
+                UseLayoutRounding = true
+            };
+            TextOptions.SetTextFormattingMode(NO, TextFormattingMode.Display);
+            NO.Click += CloseEvent;
+
+            InnerGrid.Children.Add(OK);
+            InnerGrid.Children.Add(NO);
+            Grid.SetRow(InnerGrid, 2);
+
+            GridContent.Children.Add(Close);
+            GridContent.Children.Add(Infos);
+            GridContent.Children.Add(InnerGrid);
+
             this.Content = GridContent;
         }
         #endregion
@@ -135,6 +224,12 @@ namespace CandySugar.Com.Controls.ExtenControls
                 this.Close();
             };
             this.BeginAnimation(TopProperty, animation);
+        }
+
+        private void OKEvent(object sender, RoutedEventArgs e)
+        {
+            Process.Start("explorer.exe", _Catalog);
+            CloseEvent(sender, e);
         }
     }
 }

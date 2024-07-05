@@ -32,7 +32,7 @@
         {
             if (!Complete.Values.Any(t => t == false))
             {
-                Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
+                Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation,true, Catalog).Show());
                 Complete.Clear();
             }
         }
@@ -186,7 +186,7 @@
                     else
                         InfoResult.Title = InfoResult.Title;
                     File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp4"), Path.Combine(Catalog, $"{InfoResult.Title}.mp4"));
-                    Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
+                    Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation,true, Catalog).Show());
                 }
             });
         }
@@ -207,7 +207,7 @@
                     else
                         InfoResult.Title = InfoResult.Title;
                     File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp3"), Path.Combine(Catalog, $"{InfoResult.Title}.mp3"));
-                    Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
+                    Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation, true, Catalog).Show());
                 }
             });
         }
@@ -238,7 +238,7 @@
                 var bytes = await new HttpClient().GetByteArrayAsync(InfoResult.Cover);
                 bytes.FileCreate(InfoResult.Title, FileTypes.Jpg, "Bilibili", (catalog, fileName) =>
                 {
-                    Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, catalog).Show());
+                    Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation,true, catalog).Show());
                 });
             });
         }
@@ -262,7 +262,7 @@
                         if (res)
                         {
                             if (IsBatchVideo == false)
-                                Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
+                                Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation,true, Catalog).Show());
                             await Task.Delay(1500);
                             try
                             {
