@@ -8,7 +8,7 @@ namespace CandySugar.WallPaper.ViewModels
         public IndexViewModel()
         {
             Builder = [];
-            Platform = PlatformEnum.Wallhaven;
+            PlatformType = PlatformEnum.Wallhaven;
             Title = ["常规", "一般", "可疑", "收藏"];
             MenuData = new() { { "WallHaven", "1" }, { "Konachan", "2" }, { "下载选中", "3" }, { "删除选中", "4" }, { "无声相册", "5" }, { "音乐相册", "6" } };
             Service = IocDependency.Resolve<IService<WallModel>>();
@@ -16,10 +16,10 @@ namespace CandySugar.WallPaper.ViewModels
             WindowStateEvent();
         }
 
-        #region
+        #region 字段
         private IService<WallModel> Service;
-        private PlatformEnum Platform;
-        private GradEnum Grad;
+        private PlatformEnum PlatformType;
+        private GradEnum GradType;
         private List<WallModel> Builder;
         private int InitTotal;
         private int InitPage;
@@ -61,7 +61,7 @@ namespace CandySugar.WallPaper.ViewModels
         [RelayCommand]
         public void Check(WallModel param) => Builder.Add(param);
         [RelayCommand]
-        public void UnCheck(WallModel param)=> Builder.Remove(param);
+        public void UnCheck(WallModel param) => Builder.Remove(param);
         [RelayCommand]
         public void Changed(object item)
         {
@@ -72,19 +72,19 @@ namespace CandySugar.WallPaper.ViewModels
 
                 if (Index == 0)
                 {
-                    Grad = GradEnum.SFW;
+                    GradType = GradEnum.SFW;
                     View.ActiveAnime = 1;
                     View.AnimeX1.Begin();
                 }
                 if (Index == 1)
                 {
-                    Grad = GradEnum.Sketchy;
+                    GradType = GradEnum.Sketchy;
                     View.ActiveAnime = 2;
                     View.AnimeX2.Begin();
                 }
                 if (Index == 2)
                 {
-                    Grad = GradEnum.NSFW;
+                    GradType = GradEnum.NSFW;
                     View.ActiveAnime = 3;
                     View.AnimeX3.Begin();
                 }
@@ -102,23 +102,23 @@ namespace CandySugar.WallPaper.ViewModels
             var value = param.SelectValue.AsString().AsInt();
             if (value == 1)
             {
-                Platform = PlatformEnum.Wallhaven;
+                PlatformType = PlatformEnum.Wallhaven;
                 Result = [];
             }
             if (value == 2)
             {
-                Platform = PlatformEnum.Konachan;
+                PlatformType = PlatformEnum.Konachan;
                 Result = [];
             }
             if (Builder.Count <= 0) return;
-        /*    if (value == 3)
-                DownSelectPicture();
+            if (value == 3)
+                Download();
             if (value == 4)
-                RemoveSelectPicture();
+                Remove();
             if (value == 5)
-                BuilderVideoPicture();
+                BuildPicture();
             if (value == 6)
-                BuilderVideoAudioPicture();*/
+                BuildAudio();
         }
         [RelayCommand]
         public void Collect(WallElementResult element)
@@ -127,7 +127,7 @@ namespace CandySugar.WallPaper.ViewModels
             CollectResult = new(Service.QueryAll());
         }
         [RelayCommand]
-        public void Scroll(ScrollChangedEventArgs obj) 
+        public void Scroll(ScrollChangedEventArgs obj)
         {
             if (Keyword.IsNullOrEmpty())
             {
@@ -177,10 +177,10 @@ namespace CandySugar.WallPaper.ViewModels
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallType = WallEnum.Init,
-                            PlatformType = Platform,
+                            PlatformType = PlatformType,
                             Init = new WallInit
                             {
-                                Grad = Grad,
+                                Grad = GradType,
                                 Page = 1,
                             }
                         };
@@ -211,10 +211,10 @@ namespace CandySugar.WallPaper.ViewModels
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallType = WallEnum.Init,
-                            PlatformType = Platform,
+                            PlatformType = PlatformType,
                             Init = new WallInit
                             {
-                                Grad = Grad,
+                                Grad = GradType,
                                 Page = InitPage,
                             }
                         };
@@ -244,10 +244,10 @@ namespace CandySugar.WallPaper.ViewModels
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallType = WallEnum.Search,
-                            PlatformType = Platform,
+                            PlatformType = PlatformType,
                             Search = new WallSearch
                             {
-                                Grad = Grad,
+                                Grad = GradType,
                                 Page = 1,
                                 Keyword = Keyword
                             }
@@ -279,10 +279,10 @@ namespace CandySugar.WallPaper.ViewModels
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             WallType = WallEnum.Search,
-                            PlatformType = Platform,
+                            PlatformType = PlatformType,
                             Search = new WallSearch
                             {
-                                Grad = Grad,
+                                Grad = GradType,
                                 Page = SearchPage,
                                 Keyword = Keyword
                             }
@@ -296,6 +296,104 @@ namespace CandySugar.WallPaper.ViewModels
                     ErrorNotify();
                 }
             });
+        }
+        #endregion
+
+        #region 函数
+        private void Download()
+        {
+            if (Builder.Count > 0)
+            {
+                Task.Run(() =>
+                {
+                    Builder.ForEach(async item =>
+                    {
+                        var fileBytes = await new HttpClient().GetByteArrayAsync(item.Original);
+                        fileBytes.FileCreate(item.PId.ToString(), FileTypes.Jpg, "WallPaper", (catalog, fileName) => new CandyNotifyControl(CommonHelper.DownloadFinishInformation, true, catalog).Show());
+                    });
+                });
+            }
+        }
+
+        private void Remove()
+        {
+            if (Builder.Count > 0)
+            {
+                Builder.ForEach(item =>
+                {
+                    SyncStatic.DeleteFile(DownUtil.FilePath(item.PId.ToString(), FileTypes.Jpg, "WallPaper"));
+                    Service.Remove(item.PId);
+                });
+                CollectResult = new(Service.QueryAll());
+                Builder.Clear();
+            }
+        }
+
+        private void BuildPicture()
+        {
+            if (Builder.Count > 0)
+            {
+                var RealLocal = new List<string>();
+                Builder.ForEach(item =>
+                {
+                    var fileName = DownUtil.FilePath(item.PId.ToString(), FileTypes.Jpg, "WallPaper");
+                    if (File.Exists(fileName)) RealLocal.Add(fileName);
+                });
+                //没有被删除真实存在的文件
+                if (RealLocal.Count > 0)
+                {
+                    //异步制作MP4
+                    Task.Run(async () =>
+                    {
+                        var catalog = Path.Combine(CommonHelper.DownloadPath, "WallPaper");
+                        var res = await RealLocal.ImageToVideo(catalog);
+                        if (res) Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            new CandyNotifyControl(CommonHelper.ConvertFinishInformation, true, catalog).Show();
+                        });
+                    });
+                }
+            }
+        }
+
+        private void BuildAudio()
+        {
+            if (Builder.Count > 0)
+            {
+                string AudioName = string.Empty;
+                OpenFileDialog dialog = new OpenFileDialog
+                {
+                    Filter = "音频|*.mp3"
+                };
+                var res = dialog.ShowDialog();
+                if (res == true)
+                    AudioName = dialog.FileName;
+                if (AudioName.IsNullOrEmpty()) return;
+                var Time = AudioFactory.Instance.InitAudio(AudioName).AudioReader.TotalTime.TotalSeconds.ToString("F0");
+                AudioFactory.Instance.Dispose();
+
+                var RealLocal = new List<string>();
+                //判断本地文件是否存在
+                Builder.ForEach(item =>
+                {
+                    var fileName = DownUtil.FilePath(item.PId.ToString(), FileTypes.Jpg, "WallPaper");
+                    if (File.Exists(fileName)) RealLocal.Add(fileName);
+                });
+                //没有被删除真实存在的文件
+                if (RealLocal.Count > 0)
+                {
+                    //异步制作MP4
+                    Task.Run(async () =>
+                    {
+                        var catalog = Path.Combine(CommonHelper.DownloadPath, "WallPaper");
+                        var res = await RealLocal.ImageToVideo(AudioName, Time, catalog);
+                        if (res) Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            new CandyNotifyControl(CommonHelper.ConvertFinishInformation, true, catalog).Show();
+                        });
+                    });
+                }
+            }
         }
         #endregion
     }

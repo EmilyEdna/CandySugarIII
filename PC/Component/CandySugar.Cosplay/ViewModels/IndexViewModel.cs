@@ -163,13 +163,13 @@
             }
             if (Builder.Count <= 0) return;
              if (value == 3)
-                DownSelectPicture();
+                Download();
              if (value == 4)
-                RemoveSelectPicture();
+                Remove();
              if (value == 5)
-                BuilderVideoPicture();
+                BuildPicture();
             if (value == 6)
-                BuilderVideoAudioPicture();
+                BuildAudio();
         }
         #endregion
 
@@ -355,7 +355,7 @@
         #endregion
 
         #region 函数
-        private void DownSelectPicture()
+        private void Download()
         {
             if (Builder.Count > 0)
             {
@@ -376,7 +376,7 @@
                 });
             }
         }
-        private void RemoveSelectPicture()
+        private void Remove()
         {
             if (Builder.Count > 0)
             {
@@ -389,7 +389,7 @@
                 Builder.Clear();
             }
         }
-        private void BuilderVideoPicture()
+        private void BuildPicture()
         {
             if (Builder.Count > 0)
             {
@@ -416,7 +416,7 @@
                 }
             }
         }
-        private void BuilderVideoAudioPicture() 
+        private void BuildAudio() 
         {
             string AudioName = string.Empty;
             OpenFileDialog dialog = new OpenFileDialog
