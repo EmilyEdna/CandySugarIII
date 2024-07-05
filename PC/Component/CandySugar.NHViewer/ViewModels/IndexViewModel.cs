@@ -149,7 +149,7 @@
                 Dictionary<string, string> data = new Dictionary<string, string>();
                 for (int index = 0; index < Result.ImageType.Count; index++)
                 {
-                    var fullName = Path.Combine(Catalog, $"{index + 1}.{Result.ImageType[index]}");
+                    var fullName = Path.Combine(Catalog, Result.Name, $"{index + 1}.{Result.ImageType[index]}");
 
                     data.Add(fullName, Result.OriginImages[index]);
                 }

@@ -1,0 +1,274 @@
+﻿<UserControl
+    x:Class="CandySugar.Comic.View.IndexView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:eda="http://edacoder.github.io"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:lib="http://lib.candy.com"
+    xmlns:local="clr-namespace:CandySugar.Comic.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:CandySugar.Comic.ViewModels"
+    x:Name="Index"
+    d:DataContext="{d:DesignInstance vm:IndexViewModel}"
+    d:DesignHeight="550"
+    d:DesignWidth="1000"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/CandySugar.Comic;component/ComicTheme.xaml" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid Margin="20">
+                <eda:CandyToggle Command="{Binding ChangedCommand}" ModelSource="{Binding Title}" />
+            </Grid>
+            <Grid x:Name="ContentGird" Grid.Row="1">
+                <eda:CandyBorder
+                    x:Name="X1"
+                    Width="{Binding BorderWidth}"
+                    Height="{Binding BorderHeight}"
+                    BorderType="Info">
+                    <eda:CandyBorder.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </eda:CandyBorder.RenderTransform>
+                    <Grid>
+                        <Rectangle Fill="#50fff0f5">
+                            <Rectangle.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="15"
+                                    Direction="300"
+                                    Opacity="1" />
+                            </Rectangle.Effect>
+                        </Rectangle>
+                        <ListBox
+                            eda:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
+                            ItemsSource="{Binding Results, IsAsync=True}"
+                            Style="{DynamicResource CandyListBoxStyle}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="{Binding DataContext.Cols, ElementName=Index}" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <eda:CandyImage
+                                        Width="180"
+                                        Height="250"
+                                        Margin="8"
+                                        BorderBrush="SkyBlue"
+                                        BorderThickness="1"
+                                        Entity="{Binding .}"
+                                        ImageThickness="180,250"
+                                        MaskFill="#80e6cfe6"
+                                        Source="{Binding Cover}">
+                                        <eda:CandyImage.MaskTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition />
+                                                        <RowDefinition Height="30" />
+                                                    </Grid.RowDefinitions>
+                                                    <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
+                                                        <TextBox
+                                                            HorizontalAlignment="Center"
+                                                            ScrollViewer.CanContentScroll="True"
+                                                            Style="{DynamicResource CopyStyle}"
+                                                            Text="{Binding Name}"
+                                                            TextWrapping="Wrap" />
+                                                    </ScrollViewer>
+                                                    <Button
+                                                        Grid.Row="1"
+                                                        Margin="0,0,25,0"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Top"
+                                                        Command="{Binding DataContext.CollectCommand, ElementName=Index}"
+                                                        CommandParameter="{Binding .}"
+                                                        Content="{x:Static lib:FontIcon.Star}"
+                                                        Cursor="Hand"
+                                                        FontSize="17"
+                                                        Foreground="#ffe4c4"
+                                                        Style="{DynamicResource IconButton}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </eda:CandyImage.MaskTemplate>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.WatchCommand, ElementName=Index}" CommandParameter="{Binding Route}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </eda:CandyImage>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </eda:CandyBorder>
+                <eda:CandyBorder
+                    x:Name="X2"
+                    Width="{Binding BorderWidth}"
+                    Height="{Binding BorderHeight}"
+                    BorderType="Info"
+                    Visibility="Hidden">
+                    <eda:CandyBorder.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </eda:CandyBorder.RenderTransform>
+                    <Grid>
+                        <Rectangle Fill="#50fff0f5">
+                            <Rectangle.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="15"
+                                    Direction="300"
+                                    Opacity="1" />
+                            </Rectangle.Effect>
+                        </Rectangle>
+                        <ListBox
+                            eda:ListBoxAttach.ScrollCommand="{Binding ScrollCommand}"
+                            ItemsSource="{Binding CollectResult, IsAsync=True}"
+                            Style="{DynamicResource CandyListBoxStyle}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="{Binding DataContext.Cols, ElementName=Index}" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <eda:CandyImage
+                                        Width="180"
+                                        Height="250"
+                                        Margin="8"
+                                        BorderBrush="SkyBlue"
+                                        BorderThickness="1"
+                                        Entity="{Binding .}"
+                                        ImageThickness="200,280"
+                                        MaskFill="#80e6cfe6"
+                                        Source="{Binding Cover}">
+                                        <eda:CandyImage.MaskTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition />
+                                                        <RowDefinition Height="30" />
+                                                    </Grid.RowDefinitions>
+                                                    <ScrollViewer Height="50" VerticalScrollBarVisibility="Hidden">
+                                                        <TextBox
+                                                            HorizontalAlignment="Center"
+                                                            ScrollViewer.CanContentScroll="True"
+                                                            Style="{DynamicResource CopyStyle}"
+                                                            Text="{Binding Name}"
+                                                            TextWrapping="Wrap" />
+                                                    </ScrollViewer>
+                                                    <Button
+                                                        Grid.Row="1"
+                                                        Margin="0,0,25,0"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Top"
+                                                        Command="{Binding DataContext.RemoveCommand, ElementName=Index}"
+                                                        CommandParameter="{Binding PId}"
+                                                        Content="{x:Static lib:FontIcon.TrashCan}"
+                                                        Cursor="Hand"
+                                                        FontSize="17"
+                                                        Foreground="#ffe4c4"
+                                                        Style="{DynamicResource IconButton}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </eda:CandyImage.MaskTemplate>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.WatchCommand, ElementName=Index}" CommandParameter="{Binding Route}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </eda:CandyImage>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </eda:CandyBorder>
+            </Grid>
+        </Grid>
+        <Grid
+            Width="200"
+            Height="{Binding NavLength}"
+            MinHeight="350"
+            Margin="0,20,20,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Visibility="{Binding NavVisible}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Rectangle Grid.RowSpan="2" Fill="#20DADADA" />
+            <Button
+                Width="30"
+                Height="30"
+                Margin="0,5,5,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding CloseCommand}"
+                Style="{DynamicResource CaptionButtonStyle}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <Grid Width="12" Height="12">
+                            <Path
+                                Data="M 12,12 L16.4,16.4"
+                                Stretch="Fill"
+                                Stroke="White"
+                                StrokeThickness="1" />
+                            <Path
+                                Data="M 12,16.4 L 16.4,12 "
+                                Stretch="Fill"
+                                Stroke="White"
+                                StrokeThickness="1" />
+                        </Grid>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+            <StackPanel
+                Grid.Row="1"
+                Margin="12,0,0,0"
+                Orientation="Horizontal">
+                <eda:CandyButton
+                    Width="55"
+                    Margin="2,0"
+                    ButtonType="Primary"
+                    Command="{Binding DataContext.DownCommand, ElementName=Index}"
+                    Content="下载" />
+                <eda:CandyButton
+                    Width="55"
+                    Margin="2,0"
+                    ButtonType="Primary"
+                    Command="{Binding DataContext.ViewCommand, ElementName=Index}"
+                    Content="查看" />
+            </StackPanel>
+            <ListBox
+                Grid.Row="2"
+                ItemsSource="{Binding Watchs}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                Style="{DynamicResource CandyListBoxStyle}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <eda:CandyImage
+                            Width="180"
+                            Height="230"
+                            Margin="3"
+                            BorderBrush="SkyBlue"
+                            BorderThickness="1"
+                            EnableMask="False"
+                            Entity="{Binding .}"
+                            ImageThickness="180,230"
+                            MaskFill="#80e6cfe6"
+                            Source="{Binding Preview}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </Grid>
+</UserControl>

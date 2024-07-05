@@ -12,6 +12,7 @@ namespace CandySugar.WallPaper.ViewModels
             Title = ["常规", "一般", "可疑", "收藏"];
             MenuData = new() { { "WallHaven", "1" }, { "Konachan", "2" }, { "下载选中", "3" }, { "删除选中", "4" }, { "无声相册", "5" }, { "音乐相册", "6" } };
             Service = IocDependency.Resolve<IService<WallModel>>();
+            GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             WindowStateEvent();
         }
@@ -394,6 +395,19 @@ namespace CandySugar.WallPaper.ViewModels
                     });
                 }
             }
+        }
+        #endregion
+
+        #region ExternalCalls
+        /// <summary>
+        /// 检索数据
+        /// </summary>
+        /// <param name="keyword"></param>
+        private void SearchHandler(string keyword)
+        {
+            this.Keyword = keyword;
+            SearchPage = 1;
+            OnSearch();
         }
         #endregion
     }
