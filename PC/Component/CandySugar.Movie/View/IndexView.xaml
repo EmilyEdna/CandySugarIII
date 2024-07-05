@@ -24,10 +24,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid Margin="20">
-                <eda:CandyToggle
-                    Command="{Binding ChangedCommand}"
-                    FirstSelect="True"
-                    ModelSource="{Binding Title}" />
+                <eda:CandyToggle Command="{Binding ChangedCommand}" ModelSource="{Binding Title}" />
             </Grid>
             <Grid x:Name="ContentGird" Grid.Row="1">
                 <eda:CandyBorder
@@ -92,13 +89,13 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <eda:CandyImage
-                                            Width="200"
-                                            Height="240"
+                                            Width="210"
+                                            Height="250"
                                             Margin="8"
                                             BorderBrush="SkyBlue"
                                             BorderThickness="0"
                                             Entity="{Binding .}"
-                                            ImageThickness="200,240"
+                                            ImageThickness="210,250"
                                             MaskFill="#80e6cfe6"
                                             Source="{Binding Cover}">
                                             <eda:CandyImage.MaskTemplate>
@@ -204,13 +201,13 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <eda:CandyImage
-                                            Width="200"
-                                            Height="240"
+                                            Width="210"
+                                            Height="250"
                                             Margin="8"
                                             BorderBrush="SkyBlue"
                                             BorderThickness="0"
                                             Entity="{Binding .}"
-                                            ImageThickness="200,240"
+                                            ImageThickness="210,250"
                                             MaskFill="#80e6cfe6"
                                             Source="{Binding Cover}">
                                             <eda:CandyImage.MaskTemplate>
@@ -256,8 +253,9 @@
             </Grid>
         </Grid>
         <Grid
-            Width="200"
+            Width="{Binding NavWidth}"
             Height="{Binding NavHeight}"
+            MinWidth="250"
             MinHeight="500"
             Margin="0,20,20,0"
             HorizontalAlignment="Right"

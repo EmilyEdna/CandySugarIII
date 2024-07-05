@@ -36,6 +36,7 @@
             else
                 MarginThickness = new Thickness(0, 0, 60, 15);
             NavHeight = GlobalParam.NavHeight;
+            NavWidth= GlobalParam.NavWidth;
         }
         #endregion
 

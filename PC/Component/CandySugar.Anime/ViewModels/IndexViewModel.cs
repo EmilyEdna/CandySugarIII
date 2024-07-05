@@ -33,6 +33,7 @@
         {
             BorderHeight = GlobalParam.MAXHeight;
             NavHeight = GlobalParam.NavHeight;
+            NavWidth= GlobalParam.NavWidth;
         }
         #endregion
 

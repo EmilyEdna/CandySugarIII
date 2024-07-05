@@ -74,8 +74,9 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Grid
-            Width="200"
+            Width="{Binding NavWidth}"
             Height="{Binding NavHeight}"
+            MinWidth="250"
             MinHeight="500"
             Margin="0,20,20,0"
             HorizontalAlignment="Right"
