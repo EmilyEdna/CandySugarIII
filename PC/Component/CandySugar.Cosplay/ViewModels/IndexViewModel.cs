@@ -161,6 +161,7 @@
                 PlatformType = PlatformEnum.Land;
                 Title = ["常规", "收藏"];
             }
+            if (Builder.Count <= 0) return;
              if (value == 3)
                 DownSelectPicture();
              if (value == 4)

@@ -190,17 +190,16 @@
         [RelayCommand]
         public void Collect(SearchElementResult element)
         {
-            var Model = element.ToMapest<RifanModel>();
-            Model.PId = Service.Insert(Model);
-            CollectResult.Add(Model);
+            Service.Insert(element.ToMapest<RifanModel>());
+            CollectResult = new(Service.QueryAll());
         }
         [RelayCommand]
         public void Watch(SearchElementResult element) => OnWatchInit(element);
         [RelayCommand]
         public void Remove(Guid id)
         {
-            CollectResult.Remove(CollectResult.First(t => t.PId == id));
             Service.Remove(id);
+            CollectResult = new(Service.QueryAll());
         }
         #endregion
 

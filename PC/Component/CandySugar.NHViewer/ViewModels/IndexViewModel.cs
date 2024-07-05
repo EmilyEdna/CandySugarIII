@@ -106,14 +106,14 @@
         [RelayCommand]
         public void Collect(NHentaiModel input)
         {
-            input.PId = Service.Insert(input);
-            CollectResult.Add(input);
+            Service.Insert(input);
+            CollectResult = new(Service.QueryAll());
         }
         [RelayCommand]
         public void Remove(Guid id)
         {
-            CollectResult.Remove(CollectResult.First(t => t.PId == id));
             Service.Remove(id);
+            CollectResult = new(Service.QueryAll());
         }
         [RelayCommand]
         public void Close()

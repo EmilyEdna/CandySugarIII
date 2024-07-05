@@ -220,7 +220,7 @@
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             JronType = JronEnum.Detail,
-                            PlatformType = PlatformType,
+                            PlatformType = input.Route.Contains("javbangers") ? PlatformEnum.Jav : PlatformEnum.Skb,
                             Play = new JronPlay
                             {
                                 Route = input.Route
@@ -310,16 +310,16 @@
         {
             var Model = element.ToMapest<AxgleModel>();
             Model.Platfrom = PlatformType.AsString();
-            Model.PId = Service.Insert(Model);
-            CollectResult.Add(Model);
+            Service.Insert(Model);
+            CollectResult = new(Service.QueryAll());
         }
         [RelayCommand]
         public void Watch(JronElemetInitResult element) => OnDetail(element);
         [RelayCommand]
         public void Remove(Guid id)
         {
-            CollectResult.Remove(CollectResult.First(t => t.PId == id));
             Service.Remove(id);
+            CollectResult = new(Service.QueryAll());
         }
         [RelayCommand]
         public void Play(AxgleModel element) => OnDetail(element.ToMapest<JronElemetInitResult>());
