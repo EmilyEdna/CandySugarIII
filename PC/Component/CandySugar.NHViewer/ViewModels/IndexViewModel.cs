@@ -31,7 +31,7 @@
                 Counts += item;
             if (Math.Ceiling(Counts) >= 100)
             {
-                Application.Current.Dispatcher.Invoke(() => new ScreenDownNofityView(CommonHelper.DownloadFinishInformation, Catalog).Show());
+                Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation,true, Catalog).Show());
                 IsDown = false;
             }
         }
