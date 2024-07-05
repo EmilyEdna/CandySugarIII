@@ -10,6 +10,6 @@ if "%1"=="Debug" (
 	echo Begin Build %%b
 	dotnet build ../../Component/CandySugar.%%b/CandySugar.%%b.csproj --no-dependencies  -c %1
   ))
-  dotnet build ../CandySugar.ModifyUI/CandySugar.ModifyUI.csproj --no-dependencies  -c %1
+  rem dotnet build ../CandySugar.ModifyUI/CandySugar.ModifyUI.csproj --no-dependencies  -c %1
   echo Build Complete
 )

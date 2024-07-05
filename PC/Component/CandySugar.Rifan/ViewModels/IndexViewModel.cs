@@ -2,9 +2,9 @@
 {
     public partial class IndexViewModel : BasicObservableObject
     {
-
         public IndexViewModel()
         {
+            CollectResult = [];
             NavVisible = Visibility.Collapsed;
             Title = ["All", "Rifan", "3D", "Motion", "Cosplay", "Collect"];
             Service = IocDependency.Resolve<IService<RifanModel>>();

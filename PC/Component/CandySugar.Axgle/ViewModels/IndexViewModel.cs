@@ -4,6 +4,7 @@
     {
         public IndexViewModel()
         {
+            CollectResult = [];
             PlatformType = PlatformEnum.Jav;
             Title = ["最新", "热门", "好评", "收藏"];
             MenuData = new() { { "Jav", "1" }, { "Skb", "2" } };
@@ -11,7 +12,7 @@
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             WindowStateEvent();
-           
+
         }
 
         #region 事件
@@ -227,7 +228,7 @@
                         };
                     }).RunsAsync()).PlayResult.Play;
 
-                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result,true).Show());
+                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result, true).Show());
                 }
                 catch (Exception ex)
                 {
@@ -242,7 +243,7 @@
         [RelayCommand]
         public void Active(object input)
         {
-           var param = input.ToMapest<AnonymousWater>();
+            var param = input.ToMapest<AnonymousWater>();
             if (param.SelectName == "Jav")
                 PlatformType = PlatformEnum.Jav;
             else
@@ -284,7 +285,7 @@
             }
         }
         [RelayCommand]
-        public void Scroll(ScrollChangedEventArgs obj) 
+        public void Scroll(ScrollChangedEventArgs obj)
         {
             if (this.Keyword.IsNullOrEmpty())
             {

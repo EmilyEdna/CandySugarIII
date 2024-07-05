@@ -5,6 +5,7 @@
         public IndexViewModel()
         {
             Title = ["全部", "喜爱"];
+            CollectResult = [];
             NavVisible = Visibility.Collapsed;
             Service = IocDependency.Resolve<IService<NHentaiModel>>();
             Catalog = SyncStatic.CreateDir(Path.Combine(CommonHelper.DownloadPath, "NHentai"));

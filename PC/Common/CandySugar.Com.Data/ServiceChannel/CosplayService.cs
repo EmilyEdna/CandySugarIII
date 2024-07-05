@@ -1,5 +1,4 @@
-﻿using CandySugar.Com.Data.Entity.ComicEntity;
-using CandySugar.Com.Data.Entity.CosplayEntity;
+﻿using CandySugar.Com.Data.Entity.CosplayEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
