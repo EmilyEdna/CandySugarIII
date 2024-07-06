@@ -12,7 +12,7 @@ namespace CandySugar.Music.ViewModels
             BasicResult = [];
             Title = ["单曲", "歌单", "收藏"];
             NavVisible = Visibility.Hidden;
-            Platform = PlatformEnum.NeteaseMusic;
+            PlatformType = PlatformEnum.NeteaseMusic;
             MenuData = new Dictionary<string, string> {
                 { "QQ音乐","1"},{ "网易音乐","2"},
                 { "酷狗音乐","3"},{ "酷我音乐","4"},
@@ -59,7 +59,7 @@ namespace CandySugar.Music.ViewModels
         /// <summary>
         /// 平台
         /// </summary>
-        private PlatformEnum Platform;
+        private PlatformEnum PlatformType;
         /// <summary>
         /// 单曲页码
         /// </summary>
@@ -253,7 +253,7 @@ namespace CandySugar.Music.ViewModels
         [RelayCommand]
         public void LoadMore(ScrollChangedEventArgs obj)
         {
-            if (PlatformEnum.DjRadioMusic == Platform)
+            if (PlatformEnum.DjRadioMusic == PlatformType)
             {
                 if (DjRadioPageIndex <= DjRadioTotal && obj.VerticalOffset + obj.ViewportHeight == obj.ExtentHeight && obj.VerticalChange > 0)
                 {
@@ -267,7 +267,7 @@ namespace CandySugar.Music.ViewModels
         {
             var Data = input.ToMapest<AnonymousWater>().SelectValue.AsString().AsInt();
             if (Data == 0) return;
-            Platform = (PlatformEnum)Data;
+            PlatformType = (PlatformEnum)Data;
             if (SearchKeyword.IsNullOrEmpty())
             {
                 new CandyNotifyControl(CommonHelper.SearckWordErrorInfomartion).Show();
@@ -385,7 +385,7 @@ namespace CandySugar.Music.ViewModels
                     {
                         opt.RequestParam = new Input
                         {
-                            PlatformType = Platform,
+                            PlatformType = PlatformType,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             MusicType = MusicEnum.SheetDetail,
                             SheetDetail = new MusicSheetDetail
@@ -395,7 +395,7 @@ namespace CandySugar.Music.ViewModels
                         };
                     }).RunsAsync()).SheetDetailResult;
                     BasicResult = new ObservableCollection<MusicSongElementResult>(result.ElementResults);
-                    if (Platform == PlatformEnum.DjRadioMusic) DjRadioTotal = result.MusicNum;
+                    if (PlatformType == PlatformEnum.DjRadioMusic) DjRadioTotal = result.MusicNum;
                     NavVisible = Visibility.Visible;
                 }
                 catch (Exception ex)
@@ -418,7 +418,7 @@ namespace CandySugar.Music.ViewModels
                     {
                         opt.RequestParam = new Input
                         {
-                            PlatformType = Platform,
+                            PlatformType = PlatformType,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             MusicType = MusicEnum.SheetDetail,
                             SheetDetail = new MusicSheetDetail
@@ -451,7 +451,7 @@ namespace CandySugar.Music.ViewModels
                     {
                         opt.RequestParam = new Input
                         {
-                            PlatformType = Platform,
+                            PlatformType = PlatformType,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             MusicType = MusicEnum.AlbumDetail,
                             AlbumDetail = new MusicAlbumDetail
@@ -483,7 +483,7 @@ namespace CandySugar.Music.ViewModels
                     {
                         opt.RequestParam = new Input
                         {
-                            PlatformType = Platform,
+                            PlatformType = PlatformType,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             MusicType = MusicEnum.Song,
                             Search = new MusicSearch
@@ -516,7 +516,7 @@ namespace CandySugar.Music.ViewModels
                     {
                         opt.RequestParam = new Input
                         {
-                            PlatformType = Platform,
+                            PlatformType = PlatformType,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             MusicType = MusicEnum.Song,
                             Search = new MusicSearch
@@ -548,7 +548,7 @@ namespace CandySugar.Music.ViewModels
                     {
                         opt.RequestParam = new Input
                         {
-                            PlatformType = Platform,
+                            PlatformType = PlatformType,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             MusicType = MusicEnum.Sheet,
                             Search = new MusicSearch
@@ -581,7 +581,7 @@ namespace CandySugar.Music.ViewModels
                     {
                         opt.RequestParam = new Input
                         {
-                            PlatformType = Platform,
+                            PlatformType = PlatformType,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             MusicType = MusicEnum.Sheet,
                             Search = new MusicSearch
@@ -614,10 +614,10 @@ namespace CandySugar.Music.ViewModels
                     {
                         opt.RequestParam = new Input
                         {
-                            PlatformType = Platform,
+                            PlatformType = PlatformType,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             MusicType = MusicEnum.Route,
-                            Play = Platform == PlatformEnum.KuGouMusic ? new MusicPlaySearch
+                            Play = PlatformType == PlatformEnum.KuGouMusic ? new MusicPlaySearch
                             {
                                 Dynamic = input.SongId,
                                 KuGouAlbumId = input.SongAlbumId,
