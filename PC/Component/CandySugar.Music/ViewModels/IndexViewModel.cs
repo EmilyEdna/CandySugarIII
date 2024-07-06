@@ -1,12 +1,4 @@
 ﻿
-using System.Runtime.InteropServices;
-using System.Windows.Input;
-using CandyControls;
-using CandyControls.ControlsModel.Setting;
-using CandySugar.Com.Controls.ExtenControls;
-using CandySugar.Com.Data;
-using CandySugar.Com.Data.Entity.MusicEntity;
-using XExten.Advance.NetFramework.Enums;
 
 namespace CandySugar.Music.ViewModels
 {
@@ -185,6 +177,8 @@ namespace CandySugar.Music.ViewModels
         private AudioModel _AudioInfo;
         [ObservableProperty]
         private AudioLive _Live;
+        [ObservableProperty]
+        private string _CurrentLyric;
         #endregion
 
         #region 命令
@@ -266,9 +260,40 @@ namespace CandySugar.Music.ViewModels
                 }
             }
         }
+        [RelayCommand]
+        public void Active(object input) 
+        {
+            var Data = input.ToMapest<AnonymousWater>().SelectValue.AsString().AsInt();
+            if (Data == 0) return;
+            Platform = (PlatformEnum)Data;
+            if (SearchKeyword.IsNullOrEmpty())
+            {
+                new CandyNotifyControl(CommonHelper.SearckWordErrorInfomartion).Show();
+                return;
+            }
+            SearchPageIndex = SheetPageIndex = 1;
+            if (HandleType == 1)
+                OnInitSingle();
+            if (HandleType == 2)
+                OnInitSheet();
+        }
         #endregion
 
         #region 播放命令
+        [RelayCommand]
+        public void PlayChangeModule(object item)
+        {
+            var Target = ((CandyToggleItem)item);
+            var Index = Target.Tag.ToString().AsInt() + 1;
+            if (this.PlayMoudle != Index)
+                this.PlayMoudle = Index;
+            if (AudioFactory.WaveOutReadOnly != null) //此时正在播放
+            {
+                if (this.PlayMoudle == 1) ListRuch();
+                if (this.PlayMoudle == 2) Single();
+            }
+        }
+
         [RelayCommand]
         public void SkipPrevious()
         {
@@ -320,7 +345,6 @@ namespace CandySugar.Music.ViewModels
         private void ErrorNotify(string input = "") =>
                     Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
 
-
         private void AudioPlays()
         {
             if (AudioFactory.WaveOutReadOnly != null && AudioFactory.WaveOutReadOnly.PlaybackState == PlaybackState.Paused)
@@ -333,12 +357,12 @@ namespace CandySugar.Music.ViewModels
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        /*Live = Info;
+                        Live = Info;
                         if (LyricResult != null && LyricResult.Count > 0)
                         {
                             var lyric = LyricResult.FirstOrDefault(item => item.Time.Split(".").FirstOrDefault().Equals(Info.LiveSpan));
                             CurrentLyric = lyric == null ? CurrentLyric : lyric.Lyric;
-                        }*/
+                        }
                     });
                 });
         }
@@ -370,6 +394,7 @@ namespace CandySugar.Music.ViewModels
                     }).RunsAsync()).SheetDetailResult;
                     BasicResult = new ObservableCollection<MusicSongElementResult>(result.ElementResults);
                     if (Platform == PlatformEnum.DjRadioMusic) DjRadioTotal = result.MusicNum;
+                    NavVisible = Visibility.Visible;
                 }
                 catch (Exception ex)
                 {
@@ -434,6 +459,7 @@ namespace CandySugar.Music.ViewModels
                         };
                     }).RunsAsync()).AlbumResult;
                     BasicResult = new ObservableCollection<MusicSongElementResult>(result.ElementResults);
+                    NavVisible = Visibility.Visible;
                 }
                 catch (Exception ex)
                 {

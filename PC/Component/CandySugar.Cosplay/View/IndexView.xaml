@@ -11,7 +11,7 @@
     xmlns:vm="clr-namespace:CandySugar.Cosplay.ViewModels"
     x:Name="Index"
     d:DataContext="{d:DesignInstance vm:IndexViewModel}"
-    d:DesignHeight="550"
+    d:DesignHeight="700"
     d:DesignWidth="1200"
     mc:Ignorable="d">
     <UserControl.Resources>

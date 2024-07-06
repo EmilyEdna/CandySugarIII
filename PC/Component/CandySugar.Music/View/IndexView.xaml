@@ -11,8 +11,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:skia="https://github.com/kekyo/SkiaImageView"
     xmlns:vm="clr-namespace:CandySugar.Music.ViewModels"
+    x:Name="Index"
     d:DataContext="{d:DesignInstance vm:IndexViewModel}"
-    d:DesignHeight="550"
+    d:DesignHeight="700"
     d:DesignWidth="1200"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -74,7 +75,14 @@
                                                     <TextBlock
                                                         Style="{DynamicResource TextBlockStyle}"
                                                         Text="{Binding SongName}"
-                                                        TextTrimming="CharacterEllipsis" />
+                                                        TextTrimming="CharacterEllipsis">
+                                                        <TextBlock.ToolTip>
+                                                            <ToolTip
+                                                                Width="Auto"
+                                                                Content="{Binding SongName}"
+                                                                Style="{DynamicResource ToolTipStyle}" />
+                                                        </TextBlock.ToolTip>
+                                                    </TextBlock>
                                                     <TextBlock
                                                         Margin="0"
                                                         Style="{DynamicResource TextBlockChildStyle}"
@@ -248,6 +256,13 @@
                     </Grid>
                 </Grid>
                 <Grid x:Name="DashBord" Grid.Column="1">
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="30"
+                            Foreground="#E63995"
+                            Style="{DynamicResource TextBlockStyle}"
+                            Text="{Binding CurrentLyric}" />
+                    </Grid>
                     <Grid
                         Width="{Binding NavWidth}"
                         Height="{Binding NavHeight}"
@@ -379,9 +394,62 @@
                             SettingSource="{Binding Setting}" />
                         <Button
                             x:Name="音量控制"
+                            Click="VolumeEvent"
                             Content="{x:Static lib:FontIcon.Volume}"
                             Style="{DynamicResource VolStyle}" />
                     </StackPanel>
+                    <Canvas>
+                        <SelectiveScrollingGrid
+                            x:Name="VolSetting"
+                            Canvas.Left="345"
+                            Canvas.Top="-140"
+                            Width="75"
+                            Height="220"
+                            RenderTransformOrigin="0.5,0.5"
+                            Visibility="Collapsed">
+                            <SelectiveScrollingGrid.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform />
+                                    <TranslateTransform />
+                                </TransformGroup>
+                            </SelectiveScrollingGrid.RenderTransform>
+                            <Rectangle
+                                Width="75"
+                                Height="215"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Fill="#30FFFFFF"
+                                RadiusX="14.5"
+                                RadiusY="14.5"
+                                Stroke="Pink" />
+                            <Label
+                                x:Name="VolumeShow"
+                                Width="75"
+                                Height="30"
+                                Margin="0,185,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Content="100%"
+                                FontSize="18" />
+                            <Slider
+                                Margin="27,20,21,35"
+                                BorderBrush="Transparent"
+                                Focusable="False"
+                                Foreground="#FF63b3"
+                                Maximum="100"
+                                Minimum="1"
+                                Orientation="Vertical"
+                                SmallChange="1"
+                                TickFrequency="5"
+                                TickPlacement="BottomRight"
+                                ValueChanged="VolChangeEvent"
+                                Value="100" />
+                        </SelectiveScrollingGrid>
+                    </Canvas>
                 </Grid>
                 <!--  控制栏  -->
                 <StackPanel
