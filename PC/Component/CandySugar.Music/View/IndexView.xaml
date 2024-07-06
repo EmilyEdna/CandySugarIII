@@ -39,12 +39,11 @@
                         Command="{Binding ChangedCommand}"
                         FirstSelect="True"
                         ModelSource="{Binding Title}" />
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" Margin="0,20">
                         <eda:CandyBorder
                             x:Name="X1"
-                            Width="450"
+                            Width="{Binding BorderWidth}"
                             Height="{Binding BorderHeight}"
-                            Margin="0,0,0,20"
                             BorderType="Info">
                             <eda:CandyBorder.RenderTransform>
                                 <TransformGroup>
@@ -66,50 +65,56 @@
                                     Style="{DynamicResource CandyListBoxStyle}">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <StackPanel Width="470" Margin="2,0,0,10">
-                                                <UniformGrid Columns="2">
+                                            <Grid Width="{Binding Width, ElementName=X1}" Margin="2,0,0,10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel>
                                                     <TextBlock
                                                         Style="{DynamicResource TextBlockStyle}"
                                                         Text="{Binding SongName}"
                                                         TextTrimming="CharacterEllipsis" />
-                                                    <StackPanel
-                                                        Margin="0,0,3,0"
-                                                        HorizontalAlignment="Right"
-                                                        Orientation="Horizontal">
-                                                        <Button
-                                                            Command="{Binding DataContext.AlbumCommand, ElementName=Index}"
-                                                            CommandParameter="{Binding SongAlbumId}"
-                                                            Content="{x:Static lib:FontIcon.RecordVinyl}"
-                                                            Cursor="Hand"
-                                                            FontSize="17"
-                                                            Foreground="#ffe4c4"
-                                                            Style="{DynamicResource CandyFontButtonStyle}">
-                                                            <Button.ToolTip>
-                                                                <ToolTip
-                                                                    Content="专辑"
-                                                                    HorizontalOffset="-15"
-                                                                    Style="{DynamicResource ToolTipStyle}" />
-                                                            </Button.ToolTip>
-                                                        </Button>
-                                                        <Button
-                                                            Command="{Binding DataContext.DownCommand, ElementName=Index}"
-                                                            CommandParameter="{Binding .}"
-                                                            Content="{x:Static lib:FontIcon.CloudArrowDown}"
-                                                            Cursor="Hand"
-                                                            FontSize="17"
-                                                            Foreground="#ffe4c4"
-                                                            Style="{DynamicResource CandyFontButtonStyle}" />
-                                                    </StackPanel>
-                                                </UniformGrid>
-                                                <TextBlock
-                                                    Margin="0"
-                                                    Style="{DynamicResource TextBlockChildStyle}"
-                                                    TextTrimming="CharacterEllipsis">
-                                                    <Run Text="{Binding SongArtistName, Converter={StaticResource ListToCharConverter}}" />
-                                                    <Run Text=" - " />
-                                                    <Run Text="{Binding SongAlbumName}" />
-                                                </TextBlock>
-                                            </StackPanel>
+                                                    <TextBlock
+                                                        Margin="0"
+                                                        Style="{DynamicResource TextBlockChildStyle}"
+                                                        TextTrimming="CharacterEllipsis">
+                                                        <Run Text="{Binding SongArtistName, Converter={StaticResource ListToCharConverter}}" />
+                                                        <Run Text=" - " />
+                                                        <Run Text="{Binding SongAlbumName}" />
+                                                    </TextBlock>
+                                                </StackPanel>
+                                                <StackPanel
+                                                    Grid.Column="1"
+                                                    Width="80"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    Orientation="Horizontal">
+                                                    <Button
+                                                        Command="{Binding DataContext.AlbumCommand, ElementName=Index}"
+                                                        CommandParameter="{Binding SongAlbumId}"
+                                                        Content="{x:Static lib:FontIcon.RecordVinyl}"
+                                                        Cursor="Hand"
+                                                        FontSize="17"
+                                                        Foreground="#ffe4c4"
+                                                        Style="{DynamicResource IconButton}">
+                                                        <Button.ToolTip>
+                                                            <ToolTip
+                                                                Content="专辑"
+                                                                HorizontalOffset="-15"
+                                                                Style="{DynamicResource ToolTipStyle}" />
+                                                        </Button.ToolTip>
+                                                    </Button>
+                                                    <Button
+                                                        Command="{Binding DataContext.DownCommand, ElementName=Index}"
+                                                        CommandParameter="{Binding .}"
+                                                        Content="{x:Static lib:FontIcon.CloudArrowDown}"
+                                                        Cursor="Hand"
+                                                        FontSize="17"
+                                                        Foreground="#ffe4c4"
+                                                        Style="{DynamicResource IconButton}" />
+                                                </StackPanel>
+                                            </Grid>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
@@ -117,9 +122,8 @@
                         </eda:CandyBorder>
                         <eda:CandyBorder
                             x:Name="X2"
-                            Width="450"
+                            Width="{Binding BorderWidth}"
                             Height="{Binding BorderHeight}"
-                            Margin="0,0,0,20"
                             BorderType="Info"
                             Visibility="Hidden">
                             <eda:CandyBorder.RenderTransform>
@@ -143,7 +147,7 @@
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <Grid
-                                                Width="470"
+                                                Width="{Binding Width, ElementName=X2}"
                                                 Margin="0,0,0,5"
                                                 HorizontalAlignment="Left"
                                                 Cursor="Hand">
@@ -189,9 +193,8 @@
                         </eda:CandyBorder>
                         <eda:CandyBorder
                             x:Name="X3"
-                            Width="450"
+                            Width="{Binding BorderWidth}"
                             Height="{Binding BorderHeight}"
-                            Margin="0,0,0,20"
                             BorderType="Info"
                             Visibility="Hidden">
                             <eda:CandyBorder.RenderTransform>
@@ -211,7 +214,7 @@
                                 <ListBox ItemsSource="{Binding CollectResult, IsAsync=True}" Style="{DynamicResource CandyListBoxStyle}">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <StackPanel Width="470" Margin="2,0,0,10">
+                                            <StackPanel Width="{Binding Width, ElementName=X3}" Margin="2,0,0,10">
                                                 <UniformGrid Columns="2">
                                                     <TextBlock
                                                         Style="{DynamicResource TextBlockStyle}"
@@ -226,7 +229,7 @@
                                                         Cursor="Hand"
                                                         FontSize="17"
                                                         Foreground="#ffe4c4"
-                                                        Style="{DynamicResource CandyFontButtonStyle}" />
+                                                        Style="{DynamicResource IconButton}" />
                                                 </UniformGrid>
                                                 <TextBlock
                                                     Margin="0"
@@ -244,10 +247,210 @@
                         </eda:CandyBorder>
                     </Grid>
                 </Grid>
-                <Grid x:Name="DashBord" Grid.Column="1" />
+                <Grid x:Name="DashBord" Grid.Column="1">
+                    <Grid
+                        Width="{Binding NavWidth}"
+                        Height="{Binding NavHeight}"
+                        MinWidth="250"
+                        MinHeight="500"
+                        Margin="0,20,20,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Visibility="{Binding NavVisible}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Rectangle Grid.RowSpan="2" Fill="#20DADADA" />
+                        <Button
+                            Width="30"
+                            Height="30"
+                            Margin="0,5,5,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Command="{Binding CloseCommand}"
+                            Style="{DynamicResource CaptionButtonStyle}">
+                            <Button.ContentTemplate>
+                                <DataTemplate>
+                                    <Grid Width="12" Height="12">
+                                        <Path
+                                            Data="M 12,12 L16.4,16.4"
+                                            Stretch="Fill"
+                                            Stroke="White"
+                                            StrokeThickness="1" />
+                                        <Path
+                                            Data="M 12,16.4 L 16.4,12 "
+                                            Stretch="Fill"
+                                            Stroke="White"
+                                            StrokeThickness="1" />
+                                    </Grid>
+                                </DataTemplate>
+                            </Button.ContentTemplate>
+                        </Button>
+                        <ListBox
+                            x:Name="PART_CHAPTER"
+                            Grid.Row="1"
+                            eda:ListBoxAttach.ScrollCommand="{Binding DJScrollCommand}"
+                            ItemsSource="{Binding BasicResult}"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            Style="{DynamicResource CandyListBoxStyle}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="2,3">
+                                        <Button
+                                            Command="{Binding DataContext.DownCommand, ElementName=Index}"
+                                            CommandParameter="{Binding .}"
+                                            Content="{Binding SongName}"
+                                            Style="{DynamicResource TextButton}"
+                                            ToolTip="{Binding SongName}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Grid>
             </Grid>
-            <Grid x:Name="PlayBar" />
+            <Grid
+                x:Name="PlayBar"
+                Grid.Row="1"
+                Margin="{Binding InfoBarThickness}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Rectangle
+                    Grid.ColumnSpan="3"
+                    Height="125"
+                    StrokeThickness="0">
+                    <Rectangle.Fill>
+                        <SolidColorBrush Opacity="0.4" Color="#FFF" />
+                    </Rectangle.Fill>
+                    <Rectangle.Effect>
+                        <DropShadowEffect
+                            BlurRadius="15"
+                            Direction="300"
+                            Opacity="0.3" />
+                    </Rectangle.Effect>
+                </Rectangle>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <!--  信息栏  -->
+                    <StackPanel
+                        Width="400"
+                        Margin="20,10,0,0"
+                        HorizontalAlignment="Left">
+                        <TextBlock
+                            FontSize="18"
+                            Style="{DynamicResource TextBlockStyle}"
+                            TextTrimming="CharacterEllipsis">
+                            <Run Text="{Binding CurrentPlay.SongName, StringFormat={}{0} -}" />
+                            <Run Text="{Binding CurrentPlay.SongArtistName, Converter={StaticResource ListToCharConverter}}" />
+                        </TextBlock>
+                        <TextBlock
+                            x:Name="TimeLong"
+                            HorizontalAlignment="Right"
+                            FontFamily="14"
+                            Style="{DynamicResource TextBlockStyle}">
+                            <Run Text="{Binding Live.LiveSpan}" />
+                            <Run Text="{Binding AudioInfo.TimeSpan, StringFormat=/{0}}" />
+                        </TextBlock>
+                        <Slider
+                            x:Name="PlaySlider"
+                            Width="400"
+                            IsEnabled="False"
+                            Maximum="{Binding AudioInfo.Seconds}"
+                            Style="{DynamicResource PlaySliderStyle}"
+                            Value="{Binding Live.LiveSeconds}" />
+                    </StackPanel>
+                    <!--  模式  -->
+                    <StackPanel
+                        Grid.Row="1"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Orientation="Horizontal">
+                        <eda:CandyToggle
+                            Command="{Binding PlayChangeModuleCommand}"
+                            FirstSelect="True"
+                            FontFamily="{DynamicResource Thin}"
+                            SettingSource="{Binding Setting}" />
+                        <Button
+                            x:Name="音量控制"
+                            Content="{x:Static lib:FontIcon.Volume}"
+                            Style="{DynamicResource VolStyle}" />
+                    </StackPanel>
+                </Grid>
+                <!--  控制栏  -->
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        x:Name="SkipPrevious"
+                        Width="50"
+                        Height="50"
+                        Command="{Binding SkipPreviousCommand}"
+                        Content="{x:Static lib:FontIcon.CircleChevronLeft}"
+                        FontSize="50"
+                        Style="{DynamicResource IconButton}" />
+                    <Button
+                        x:Name="Play"
+                        Width="70"
+                        Height="70"
+                        Command="{Binding PlayCommand}"
+                        Content="{x:Static lib:FontIcon.CirclePlay}"
+                        FontSize="70"
+                        Style="{DynamicResource IconButton}"
+                        Visibility="{c:Binding (!Handle),
+                                               FalseToVisibility=Collapsed}" />
+                    <Button
+                        x:Name="Pause"
+                        Width="70"
+                        Height="70"
+                        Command="{Binding PauseCommand}"
+                        Content="{x:Static lib:FontIcon.CirclePause}"
+                        FontSize="70"
+                        Style="{DynamicResource IconButton}"
+                        Visibility="{c:Binding Handle,
+                                               FalseToVisibility=Collapsed}" />
+                    <Button
+                        x:Name="SkipNext"
+                        Width="50"
+                        Height="50"
+                        Command="{Binding SkipNextCommand}"
+                        Content="{x:Static lib:FontIcon.CircleChevronRight}"
+                        FontSize="50"
+                        Style="{DynamicResource IconButton}" />
+                </StackPanel>
+                <!--  音阶  -->
+                <Grid
+                    Grid.Column="2"
+                    Height="120"
+                    Margin="0,0,80,0"
+                    HorizontalAlignment="Right">
+                    <ListBox ItemsSource="{Binding Live.LiveData, IsAsync=True}" Style="{DynamicResource CandyListBoxStyle}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Height="118" Columns="32" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <ProgressBar Style="{DynamicResource Channel}" Value="{Binding .}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Grid>
         </Grid>
-        <!--<eda:CandyWaterButton />-->
+        <eda:CandyWaterButton
+            Margin="{Binding MarginThickness}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Command="{Binding ActiveCommand}"
+            ItemSource="{Binding MenuData, IsAsync=True}" />
     </Grid>
 </UserControl>

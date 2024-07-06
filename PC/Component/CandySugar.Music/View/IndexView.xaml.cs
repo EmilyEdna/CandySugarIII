@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -20,9 +21,26 @@ namespace CandySugar.Music.View
     /// </summary>
     public partial class IndexView : UserControl
     {
+        public int ActiveAnime = 1;
+        private IndexViewModel ViewModel;
+        public Storyboard AnimeX1;
+        public Storyboard AnimeX2;
+        public Storyboard AnimeX3;
         public IndexView()
         {
             InitializeComponent();
+            AnimeX1 = (Storyboard)FindResource("X1Key");
+            AnimeX2 = (Storyboard)FindResource("X2Key");
+            AnimeX3 = (Storyboard)FindResource("X3Key");
+            AnimeX1.Completed += CompletedEvent;
+            AnimeX2.Completed += CompletedEvent;
+            AnimeX3.Completed += CompletedEvent;
+            Loaded += delegate { ViewModel = (IndexViewModel)this.DataContext; };
+        }
+
+        private void CompletedEvent(object sender, EventArgs e)
+        {
+            ViewModel.ChangeActive(ActiveAnime);
         }
     }
 }
