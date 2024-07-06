@@ -24,6 +24,7 @@ namespace CandySugar.Music.ViewModels
             Service = IocDependency.Resolve<IService<MusicModel>>();
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
+            CollectResult = new(Service.QueryAll());
             WindowStateEvent();
         }
 

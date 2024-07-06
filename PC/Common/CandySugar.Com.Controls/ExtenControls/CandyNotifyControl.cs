@@ -18,7 +18,7 @@ namespace CandySugar.Com.Controls.ExtenControls
         private string _Catalog;
         public CandyNotifyControl(string msg, bool IsConfirm = false, string Catalog = "")
         {
-            CreateStyle();
+            CreateStyle(IsConfirm);
             if (IsConfirm)
                 CreateConfirmUI();
             else
@@ -29,7 +29,7 @@ namespace CandySugar.Com.Controls.ExtenControls
         }
 
         #region UI
-        private void CreateStyle()
+        private void CreateStyle(bool IsConfirm)
         {
             this.ResizeMode = ResizeMode.NoResize;
             this.WindowStyle = WindowStyle.None;
@@ -38,7 +38,7 @@ namespace CandySugar.Com.Controls.ExtenControls
             this.AllowsTransparency = true;
             this.SnapsToDevicePixels = true;
             this.Width = 300;
-            this.Height = 80;
+            this.Height = IsConfirm ? 100 : 80;
 
             // 创建一个新的 ControlTemplate
             ControlTemplate customTemplate = new ControlTemplate(GetType());
@@ -126,7 +126,7 @@ namespace CandySugar.Com.Controls.ExtenControls
             };
             GridContent.RowDefinitions.Add(new RowDefinition());
             GridContent.RowDefinitions.Add(new RowDefinition());
-            GridContent.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.1) });
+            GridContent.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.1, GridUnitType.Star) });
 
             Button Close = new Button
             {
