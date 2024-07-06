@@ -1,8 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows;
 using CandyControls;
+using CandySugar.Com.Controls.ExtenControls;
 using CandySugar.Com.Options;
 using CandySugar.Com.Options.ComponentGeneric;
 using CandySugar.Com.Style;
@@ -32,13 +34,27 @@ namespace CandySugar.MainUI.Views
                     InitUI();
                 GenericDelegate.WindowAction();
             };
+            this.Closing += CloseConfirmEvent;
         }
+
+        private void CloseConfirmEvent(object sender, CancelEventArgs e)
+        {
+            var Result = !(new CandyNotifyControl().ShowDialog().Value);
+            if(Result) this.Visibility = Visibility.Collapsed;
+            e.Cancel = Result;
+        }
+
         private void InitUI() 
         {
             GlobalParam.MAXWidth = 1160;
             GlobalParam.MAXHeight = 550;
             GlobalParam.NavHeight = 500;
             GlobalParam.NavWidth = 250;
+        }
+
+        private void IconClickEvent(object sender, RoutedEventArgs e)
+        {
+            this.Visibility = Visibility.Visible;
         }
     }
 }

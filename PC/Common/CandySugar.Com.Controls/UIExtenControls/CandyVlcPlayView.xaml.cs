@@ -10,7 +10,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LibVLCSharp.Shared;
 using Microsoft.Win32;
-using Org.BouncyCastle.Utilities.Collections;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;

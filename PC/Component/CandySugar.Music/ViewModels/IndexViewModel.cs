@@ -30,6 +30,7 @@ namespace CandySugar.Music.ViewModels
         }
 
         #region 字段
+        private readonly object Locker = new object();
         private IService<MusicModel> Service;
 
         /// <summary>
@@ -354,8 +355,11 @@ namespace CandySugar.Music.ViewModels
                         Live = Info;
                         if (LyricResult != null && LyricResult.Count > 0)
                         {
-                            var lyric = LyricResult.FirstOrDefault(item => item.Time.Split(".").FirstOrDefault().Equals(Info.LiveSpan));
-                            CurrentLyric = lyric == null ? CurrentLyric : lyric.Lyric;
+                            lock (Locker)
+                            {
+                                var lyric = LyricResult.FirstOrDefault(item => item.Time.Split(".").FirstOrDefault().Equals(Info.LiveSpan));
+                                CurrentLyric = lyric == null ? CurrentLyric : lyric.Lyric;
+                            }
                         }
                     });
                 });

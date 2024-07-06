@@ -155,6 +155,8 @@ namespace CandySugar.MainUI.ViewModels
             {
                 if (obj == EHandle.Video)
                     new CandyVlcPlayView().Show();
+                if (obj == EHandle.Audio)
+                    new CandyAudioPlayView().Show();
             }
 
         });

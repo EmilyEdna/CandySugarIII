@@ -29,7 +29,7 @@
     </eda:CandyWindow.SearchBox>
     <Grid>
         <ContentControl Content="{Binding CandyControl}" />
-        <taskbar:TaskbarIcon x:Name="Tray">
+        <taskbar:TaskbarIcon x:Name="Tray" TrayMouseDoubleClick="IconClickEvent">
             <taskbar:TaskbarIcon.ContextMenu>
                 <ContextMenu
                     Background="White"
