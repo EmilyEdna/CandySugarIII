@@ -14,7 +14,7 @@
         private void WindowStateEvent()
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
-                MarginThickness = new Thickness(0, 0, 60, 70);
+                MarginThickness = new Thickness(0, 0, 60, 20);
             else
                 MarginThickness = new Thickness(0, 0, 60, 15);
             NavHeight = GlobalParam.NavHeight;

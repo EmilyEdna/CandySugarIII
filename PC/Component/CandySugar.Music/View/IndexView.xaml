@@ -325,10 +325,7 @@
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid
-                x:Name="PlayBar"
-                Grid.Row="1"
-                Margin="{Binding InfoBarThickness}">
+            <Grid x:Name="PlayBar" Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />

@@ -98,15 +98,9 @@ namespace CandySugar.Music.ViewModels
         private void WindowStateEvent()
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
-            {
-                MarginThickness = new Thickness(0, 0, 60, 70);
-                InfoBarThickness = new Thickness(0, 0, 0, 50);
-            }
+                MarginThickness = new Thickness(0, 0, 60, 20);
             else
-            {
                 MarginThickness = new Thickness(0, 0, 60, 15);
-                InfoBarThickness = new Thickness(0);
-            }
             BorderHeight = GlobalParam.MAXHeight-100;
             BorderWidth = (GlobalParam.MAXWidth / 2) - 130;
         }
@@ -157,8 +151,6 @@ namespace CandySugar.Music.ViewModels
         #region 属性
         [ObservableProperty]
         private bool _Handle;
-        [ObservableProperty]
-        private Thickness _InfoBarThickness;
         [ObservableProperty]
         private ObservableCollection<string> _Title;
         [ObservableProperty]
