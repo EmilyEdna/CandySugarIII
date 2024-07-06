@@ -6,7 +6,7 @@
         {
             Title = ["全部", "喜爱"];
             CollectResult = [];
-            NavVisible = Visibility.Collapsed;
+            NavVisible = Visibility.Hidden;
             Service = IocDependency.Resolve<IService<NHentaiModel>>();
             Catalog = SyncStatic.CreateDir(Path.Combine(CommonHelper.DownloadPath, "NHentai"));
             GenericDelegate.SearchAction = new(SearchHandler);
@@ -119,7 +119,7 @@
         [RelayCommand]
         public void Close()
         {
-            NavVisible = Visibility.Collapsed;
+            NavVisible = Visibility.Hidden;
         }
         [RelayCommand]
         public void Watch(NHentaiModel input)

@@ -13,7 +13,7 @@ namespace CandySugar.Comic.ViewModels
             Title = ["全部", "喜爱"];
             CollectResult = [];
             Watchs = [];
-            NavVisible = Visibility.Collapsed;
+            NavVisible = Visibility.Hidden;
             Service = IocDependency.Resolve<IService<ComicModel>>();
             Catalog = SyncStatic.CreateDir(Path.Combine(CommonHelper.DownloadPath, "Comic"));
             GenericDelegate.SearchAction = new(SearchHandler);
@@ -86,7 +86,7 @@ namespace CandySugar.Comic.ViewModels
         [RelayCommand]
         public void Close()
         {
-            NavVisible = Visibility.Collapsed;
+            NavVisible = Visibility.Hidden;
             Watchs = [];
         }
         [RelayCommand]

@@ -6,7 +6,7 @@
         {
             OnInit();
             WindowStateEvent();
-            NavVisible = Visibility.Collapsed;
+            NavVisible = Visibility.Hidden;
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
         }
@@ -243,7 +243,7 @@
         [RelayCommand]
         public void Close()
         {
-            NavVisible = Visibility.Collapsed;
+            NavVisible = Visibility.Hidden;
             DetailResult = null;
         }
 

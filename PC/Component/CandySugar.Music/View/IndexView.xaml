@@ -156,7 +156,7 @@
                                         <DataTemplate>
                                             <Grid
                                                 Width="{Binding Width, ElementName=X2}"
-                                                Margin="0,0,0,5"
+                                                Margin="0,0,0,8"
                                                 HorizontalAlignment="Left"
                                                 Cursor="Hand">
                                                 <i:Interaction.Triggers>
@@ -174,7 +174,7 @@
                                                         Height="80"
                                                         SnapsToDevicePixels="True"
                                                         Source="{Binding Cover}"
-                                                        Stretch="Uniform" />
+                                                        Stretch="Fill" />
                                                 </eda:CandyBorder>
                                                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
                                                     <TextBlock
@@ -303,22 +303,22 @@
                             </Button.ContentTemplate>
                         </Button>
                         <ListBox
-                            x:Name="PART_CHAPTER"
+                            x:Name="LoadMore"
                             Grid.Row="1"
-                            eda:ListBoxAttach.ScrollCommand="{Binding DJScrollCommand}"
-                            ItemsSource="{Binding BasicResult}"
+                            eda:ListBoxAttach.ScrollCommand="{Binding LoadMoreCommand}"
+                            ItemsSource="{Binding BasicResult, IsAsync=True}"
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                             Style="{DynamicResource CandyListBoxStyle}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid Margin="2,3">
+                                    <StackPanel Height="20" Margin="2,3">
                                         <Button
                                             Command="{Binding DataContext.DownCommand, ElementName=Index}"
                                             CommandParameter="{Binding .}"
                                             Content="{Binding SongName}"
                                             Style="{DynamicResource TextButton}"
                                             ToolTip="{Binding SongName}" />
-                                    </Grid>
+                                    </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>

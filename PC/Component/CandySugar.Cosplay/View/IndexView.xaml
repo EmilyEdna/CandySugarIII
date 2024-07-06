@@ -105,7 +105,7 @@
                     Width="{Binding BorderWidth}"
                     Height="{Binding BorderHeight}"
                     BorderType="Info"
-                    Visibility="Collapsed">
+                    Visibility="Hidden">
                     <eda:CandyBorder.RenderTransform>
                         <TransformGroup>
                             <TranslateTransform />
@@ -179,7 +179,7 @@
                     Width="{Binding BorderWidth}"
                     Height="{Binding BorderHeight}"
                     BorderType="Info"
-                    Visibility="Collapsed">
+                    Visibility="Hidden">
                     <eda:CandyBorder.RenderTransform>
                         <TransformGroup>
                             <TranslateTransform />

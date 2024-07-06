@@ -9,8 +9,9 @@ namespace CandySugar.Music.ViewModels
         {
             Handle = false;
             PlayTimer = new() { Interval = 1000 };
+            BasicResult = [];
             Title = ["单曲", "歌单", "收藏"];
-            NavVisible = Visibility.Collapsed;
+            NavVisible = Visibility.Hidden;
             Platform = PlatformEnum.NeteaseMusic;
             MenuData = new Dictionary<string, string> {
                 { "QQ音乐","1"},{ "网易音乐","2"},
@@ -106,7 +107,7 @@ namespace CandySugar.Music.ViewModels
                 MarginThickness = new Thickness(0, 0, 60, 15);
                 InfoBarThickness = new Thickness(0);
             }
-            BorderHeight = GlobalParam.MAXHeight;
+            BorderHeight = GlobalParam.MAXHeight-100;
             BorderWidth = (GlobalParam.MAXWidth / 2) - 130;
         }
 
@@ -186,7 +187,7 @@ namespace CandySugar.Music.ViewModels
         [RelayCommand]
         public void Close()
         {
-            NavVisible = Visibility.Collapsed;
+            NavVisible = Visibility.Hidden;
             BasicResult = [];
         }
         [RelayCommand]
@@ -250,7 +251,7 @@ namespace CandySugar.Music.ViewModels
             OnInitLists();
         }
         [RelayCommand]
-        public void DJScroll(ScrollChangedEventArgs obj)
+        public void LoadMore(ScrollChangedEventArgs obj)
         {
             if (PlatformEnum.DjRadioMusic == Platform)
             {
