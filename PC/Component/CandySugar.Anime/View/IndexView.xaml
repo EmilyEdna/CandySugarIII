@@ -225,7 +225,7 @@
             </Button>
             <StackPanel
                 Grid.Row="1"
-                Margin="12,0,0,0"
+                Margin="8,0,0,0"
                 HorizontalAlignment="Left">
                 <TextBlock Style="{DynamicResource TextBlockTitleStyle}" Text="{Binding DetailResult.Title, StringFormat=名称：{0}}" />
                 <TextBlock Style="{DynamicResource TextBlockTitleStyle}" Text="{Binding DetailResult.Alias, StringFormat=别名：{0}}" />
@@ -234,12 +234,13 @@
             <ListBox
                 x:Name="PART_CHAPTER"
                 Grid.Row="2"
+                Margin="8,0,0,0"
                 ItemsSource="{Binding DetailResult.ElementResults}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 Style="{DynamicResource CandyListBoxStyle}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                        <UniformGrid Columns="4" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>

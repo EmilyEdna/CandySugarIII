@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:eda="http://edacoder.github.io"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:lib="http://lib.candy.com"
     xmlns:local="clr-namespace:CandySugar.MainUI.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,19 +15,54 @@
     Title="{Binding Title}"
     d:DataContext="{d:DesignInstance vm:IndexViewModel}"
     eda:MenuBox="{Binding Mnues}"
-    BlurRadius="15"
     FontFamily="{DynamicResource FontStyle}"
     mc:Ignorable="d">
     <eda:CandyWindow.Background>
         <ImageBrush ImageSource="/CandySugar.Com.Style;component/Resources/MusicBackgroud.jpg" />
     </eda:CandyWindow.Background>
     <eda:CandyWindow.SearchBox>
-        <eda:CandySearchBox
-            BorderBrush="LightSkyBlue"
-            BorderThickness="0,0,0,.5"
-            BoxWidth="200"
-            EnterCommand="{Binding SearchActiveCommand}"
-            ShowClear="False" />
+        <ContentControl>
+            <StackPanel Orientation="Horizontal">
+                <eda:CandySearchBox
+                    BorderBrush="LightSkyBlue"
+                    BorderThickness="0,0,0,.5"
+                    BoxWidth="200"
+                    EnterCommand="{Binding SearchActiveCommand}"
+                    ShowClear="False" />
+                <ToggleButton
+                    Margin="5"
+                    HorizontalAlignment="Center"
+                    Background="#40DADADA"
+                    BorderThickness="0"
+                    IsChecked="False"
+                    Style="{StaticResource ToggleButtonFlip.Small}">
+                    <hc:StatusSwitchElement.CheckedElement>
+                        <Border>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="White"
+                                Text="启用" />
+                        </Border>
+                    </hc:StatusSwitchElement.CheckedElement>
+                    <Border>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            Text="禁用" />
+                    </Border>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Unchecked">
+                            <i:InvokeCommandAction Command="{Binding SwitchChangeCommand}" CommandParameter="false" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Checked">
+                            <i:InvokeCommandAction Command="{Binding SwitchChangeCommand}" CommandParameter="true" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ToggleButton>
+            </StackPanel>
+        </ContentControl>
     </eda:CandyWindow.SearchBox>
     <Grid>
         <ContentControl Content="{Binding CandyControl}" />

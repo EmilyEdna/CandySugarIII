@@ -13,26 +13,33 @@ using Microsoft.Win32;
 using Stylet;
 using StyletIoC;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using XExten.Advance.LinqFramework;
+using XExten.Advance.ThreadFramework;
 
 namespace CandySugar.MainUI.ViewModels
 {
     public class IndexViewModel : Conductor<IScreen>
     {
-        public IContainer Container;
-        public IWindowManager WindowManager;
+        private IContainer Container;
+        private IWindowManager WindowManager;
+        private ConcurrentQueue<string> BackQueue;
         public IndexViewModel(IContainer Container, IWindowManager WindowManager)
         {
             this.Container = Container;
             this.WindowManager = WindowManager;
+            this.BackQueue = new ConcurrentQueue<string>();
             this.Title = $"甜糖V{Assembly.GetExecutingAssembly().GetName().Version}";
 #if RELEASE
             //检查更新
@@ -44,6 +51,10 @@ namespace CandySugar.MainUI.ViewModels
         {
             SearchHistory = ["1", "2"];
             CreateMenuUI();
+            GenericDelegate.BlurChangedEvent += (obj) =>
+            {
+                ((IndexView)View).BlurRadius = obj;
+            };
         }
 
 
@@ -177,6 +188,7 @@ namespace CandySugar.MainUI.ViewModels
         {
             GenericDelegate.SearchAction?.Invoke(obj);
         });
+
         public RelayCommand<EMenu> TaskBarCommand => new(input =>
         {
             if (input == EMenu.AudioToHigh) Application.Current.Dispatcher.Invoke(AudioToHighAudio);
@@ -184,6 +196,39 @@ namespace CandySugar.MainUI.ViewModels
             if (input == EMenu.ImgToAudio) Application.Current.Dispatcher.Invoke(ImageToAudioVideo);
             if (input == EMenu.Exit) Environment.Exit(0);
         });
+
+        public RelayCommand<string> SwitchChangeCommand => new(input =>
+        {
+            if (ComponentBinding.OptionObjectModels.BackgroudLocation.IsNullOrEmpty()) return;
+            var files = Directory.GetFiles(ComponentBinding.OptionObjectModels.BackgroudLocation);
+            if (files.Length <= 0) return;
+            if (BackQueue.IsEmpty) files.ForArrayEach<string>(BackQueue.Enqueue);
+            if (input.AsBool())
+                ThreadFactory.Instance.StartWithRestart(() =>
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        var Views = (IndexView)View;
+                        BackQueue.TryDequeue(out string file);
+                        Storyboard Board = new Storyboard();
+                        var Anime = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(3));
+                        Storyboard.SetTarget(Anime, Views);
+                        Storyboard.SetTargetProperty(Anime, new PropertyPath(IndexView.OpacityProperty));
+                        Board.Children.Add(Anime);
+                        Board.Completed += delegate
+                        {
+                            Views.Background = new ImageBrush(new BitmapImage(new Uri(file)));
+                            Views.BeginAnimation(Grid.OpacityProperty, new DoubleAnimation(0, 1, TimeSpan.FromSeconds(3)));
+                            BackQueue.Enqueue(file);
+                        };
+                        Board.Begin();
+                    });
+                    Thread.Sleep((int)ComponentBinding.OptionObjectModels.Interval*1000);
+                }, "BackQuery", null, false);
+            else
+                ThreadFactory.Instance.StopTask("BackQuery");
+        });
+
         #endregion
 
         #region 方法
@@ -223,7 +268,7 @@ namespace CandySugar.MainUI.ViewModels
             {
                 await Path.GetFileName(FileName[Index]).Mp3ToHighMP3(catalog);
             }
-            new CandyNotifyControl(CommonHelper.DownloadFinishInformation,true ,catalog).Show();
+            new CandyNotifyControl(CommonHelper.DownloadFinishInformation, true, catalog).Show();
         }
         /// <summary>
         /// 图片转视频

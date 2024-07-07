@@ -1,4 +1,6 @@
 ﻿using CandyControls;
+using CandySugar.Com.Options.ComponentGeneric;
+using System.Windows;
 
 namespace CandySugar.MainUI.Views
 {
@@ -10,6 +12,11 @@ namespace CandySugar.MainUI.Views
         public OptionView()
         {
             InitializeComponent();
+        }
+
+        private void BlurEffectEvent(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            GenericDelegate.BlurChangedAction(e.NewValue);
         }
     }
 }
