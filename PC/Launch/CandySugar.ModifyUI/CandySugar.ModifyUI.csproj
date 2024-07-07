@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
+		<ApplicationIcon>favicon.ico</ApplicationIcon>
+		<BaseOutputPath>..\CandySugar.MainUI\bin</BaseOutputPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<Content Include="favicon.ico">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
+	</ItemGroup>
+</Project>

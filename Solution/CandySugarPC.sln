@@ -51,13 +51,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Movie", "..\PC\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Music", "..\PC\Component\CandySugar.Music\CandySugar.Music.csproj", "{4920650D-6828-46D5-BD06-DD9303BCE16F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Cosplay", "..\PC\Component\CandySugar.Cosplay\CandySugar.Cosplay.csproj", "{94D5BEDE-E8B4-4FAC-AC87-6878ACDA9506}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Cosplay", "..\PC\Component\CandySugar.Cosplay\CandySugar.Cosplay.csproj", "{94D5BEDE-E8B4-4FAC-AC87-6878ACDA9506}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.NHViewer", "..\PC\Component\CandySugar.NHViewer\CandySugar.NHViewer.csproj", "{242437A6-E277-4954-98C2-1B6E6DCFC26F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.NHViewer", "..\PC\Component\CandySugar.NHViewer\CandySugar.NHViewer.csproj", "{242437A6-E277-4954-98C2-1B6E6DCFC26F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.Comic", "..\PC\Component\CandySugar.Comic\CandySugar.Comic.csproj", "{649ED15A-319E-46C3-A438-B2FA9563D7FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Comic", "..\PC\Component\CandySugar.Comic\CandySugar.Comic.csproj", "{649ED15A-319E-46C3-A438-B2FA9563D7FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandySugar.WallPaper", "..\PC\Component\CandySugar.WallPaper\CandySugar.WallPaper.csproj", "{A22D23CD-3AEC-4612-9AE3-5EB51EA68C58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.WallPaper", "..\PC\Component\CandySugar.WallPaper\CandySugar.WallPaper.csproj", "{A22D23CD-3AEC-4612-9AE3-5EB51EA68C58}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.ModifyUI", "..\PC\Launch\CandySugar.ModifyUI\CandySugar.ModifyUI.csproj", "{9DBC6921-2ADB-40D4-83B4-44ECA1CE0573}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +147,10 @@ Global
 		{A22D23CD-3AEC-4612-9AE3-5EB51EA68C58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A22D23CD-3AEC-4612-9AE3-5EB51EA68C58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A22D23CD-3AEC-4612-9AE3-5EB51EA68C58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DBC6921-2ADB-40D4-83B4-44ECA1CE0573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DBC6921-2ADB-40D4-83B4-44ECA1CE0573}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DBC6921-2ADB-40D4-83B4-44ECA1CE0573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DBC6921-2ADB-40D4-83B4-44ECA1CE0573}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +178,7 @@ Global
 		{242437A6-E277-4954-98C2-1B6E6DCFC26F} = {0E5BD4EA-CC43-4A0C-935A-D976F0C1AA18}
 		{649ED15A-319E-46C3-A438-B2FA9563D7FF} = {0E5BD4EA-CC43-4A0C-935A-D976F0C1AA18}
 		{A22D23CD-3AEC-4612-9AE3-5EB51EA68C58} = {0E5BD4EA-CC43-4A0C-935A-D976F0C1AA18}
+		{9DBC6921-2ADB-40D4-83B4-44ECA1CE0573} = {8802B723-CAF2-419F-9FA1-DD6EE96B8ED6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BEDC387F-177A-4DDF-A902-8C474D1FD7DF}

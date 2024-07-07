@@ -29,7 +29,10 @@ namespace CandySugar.MainUI.ViewModels
             this.Container = Container;
             this.WindowManager = WindowManager;
             this.Title = $"甜糖V{Assembly.GetExecutingAssembly().GetName().Version}";
-
+#if RELEASE
+            //检查更新
+            Modify.CandySugarModify();
+#endif
         }
 
         protected override void OnActivate()
