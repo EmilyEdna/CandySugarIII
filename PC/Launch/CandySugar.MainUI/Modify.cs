@@ -42,7 +42,7 @@ namespace CandySugar.MainUI
         {
             try
             {
-                var ver = await new HttpClient().GetStringAsync($"{ComponentBinding.OptionObjectModels.Raw}/EmilyEdna/CandySugar/master/vers.txt");
+                var ver = await new HttpClient().GetStringAsync($"{ComponentBinding.OptionObjectModels.Raw}/EmilyEdna/CandySugar/master/verinfo.txt");
                 if (!ver.IsNullOrEmpty())
                 {
                     if (ver.Contains("\n"))

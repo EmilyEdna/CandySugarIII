@@ -4,6 +4,7 @@ using CandySugar.Com.Library;
 using CandySugar.Com.Library.DLLoader;
 using CandySugar.Com.Library.ReadFile;
 using CandySugar.Com.Options;
+using CandySugar.HostServer;
 using CandySugar.MainUI.ViewModels;
 using RestSharp;
 using Serilog;
@@ -77,8 +78,7 @@ namespace CandySugar.MainUI
         /// <param name="builder"></param>
         protected override void ConfigureIoC(IStyletIoCBuilder builder)
         {
-            //builder.Bind<OptionViewModel>().ToSelf();
-            // builder.Bind<AboutViewModel>().ToSelf();
+            builder.Bind<OptionViewModel>().ToSelf();
             AssemblyLoader.Dll.ForEach(item =>
             {
                 if (item.IocModule != null)
@@ -93,7 +93,7 @@ namespace CandySugar.MainUI
         protected override void Configure()
         {
             base.Configure();
-            //WebHost.StartWeb();
+            WebHost.StartWeb();
         }
 
         /// <summary>

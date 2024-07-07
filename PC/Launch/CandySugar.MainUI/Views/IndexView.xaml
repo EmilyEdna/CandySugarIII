@@ -37,8 +37,16 @@
                     Foreground="#e63995">
                     <eda:CandyMenuItem
                         Command="{Binding TaskBarCommand}"
-                        CommandParameter="{x:Static lib:EMenu.About}"
-                        Header="关于作者" />
+                        CommandParameter="{x:Static lib:EMenu.AudioToHigh}"
+                        Header="音频转换" />
+                    <eda:CandyMenuItem
+                        Command="{Binding TaskBarCommand}"
+                        CommandParameter="{x:Static lib:EMenu.ImgToVideo}"
+                        Header="图片视频" />
+                    <eda:CandyMenuItem
+                        Command="{Binding TaskBarCommand}"
+                        CommandParameter="{x:Static lib:EMenu.ImgToAudio}"
+                        Header="图片音频" />
                     <eda:CandyMenuItem
                         Command="{Binding TaskBarCommand}"
                         CommandParameter="{x:Static lib:EMenu.Exit}"
