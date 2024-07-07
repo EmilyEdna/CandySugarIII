@@ -161,6 +161,8 @@ namespace CandySugar.MainUI.ViewModels
             }
             else
             {
+                if (obj == EHandle.Index)
+                    CandyControl = null;
                 if (obj == EHandle.Video)
                     new CandyVlcPlayView().Show();
                 if (obj == EHandle.Audio)

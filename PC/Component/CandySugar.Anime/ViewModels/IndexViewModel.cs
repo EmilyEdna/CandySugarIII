@@ -4,9 +4,10 @@
     {
         public IndexViewModel()
         {
-            OnInit();
             WindowStateEvent();
+            Title = ["全部", "收藏"];
             NavVisible = Visibility.Hidden;
+            Service = IocDependency.Resolve<IService<AnimeModel>>();
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
         }
@@ -18,11 +19,16 @@
         private string Keyword;
         private int SearchPage = 1;
         private int SearchTotal;
+        private IService<AnimeModel> Service;
         #endregion
 
         #region 属性
         [ObservableProperty]
+        private ObservableCollection<string> _Title;
+        [ObservableProperty]
         private ObservableCollection<CartInitElementResult> _InitResult;
+        [ObservableProperty]
+        private ObservableCollection<AnimeModel> _CollectResult;
         [ObservableProperty]
         private CartDetailRootResult _DetailResult;
 
@@ -31,13 +37,28 @@
         #region 事件
         private void WindowStateEvent()
         {
+            if (GlobalParam.WindowState == WindowState.Maximized)
+                Cols = (int)(GlobalParam.MAXWidth / 240);
+            else
+                Cols = 5;
             BorderHeight = GlobalParam.MAXHeight;
+            BorderWidth = GlobalParam.MAXWidth;
             NavHeight = GlobalParam.NavHeight;
-            NavWidth= GlobalParam.NavWidth;
+            NavWidth = GlobalParam.NavWidth;
         }
         #endregion
 
         #region 方法
+        public void ChangeActive(int ActiveAnime)
+        {
+            SearchPage = Page = 1;
+            Keyword = string.Empty;
+            if (ActiveAnime == 1)
+                OnInit();
+            else
+                CollectResult = new(Service.QueryAll());
+        }
+
         /// <summary>
         /// 初始化
         /// </summary>
@@ -193,7 +214,7 @@
                             }
                         };
                     }).RunsAsync()).PlayResult.PlayRoute;
-                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result,true).Show());
+                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result, true).Show());
                 }
                 catch (Exception ex)
                 {
@@ -240,6 +261,41 @@
         #endregion
 
         #region 命令
+        [RelayCommand]
+        public void Collect(CartInitElementResult input) 
+        {
+            Service.Insert(input.ToMapest<AnimeModel>());
+            CollectResult = new(Service.QueryAll());
+        }
+
+        [RelayCommand]
+        public void Remove(Guid id)
+        {
+            Service.Remove(id);
+            CollectResult = new(Service.QueryAll());
+        }
+
+        [RelayCommand]
+        public void Changed(object item)
+        {
+            var Target = ((CandyToggleItem)item);
+            if (Target.FindParent<UserControl>() is IndexView View)
+            {
+                var Index = Target.Tag.ToString().AsInt();
+
+                if (Index == 0)
+                {
+                    View.ActiveAnime = 1;
+                    View.AnimeX1.Begin();
+                }
+                if (Index == 1)
+                {
+                    View.ActiveAnime = 2;
+                    View.AnimeX2.Begin();
+                }
+            }
+        }
+
         [RelayCommand]
         public void Close()
         {

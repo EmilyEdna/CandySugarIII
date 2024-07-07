@@ -1,7 +1,9 @@
+global using CandyControls;
 global using CandySugar.Anime.View;
 global using CandySugar.Anime.ViewModels;
 global using CandySugar.Com.Controls.ExtenControls;
-global using CandySugar.Com.Controls.UIExtenControls;
+global using CandySugar.Com.Data;
+global using CandySugar.Com.Data.Entity.AnimeEntity;
 global using CandySugar.Com.Library;
 global using CandySugar.Com.Options;
 global using CandySugar.Com.Options.ComponentGeneric;
