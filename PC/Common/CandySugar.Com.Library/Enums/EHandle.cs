@@ -24,6 +24,7 @@ namespace CandySugar.Com.Library.Enums
         Axgle,
         Setting,
         Video,
+        Audio,
         Index=999
     }
 }

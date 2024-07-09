@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace CandySugar.Com.Options.ComponentGeneric
 {
@@ -25,5 +20,10 @@ namespace CandySugar.Com.Options.ComponentGeneric
         /// </summary>
         public static event Action WindowStateEvent;
         public static void WindowAction()=> WindowStateEvent?.Invoke();
+        /// <summary>
+        /// 玻璃效果变化
+        /// </summary>
+        public static event Action<double> BlurChangedEvent;
+        public static void BlurChangedAction(double value) => BlurChangedEvent?.Invoke(value);
     }
 }

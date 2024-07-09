@@ -16,9 +16,14 @@ namespace CandySugar.Com.Controls.ExtenControls
     {
         private TextBlock Infos;
         private string _Catalog;
+        public CandyNotifyControl()
+        {
+            CreateStyle(true);
+            CreateCloseUI();
+        }
         public CandyNotifyControl(string msg, bool IsConfirm = false, string Catalog = "")
         {
-            CreateStyle();
+            CreateStyle(IsConfirm);
             if (IsConfirm)
                 CreateConfirmUI();
             else
@@ -29,7 +34,7 @@ namespace CandySugar.Com.Controls.ExtenControls
         }
 
         #region UI
-        private void CreateStyle()
+        private void CreateStyle(bool IsConfirm)
         {
             this.ResizeMode = ResizeMode.NoResize;
             this.WindowStyle = WindowStyle.None;
@@ -38,7 +43,7 @@ namespace CandySugar.Com.Controls.ExtenControls
             this.AllowsTransparency = true;
             this.SnapsToDevicePixels = true;
             this.Width = 300;
-            this.Height = 80;
+            this.Height = IsConfirm ? 100 : 80;
 
             // 创建一个新的 ControlTemplate
             ControlTemplate customTemplate = new ControlTemplate(GetType());
@@ -126,7 +131,7 @@ namespace CandySugar.Com.Controls.ExtenControls
             };
             GridContent.RowDefinitions.Add(new RowDefinition());
             GridContent.RowDefinitions.Add(new RowDefinition());
-            GridContent.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.1) });
+            GridContent.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.1, GridUnitType.Star) });
 
             Button Close = new Button
             {
@@ -199,6 +204,70 @@ namespace CandySugar.Com.Controls.ExtenControls
 
             this.Content = GridContent;
         }
+        private void CreateCloseUI()
+        {
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            Grid GridContent = new Grid
+            {
+                Margin = new Thickness(3),
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#40e6cfe6"))
+            };
+            GridContent.RowDefinitions.Add(new RowDefinition());
+            GridContent.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.1, GridUnitType.Star) });
+
+            var Infos = new TextBlock
+            {
+                Margin = new Thickness(0, 15, 0, 0),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                FontSize = 15,
+                FontWeight = FontWeights.Bold,
+                UseLayoutRounding = true,
+                Foreground = Brushes.DeepSkyBlue,
+                Text = "退出程序"
+            };
+            Infos.SetResourceReference(TextBlock.FontFamilyProperty, "FontStyle");
+            TextOptions.SetTextFormattingMode(Infos, TextFormattingMode.Display);
+            Grid.SetRow(Infos, 0);
+
+            Grid InnerGrid = new Grid
+            {
+                Width = 210
+            };
+
+            CandyButton OK = new CandyButton
+            {
+                Height = 30,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                ButtonType = ECatagory.Primary,
+                Content = "确定",
+                Foreground = Brushes.White,
+                UseLayoutRounding = true
+            };
+            TextOptions.SetTextFormattingMode(OK, TextFormattingMode.Display);
+            OK.Click += delegate { this.DialogResult = true; Close(); };
+
+            CandyButton NO = new CandyButton
+            {
+                Height = 30,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                ButtonType = ECatagory.Primary,
+                Content = "取消",
+                Foreground = Brushes.White,
+                UseLayoutRounding = true
+            };
+            TextOptions.SetTextFormattingMode(NO, TextFormattingMode.Display);
+            NO.Click += delegate { this.DialogResult = false; Close(); };
+
+            InnerGrid.Children.Add(OK);
+            InnerGrid.Children.Add(NO);
+            Grid.SetRow(InnerGrid, 1);
+
+            GridContent.Children.Add(Infos);
+            GridContent.Children.Add(InnerGrid);
+
+            this.Content = GridContent;
+        }
         #endregion
 
         private void WindowLoad(object sender, RoutedEventArgs e)
@@ -225,7 +294,6 @@ namespace CandySugar.Com.Controls.ExtenControls
             };
             this.BeginAnimation(TopProperty, animation);
         }
-
         private void OKEvent(object sender, RoutedEventArgs e)
         {
             Process.Start("explorer.exe", _Catalog);

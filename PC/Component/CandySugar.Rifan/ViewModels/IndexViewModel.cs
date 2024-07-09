@@ -5,7 +5,7 @@
         public IndexViewModel()
         {
             CollectResult = [];
-            NavVisible = Visibility.Collapsed;
+            NavVisible = Visibility.Hidden;
             Title = ["All", "Rifan", "3D", "Motion", "Cosplay", "Collect"];
             Service = IocDependency.Resolve<IService<RifanModel>>();
             GenericDelegate.SearchAction = new(SearchHandler);
@@ -103,7 +103,7 @@
             new CandyVlcPlayView($"{input.Name}_{input.Clarity}", input.Route).Show();
         }
         [RelayCommand]
-        public void Close() => NavVisible = Visibility.Collapsed;
+        public void Close() => NavVisible = Visibility.Hidden;
         [RelayCommand]
         public void Changed(object item)
         {

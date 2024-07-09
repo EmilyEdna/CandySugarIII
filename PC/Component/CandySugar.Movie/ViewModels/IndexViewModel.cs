@@ -6,7 +6,7 @@
         {
             Title = ["电影", "剧集"];
             Platform = PlatformEnum.Film;
-            NavVisible = Visibility.Collapsed;
+            NavVisible = Visibility.Hidden;
             InitKey = new Dictionary<string, string> { { "T", "" }, { "Y", "" }, { "P", "" }, { "C", "" } };
             WindowStateEvent();
             GenericDelegate.WindowStateEvent += WindowStateEvent;
@@ -198,7 +198,7 @@
         [RelayCommand]
         public void Close()
         {
-            NavVisible = Visibility.Collapsed;
+            NavVisible = Visibility.Hidden;
             DetailResult = null;
         }
         [RelayCommand]

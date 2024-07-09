@@ -11,7 +11,7 @@
     xmlns:vm="clr-namespace:CandySugar.Axgle.ViewModels"
     x:Name="Index"
     d:DataContext="{d:DesignInstance vm:IndexViewModel}"
-    d:DesignHeight="550"
+    d:DesignHeight="700"
     d:DesignWidth="1200"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -100,7 +100,8 @@
                                                         Cursor="Hand"
                                                         FontSize="17"
                                                         Foreground="#ffe4c4"
-                                                        Style="{DynamicResource IconButton}" />
+                                                        Style="{DynamicResource IconButton}"
+                                                        ToolTip="收藏" />
                                                 </Grid>
                                             </DataTemplate>
                                         </eda:CandyImage.MaskTemplate>
@@ -189,7 +190,8 @@
                                                         Cursor="Hand"
                                                         FontSize="17"
                                                         Foreground="#ffe4c4"
-                                                        Style="{DynamicResource IconButton}" />
+                                                        Style="{DynamicResource IconButton}"
+                                                        ToolTip="收藏" />
                                                 </Grid>
                                             </DataTemplate>
                                         </eda:CandyImage.MaskTemplate>
@@ -278,7 +280,8 @@
                                                         Cursor="Hand"
                                                         FontSize="17"
                                                         Foreground="#ffe4c4"
-                                                        Style="{DynamicResource IconButton}" />
+                                                        Style="{DynamicResource IconButton}"
+                                                        ToolTip="收藏" />
                                                 </Grid>
                                             </DataTemplate>
                                         </eda:CandyImage.MaskTemplate>
@@ -371,7 +374,8 @@
                                                         Cursor="Hand"
                                                         FontSize="17"
                                                         Foreground="#ffe4c4"
-                                                        Style="{DynamicResource IconButton}" />
+                                                        Style="{DynamicResource IconButton}"
+                                                        ToolTip="删除" />
                                                 </Grid>
                                             </DataTemplate>
                                         </eda:CandyImage.MaskTemplate>

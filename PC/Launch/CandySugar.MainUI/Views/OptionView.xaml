@@ -1,0 +1,112 @@
+﻿<eda:CandyWindow
+    x:Class="CandySugar.MainUI.Views.OptionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:eda="http://edacoder.github.io"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:lib="http://lib.candy.com"
+    xmlns:local="clr-namespace:CandySugar.MainUI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://github.com/canton7/Stylet"
+    xmlns:vm="clr-namespace:CandySugar.MainUI.ViewModels"
+    x:Name="OptView"
+    Title="系统设置"
+    Width="400"
+    Height="260"
+    MinWidth="400"
+    MinHeight="260"
+    d:DataContext="{d:DesignInstance vm:OptionViewModel}"
+    ResizeMode="NoResize"
+    mc:Ignorable="d">
+    <eda:CandyWindow.Background>
+        <ImageBrush ImageSource="/CandySugar.Com.Style;component/Resources/MusicBackgroud.jpg" />
+    </eda:CandyWindow.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <WrapPanel Margin="10">
+                <TextBlock
+                    Margin="1,2"
+                    VerticalAlignment="Bottom"
+                    FontSize="18"
+                    Foreground="#fdf5e6"
+                    Text="背景资源路径：" />
+                <TextBox
+                    Width="220"
+                    hc:BorderElement.CornerRadius="0"
+                    Background="Transparent"
+                    BorderThickness="0,0,0,1"
+                    FontSize="16"
+                    Foreground="#fdf5e6"
+                    IsReadOnly="True"
+                    MouseDoubleClick="{s:Action FolderCommand}"
+                    Text="{Binding Route}" />
+            </WrapPanel>
+            <WrapPanel Margin="10">
+                <TextBlock
+                    Margin="1,2"
+                    VerticalAlignment="Bottom"
+                    FontSize="18"
+                    Foreground="#fdf5e6"
+                    Text="背景变换间隔：" />
+                <hc:NumericUpDown
+                    Width="200"
+                    hc:BorderElement.CornerRadius="0"
+                    Background="Transparent"
+                    BorderThickness="0,0,0,1"
+                    FontSize="14"
+                    Foreground="#fdf5e6"
+                    Value="{Binding Interval, Mode=TwoWay}" />
+                <TextBlock
+                    Margin="1,2"
+                    VerticalAlignment="Bottom"
+                    FontSize="18"
+                    Foreground="#fdf5e6"
+                    Text="秒" />
+            </WrapPanel>
+            <WrapPanel Margin="10">
+                <TextBlock
+                    Margin="1,2"
+                    VerticalAlignment="Bottom"
+                    FontSize="18"
+                    Foreground="#fdf5e6"
+                    Text="启用代理地址：" />
+                <CheckBox
+                    Background="Transparent"
+                    BorderBrush="#fdf5e6"
+                    Content="{Binding ProxyState}"
+                    FontSize="18"
+                    Foreground="#fdf5e6"
+                    IsChecked="{Binding UseProxy}" />
+            </WrapPanel>
+            <WrapPanel Margin="10">
+                <TextBlock
+                    Margin="1,2"
+                    VerticalAlignment="Bottom"
+                    FontSize="18"
+                    Foreground="#fdf5e6"
+                    Text="玻璃背景效果：" />
+                <Slider
+                    Width="250"
+                    Maximum="200"
+                    Minimum="0"
+                    Style="{DynamicResource VLCPlaySliderStyle}"
+                    ValueChanged="BlurEffectEvent"
+                    Value="15" />
+            </WrapPanel>
+        </StackPanel>
+        <eda:CandyButton
+            Grid.Row="1"
+            Margin="0,0,10,10"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            ButtonType="Primary"
+            Command="{s:Action CloseCommand}"
+            CommandParameter="{Binding ., ElementName=OptView}"
+            Content="确定" />
+    </Grid>
+</eda:CandyWindow>

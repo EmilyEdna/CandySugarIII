@@ -6,7 +6,7 @@
         {
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
-            NavVisible = Visibility.Collapsed;
+            NavVisible = Visibility.Hidden;
             WindowStateEvent();
             OnInit();
         }
@@ -14,7 +14,7 @@
         private void WindowStateEvent()
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
-                MarginThickness = new Thickness(0, 0, 60, 70);
+                MarginThickness = new Thickness(0, 0, 60, 20);
             else
                 MarginThickness = new Thickness(0, 0, 60, 15);
             NavHeight = GlobalParam.NavHeight;
@@ -82,7 +82,7 @@
         [RelayCommand]
         public void Close()
         {
-            NavVisible = Visibility.Collapsed;
+            NavVisible = Visibility.Hidden;
             ViewResult = [];
         }
 

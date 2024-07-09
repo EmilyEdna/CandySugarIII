@@ -105,12 +105,7 @@ namespace CandySugar.Com.Controls.UIExtenControls
             PlayTimer = new() { Interval = 1000 };
             Setting = [new() { Width = 80, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat }, new() { Width = 80, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat1 }];
             JsonHandler = new JsonDbContext(DbPath).LoadInMemory<string>();
-            var LocalDATA = JsonHandler.GetAll();
-            CollectResult = new ObservableCollection<string>();
-            if (LocalDATA != null)
-            {
-                LocalDATA.ForEach(CollectResult.Add);
-            }
+            CollectResult = new(JsonHandler.GetAll());
         }
 
         #region Field

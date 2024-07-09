@@ -21,7 +21,7 @@
             if (GlobalParam.WindowState == WindowState.Maximized)
             {
                 Cols = (int)(GlobalParam.MAXWidth / 360);
-                MarginThickness = new Thickness(0, 0, 60, 70);
+                MarginThickness = new Thickness(0, 0, 60, 20);
             }
             else
             {
