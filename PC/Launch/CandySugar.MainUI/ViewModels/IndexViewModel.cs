@@ -67,7 +67,7 @@ namespace CandySugar.MainUI.ViewModels
         public bool ChangeBackgroud
         {
             get => _ChangeBackgroud;
-            set 
+            set
             {
                 SetAndNotify(ref _ChangeBackgroud, value);
                 ChangeBackgroudTask(value);
@@ -75,7 +75,8 @@ namespace CandySugar.MainUI.ViewModels
         }
 
         private double _BlurRadius;
-        public double BlurRadius {
+        public double BlurRadius
+        {
             get => _BlurRadius;
             set => SetAndNotify(ref _BlurRadius, value);
         }
@@ -117,55 +118,68 @@ namespace CandySugar.MainUI.ViewModels
                 Path = new PropertyPath("ActiveCommad", EHandle.Index),
                 Source = ((IndexView)View).DataContext
             });
-            var FMainItem = new CandyMenuItem
-            {
-                Header = "基础插件",
-                CommandParameter = EHandle.None,
-            };
-            var SMainItem = new CandyMenuItem
-            {
-                Header = "会员插件",
-                CommandParameter = EHandle.None,
-            };
-            var TMainItem = new CandyMenuItem
-            {
-                Header = "系统功能",
-                CommandParameter = EHandle.None,
-            };
-            ComponentBinding.ComponentObjectModelGroups.Normal.ForEach(item =>
-            {
-                var SubItem = new CandyMenuItem { Header = item.Description, CommandParameter = (EHandle)item.Code };
-                SubItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
-                {
-                    Path = new PropertyPath("ActiveCommad", (EHandle)item.Code),
-                    Source = ((IndexView)View).DataContext
-                });
-                FMainItem.Items.Add(SubItem);
-            });
-            ComponentBinding.ComponentObjectModelGroups.Vip.ForEach(item =>
-            {
-                var SubItem = new CandyMenuItem { Header = item.Description, CommandParameter = (EHandle)item.Code };
-                SubItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
-                {
-                    Path = new PropertyPath("ActiveCommad", (EHandle)item.Code),
-                    Source = ((IndexView)View).DataContext
-                });
-                SMainItem.Items.Add(SubItem);
-            });
-            ComponentBinding.FunctionObjectModels.ForEach(item =>
-            {
-                var SubItem = new CandyMenuItem { Header = item.Description, CommandParameter = (EHandle)item.Code };
-                SubItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
-                {
-                    Path = new PropertyPath("ActiveCommad", (EHandle)item.Code),
-                    Source = ((IndexView)View).DataContext
-                });
-                TMainItem.Items.Add(SubItem);
-            });
             Menu.Items.Add(IMainItem);
-            Menu.Items.Add(FMainItem);
-            Menu.Items.Add(SMainItem);
-            Menu.Items.Add(TMainItem);
+            //基础插件
+            if (ComponentBinding.ComponentObjectModelGroups.Normal != null)
+            {
+                var FMainItem = new CandyMenuItem
+                {
+                    Header = "基础插件",
+                    CommandParameter = EHandle.None,
+                };
+                ComponentBinding.ComponentObjectModelGroups.Normal.ForEach(item =>
+                {
+                    var SubItem = new CandyMenuItem { Header = item.Description, CommandParameter = (EHandle)item.Code };
+                    SubItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
+                    {
+                        Path = new PropertyPath("ActiveCommad", (EHandle)item.Code),
+                        Source = ((IndexView)View).DataContext
+                    });
+                    FMainItem.Items.Add(SubItem);
+                });
+                Menu.Items.Add(FMainItem);
+            }
+            //会员插件
+            if (ComponentBinding.ComponentObjectModelGroups.Vip != null)
+            {
+                var SMainItem = new CandyMenuItem
+                {
+                    Header = "会员插件",
+                    CommandParameter = EHandle.None,
+                };
+                ComponentBinding.ComponentObjectModelGroups.Vip.ForEach(item =>
+                {
+                    var SubItem = new CandyMenuItem { Header = item.Description, CommandParameter = (EHandle)item.Code };
+                    SubItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
+                    {
+                        Path = new PropertyPath("ActiveCommad", (EHandle)item.Code),
+                        Source = ((IndexView)View).DataContext
+                    });
+                    SMainItem.Items.Add(SubItem);
+                });
+                Menu.Items.Add(SMainItem);
+            }
+            //系统功能
+            if (ComponentBinding.FunctionObjectModels != null)
+            {
+                var TMainItem = new CandyMenuItem
+                {
+                    Header = "系统功能",
+                    CommandParameter = EHandle.None,
+                };
+                ComponentBinding.FunctionObjectModels.ForEach(item =>
+                {
+                    var SubItem = new CandyMenuItem { Header = item.Description, CommandParameter = (EHandle)item.Code };
+                    SubItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
+                    {
+                        Path = new PropertyPath("ActiveCommad", (EHandle)item.Code),
+                        Source = ((IndexView)View).DataContext
+                    });
+                    TMainItem.Items.Add(SubItem);
+                });
+
+                Menu.Items.Add(TMainItem);
+            }
             Mnues = Menu;
         }
         #endregion
@@ -214,7 +228,7 @@ namespace CandySugar.MainUI.ViewModels
 
         #region 方法
 
-        private void ChangeBackgroudTask(bool CanChangeBackgroud) 
+        private void ChangeBackgroudTask(bool CanChangeBackgroud)
         {
             if (ComponentBinding.OptionObjectModels.BackgroudLocation.IsNullOrEmpty()) return;
             var files = Directory.GetFiles(ComponentBinding.OptionObjectModels.BackgroudLocation);

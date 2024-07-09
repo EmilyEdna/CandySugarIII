@@ -17,6 +17,7 @@
     MinWidth="400"
     MinHeight="200"
     d:DataContext="{d:DesignInstance vm:OptionViewModel}"
+    Handle="1,false"
     ResizeMode="NoResize"
     mc:Ignorable="d">
     <eda:CandyWindow.Background>

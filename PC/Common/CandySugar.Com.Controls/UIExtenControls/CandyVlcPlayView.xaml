@@ -13,7 +13,7 @@
     d:DataContext="{d:DesignInstance local:CandyVlcPlayViewModel}"
     d:Height="700"
     d:Width="1200"
-    Handle="false,true,true,true"
+    Handle="1,false"
     mc:Ignorable="d">
     <Window.Resources>
         <Storyboard x:Key="VolOpenKey">

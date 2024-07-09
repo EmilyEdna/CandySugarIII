@@ -16,7 +16,7 @@
     MinWidth="1000"
     MinHeight="300"
     d:DataContext="{d:DesignInstance local:CandyAudioPlayViewModel}"
-    ResizeMode="NoResize"
+    Handle="false,false,false,true"
     mc:Ignorable="d">
     <eda:CandyWindow.Resources>
         <Style x:Key="Channel" TargetType="ProgressBar">
