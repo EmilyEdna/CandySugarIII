@@ -49,12 +49,9 @@ namespace CandySugar.MainUI.ViewModels
 
         protected override void OnActivate()
         {
+            BlurRadius = 15;
             SearchHistory = ["1", "2"];
             CreateMenuUI();
-            GenericDelegate.BlurChangedEvent += (obj) =>
-            {
-                ((IndexView)View).BlurRadius = obj;
-            };
         }
 
 
@@ -66,6 +63,22 @@ namespace CandySugar.MainUI.ViewModels
             set => SetAndNotify(ref _Title, value);
         }
 
+        private bool _ChangeBackgroud;
+        public bool ChangeBackgroud
+        {
+            get => _ChangeBackgroud;
+            set 
+            {
+                SetAndNotify(ref _ChangeBackgroud, value);
+                ChangeBackgroudTask(value);
+            }
+        }
+
+        private double _BlurRadius;
+        public double BlurRadius {
+            get => _BlurRadius;
+            set => SetAndNotify(ref _BlurRadius, value);
+        }
         private Control _Menus;
         public Control Mnues
         {
@@ -197,13 +210,17 @@ namespace CandySugar.MainUI.ViewModels
             if (input == EMenu.Exit) Environment.Exit(0);
         });
 
-        public RelayCommand<string> SwitchChangeCommand => new(input =>
+        #endregion
+
+        #region 方法
+
+        private void ChangeBackgroudTask(bool CanChangeBackgroud) 
         {
             if (ComponentBinding.OptionObjectModels.BackgroudLocation.IsNullOrEmpty()) return;
             var files = Directory.GetFiles(ComponentBinding.OptionObjectModels.BackgroudLocation);
             if (files.Length <= 0) return;
             if (BackQueue.IsEmpty) files.ForArrayEach<string>(BackQueue.Enqueue);
-            if (input.AsBool())
+            if (CanChangeBackgroud)
                 ThreadFactory.Instance.StartWithRestart(() =>
                 {
                     Application.Current.Dispatcher.Invoke(() =>
@@ -223,15 +240,11 @@ namespace CandySugar.MainUI.ViewModels
                         };
                         Board.Begin();
                     });
-                    Thread.Sleep((int)ComponentBinding.OptionObjectModels.Interval*1000);
+                    Thread.Sleep((int)ComponentBinding.OptionObjectModels.Interval * 1000);
                 }, "BackQuery", null, false);
             else
                 ThreadFactory.Instance.StopTask("BackQuery");
-        });
-
-        #endregion
-
-        #region 方法
+        }
         /// <summary>
         /// 临时窗口
         /// </summary>

@@ -2,7 +2,7 @@
     x:Class="CandySugar.Com.Style.Theme"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:eda="http://edacoder.github.io"
+    xmlns:eda="https://github.com/EmilyEdna"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:lib="http://lib.candy.com"
     xmlns:uc="http://ctrl.candy.com">

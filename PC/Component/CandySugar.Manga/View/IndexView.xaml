@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:eda="http://edacoder.github.io"
+    xmlns:eda="https://github.com/EmilyEdna"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:lib="http://lib.candy.com"
     xmlns:local="clr-namespace:CandySugar.Manga.View"

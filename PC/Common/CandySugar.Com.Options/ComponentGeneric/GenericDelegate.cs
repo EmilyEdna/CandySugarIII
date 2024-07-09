@@ -20,10 +20,5 @@ namespace CandySugar.Com.Options.ComponentGeneric
         /// </summary>
         public static event Action WindowStateEvent;
         public static void WindowAction()=> WindowStateEvent?.Invoke();
-        /// <summary>
-        /// 玻璃效果变化
-        /// </summary>
-        public static event Action<double> BlurChangedEvent;
-        public static void BlurChangedAction(double value) => BlurChangedEvent?.Invoke(value);
     }
 }

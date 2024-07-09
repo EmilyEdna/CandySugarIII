@@ -13,10 +13,5 @@ namespace CandySugar.MainUI.Views
         {
             InitializeComponent();
         }
-
-        private void BlurEffectEvent(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            GenericDelegate.BlurChangedAction(e.NewValue);
-        }
     }
 }

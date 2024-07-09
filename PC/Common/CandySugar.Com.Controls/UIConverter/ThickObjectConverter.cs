@@ -12,7 +12,7 @@ namespace CandySugar.Com.Controls.UIConverter
         {
             if (value is CandyImage ci)
             {
-                return new ImageThickness((int)ci.Width, (int)ci.Height);
+                return new WidthHeightStruct((int)ci.Width, (int)ci.Height);
             }
             return null;
         }

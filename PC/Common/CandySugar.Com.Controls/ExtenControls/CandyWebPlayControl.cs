@@ -1,4 +1,5 @@
 ﻿using CandyControls;
+using CandyControls.ControlsModel.Thicks;
 using CandySugar.Com.Library;
 using CandySugar.Com.Library.KeepOn;
 using Microsoft.Web.WebView2.Core;
@@ -27,6 +28,7 @@ namespace CandySugar.Com.Controls.ExtenControls
             this._Route = Route;
             this._Mode = Mode;
             this.Title = "网页视频播放器";
+            this.Handle = new WindowHandleStruct(false, true, true, true);
             this.Background = new ImageBrush
             {
                 ImageSource = new BitmapImage(new Uri("pack://application:,,,/CandySugar.Com.Style;component/Resources/MusicBackgroud.jpg"))
