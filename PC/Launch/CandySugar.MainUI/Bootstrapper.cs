@@ -11,6 +11,7 @@ using Serilog;
 using Stylet;
 using StyletIoC;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Threading;
@@ -79,11 +80,7 @@ namespace CandySugar.MainUI
         protected override void ConfigureIoC(IStyletIoCBuilder builder)
         {
             builder.Bind<OptionViewModel>().ToSelf();
-            AssemblyLoader.Dll.ForEach(item =>
-            {
-                if (item.IocModule != null)
-                    Activator.CreateInstance(item.IocModule);
-            });
+            AssemblyLoader.Dll.Where(t => t.IocModule != null).ForEnumerEach(item => Activator.CreateInstance(item.IocModule));
             Module.Services.ForDicEach((key, value) => IocDependency.Register(value, key));
         }
 

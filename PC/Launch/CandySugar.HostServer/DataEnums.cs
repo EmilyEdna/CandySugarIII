@@ -6,13 +6,38 @@ using System.Threading.Tasks;
 
 namespace CandySugar.HostServer
 {
+    /// <summary>
+    /// 功能枚举
+    /// </summary>
     public enum DataEnums
     {
-        Axgle=1,
+        /// <summary>
+        /// Axgle
+        /// </summary>
+        Axgle = 1,
+        /// <summary>
+        /// Comic
+        /// </summary>
         Comic,
+        /// <summary>
+        /// Cosplay
+        /// </summary>
         Cosplay,
+        /// <summary>
+        /// Rifan
+        /// </summary>
         Rifan,
+        /// <summary>
+        /// Wallpaper
+        /// </summary>
         Wallpaper,
-        Music
+        /// <summary>
+        /// Music
+        /// </summary>
+        Music,
+        /// <summary>
+        /// Anime
+        /// </summary>
+        Anime
     }
 }

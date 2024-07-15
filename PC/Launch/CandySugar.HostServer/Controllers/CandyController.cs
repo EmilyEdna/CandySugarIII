@@ -1,4 +1,5 @@
 ﻿using CandySugar.Com.Data;
+using CandySugar.Com.Data.Entity.AnimeEntity;
 using CandySugar.Com.Data.Entity.AxgleEntity;
 using CandySugar.Com.Data.Entity.ComicEntity;
 using CandySugar.Com.Data.Entity.CosplayEntity;
@@ -17,6 +18,9 @@ using XExten.Advance.LinqFramework;
 
 namespace CandySugar.HostServer.Controllers
 {
+    /// <summary>
+    /// 甜糖服务
+    /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class CandyController : Controller
@@ -27,6 +31,10 @@ namespace CandySugar.HostServer.Controllers
         private IService<RifanModel> RifanService;
         private IService<WallModel> WallService;
         private IService<MusicModel> MusiceService;
+        private IService<AnimeModel> AnimeService;
+        /// <summary>
+        /// 甜糖服务
+        /// </summary>
         public CandyController()
         {
             AxgleService = IocDependency.Resolve<IService<AxgleModel>>();
@@ -35,7 +43,13 @@ namespace CandySugar.HostServer.Controllers
             RifanService = IocDependency.Resolve<IService<RifanModel>>();
             WallService = IocDependency.Resolve<IService<WallModel>>();
             MusiceService = IocDependency.Resolve<IService<MusicModel>>();
+            AnimeService =IocDependency.Resolve<IService<AnimeModel>>();
         }
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Export(DataEnums type)
         {
@@ -47,6 +61,7 @@ namespace CandySugar.HostServer.Controllers
                 DataEnums.Rifan => Encoding.UTF8.GetBytes(RifanService.QueryAll().ToJson()),
                 DataEnums.Wallpaper => Encoding.UTF8.GetBytes(WallService.QueryAll().ToJson()),
                 DataEnums.Music => Encoding.UTF8.GetBytes(MusiceService.QueryAll().ToJson()),
+                DataEnums.Anime => Encoding.UTF8.GetBytes(AnimeService.QueryAll().ToJson()),
                 _ => null
             };
 
@@ -56,6 +71,11 @@ namespace CandySugar.HostServer.Controllers
             };
            
         }
+        /// <summary>
+        /// 导入
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="file"></param>
         [HttpPost]
         public void Import(DataEnums type, IFormFile file)
         {
@@ -101,6 +121,12 @@ namespace CandySugar.HostServer.Controllers
                     fileContent.ToModel<List<MusicModel>>().ForEach(item =>
                     {
                         MusiceService.Insert(item);
+                    });
+                    break;
+                case DataEnums.Anime:
+                    fileContent.ToModel<List<AnimeModel>>().ForEach(item =>
+                    {
+                        AnimeService.Insert(item);
                     });
                     break;
                 default:

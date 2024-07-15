@@ -7,6 +7,7 @@ using CandySugar.Com.Library.DLLoader;
 using CandySugar.Com.Library.Enums;
 using CandySugar.Com.Library.FFMPeg;
 using CandySugar.Com.Options.ComponentGeneric;
+using CandySugar.MainUI.CtrlView;
 using CandySugar.MainUI.Views;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
@@ -51,6 +52,7 @@ namespace CandySugar.MainUI.ViewModels
         {
             BlurRadius = 15;
             SearchHistory = ["1", "2"];
+            CandyControl = new HomeView();
             CreateMenuUI();
         }
 
@@ -200,7 +202,7 @@ namespace CandySugar.MainUI.ViewModels
             else
             {
                 if (obj == EHandle.Index)
-                    CandyControl = null;
+                    CandyControl = new HomeView();
                 if (obj == EHandle.Video)
                     new CandyVlcPlayView().Show();
                 if (obj == EHandle.Audio)
