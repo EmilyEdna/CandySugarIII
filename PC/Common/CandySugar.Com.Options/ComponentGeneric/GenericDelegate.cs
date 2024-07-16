@@ -16,6 +16,10 @@ namespace CandySugar.Com.Options.ComponentGeneric
         /// </summary>
         public static Action<object> ClipboardAction { get; set; }
         /// <summary>
+        /// 改变内容
+        /// </summary>
+        public static Action<object> ChangeContentAction { get; set; }
+        /// <summary>
         /// 窗体变化
         /// </summary>
         public static event Action WindowStateEvent;

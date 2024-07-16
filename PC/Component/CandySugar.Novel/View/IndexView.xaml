@@ -49,8 +49,7 @@
                                 <eda:CandyButton.CommandParameter>
                                     <MultiBinding Converter="{StaticResource MultiParamConverter}">
                                         <Binding Path="Tag" RelativeSource="{RelativeSource Mode=Self}" />
-                                        <Binding Path="BookName" />
-                                        <Binding Path="Route" />
+                                        <Binding Path="." />
                                     </MultiBinding>
                                 </eda:CandyButton.CommandParameter>
                             </eda:CandyButton>
@@ -63,8 +62,7 @@
                                 <eda:CandyButton.CommandParameter>
                                     <MultiBinding Converter="{StaticResource MultiParamConverter}">
                                         <Binding Path="Tag" RelativeSource="{RelativeSource Mode=Self}" />
-                                        <Binding Path="BookName" />
-                                        <Binding Path="Route" />
+                                        <Binding Path="." />
                                     </MultiBinding>
                                 </eda:CandyButton.CommandParameter>
                             </eda:CandyButton>

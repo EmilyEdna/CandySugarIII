@@ -4,9 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:eda="https://github.com/EmilyEdna"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:CandySugar.MainUI.CtrlView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:CandySugar.MainUI.CtrlViewModel"
+    x:Name="Index"
     d:DataContext="{d:DesignInstance vm:HomeViewModel}"
     d:DesignHeight="700"
     d:DesignWidth="1200"
@@ -15,10 +17,51 @@
         <vm:HomeViewModel />
     </UserControl.DataContext>
     <Grid>
-        <eda:CandyTabControl>
-            <TabItem Header="番剧">
-                1
+        <eda:CandyTabControl x:Name="Tab">
+            <TabItem Header="小说">
+                <ScrollViewer>
+                    <ItemsControl ItemsSource="{Binding NovelData}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid VerticalAlignment="Top" Columns="5" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <eda:CandyBeveledBorder
+                                    Margin="3"
+                                    BorderType="Primary"
+                                    CornerRadius="5">
+                                    <StackPanel Margin="8">
+                                        <TextBlock Margin="0,2" Text="{Binding BookName, StringFormat=书名:{0}}" />
+                                        <TextBlock Margin="0,2" Text="{Binding Author, StringFormat=作者:{0}}" />
+                                        <TextBlock Margin="0,2" Text="{Binding Chapter, StringFormat=当前:{0}}" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <eda:CandyButton
+                                                Margin="1,2"
+                                                ButtonType="Primary"
+                                                Command="{Binding DataContext.RemoveNovelCommand, ElementName=Index}"
+                                                CommandParameter="{Binding PId}"
+                                                Content="删除" />
+                                            <eda:CandyButton
+                                                Margin="1,2"
+                                                ButtonType="Success"
+                                                Command="{Binding DataContext.KeepCommand, ElementName=Index}"
+                                                CommandParameter="{Binding .}"
+                                                Content="继续" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </eda:CandyBeveledBorder>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
             </TabItem>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding NovelCommand}" CommandParameter="{Binding SelectedItem, ElementName=Tab}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </eda:CandyTabControl>
     </Grid>
 </UserControl>

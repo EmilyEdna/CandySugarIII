@@ -13,6 +13,5 @@ namespace CandySugar.Com.Data
         void Remove(Guid Id);
 
         List<T> QueryAll();
-       
     }
 }

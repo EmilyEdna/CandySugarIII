@@ -54,6 +54,16 @@ namespace CandySugar.MainUI.ViewModels
             SearchHistory = ["1", "2"];
             CandyControl = new HomeView();
             CreateMenuUI();
+            GenericDelegate.ChangeContentAction = new(obj =>
+            {
+                var Plugin = AssemblyLoader.Dll.FirstOrDefault(t => t.Handle == 2);
+                this.View.Dispatcher.Invoke(() =>
+                {
+                    var Ctrl = (Control)Activator.CreateInstance(Plugin.InstanceType);
+                    Ctrl.DataContext = Activator.CreateInstance(Plugin.InstanceViewModel,[obj]);
+                    CandyControl = Ctrl;
+                });
+            });
         }
 
 

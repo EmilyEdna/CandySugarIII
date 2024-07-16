@@ -4,6 +4,7 @@
     {
         public IndexViewModel()
         {
+            Service = IocDependency.Resolve<IService<NovelModel>>();
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             NavVisible = Visibility.Hidden;
@@ -26,6 +27,8 @@
         private int RootChapterTotal;
         private int RootChapterPageIndex = 1;
         private NovelDetailRootResult RootDetail;
+        private NovelCategoryElementResult BookInfo;
+        private IService<NovelModel> Service;
         #endregion
 
         #region 事件
@@ -36,7 +39,7 @@
             else
                 MarginThickness = new Thickness(0, 0, 60, 15);
             NavHeight = GlobalParam.NavHeight;
-            NavWidth= GlobalParam.NavWidth;
+            NavWidth = GlobalParam.NavWidth;
         }
         #endregion
 
@@ -54,35 +57,32 @@
         #endregion
 
         #region 方法
-        private void OnSearch()
+        private async void OnSearch()
         {
-            Task.Run(async () =>
+            try
             {
-                try
+                var Proxy = Module.IocModule.Proxy;
+                var result = (await NovelFactory.Novel(opt =>
                 {
-                    var Proxy = Module.IocModule.Proxy;
-                    var result = (await NovelFactory.Novel(opt =>
+                    opt.RequestParam = new Input
                     {
-                        opt.RequestParam = new Input
-                        {
-                            ProxyIP = Proxy.IP,
-                            ProxyPort = Proxy.Port,
-                            PlatformType = PlatformEnum.TopPoint,
-                            CacheSpan = ComponentBinding.OptionObjectModels.Cache,
-                            NovelType = NovelEnum.Search,
-                            Search = new NovelSearch { SearchKey = Keyword }
-                        };
-                    }).RunsAsync()).SearchResult;
-                    SearchTotal = result.Total;
-                    var Model = result.ElementResults.ToMapest<List<NovelCategoryElementResult>>();
-                    CategoryResult = new ObservableCollection<NovelCategoryElementResult>(Model);
-                }
-                catch (Exception ex)
-                {
-                    Log.Logger.Error(ex, "");
-                    ErrorNotify();
-                }
-            });
+                        ProxyIP = Proxy.IP,
+                        ProxyPort = Proxy.Port,
+                        PlatformType = PlatformEnum.TopPoint,
+                        CacheSpan = ComponentBinding.OptionObjectModels.Cache,
+                        NovelType = NovelEnum.Search,
+                        Search = new NovelSearch { SearchKey = Keyword }
+                    };
+                }).RunsAsync()).SearchResult;
+                SearchTotal = result.Total;
+                var Model = result.ElementResults.ToMapest<List<NovelCategoryElementResult>>();
+                CategoryResult = new ObservableCollection<NovelCategoryElementResult>(Model);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
         }
         private void OnInit()
         {
@@ -147,6 +147,7 @@
         {
             RootChapterPageIndex = 1;
             var Key = element["Key1"].AsString().AsInt();
+            BookInfo = (NovelCategoryElementResult)element["Key2"];
             Task.Run(async () =>
             {
                 try
@@ -163,8 +164,8 @@
                             NovelType = NovelEnum.Detail,
                             Detail = new NovelDetail
                             {
-                                BookName = element["Key2"].AsString(),
-                                Route = element["Key3"].AsString()
+                                BookName = BookInfo.BookName,
+                                Route = BookInfo.Route
                             }
                         };
                     }).RunsAsync()).DetailResult;
@@ -303,7 +304,17 @@
             Model.Current = element["Key2"].AsString();
             Model.Chapters = DetailResult.ToList();
             Model.Index = DetailResult.ToList().FindIndex(0, t => t.Route == Model.Current);
-
+            Model.MD5 = Convert.ToBase64String(Encoding.UTF8.GetBytes(Model.Chapters.ToJson())).ToMd5();
+            Service.Insert(new NovelModel
+            {
+                Current = Model.Index,
+                Author = BookInfo.Author,
+                BookName = BookInfo.BookName,
+                Platform = (int)Model.Platform,
+                Detail = Convert.ToBase64String(Encoding.UTF8.GetBytes(Model.Chapters.ToJson())),
+                Chapter = Model.Chapters[Model.Index].Chapter,
+                Route = Model.Current
+            });
             Module.Param = Model;
             ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext).Changed(true);
         }

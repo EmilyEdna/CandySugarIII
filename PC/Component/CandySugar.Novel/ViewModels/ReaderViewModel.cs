@@ -5,13 +5,15 @@
 
         public ReaderViewModel()
         {
-            DataModel = (ContentDataModel)Module.Param;
+            DataModel = Module.Param.ToMapest<ContentDataModel>();
+            Service = IocDependency.Resolve<IService<NovelModel>>();
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             WindowStateEvent();
             OnContent();
         }
 
         #region  字段
+        private IService<NovelModel> Service;
         private ContentDataModel DataModel;
         public ReaderView Views;
         #endregion
@@ -94,6 +96,7 @@
                 {
                     DataModel.Index += Data;
                     DataModel.Current = DataModel.Chapters[DataModel.Index].Route;
+                    RemoveAdd();
                     OnContent();
                 }
             }
@@ -104,11 +107,24 @@
                 {
                     DataModel.Index += Data;
                     DataModel.Current = DataModel.Chapters[DataModel.Index].Route;
+                    RemoveAdd();
                     OnContent();
                 }
             }
             else
                 ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext).Changed(false);
+        }
+        #endregion
+
+        #region 方法
+        private void RemoveAdd()
+        {
+            var Entity = Service.QueryAll().FirstOrDefault(t => t.Detail.ToMd5() == DataModel.MD5);
+            Service.Remove(Entity.PId);
+            Entity.Current = DataModel.Index;
+            Entity.Chapter = DataModel.Chapters[DataModel.Index].Chapter;
+            Entity.Route = DataModel.Current;
+            Service.Insert(Entity);
         }
         #endregion
     }
