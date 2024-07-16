@@ -22,7 +22,7 @@
             Command="{Binding HandleCommand}"
             InnerMargin="{Binding MarginThickness}"
             PerNext="Visible">
-            <FlowDocument Background="Transparent">
+            <FlowDocument Background="Transparent" PageWidth="{Binding BorderWidth}">
                 <Paragraph>
                     <eda:CandyViewer
                         Width="{Binding DataContext.BorderWidth, ElementName=Reader}"

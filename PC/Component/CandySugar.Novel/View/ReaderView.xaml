@@ -20,7 +20,7 @@
             Command="{Binding HandleCommand}"
             InnerMargin="{Binding MarginThickness}"
             PerNext="Visible">
-            <FlowDocument Background="Transparent">
+            <FlowDocument Background="Transparent" PageWidth="{Binding BorderWidth}">
                 <Paragraph>
                     <Bold>
                         <TextBlock Style="{DynamicResource TextBlockReaderStyle}" Text="{Binding Element.ChapterName}" />

@@ -28,6 +28,8 @@
                 MarginThickness = new Thickness(0, 0, 20, 55);
             else
                 MarginThickness = new Thickness(0, 0, 10, 0);
+
+            BorderWidth = GlobalParam.MAXWidth;
             if (Element != null)
             {
                 var Name = Element.ChapterName;

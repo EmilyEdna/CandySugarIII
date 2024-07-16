@@ -20,7 +20,7 @@
             HorizontalAlignment="Center"
             Command="{Binding BackCommand}"
             InnerMargin="{Binding MarginThickness}">
-            <FlowDocument Background="Transparent">
+            <FlowDocument Background="Transparent" PageWidth="{Binding BorderWidth}">
                 <Paragraph>
                     <ItemsControl ItemsSource="{Binding Words}" Visibility="{Binding Words, Converter={StaticResource NullVisibilityConvterter}}">
                         <ItemsControl.ItemTemplate>

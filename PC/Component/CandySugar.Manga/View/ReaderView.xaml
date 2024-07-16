@@ -21,7 +21,7 @@
             HorizontalAlignment="Center"
             Command="{Binding HandleCommand}"
             InnerMargin="{Binding MarginThickness}">
-            <FlowDocument Background="Transparent">
+            <FlowDocument Background="Transparent" PageWidth="{Binding BorderWidth}">
                 <Paragraph>
                     <ItemsControl ItemsSource="{Binding Picture}">
                         <ItemsControl.ItemTemplate>
