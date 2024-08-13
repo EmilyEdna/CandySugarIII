@@ -376,7 +376,7 @@ namespace CandySugar.MainUI.ViewModels
                 Multiselect = true
             };
             if (Vdialog.ShowDialog() == true) VideoFile = Vdialog.FileName;
-
+            TempWindow.Close();
             await Path.Combine(SyncStatic.CreateDir(CommonHelper.AppPath), $"{Guid.NewGuid()}.mp4")
                  .AVMerge(AudioFile, VideoFile);
 
