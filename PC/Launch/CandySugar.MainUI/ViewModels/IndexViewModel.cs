@@ -377,10 +377,10 @@ namespace CandySugar.MainUI.ViewModels
             };
             if (Vdialog.ShowDialog() == true) VideoFile = Vdialog.FileName;
             TempWindow.Close();
-            await Path.Combine(SyncStatic.CreateDir(CommonHelper.AppPath), $"{Guid.NewGuid()}.mp4")
+            await Path.Combine(SyncStatic.CreateDir(CommonHelper.VideoExportPath), $"{Guid.NewGuid()}.mp4")
                  .AVMerge(AudioFile, VideoFile);
 
-            new CandyNotifyControl(CommonHelper.ConvertFinishInformation, true, CommonHelper.AppPath).Show();
+            new CandyNotifyControl(CommonHelper.ConvertFinishInformation, true, CommonHelper.VideoExportPath).Show();
         }
         #endregion
     }
