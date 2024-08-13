@@ -15,6 +15,10 @@
         /// </summary>
         ImgToAudio,
         /// <summary>
+        /// 合并视频和音频
+        /// </summary>
+        AudioAndVideo,
+        /// <summary>
         /// 退出系统
         /// </summary>
         Exit

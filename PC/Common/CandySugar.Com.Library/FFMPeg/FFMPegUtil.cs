@@ -80,7 +80,7 @@ namespace CandySugar.Com.Library.FFMPeg
         /// <returns></returns>
         public static async Task<bool> M4Video(this string m4path, string file)
         {
-            return await FMFactory.Default(opt => opt.Thread(5).Args(Cmd).InputFile(m4path)) .Output(file).RunAsync();
+            return await FMFactory.Default(opt => opt.Thread(5).Args(Cmd).InputFile(m4path)).Output(file).RunAsync();
         }
         /// <summary>
         /// 下载M4S流转音频无画面
@@ -102,10 +102,27 @@ namespace CandySugar.Com.Library.FFMPeg
         /// <returns></returns>
         public static async Task<bool> M4VAMerge(this string file, string m4audio, string m4video, bool useDown = false)
         {
-            return await FMFactory.Default(opt => {
+            return await FMFactory.Default(opt =>
+            {
                 opt.Thread(5).Args(useDown ? Cmd : "").InputFile(m4video)
                 .Args(useDown ? Cmd : "").InputFile(m4audio)
                 .VideoCodec("libx264").Codec("copy");
+            }).Output(file).RunAsync();
+        }
+
+        /// <summary>
+        /// 合并视频和音频
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="m4audio"></param>
+        /// <param name="m4video"></param>
+        /// <returns></returns>
+        public static async Task<bool> AVMerge(this string file, string m4audio, string m4video)
+        {
+            return await FMFactory.Default(opt => {
+                opt.InputFile(m4video).InputFile(m4audio)
+                    .VideoCodec("copy")
+                    .Args("-c:a aac -strict experimental -shortest -af apad");
             }).Output(file).RunAsync();
         }
     }

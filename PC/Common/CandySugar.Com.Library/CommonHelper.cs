@@ -28,6 +28,10 @@ namespace CandySugar.Com.Library
         /// </summary>
         public static string DownloadPath => Path.Combine(AppPath, "download");
         /// <summary>
+        /// 视频导出地址
+        /// </summary>
+        public static string VideoExportPath => Path.Combine(DownloadPath, "VideoExport");
+        /// <summary>
         /// 本地播放器
         /// </summary>
         public static string PlayerHtml => Path.Combine(AppPath, "Assets", "Player.html");

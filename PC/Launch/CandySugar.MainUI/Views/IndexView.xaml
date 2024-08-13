@@ -76,6 +76,10 @@
                         Header="图片音频" />
                     <eda:CandyMenuItem
                         Command="{Binding TaskBarCommand}"
+                        CommandParameter="{x:Static lib:EMenu.AudioAndVideo}"
+                        Header="音视合并" />
+                    <eda:CandyMenuItem
+                        Command="{Binding TaskBarCommand}"
                         CommandParameter="{x:Static lib:EMenu.Exit}"
                         Header="退出软件" />
                 </ContextMenu>

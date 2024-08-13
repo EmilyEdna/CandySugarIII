@@ -11,6 +11,7 @@ using CandySugar.MainUI.CtrlView;
 using CandySugar.MainUI.Views;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
+using NPOI.HPSF;
 using Stylet;
 using StyletIoC;
 using System;
@@ -27,6 +28,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using XExten.Advance.LinqFramework;
+using XExten.Advance.StaticFramework;
 using XExten.Advance.ThreadFramework;
 
 namespace CandySugar.MainUI.ViewModels
@@ -60,7 +62,7 @@ namespace CandySugar.MainUI.ViewModels
                 this.View.Dispatcher.Invoke(() =>
                 {
                     var Ctrl = (Control)Activator.CreateInstance(Plugin.InstanceType);
-                    Ctrl.DataContext = Activator.CreateInstance(Plugin.InstanceViewModel,[obj]);
+                    Ctrl.DataContext = Activator.CreateInstance(Plugin.InstanceViewModel, [obj]);
                     CandyControl = Ctrl;
                 });
             });
@@ -233,6 +235,7 @@ namespace CandySugar.MainUI.ViewModels
             if (input == EMenu.AudioToHigh) Application.Current.Dispatcher.Invoke(AudioToHighAudio);
             if (input == EMenu.ImgToVideo) Application.Current.Dispatcher.Invoke(ImageToVideo);
             if (input == EMenu.ImgToAudio) Application.Current.Dispatcher.Invoke(ImageToAudioVideo);
+            if (input == EMenu.AudioAndVideo) Application.Current.Dispatcher.Invoke(AudioAndVideoMerge);
             if (input == EMenu.Exit) Environment.Exit(0);
         });
 
@@ -307,7 +310,7 @@ namespace CandySugar.MainUI.ViewModels
             {
                 await Path.GetFileName(FileName[Index]).Mp3ToHighMP3(catalog);
             }
-            new CandyNotifyControl(CommonHelper.DownloadFinishInformation, true, catalog).Show();
+            new CandyNotifyControl(CommonHelper.ConvertFinishInformation, true, catalog).Show();
         }
         /// <summary>
         /// 图片转视频
@@ -326,7 +329,7 @@ namespace CandySugar.MainUI.ViewModels
             if (FileName.Length <= 0) return;
             var catalog = Path.GetDirectoryName(FileName[0]);
             await FileName.ToList().ImageToVideo(catalog);
-            new CandyNotifyControl(CommonHelper.DownloadFinishInformation, true, catalog).Show();
+            new CandyNotifyControl(CommonHelper.ConvertFinishInformation, true, catalog).Show();
         }
         /// <summary>
         /// 图片转视频带音频
@@ -350,7 +353,34 @@ namespace CandySugar.MainUI.ViewModels
             var catalog = Path.GetDirectoryName(ImgName[0]);
             var Time = AudioFactory.Instance.InitAudio(AudioName).AudioReader.TotalTime.TotalSeconds.ToString("F0");
             await ImgName.ToList().ImageToVideo(AudioName, Time, catalog);
-            new CandyNotifyControl(CommonHelper.DownloadFinishInformation, true, catalog).Show();
+            new CandyNotifyControl(CommonHelper.ConvertFinishInformation, true, catalog).Show();
+        }
+
+        /// <summary>
+        /// 音频视频合并
+        /// </summary>
+        private async void AudioAndVideoMerge()
+        {
+            string AudioFile = string.Empty;
+            string VideoFile = string.Empty;
+            var TempWindow = CreateTempWindow();
+            OpenFileDialog Adialog = new OpenFileDialog
+            {
+                Filter = "音频|*.mp3;*.wav;*.flac",
+                Multiselect = false
+            };
+            if (Adialog.ShowDialog() == true) AudioFile = Adialog.FileName;
+            OpenFileDialog Vdialog = new OpenFileDialog
+            {
+                Filter = "视频|*.mp4",
+                Multiselect = true
+            };
+            if (Vdialog.ShowDialog() == true) VideoFile = Vdialog.FileName;
+
+            await Path.Combine(SyncStatic.CreateDir(CommonHelper.AppPath), $"{Guid.NewGuid()}.mp4")
+                 .AVMerge(AudioFile, VideoFile);
+
+            new CandyNotifyControl(CommonHelper.ConvertFinishInformation, true, CommonHelper.AppPath).Show();
         }
         #endregion
     }
