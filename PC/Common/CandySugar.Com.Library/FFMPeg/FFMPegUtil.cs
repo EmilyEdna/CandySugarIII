@@ -1,6 +1,5 @@
 ﻿using CandySugar.Com.Library.FFMPegFactory;
 using CandySugar.Com.Library.FileWrite;
-using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
 using System.IO;
