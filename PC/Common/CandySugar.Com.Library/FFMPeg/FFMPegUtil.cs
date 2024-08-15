@@ -1,5 +1,6 @@
 ﻿using CandySugar.Com.Library.FFMPegFactory;
 using CandySugar.Com.Library.FileWrite;
+using Microsoft.VisualBasic.Devices;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -119,10 +120,29 @@ namespace CandySugar.Com.Library.FFMPeg
         /// <returns></returns>
         public static async Task<bool> AVMerge(this string file, string m4audio, string m4video)
         {
-            return await FMFactory.Default(opt => {
+            return await FMFactory.Default(opt =>
+            {
                 opt.InputFile(m4video).InputFile(m4audio)
                     .VideoCodec("copy")
                     .Args("-c:a aac -strict experimental -shortest -af apad");
+            }).Output(file).RunAsync();
+        }
+
+        /// <summary>
+        /// 分离音轨
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="m4video"></param>
+        /// <returns></returns>
+        public static async Task<bool> Extract(this string file, string m4video)
+        {
+            return await FMFactory.Default(opt =>
+            {
+                opt.InputFile(m4video)
+                .NoVideo()
+                .BitAudio(320)
+                .AudioRate(44100)
+                .CodecMp3();
             }).Output(file).RunAsync();
         }
     }

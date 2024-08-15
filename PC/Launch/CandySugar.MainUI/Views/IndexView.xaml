@@ -80,6 +80,10 @@
                         Header="音视合并" />
                     <eda:CandyMenuItem
                         Command="{Binding TaskBarCommand}"
+                        CommandParameter="{x:Static lib:EMenu.ExtractToAudio}"
+                        Header="抽离音轨" />
+                    <eda:CandyMenuItem
+                        Command="{Binding TaskBarCommand}"
                         CommandParameter="{x:Static lib:EMenu.Exit}"
                         Header="退出软件" />
                 </ContextMenu>

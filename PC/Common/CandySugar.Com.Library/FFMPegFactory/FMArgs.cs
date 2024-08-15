@@ -77,6 +77,30 @@ namespace CandySugar.Com.Library.FFMPegFactory
             sb.Append($" -codec {args} ");
             return this;
         }
+
+        public FMArgs NoVideo() {
+            sb.Append($" -vn ");
+            return this;
+        }
+
+        public FMArgs BitAudio(int args)
+        {
+            sb.Append($" -b:a {args}k ");
+            return this;
+        }
+
+        public FMArgs AudioRate(double args)
+        {
+            sb.Append($" -ar {args} ");
+            return this;
+        }
+
+        public FMArgs CodecMp3()
+        {
+            sb.Append($" -c:a mp3 ");
+            return this;
+        }
+
         public FMArgs Args(params string[] args)
         {
             if (args.Length > 0)

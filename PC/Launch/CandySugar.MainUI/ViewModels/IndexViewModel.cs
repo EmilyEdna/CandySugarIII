@@ -236,6 +236,7 @@ namespace CandySugar.MainUI.ViewModels
             if (input == EMenu.ImgToVideo) Application.Current.Dispatcher.Invoke(ImageToVideo);
             if (input == EMenu.ImgToAudio) Application.Current.Dispatcher.Invoke(ImageToAudioVideo);
             if (input == EMenu.AudioAndVideo) Application.Current.Dispatcher.Invoke(AudioAndVideoMerge);
+            if (input == EMenu.ExtractToAudio) Application.Current.Dispatcher.Invoke(ExtractToAudio);
             if (input == EMenu.Exit) Environment.Exit(0);
         });
 
@@ -377,10 +378,29 @@ namespace CandySugar.MainUI.ViewModels
             };
             if (Vdialog.ShowDialog() == true) VideoFile = Vdialog.FileName;
             TempWindow.Close();
+            if (VideoFile.IsNullOrEmpty() || AudioFile.IsNullOrEmpty()) return;
             await Path.Combine(SyncStatic.CreateDir(CommonHelper.VideoExportPath), $"{Guid.NewGuid()}.mp4")
                  .AVMerge(AudioFile, VideoFile);
-
             new CandyNotifyControl(CommonHelper.ConvertFinishInformation, true, CommonHelper.VideoExportPath).Show();
+        }
+
+        /// <summary>
+        /// 抽离音频
+        /// </summary>
+        private async void ExtractToAudio() {
+            string VideoFile = string.Empty;
+            var TempWindow = CreateTempWindow();
+            OpenFileDialog Vdialog = new OpenFileDialog
+            {
+                Filter = "视频|*.mp4;*.avi;*.mkv;*.flv",
+                Multiselect = true
+            };
+            if (Vdialog.ShowDialog() == true) VideoFile = Vdialog.FileName;
+            TempWindow.Close();
+            if (VideoFile.IsNullOrEmpty()) return;
+            await Path.Combine(SyncStatic.CreateDir(CommonHelper.AudioExportPath), $"{Guid.NewGuid()}.mp3")
+            .Extract(VideoFile);
+            new CandyNotifyControl(CommonHelper.ConvertFinishInformation, true, CommonHelper.AudioExportPath).Show();
         }
         #endregion
     }

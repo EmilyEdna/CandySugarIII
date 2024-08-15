@@ -19,6 +19,10 @@
         /// </summary>
         AudioAndVideo,
         /// <summary>
+        /// 抽离音频
+        /// </summary>
+        ExtractToAudio,
+        /// <summary>
         /// 退出系统
         /// </summary>
         Exit
