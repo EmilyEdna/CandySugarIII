@@ -299,7 +299,7 @@ namespace CandySugar.MainUI.ViewModels
             var TempWindow = CreateTempWindow();
             OpenFileDialog dialog = new OpenFileDialog
             {
-                Filter = "音频|*.mp3",
+                Filter = "音频|*.mp3;*.wav;*.flac",
                 Multiselect = true
             };
             if (dialog.ShowDialog() == true) FileName = dialog.FileNames;
@@ -321,7 +321,7 @@ namespace CandySugar.MainUI.ViewModels
             var TempWindow = CreateTempWindow();
             OpenFileDialog dialog = new OpenFileDialog
             {
-                Filter = "图片|*.jpg;*.jpeg",
+                Filter = "图片|*.jpg;*.jpeg;*.png;*.bmp",
                 Multiselect = true
             };
             if (dialog.ShowDialog() == true) FileName = dialog.FileNames;
@@ -341,12 +341,12 @@ namespace CandySugar.MainUI.ViewModels
             var TempWindow = CreateTempWindow();
             OpenFileDialog dialog = new OpenFileDialog
             {
-                Filter = "图片|*.jpg;*.jpeg;",
+                Filter = "图片|*.jpg;*.jpeg;*.png;*.bmp",
                 Multiselect = true
             };
             if (dialog.ShowDialog() == true) ImgName = dialog.FileNames;
             if (ImgName.Length <= 0) return;
-            OpenFileDialog dialog2 = new OpenFileDialog { Filter = "音频|*.mp3" };
+            OpenFileDialog dialog2 = new OpenFileDialog { Filter = "音频|*.mp3;*.wav;*.flac" };
             if (dialog2.ShowDialog() == true) AudioName = dialog2.FileName;
             TempWindow.Close();
             if (AudioName.IsNullOrEmpty()) return;
@@ -372,7 +372,7 @@ namespace CandySugar.MainUI.ViewModels
             if (Adialog.ShowDialog() == true) AudioFile = Adialog.FileName;
             OpenFileDialog Vdialog = new OpenFileDialog
             {
-                Filter = "视频|*.mp4",
+                Filter = "视频|*.mp4;*.avi;*.mkv;*.flv",
                 Multiselect = true
             };
             if (Vdialog.ShowDialog() == true) VideoFile = Vdialog.FileName;

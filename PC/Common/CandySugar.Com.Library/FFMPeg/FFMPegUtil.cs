@@ -43,7 +43,7 @@ namespace CandySugar.Com.Library.FFMPeg
             return await FMFactory.ImagePipe(opt =>
             {
                 opt.FrameRate(0.3).Thread(5).ConCat(fileName).VideoCodec("libx264")
-                .VideoFormat("yuvj420p").Aspect(16, 9).Rate(60).Sreen(1920, 1080).Args("-b:v 5000k");
+                .VideoFormat("yuvj420p").Aspect(16, 9).Rate(60).Sreen(3840, 2160).Args("-b:v 5000k");
             }).Output(Path.Combine(videoPath, $"{Guid.NewGuid()}.{FileTypes.Mp4}")).RunAsync();
         }
         /// <summary>
