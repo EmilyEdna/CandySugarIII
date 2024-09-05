@@ -36,7 +36,7 @@ namespace CandySugar.NHViewer.ViewModels
         public void Active(object input) 
         {
             var param = input.ToMapest<AnonymousWater>();
-            if (param.SelectName == "Hi")
+            if (param.SelectName == "HI")
                 ComponentControl = Module.IocModule.Resolve<HIndexView>();
             else
                 ComponentControl = Module.IocModule.Resolve<NIndexView>();
