@@ -1,9 +1,6 @@
 ﻿using CandySugar.Com.Data.Entity.HitomiEntity;
-using CandySugar.NHViewer.Model;
 using Sdk.Component.Vip.Panda.sdk.ViewModel.Response;
-using StackExchange.Redis;
 using XExten.Advance.NetFramework;
-using XExten.Advance.NetFramework.Options;
 
 namespace CandySugar.NHViewer.ViewModels
 {
@@ -50,7 +47,7 @@ namespace CandySugar.NHViewer.ViewModels
         private int Total;
         private int PageIndex;
         private string Keyword;
-        private bool IsDown;
+        //private bool IsDown;
         private IService<HitomiModel> Service;
         #endregion
 
@@ -162,7 +159,7 @@ namespace CandySugar.NHViewer.ViewModels
                 Result = new HitomiModel
                 {
                     Cover = Results.AVIFBase64,
-                    Title = Result.Title,
+                    Title = Results.Title,
                     CId = Results.CId,
                     ReaderReferer= result.ReaderReferer,
                     OriginImages = result.AvifRoute

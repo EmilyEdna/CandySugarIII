@@ -13,8 +13,8 @@
             IocModule = this;
             IocDependency.Register(typeof(HIndexView));
             IocDependency.Register(typeof(HIndexViewModel));
-            IocDependency.Register(typeof(IndexView));
-            IocDependency.Register(typeof(IndexViewModel));
+            IocDependency.Register(typeof(NIndexView));
+            IocDependency.Register(typeof(NIndexViewModel));
             IocDependency.Register(typeof(ReaderView));
             IocDependency.Register(typeof(ReaderViewModel),1);
         }

@@ -1,8 +1,10 @@
 ﻿using CandySugar.NHViewer.Model;
+using XExten.Advance.NetFramework;
+using XExten.Advance.NetFramework.Options;
 
 namespace CandySugar.NHViewer.ViewModels
 {
-    public partial class ReaderViewModel: BasicObservableObject
+    public partial class ReaderViewModel : BasicObservableObject
     {
         public ReaderViewModel()
         {
@@ -17,11 +19,14 @@ namespace CandySugar.NHViewer.ViewModels
                         Route = item,
                     });
                 });
+                ReaderReferer = string.Empty;
+                PlatformEnum = PlatformEnum.NH;
             }
             else
             {
                 var Param = ((Dictionary<string, List<string>>)Module.Param).FirstOrDefault();
                 ReaderReferer = Param.Key;
+                PlatformEnum = PlatformEnum.HI;
                 Param.Value?.ForEnumerEach((item, index) =>
                 {
                     Picture.Add(new WatchInfo
@@ -30,14 +35,15 @@ namespace CandySugar.NHViewer.ViewModels
                         Route = item,
                     });
                 });
-
             }
-            Current = Picture.FirstOrDefault();
+
+            LoadAvifBase64(Picture.FirstOrDefault());
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             WindowStateEvent();
         }
 
         #region 字段
+        private PlatformEnum PlatformEnum;
         private string ReaderReferer;
         public ReaderView Views;
         #endregion
@@ -77,15 +83,53 @@ namespace CandySugar.NHViewer.ViewModels
             if (Data == -1)
             {
                 if (Current.Index + Data < 0) return;
-                 Current = Picture.ElementAtOrDefault(Current.Index + Data);
+                LoadAvifBase64(Picture.ElementAtOrDefault(Current.Index + Data));
+
             }
             else if (Data == 1)
             {
                 if (Current.Index + Data >= Picture.Count) return;
-                Current = Picture.ElementAtOrDefault(Current.Index + Data);
+                LoadAvifBase64(Picture.ElementAtOrDefault(Current.Index + Data));
             }
             else
-                ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext).NChanged(false);
+            {
+                var VM = ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext);
+                if (PlatformEnum == PlatformEnum.NH) VM.NChanged(false);
+                else VM.HChanged(false);
+            }
+        }
+        #endregion
+
+        #region 方法
+        private async void LoadAvifBase64(WatchInfo watchInfo)
+        {
+            if (PlatformEnum == PlatformEnum.HI)
+            {
+
+                var Nodes = new List<DefaultNodes> {
+                     new DefaultNodes{ Node =string.Format(watchInfo.Route, "a") },
+                     new DefaultNodes{ Node =string.Format(watchInfo.Route, "b") }
+                };
+
+                if (watchInfo.Route.Contains("https://") || watchInfo.Route.Contains("http://"))
+                {
+                    var bytes = await NetFactoryExtension.Resolve<INetFactory>().AddHeader(opt =>
+                     {
+                         opt.Key = ConstDefault.Referer;
+                         opt.Value = ReaderReferer;
+                     }).AddNode(Nodes)
+                     .Build(opt =>
+                     {
+                         opt.UseCache = true;
+                         opt.CacheSpan = ComponentBinding.OptionObjectModels.Cache;
+                     }).RunBytes();
+                    if (bytes.FirstOrDefault().Length > 1000)
+                        watchInfo.Route = Convert.ToBase64String(bytes.FirstOrDefault());
+                    else
+                        watchInfo.Route = Convert.ToBase64String(bytes.LastOrDefault());
+                }
+                Current = watchInfo;
+            }
         }
         #endregion
     }

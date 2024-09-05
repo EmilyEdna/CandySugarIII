@@ -1,8 +1,8 @@
 ﻿namespace CandySugar.NHViewer.ViewModels
 {
-    public partial class IndexViewModel : BasicObservableObject
+    public partial class NIndexViewModel : BasicObservableObject
     {
-        public IndexViewModel()
+        public NIndexViewModel()
         {
             Title = ["全部", "喜爱"];
             CollectResult = [];
@@ -40,7 +40,7 @@
         #endregion
 
         #region 字段
-        public IndexView Views;
+        public NIndexView Views;
 
         private bool IsPreview;
         private int Total;
@@ -68,7 +68,7 @@
         public void Changed(object item)
         {
             var Target = ((CandyToggleItem)item);
-            if (Target.FindParent<UserControl>() is IndexView View)
+            if (Target.FindParent<UserControl>() is NIndexView View)
             {
                 var Index = Target.Tag.ToString().AsInt();
 
