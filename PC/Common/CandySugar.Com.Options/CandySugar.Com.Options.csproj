@@ -9,7 +9,6 @@
 	<ItemGroup>
 		<PackageReference Include="CliWrap" Version="3.6.6" />
 		<PackageReference Include="LibVLCSharp.WPF" Version="3.9.0" />
-		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2739.15" />
 		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.65" />
 		<PackageReference Include="Stylet" Version="1.3.7" />
