@@ -97,17 +97,15 @@ namespace CandySugar.NHViewer.ViewModels
         [RelayCommand]
         public void Watch(HitomiModel model)
         {
-            Module.Param =  new Dictionary<string, List<string>> { { model.ReaderReferer, model.OriginImages } };
-            ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext).HChanged(true);
+            Result = model;
+            GotoRead();
         }
 
         [RelayCommand]
         public async Task View(InitHElementResult result)
         {
             await LoadImg(result);
-
-            Module.Param = new Dictionary<string, List<string>> { { Result.ReaderReferer, Result.OriginImages } };
-            ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext).HChanged(true);
+            GotoRead();
         }
 
         [RelayCommand]
@@ -125,7 +123,7 @@ namespace CandySugar.NHViewer.ViewModels
         #endregion
 
         #region  方法
-
+       
         public void ChangeActive(int ActiveAnime)
         {
             PageIndex = 1;
@@ -135,6 +133,21 @@ namespace CandySugar.NHViewer.ViewModels
             else
                 CollectResult = new(Service.QueryAll());
         }
+
+        private void GotoRead()
+        {
+            try
+            {
+                Module.Param = new Dictionary<string, List<string>> { { Result.ReaderReferer, Result.OriginImages } };
+                ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext).HChanged(true);
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Error(ex, "");
+                ErrorNotify();
+            }
+        }
+
         private async Task LoadImg(InitHElementResult Results)
         {
             try
@@ -161,7 +174,7 @@ namespace CandySugar.NHViewer.ViewModels
                     Cover = Results.AVIFBase64,
                     Title = Results.Title,
                     CId = Results.CId,
-                    ReaderReferer= result.ReaderReferer,
+                    ReaderReferer = result.ReaderReferer,
                     OriginImages = result.AvifRoute
                 };
                 Service.Insert(Result);
