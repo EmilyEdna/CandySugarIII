@@ -3,7 +3,9 @@ using CandySugar.Com.Data.Entity.AnimeEntity;
 using CandySugar.Com.Data.Entity.AxgleEntity;
 using CandySugar.Com.Data.Entity.ComicEntity;
 using CandySugar.Com.Data.Entity.CosplayEntity;
+using CandySugar.Com.Data.Entity.HitomiEntity;
 using CandySugar.Com.Data.Entity.MusicEntity;
+using CandySugar.Com.Data.Entity.NHentaiEntity;
 using CandySugar.Com.Data.Entity.RifanEntity;
 using CandySugar.Com.Data.Entity.WallEntity;
 using Microsoft.AspNetCore.Http;
@@ -32,6 +34,8 @@ namespace CandySugar.HostServer.Controllers
         private IService<WallModel> WallService;
         private IService<MusicModel> MusiceService;
         private IService<AnimeModel> AnimeService;
+        private IService<NHentaiModel> NHentaiService;
+        private IService<HitomiModel> HitomiService;
         /// <summary>
         /// 甜糖服务
         /// </summary>
@@ -44,6 +48,8 @@ namespace CandySugar.HostServer.Controllers
             WallService = IocDependency.Resolve<IService<WallModel>>();
             MusiceService = IocDependency.Resolve<IService<MusicModel>>();
             AnimeService =IocDependency.Resolve<IService<AnimeModel>>();
+            NHentaiService = IocDependency.Resolve<IService<NHentaiModel>>();
+            HitomiService = IocDependency.Resolve<IService<HitomiModel>>();
         }
         /// <summary>
         /// 导出
@@ -62,6 +68,8 @@ namespace CandySugar.HostServer.Controllers
                 DataEnums.Wallpaper => Encoding.UTF8.GetBytes(WallService.QueryAll().ToJson()),
                 DataEnums.Music => Encoding.UTF8.GetBytes(MusiceService.QueryAll().ToJson()),
                 DataEnums.Anime => Encoding.UTF8.GetBytes(AnimeService.QueryAll().ToJson()),
+                DataEnums.NHentai => Encoding.UTF8.GetBytes(NHentaiService.QueryAll().ToJson()),
+                DataEnums.Hitomi => Encoding.UTF8.GetBytes(HitomiService.QueryAll().ToJson()),
                 _ => null
             };
 
@@ -127,6 +135,18 @@ namespace CandySugar.HostServer.Controllers
                     fileContent.ToModel<List<AnimeModel>>().ForEach(item =>
                     {
                         AnimeService.Insert(item);
+                    });
+                    break;
+                case DataEnums.NHentai:
+                    fileContent.ToModel<List<NHentaiModel>>().ForEach(item =>
+                    {
+                        NHentaiService.Insert(item);
+                    });
+                    break;
+                case DataEnums.Hitomi:
+                    fileContent.ToModel<List<HitomiModel>>().ForEach(item =>
+                    {
+                        HitomiService.Insert(item);
                     });
                     break;
                 default:

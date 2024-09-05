@@ -38,6 +38,14 @@ namespace CandySugar.HostServer
         /// <summary>
         /// Anime
         /// </summary>
-        Anime
+        Anime,
+        /// <summary>
+        /// NHentai
+        /// </summary>
+        NHentai,
+        /// <summary>
+        /// Hitomi
+        /// </summary>
+        Hitomi
     }
 }
