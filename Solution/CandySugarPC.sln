@@ -61,8 +61,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.WallPaper", "..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.ModifyUI", "..\PC\Launch\CandySugar.ModifyUI\CandySugar.ModifyUI.csproj", "{9DBC6921-2ADB-40D4-83B4-44ECA1CE0573}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandyControls", "..\..\WPFControl\CandyControls\CandyControls.csproj", "{05F201F4-0CE4-4F13-9350-29B35B7DB9A0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,10 +151,6 @@ Global
 		{9DBC6921-2ADB-40D4-83B4-44ECA1CE0573}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DBC6921-2ADB-40D4-83B4-44ECA1CE0573}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DBC6921-2ADB-40D4-83B4-44ECA1CE0573}.Release|Any CPU.Build.0 = Release|Any CPU
-		{05F201F4-0CE4-4F13-9350-29B35B7DB9A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05F201F4-0CE4-4F13-9350-29B35B7DB9A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05F201F4-0CE4-4F13-9350-29B35B7DB9A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05F201F4-0CE4-4F13-9350-29B35B7DB9A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
