@@ -38,7 +38,7 @@ namespace CandySugar.NHViewer.ViewModels
             var param = input.ToMapest<AnonymousWater>();
             if (param.SelectName == "HI")
                 ComponentControl = Module.IocModule.Resolve<HIndexView>();
-            else
+            if (param.SelectName == "NH")
                 ComponentControl = Module.IocModule.Resolve<NIndexView>();
         }
         #endregion
