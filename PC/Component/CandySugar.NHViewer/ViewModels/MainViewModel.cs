@@ -6,7 +6,7 @@ namespace CandySugar.NHViewer.ViewModels
     {
         public MainViewModel()
         {
-            ComponentControl = Module.IocModule.Resolve<IndexView>();
+            ComponentControl = Module.IocModule.Resolve<HIndexView>();
         }
 
         #region 属性
@@ -15,7 +15,8 @@ namespace CandySugar.NHViewer.ViewModels
         #endregion
 
         #region 方法
-        public void Changed(bool arg) => ComponentControl = arg ? Module.IocModule.Resolve<ReaderView>() : Module.IocModule.Resolve<IndexView>();
+        public void NChanged(bool arg) => ComponentControl = arg ? Module.IocModule.Resolve<ReaderView>() : Module.IocModule.Resolve<IndexView>();
+        public void HChanged(bool arg) => ComponentControl = arg ? Module.IocModule.Resolve<ReaderView>() : Module.IocModule.Resolve<HIndexView>();
         #endregion
     }
 }

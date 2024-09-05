@@ -3,6 +3,7 @@ using CandySugar.Com.Data.Entity.AxgleEntity;
 using CandySugar.Com.Data.Entity.ComicEntity;
 using CandySugar.Com.Data.Entity.CosplayEntity;
 using CandySugar.Com.Data.Entity.HistoryEntity;
+using CandySugar.Com.Data.Entity.HitomiEntity;
 using CandySugar.Com.Data.Entity.MusicEntity;
 using CandySugar.Com.Data.Entity.NHentaiEntity;
 using CandySugar.Com.Data.Entity.NovelEntity;
@@ -25,6 +26,7 @@ namespace CandySugar.Com.Data
             { typeof(WallService),typeof(IService<WallModel>) },
             { typeof(MusicService),typeof(IService<MusicModel>) },
             { typeof(NHentaiService),typeof(IService<NHentaiModel>) },
+            { typeof(HitomiService),typeof(IService<HitomiModel>) },
             { typeof(AnimeService),typeof(IService<AnimeModel>) },
             { typeof(NovelService),typeof(IService<NovelModel>) },
             { typeof(HistoryService),typeof(IService<HistoryModel>) }

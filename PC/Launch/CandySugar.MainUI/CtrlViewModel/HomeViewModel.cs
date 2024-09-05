@@ -3,17 +3,14 @@ using CandySugar.Com.Data.Entity.NovelEntity;
 using CandySugar.Com.Options.ComponentGeneric;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Jint.Native;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
-using XExten.Advance.NetFramework.Enums;
 
 namespace CandySugar.MainUI.CtrlViewModel
 {

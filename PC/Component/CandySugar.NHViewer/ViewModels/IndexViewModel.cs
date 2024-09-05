@@ -132,7 +132,7 @@
         {
             IsPreview = true;
             Module.Param = Result.OriginImages;
-            ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext).Changed(true);
+            ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext).NChanged(true);
         }
         [RelayCommand]
         public void DownCommand()
@@ -185,11 +185,12 @@
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             PandaType = PandaEnum.Init,
+                            PlatformType = PlatformEnum.NH,
                             Init = new PandaInit()
                         };
                     }).RunsAsync()).InitResult;
                     Total = result.TotalPage;
-                    var data = result.Results.ToMapest<List<NHentaiModel>>();
+                    var data = result.NResults.ToMapest<List<NHentaiModel>>();
                     Results = new(data);
                 }
                 catch (Exception ex)
@@ -215,13 +216,14 @@
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             PandaType = PandaEnum.Init,
+                            PlatformType= PlatformEnum.NH,
                             Init = new PandaInit
                             {
                                 Page = PageIndex
                             }
                         };
                     }).RunsAsync()).InitResult;
-                    Application.Current.Dispatcher.Invoke(() => result.Results.ToMapest<List<NHentaiModel>>().ForEach(Results.Add));
+                    Application.Current.Dispatcher.Invoke(() => result.NResults.ToMapest<List<NHentaiModel>>().ForEach(Results.Add));
                 }
                 catch (Exception ex)
                 {
@@ -244,6 +246,7 @@
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
+                            PlatformType = PlatformEnum.NH,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             PandaType = PandaEnum.Search,
                             Search = new PandaSearch
@@ -253,7 +256,7 @@
                         };
                     }).RunsAsync()).InitResult;
                     Total = result.TotalPage;
-                    Results = new ObservableCollection<NHentaiModel>(result.Results.ToMapest<List<NHentaiModel>>());
+                    Results = new ObservableCollection<NHentaiModel>(result.NResults.ToMapest<List<NHentaiModel>>());
                 }
                 catch (Exception ex)
                 {
@@ -276,6 +279,7 @@
                         {
                             ProxyIP = Proxy.IP,
                             ProxyPort = Proxy.Port,
+                            PlatformType = PlatformEnum.NH,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             PandaType = PandaEnum.Search,
                             Search = new PandaSearch
@@ -285,7 +289,7 @@
                             }
                         };
                     }).RunsAsync()).InitResult;
-                    Application.Current.Dispatcher.Invoke(() => result.Results.ToMapest<List<NHentaiModel>>().ForEach(Results.Add));
+                    Application.Current.Dispatcher.Invoke(() => result.NResults.ToMapest<List<NHentaiModel>>().ForEach(Results.Add));
                 }
                 catch (Exception ex)
                 {

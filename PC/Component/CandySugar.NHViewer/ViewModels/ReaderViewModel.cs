@@ -7,19 +7,38 @@ namespace CandySugar.NHViewer.ViewModels
         public ReaderViewModel()
         {
             Picture = [];
-            ((List<string>)Module.Param)?.ForEnumerEach((item,index) => {
-                Picture.Add(new WatchInfo
+            if (Module.Param is List<string>)
+            {
+                ((List<string>)Module.Param)?.ForEnumerEach((item, index) =>
                 {
-                     Index = index,
-                     Route = item,
+                    Picture.Add(new WatchInfo
+                    {
+                        Index = index,
+                        Route = item,
+                    });
                 });
-            });
+            }
+            else
+            {
+                var Param = ((Dictionary<string, List<string>>)Module.Param).FirstOrDefault();
+                ReaderReferer = Param.Key;
+                Param.Value?.ForEnumerEach((item, index) =>
+                {
+                    Picture.Add(new WatchInfo
+                    {
+                        Index = index,
+                        Route = item,
+                    });
+                });
+
+            }
             Current = Picture.FirstOrDefault();
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             WindowStateEvent();
         }
 
         #region 字段
+        private string ReaderReferer;
         public ReaderView Views;
         #endregion
 
@@ -66,7 +85,7 @@ namespace CandySugar.NHViewer.ViewModels
                 Current = Picture.ElementAtOrDefault(Current.Index + Data);
             }
             else
-                ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext).Changed(false);
+                ((MainViewModel)Views.FindParent<UserControl>("Main").DataContext).NChanged(false);
         }
         #endregion
     }
