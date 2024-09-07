@@ -11,7 +11,6 @@ using CandySugar.MainUI.CtrlView;
 using CandySugar.MainUI.Views;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
-using NPOI.HPSF;
 using Stylet;
 using StyletIoC;
 using System;

@@ -33,7 +33,6 @@ namespace CandySugar.Comic.ViewModels
         private double Counts;
         #endregion
 
-
         #region 事件
         private void ReceiveProcess(double item, double num)
         {
@@ -57,7 +56,6 @@ namespace CandySugar.Comic.ViewModels
             NavWidth = GlobalParam.NavWidth;
         }
         #endregion
-
 
         #region 属性
         [ObservableProperty]

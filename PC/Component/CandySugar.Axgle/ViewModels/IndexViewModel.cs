@@ -244,13 +244,14 @@
         public void Active(object input)
         {
             var param = input.ToMapest<AnonymousWater>();
+            if (param.SelectName.IsNullOrEmpty()) return;
             if (param.SelectName == "Jav")
                 PlatformType = PlatformEnum.Jav;
-            else
+            if(param.SelectName == "Skb")
                 PlatformType = PlatformEnum.Skb;
             this.Keyword = string.Empty;
             InitPage = SearchPage = 1;
-            Results = [];
+            
         }
         [RelayCommand]
         public void Changed(object item)
