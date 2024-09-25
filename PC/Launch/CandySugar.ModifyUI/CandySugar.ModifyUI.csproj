@@ -19,7 +19,7 @@
 			<Private>false</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2">
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2">
 			<Private>false</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>
