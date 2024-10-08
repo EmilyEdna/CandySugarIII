@@ -11,6 +11,10 @@
     {
       "Description": "音乐播放",
       "Code": 16
+    },
+    {
+      "Description": "网址服务",
+      "Code": 17
     }
   ]
 }

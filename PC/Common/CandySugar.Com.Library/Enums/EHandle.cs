@@ -25,6 +25,7 @@ namespace CandySugar.Com.Library.Enums
         Setting,
         Video,
         Audio,
+        WebSite,
         Index=999
     }
 }

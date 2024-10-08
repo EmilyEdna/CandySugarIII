@@ -16,6 +16,7 @@ using StyletIoC;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -214,12 +215,14 @@ namespace CandySugar.MainUI.ViewModels
             {
                 if (obj == EHandle.Index)
                     CandyControl = new HomeView();
+                if (obj == EHandle.Setting)
+                    WindowManager.ShowWindow(Container.Get<OptionViewModel>());
                 if (obj == EHandle.Video)
                     new CandyVlcPlayView().Show();
                 if (obj == EHandle.Audio)
                     new CandyAudioPlayView().Show();
-                if (obj == EHandle.Setting)
-                    WindowManager.ShowWindow(Container.Get<OptionViewModel>());
+                if (obj == EHandle.WebSite)
+                    Process.Start("explorer.exe","http://127.0.0.1:99/swagger");
             }
 
         });
