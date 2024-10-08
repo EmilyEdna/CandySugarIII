@@ -1,5 +1,4 @@
 ﻿using System;
-using CandySugar.Com.Library.Enums;
 
 namespace CandySugar.Com.Library.DLLoader
 {

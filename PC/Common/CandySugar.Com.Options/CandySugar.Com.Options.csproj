@@ -23,8 +23,7 @@
 		<PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.27.2" />
 		<PackageReference Include="Hardcodet.Wpf.TaskbarNotification.Core" Version="2.0.0" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
-		<PackageReference Include="XExten.Advance" Version="2.2.2.5" />
-		<PackageReference Include="XExten.WPFControls" Version="1.0.6.6" />
+		<PackageReference Include="XExten.WPFControls" Version="1.0.6.7" />
 	</ItemGroup>
 
 	<ItemGroup>

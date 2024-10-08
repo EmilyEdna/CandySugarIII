@@ -12,16 +12,16 @@
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.1" />
-		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="4.0.0" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.61" />
-		<PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.26.1" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.0" />
+		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="4.1.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.66" />
+		<PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.27.2" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
-		<PackageReference Include="XExten.Advance" Version="2.2.2.2" />
+		<PackageReference Include="XExten.Advance" Version="2.2.3" />
 		<PackageReference Include="XExten.Advance.Maui.Bar" Version="1.0.0" />
 		<PackageReference Include="XExten.Advance.Maui.Direction" Version="1.0.0" />
-		<PackageReference Include="LibVLCSharp" Version="3.8.5" />
+		<PackageReference Include="LibVLCSharp" Version="3.9.0" />
 		<PackageReference Include="VideoLAN.LibVLC.Android" Version="3.5.3" />
 	</ItemGroup>
 	<ItemGroup>
@@ -30,10 +30,10 @@
 	  </MauiXaml>
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.60" />
+	  <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.91" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.60" />
+	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.91" />
 	</ItemGroup>
 
 </Project>
