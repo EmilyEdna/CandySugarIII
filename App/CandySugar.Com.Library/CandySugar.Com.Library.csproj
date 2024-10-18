@@ -18,7 +18,7 @@
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.66" />
 		<PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.27.2" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
-		<PackageReference Include="XExten.Advance" Version="2.2.3" />
+		<PackageReference Include="XExten.Advance" Version="2.2.3.2" />
 		<PackageReference Include="XExten.Advance.Maui.Bar" Version="1.0.0" />
 		<PackageReference Include="XExten.Advance.Maui.Direction" Version="1.0.0" />
 		<PackageReference Include="LibVLCSharp" Version="3.9.0" />
