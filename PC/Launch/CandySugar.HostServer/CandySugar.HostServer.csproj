@@ -9,9 +9,9 @@
 		<FrameworkReference Include="Microsoft.AspNetCore.App"></FrameworkReference>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.8.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
 		<PackageReference Include="XExten.Advance" Version="2.2.3.2" />
 	</ItemGroup>
 	<ItemGroup>
