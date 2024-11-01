@@ -1,17 +1,21 @@
-﻿using System.Collections.ObjectModel;
-using CandySugar.Com.Library;
+﻿using CandySugar.Com.Library;
 using CandySugar.Com.Library.Model;
 using CandySugar.Com.Pages.ChildViews.Animes;
 using CandySugar.Com.Pages.ChildViews.Axgles;
 using CandySugar.Com.Pages.ChildViews.Rifans;
+using CandySugar.Com.Pages.Views;
 using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Mopups.Events;
+using Mopups.Interfaces;
+using Mopups.Services;
 using Sdk.Component.Cart.sdk.ViewModel.Response;
 using Sdk.Component.Vip.Jron.sdk;
 using Sdk.Component.Vip.Jron.sdk.ViewModel;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
+using System.Collections.ObjectModel;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 using RifanSearch = Sdk.Component.Vip.Anime.sdk.ViewModel.Response.SearchElementResult;
@@ -30,12 +34,16 @@ namespace CandySugar.Com.Pages.ViewModels
                new BarModel{ Name="车牌", Route="3" },
             };
             GetLocalData();
+            Popup = MopupService.Instance;
+            Popup.Popped -= PopEvent;
+            Popup.Popped += PopEvent;
         }
 
         #region Field
         private int Category = 4;
         private int Page = 1;
         private int Total;
+        private IPopupNavigation Popup;
         #endregion
 
         #region Property
@@ -107,6 +115,22 @@ namespace CandySugar.Com.Pages.ViewModels
         });
         public RelayCommand<CollectModel> NextCommand => new RelayCommand<CollectModel>(Next);
         public RelayCommand<dynamic> RemoveCommand => new(input => DeleteLocalData(input));
+        public RelayCommand<CollectModel> AlterCommand => new(async input =>
+        {
+            await Popup.PushAsync(new AlterView
+            {
+                BindingContext = new AlterViewModel
+                {
+                    CollectModel = input
+                }
+            });
+        });
         #endregion
+
+        private void PopEvent(object sender, PopupNavigationEventArgs e)
+        {
+            Page = 1;
+            GetLocalData();
+        }
     }
 }

@@ -38,6 +38,12 @@
                             <HorizontalStackLayout Margin="10,0,0,0">
                                 <Button
                                     Margin="0"
+                                    Command="{Binding AlterCommand, Source={RelativeSource AncestorType={x:Type vm:RootViewModel}}}"
+                                    CommandParameter="{Binding .}"
+                                    Style="{DynamicResource ButtonStyle}"
+                                    Text="修改" />
+                                <Button
+                                    Margin="5,0,0,0"
                                     Command="{Binding NextCommand, Source={RelativeSource AncestorType={x:Type vm:RootViewModel}}}"
                                     CommandParameter="{Binding .}"
                                     Style="{DynamicResource ButtonStyle}"

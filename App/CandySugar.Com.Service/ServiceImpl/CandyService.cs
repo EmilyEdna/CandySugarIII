@@ -19,6 +19,11 @@ namespace CandySugar.Com.Service
             }
         }
 
+        public async Task Alter(CollectModel mode)
+        {
+          await DbContext.Lite.UpdateAsync(mode);
+        }
+
         public async Task Delete(Guid Id)
         {
             await DbContext.Lite.DeleteAsync<CollectModel>(Id);

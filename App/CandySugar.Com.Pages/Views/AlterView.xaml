@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pop:PopupPage
+    x:Class="CandySugar.Com.Pages.Views.AlterView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pop="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels"
+    x:DataType="vm:AlterViewModel">
+    <VerticalStackLayout
+        BackgroundColor="WhiteSmoke"
+        HeightRequest="80"
+        WidthRequest="250">
+        <Entry Placeholder="请输入新的名称" Text="{Binding Name, Mode=TwoWay}" />
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+            <Button
+                Margin="0"
+                Command="{Binding CancelCommand, Source={RelativeSource AncestorType={x:Type vm:AlterViewModel}}}"
+                CommandParameter="{Binding .}"
+                Style="{DynamicResource ButtonStyle}"
+                Text="取消" />
+            <Button
+                Margin="5,0,0,0"
+                Command="{Binding OkCommand, Source={RelativeSource AncestorType={x:Type vm:AlterViewModel}}}"
+                CommandParameter="{Binding .}"
+                Style="{DynamicResource ButtonStyle}"
+                Text="确定" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</pop:PopupPage>
