@@ -1,9 +1,9 @@
 ﻿using CliWrap;
-using Serilog;
 using System;
 using System.Text;
 using System.Threading.Tasks;
 using XExten.Advance.LinqFramework;
+using XExten.Advance.LogFramework;
 
 namespace CandySugar.Com.Library.FFMPegFactory
 {
@@ -17,11 +17,11 @@ namespace CandySugar.Com.Library.FFMPegFactory
             else sb.Append(" -y ").Append(args.Build());
         }
         public FMBuild Output(string catalog)
-        {   
+        {
             sb.Append($" {catalog}");
             return this;
         }
-        public async Task<bool> RunAsync(Action<string> action=null)
+        public async Task<bool> RunAsync(Action<string> action = null)
         {
             StringBuilder Info = new StringBuilder();
             var args = sb.ToString();
@@ -30,7 +30,7 @@ namespace CandySugar.Com.Library.FFMPegFactory
               .WithArguments(args)
                    .WithStandardErrorPipe(PipeTarget.ToStringBuilder(Info))
                    .ExecuteAsync();
-            Log.Logger.Information(Info.ToString());
+            XLog.Warn(Info.ToString());
             return cmd.ExitCode == 0;
         }
     }

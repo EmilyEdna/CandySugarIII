@@ -1,8 +1,6 @@
-﻿using CandySugar.Com.Data.Entity.ComicEntity;
-using CandySugar.Com.Data.Entity.RifanEntity;
+﻿using CandySugar.Com.Data.Entity.RifanEntity;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CandySugar.Com.Data.ServiceChannel
 {

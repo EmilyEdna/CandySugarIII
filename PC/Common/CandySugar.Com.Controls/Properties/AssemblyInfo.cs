@@ -1,6 +1,6 @@
-﻿using System.Windows.Markup;
+﻿using System.Reflection;
 using System.Runtime.Versioning;
-using System.Reflection;
+using System.Windows.Markup;
 
 [assembly: XmlnsDefinition("http://ctrl.candy.com", "CandySugar.Com.Controls.ExtenControls")]
 [assembly: XmlnsDefinition("http://ctrl.candy.com", "CandySugar.Com.Controls.UIConverter")]
@@ -12,4 +12,4 @@ using System.Reflection;
 [assembly: AssemblyTitle("甜糖")]
 [assembly: AssemblyProduct("甜糖")]
 [assembly: AssemblyCopyright("https://github.com/EmilyEdna")]
-[assembly:SupportedOSPlatform("windows")]
+[assembly: SupportedOSPlatform("windows")]

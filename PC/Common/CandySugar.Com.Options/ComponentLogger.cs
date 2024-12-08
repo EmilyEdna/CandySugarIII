@@ -1,11 +1,9 @@
 ﻿using Sdk.Plugins;
-using Serilog.Core;
+using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using XExten.Advance.InternalFramework.Email;
+using XExten.Advance.LogFramework;
 
 namespace CandySugar.Com.Options
 {
@@ -13,19 +11,19 @@ namespace CandySugar.Com.Options
     {
         public Task Log(string className, string methodInfo, Exception message)
         {
-            Serilog.Log.Logger.Error(message, $"类【{className}】方法【{methodInfo}】");
+            XLog.Fatal(message, $"类【{className}】方法【{methodInfo}】");
             return Task.CompletedTask;
         }
     }
     public static class SdkComponentLogger
     {
-        public static Logger AddSdkLogger(this Logger logger)
+        public static ILogger AddSdkLogger(this ILogger logger)
         {
             SdkOption.EnableLog = true;
             return logger;
         }
 
-        public static Logger AddEmailLogger(this Logger logger)
+        public static ILogger AddEmailLogger(this ILogger logger)
         {
             SdkOption.EnableEmail = true;
             SdkOption.AcceptEmail = "1575890051@qq.com";

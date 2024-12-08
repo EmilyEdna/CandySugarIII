@@ -1,6 +1,4 @@
 ﻿using CandyControls;
-using CandySugar.Com.Options.ComponentGeneric;
-using System.Windows;
 
 namespace CandySugar.MainUI.Views
 {

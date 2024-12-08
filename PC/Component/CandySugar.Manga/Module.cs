@@ -16,7 +16,7 @@
             IocDependency.Register(typeof(IndexViewModel));
 
             IocDependency.Register(typeof(ReaderView));
-            IocDependency.Register(typeof(ReaderViewModel),1);
+            IocDependency.Register(typeof(ReaderViewModel), 1);
         }
 
         public T Resolve<T>() where T : UserControl

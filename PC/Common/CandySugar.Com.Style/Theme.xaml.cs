@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Media;
 
 namespace CandySugar.Com.Style

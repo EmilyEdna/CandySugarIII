@@ -6,7 +6,7 @@
         {
             ComponentControl = Module.IocModule.Resolve<IndexView>();
         }
-        public MainViewModel(object data) 
+        public MainViewModel(object data)
         {
             Module.Param = data;
             ComponentControl = Module.IocModule.Resolve<ReaderView>();

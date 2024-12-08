@@ -32,7 +32,7 @@
         {
             if (!Complete.Values.Any(t => t == false))
             {
-                Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation,true, Catalog).Show());
+                Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation, true, Catalog).Show());
                 Complete.Clear();
             }
         }
@@ -186,7 +186,7 @@
                     else
                         InfoResult.Title = InfoResult.Title;
                     File.Move(Path.Combine(Catalog, $"{InfoResult.BVID}.mp4"), Path.Combine(Catalog, $"{InfoResult.Title}.mp4"));
-                    Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation,true, Catalog).Show());
+                    Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation, true, Catalog).Show());
                 }
             });
         }
@@ -238,7 +238,7 @@
                 var bytes = await new HttpClient().GetByteArrayAsync(InfoResult.Cover);
                 bytes.FileCreate(InfoResult.Title, FileTypes.Jpg, "Bilibili", (catalog, fileName) =>
                 {
-                    Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation,true, catalog).Show());
+                    Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation, true, catalog).Show());
                 });
             });
         }
@@ -262,7 +262,7 @@
                         if (res)
                         {
                             if (IsBatchVideo == false)
-                                Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation,true, Catalog).Show());
+                                Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation, true, Catalog).Show());
                             await Task.Delay(1500);
                             try
                             {
@@ -287,7 +287,7 @@
                             }
                             catch (Exception ex)
                             {
-                                Log.Logger.Error(ex, "");
+                                XLog.Fatal(ex, "");
                             }
                         }
                     });
@@ -401,7 +401,7 @@
             }
             catch (Exception ex)
             {
-                Log.Logger.Error(ex, "");
+                XLog.Fatal(ex, "");
                 ErrorNotify();
             }
         }
@@ -444,7 +444,7 @@
             }
             catch (Exception ex)
             {
-                Log.Logger.Error(ex, "");
+                XLog.Fatal(ex, "");
                 ErrorNotify();
             }
         }
@@ -472,7 +472,7 @@
             }
             catch (Exception ex)
             {
-                Log.Logger.Error(ex, "");
+                XLog.Fatal(ex, "");
                 ErrorNotify();
             }
         }
@@ -508,7 +508,7 @@
             }
             catch (Exception ex)
             {
-                Log.Logger.Error(ex, "");
+                XLog.Fatal(ex, "");
                 ErrorNotify();
             }
         }

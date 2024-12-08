@@ -1,6 +1,5 @@
 ﻿using CandySugar.Com.Controls.ExtenControls;
 using CandySugar.Com.Library;
-using Serilog;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -9,6 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using XExten.Advance.LinqFramework;
+using XExten.Advance.LogFramework;
 
 namespace CandySugar.MainUI
 {
@@ -65,7 +65,7 @@ namespace CandySugar.MainUI
             }
             catch (Exception ex)
             {
-                Log.Logger.Error(ex, "");
+                XLog.Fatal(ex, "");
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     new CandyNotifyControl(CommonHelper.VersionErronInformation).Show();

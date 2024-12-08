@@ -111,7 +111,7 @@ namespace CandySugar.Com.Library.Audios
         /// </summary>
         /// <param name="LiveAction"></param>
         /// <returns></returns>
-        public AudioFactory InitLiveData(Action<AudioLive> LiveAction,int Channal=32, double Pow = 10)
+        public AudioFactory InitLiveData(Action<AudioLive> LiveAction, int Channal = 32, double Pow = 10)
         {
             this.Pow = Pow;
             this.Channal = Channal;

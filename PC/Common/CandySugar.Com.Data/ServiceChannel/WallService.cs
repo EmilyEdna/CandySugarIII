@@ -8,7 +8,7 @@ namespace CandySugar.Com.Data.ServiceChannel
     {
         public Guid Insert(WallModel input)
         {
-           input.PId= Guid.NewGuid();
+            input.PId = Guid.NewGuid();
             DataContext.Sqlite.Insert(input).ExecuteAffrows();
             return input.PId;
         }

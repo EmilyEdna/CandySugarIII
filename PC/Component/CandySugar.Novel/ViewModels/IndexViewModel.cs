@@ -80,7 +80,7 @@
             }
             catch (Exception ex)
             {
-                Log.Logger.Error(ex, "");
+                XLog.Fatal(ex, "");
                 ErrorNotify();
             }
         }
@@ -106,7 +106,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -138,7 +138,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -176,7 +176,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -208,7 +208,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -241,7 +241,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -271,7 +271,7 @@
             }
             catch (Exception ex)
             {
-                Log.Logger.Error(ex, "");
+                XLog.Fatal(ex, "");
                 ErrorNotify();
             }
         }

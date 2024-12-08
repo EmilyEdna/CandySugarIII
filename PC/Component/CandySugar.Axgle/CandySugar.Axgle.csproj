@@ -2,10 +2,11 @@
 
 	<PropertyGroup>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<TargetFramework>net8.0-windows</TargetFramework>
+		<TargetFramework>net9.0-windows7.0</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
-		<BaseOutputPath>..\..\Launch\CandySugar.MainUI\bin</BaseOutputPath>
+		<!--<BaseOutputPath>..\..\Launch\CandySugar.MainUI\bin</BaseOutputPath>-->
+		<OutDir>..\..\Launch\CandySugar.MainUI\bin\Debug\net9.0-windows7.0\Plugin</OutDir>
 		<!--动态加载-->
 		<EnableDynamicLoading>true</EnableDynamicLoading>
 		<!--Aot发布-->
@@ -14,7 +15,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Common\CandySugar.Com.Style\CandySugar.Com.Style.csproj">
-			<Private>false</Private>
+			<Private>true</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</ProjectReference>
 	</ItemGroup>

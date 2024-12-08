@@ -23,6 +23,6 @@ namespace CandySugar.Com.Options.ComponentGeneric
         /// 窗体变化
         /// </summary>
         public static event Action WindowStateEvent;
-        public static void WindowAction()=> WindowStateEvent?.Invoke();
+        public static void WindowAction() => WindowStateEvent?.Invoke();
     }
 }

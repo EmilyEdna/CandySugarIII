@@ -28,7 +28,7 @@
                 BorderWidth = 1000;
                 MarginThickness = new Thickness(0, 0, 10, 0);
             }
-            if(Picture!=null)
+            if (Picture != null)
                 Picture = new(Picture.ToList());
         }
         #endregion

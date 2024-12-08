@@ -11,6 +11,6 @@ namespace CandySugar.Com.Library.Internet
         /// <summary>
         /// 成功连接网络返回【true】未连接返回【false】
         /// </summary>
-        public static bool GetNetworkState=> InternetGetConnectedState(out int i, 0);
+        public static bool GetNetworkState => InternetGetConnectedState(out int i, 0);
     }
 }

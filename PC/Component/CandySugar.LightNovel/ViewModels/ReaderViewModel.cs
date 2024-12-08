@@ -14,7 +14,7 @@
             if (GlobalParam.WindowState == WindowState.Maximized)
             {
                 BorderHeight = 1400;
-                BorderWidth = Picture==null? SystemParameters.FullPrimaryScreenWidth:1200;
+                BorderWidth = Picture == null ? SystemParameters.FullPrimaryScreenWidth : 1200;
                 MarginThickness = new Thickness(0, 0, 20, 55);
             }
             else
@@ -25,7 +25,7 @@
             }
             if (Picture != null)
                 Picture = new(Picture.ToList());
-            if(Words!=null)
+            if (Words != null)
                 Words = new(Words.ToList());
         }
         #endregion
@@ -83,7 +83,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });

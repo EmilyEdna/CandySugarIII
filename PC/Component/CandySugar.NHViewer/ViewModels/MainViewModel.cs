@@ -1,6 +1,4 @@
 ﻿using CandySugar.Com.Options.Anonymous;
-using CommunityToolkit.Mvvm.ComponentModel;
-using NAudio.Utils;
 
 namespace CandySugar.NHViewer.ViewModels
 {
@@ -33,7 +31,7 @@ namespace CandySugar.NHViewer.ViewModels
 
         #region 命令
         [RelayCommand]
-        public void Active(object input) 
+        public void Active(object input)
         {
             var param = input.ToMapest<AnonymousWater>();
             if (param.SelectName == "HI")

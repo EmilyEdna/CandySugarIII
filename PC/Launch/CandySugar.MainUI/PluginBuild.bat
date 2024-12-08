@@ -12,4 +12,5 @@ if "%1"=="Debug" (
   ))
   dotnet build ../CandySugar.ModifyUI/CandySugar.ModifyUI.csproj --no-dependencies  -c %1
   echo Build Complete
+  call PluginComplete.bat
 )

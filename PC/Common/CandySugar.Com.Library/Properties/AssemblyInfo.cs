@@ -1,6 +1,6 @@
-﻿using System.Windows.Markup;
+﻿using System.Reflection;
 using System.Runtime.Versioning;
-using System.Reflection;
+using System.Windows.Markup;
 
 [assembly: XmlnsDefinition("http://lib.candy.com", "CandySugar.Com.Library")]
 [assembly: XmlnsDefinition("http://lib.candy.com", "CandySugar.Com.Library.Enums")]

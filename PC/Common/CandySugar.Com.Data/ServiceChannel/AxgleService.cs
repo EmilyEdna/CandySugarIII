@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CandySugar.Com.Data.ServiceChannel
 {
-    public class AxgleService: IService<AxgleModel>
+    public class AxgleService : IService<AxgleModel>
     {
         public Guid Insert(AxgleModel input)
         {

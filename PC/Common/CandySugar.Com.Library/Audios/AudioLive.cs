@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace CandySugar.Com.Library.Audios
 {
-    public class AudioLive:PropertyChangedBase
+    public class AudioLive : PropertyChangedBase
     {
         private string _LiveSpan;
         /// <summary>

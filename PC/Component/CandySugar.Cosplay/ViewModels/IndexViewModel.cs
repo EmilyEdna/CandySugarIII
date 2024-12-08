@@ -153,7 +153,7 @@
                 GeneralPage = 1;
                 CosResult = null;
             }
-             if (value == 2)
+            if (value == 2)
             {
                 CosResult = null;
                 GeneralPage = 1;
@@ -162,11 +162,11 @@
                 Title = ["常规", "收藏"];
             }
             if (Builder.Count <= 0) return;
-             if (value == 3)
+            if (value == 3)
                 Download();
-             if (value == 4)
+            if (value == 4)
                 Remove();
-             if (value == 5)
+            if (value == 5)
                 BuildPicture();
             if (value == 6)
                 BuildAudio();
@@ -215,7 +215,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -248,7 +248,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -281,7 +281,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -313,7 +313,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -347,7 +347,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -416,7 +416,7 @@
                 }
             }
         }
-        private void BuildAudio() 
+        private void BuildAudio()
         {
             string AudioName = string.Empty;
             OpenFileDialog dialog = new OpenFileDialog
@@ -431,9 +431,10 @@
             AudioFactory.Instance.Dispose();
             if (Builder != null)
             {
-              var  RealLocal = new List<string>();
+                var RealLocal = new List<string>();
                 //判断本地文件是否存在
-                Builder.ForEach(item => {
+                Builder.ForEach(item =>
+                {
                     item.Images.ForEach(node =>
                     {
                         var fileName = DownUtil.FilePath(node.ToMd5(), FileTypes.Jpg, Path.Combine("Cosplay", PlatformType.AsString(), item.Title.ToMd5()));

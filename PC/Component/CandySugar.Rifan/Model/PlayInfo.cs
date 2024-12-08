@@ -1,6 +1,6 @@
 ﻿namespace CandySugar.Rifan.Model
 {
-    public partial class PlayInfo: BasicObservableObject
+    public partial class PlayInfo : BasicObservableObject
     {
         [ObservableProperty]
         private string _Name;

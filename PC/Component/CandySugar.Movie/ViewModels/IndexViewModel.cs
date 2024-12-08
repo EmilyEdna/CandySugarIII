@@ -16,13 +16,13 @@
         private void WindowStateEvent()
         {
             if (GlobalParam.WindowState == WindowState.Maximized)
-                Cols = (int)(GlobalParam.MAXWidth/220);
+                Cols = (int)(GlobalParam.MAXWidth / 220);
             if (GlobalParam.WindowState == WindowState.Normal)
                 Cols = 5;
             BorderWidth = GlobalParam.MAXWidth;
             BorderHeight = GlobalParam.MAXHeight;
             NavHeight = GlobalParam.NavHeight;
-            NavWidth= GlobalParam.NavWidth;
+            NavWidth = GlobalParam.NavWidth;
         }
         #endregion
 
@@ -95,7 +95,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -125,7 +125,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });

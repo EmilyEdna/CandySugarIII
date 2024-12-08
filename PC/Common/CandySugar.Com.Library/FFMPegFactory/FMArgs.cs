@@ -78,7 +78,8 @@ namespace CandySugar.Com.Library.FFMPegFactory
             return this;
         }
 
-        public FMArgs NoVideo() {
+        public FMArgs NoVideo()
+        {
             sb.Append($" -vn ");
             return this;
         }

@@ -1,8 +1,8 @@
 ﻿using CandySugar.Com.Options.ComponentObject;
 using CommunityToolkit.Mvvm.Messaging;
 using Sdk.Proxy;
-using Serilog;
 using XExten.Advance.LinqFramework;
+using XExten.Advance.LogFramework;
 
 namespace CandySugar.Com.Options
 {
@@ -16,13 +16,14 @@ namespace CandySugar.Com.Options
         /// </summary>
         internal void InitProxyPool()
         {
-            Pool.PoolLogger = new(Log.Logger.Information);
+            Pool.PoolLogger = new(obj => XLog.Info(obj));
             Pool.LoadProxyIP();
         }
         /// <summary>
         /// 接收使用代理通知
         /// </summary>
-        public void ChangeUseProxy()=> WeakReferenceMessenger.Default.Register<OptionObjectModel>(this, (recip, notify) => {
+        public void ChangeUseProxy() => WeakReferenceMessenger.Default.Register<OptionObjectModel>(this, (recip, notify) =>
+        {
 
             UseProxy = notify.UseProxy;
             if (UseProxy)

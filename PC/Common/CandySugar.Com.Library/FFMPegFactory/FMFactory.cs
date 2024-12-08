@@ -8,9 +8,10 @@ namespace CandySugar.Com.Library.FFMPegFactory
         {
             FMArgs args = new FMArgs();
             action.Invoke(args);
-            return new FMBuild(args,"-f image2pipe");
+            return new FMBuild(args, "-f image2pipe");
         }
-        public static FMBuild Default(Action<FMArgs> action) {
+        public static FMBuild Default(Action<FMArgs> action)
+        {
             FMArgs args = new FMArgs();
             action.Invoke(args);
             return new FMBuild(args);

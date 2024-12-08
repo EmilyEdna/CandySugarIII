@@ -2,7 +2,7 @@ namespace CandySugar.Anime
 {
     public class Module
     {
-         public static Module IocModule { get; set; }
+        public static Module IocModule { get; set; }
 
         public ProxyObjectModel Proxy => GlobalProxy.Instance.Proxy();
 

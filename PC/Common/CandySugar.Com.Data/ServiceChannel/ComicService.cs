@@ -1,12 +1,10 @@
-﻿using CandySugar.Com.Data.Entity.AxgleEntity;
-using CandySugar.Com.Data.Entity.ComicEntity;
+﻿using CandySugar.Com.Data.Entity.ComicEntity;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CandySugar.Com.Data.ServiceChannel
 {
-    public class ComicService: IService<ComicModel>
+    public class ComicService : IService<ComicModel>
     {
         public Guid Insert(ComicModel input)
         {

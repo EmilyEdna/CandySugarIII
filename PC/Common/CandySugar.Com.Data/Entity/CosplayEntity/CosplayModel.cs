@@ -11,6 +11,6 @@ namespace CandySugar.Com.Data.Entity.CosplayEntity
         public string Cover { get; set; }
         [Column(IsIgnore = true)]
         public List<string> Images { get; set; }
-        public string Picture {  get; set; }
+        public string Picture { get; set; }
     }
 }

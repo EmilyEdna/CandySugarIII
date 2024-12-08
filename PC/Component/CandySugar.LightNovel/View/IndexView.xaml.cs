@@ -9,7 +9,8 @@
         public IndexView()
         {
             InitializeComponent();
-            Loaded += delegate {
+            Loaded += delegate
+            {
                 ((IndexViewModel)this.DataContext).Views = this;
             };
         }

@@ -1,6 +1,6 @@
-﻿using System.Runtime.Versioning;
+﻿using System.Reflection;
+using System.Runtime.Versioning;
 using System.Windows.Markup;
-using System.Reflection;
 
 [assembly: XmlnsDefinition("http://style.candy.com", "CandySugar.Com.Style")]
 [assembly: AssemblyDescription("847432003@qq.com")]

@@ -1,6 +1,6 @@
 ﻿namespace CandySugar.Bilibili.Models
 {
-    public partial class BiliVideoInfoModel: ObservableObject
+    public partial class BiliVideoInfoModel : ObservableObject
     {
         public string Cover { get; set; }
 

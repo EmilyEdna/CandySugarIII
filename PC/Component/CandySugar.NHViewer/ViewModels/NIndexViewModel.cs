@@ -33,7 +33,7 @@
                 Counts += item;
             if (Math.Ceiling(Counts) >= 100)
             {
-                Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation,true, Catalog).Show());
+                Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(CommonHelper.DownloadFinishInformation, true, Catalog).Show());
                 IsDown = false;
             }
         }
@@ -195,7 +195,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -216,7 +216,7 @@
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             PandaType = PandaEnum.Init,
-                            PlatformType= PlatformEnum.NH,
+                            PlatformType = PlatformEnum.NH,
                             Init = new PandaInit
                             {
                                 Page = PageIndex
@@ -227,7 +227,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -260,7 +260,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -293,7 +293,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });

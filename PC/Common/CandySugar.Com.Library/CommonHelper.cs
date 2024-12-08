@@ -12,17 +12,17 @@ namespace CandySugar.Com.Library
         /// </summary>
         public static string AppPath => AppDomain.CurrentDomain.BaseDirectory;
         /// <summary>
-        /// 日志路径
-        /// </summary>
-        public static string LogPath => Path.Combine(AppPath, "Logs", "CandyLogs.log");
-        /// <summary>
         /// FFMPEG路径
         /// </summary>
         public static string FFMPEG => Path.Combine(AppPath, "ffmpeg", "ffmpeg.exe");
         /// <summary>
+        /// 插件路径
+        /// </summary>
+        public static string PluginPath => Path.Combine(AppPath, "Plugin");
+        /// <summary>
         /// 配置目录
         /// </summary>
-        public static string OptionPath => Path.Combine(AppPath,"Component");
+        public static string OptionPath => Path.Combine(AppPath, "Component");
         /// <summary>
         /// 下载目录
         /// </summary>

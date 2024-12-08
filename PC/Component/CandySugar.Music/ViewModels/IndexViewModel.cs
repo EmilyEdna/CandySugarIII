@@ -102,7 +102,7 @@ namespace CandySugar.Music.ViewModels
                 MarginThickness = new Thickness(0, 0, 60, 20);
             else
                 MarginThickness = new Thickness(0, 0, 60, 15);
-            BorderHeight = GlobalParam.MAXHeight-100;
+            BorderHeight = GlobalParam.MAXHeight - 100;
             BorderWidth = (GlobalParam.MAXWidth / 2) - 130;
         }
 
@@ -256,7 +256,7 @@ namespace CandySugar.Music.ViewModels
             }
         }
         [RelayCommand]
-        public void Active(object input) 
+        public void Active(object input)
         {
             var Data = input.ToMapest<AnonymousWater>().SelectValue.AsString().AsInt();
             if (Data == 0) return;
@@ -396,7 +396,7 @@ namespace CandySugar.Music.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -428,7 +428,7 @@ namespace CandySugar.Music.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -461,7 +461,7 @@ namespace CandySugar.Music.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -494,7 +494,7 @@ namespace CandySugar.Music.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -526,7 +526,7 @@ namespace CandySugar.Music.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -559,7 +559,7 @@ namespace CandySugar.Music.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -591,7 +591,7 @@ namespace CandySugar.Music.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -648,7 +648,7 @@ namespace CandySugar.Music.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -676,7 +676,7 @@ namespace CandySugar.Music.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });

@@ -1,8 +1,6 @@
 ﻿using CandySugar.Com.Data.Entity;
-using CandySugar.Com.Data.Entity.AxgleEntity;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CandySugar.Com.Data
 {

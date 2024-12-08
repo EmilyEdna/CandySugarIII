@@ -1,6 +1,6 @@
 ﻿namespace CandySugar.Rifan.ViewModels
 {
-    public partial class MainViewModel: BasicObservableObject
+    public partial class MainViewModel : BasicObservableObject
     {
         public MainViewModel()
         {

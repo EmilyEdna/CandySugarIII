@@ -2,7 +2,7 @@
 {
     public enum EPlay
     {
-        Play=1,
+        Play = 1,
         Pause,
         Stop
     }

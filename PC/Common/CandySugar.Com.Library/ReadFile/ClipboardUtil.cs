@@ -6,7 +6,7 @@ using XExten.Advance.ThreadFramework;
 namespace CandySugar.Com.Library.ReadFile
 {
     public class ClipboardUtil
-    {  
+    {
         /// <summary>
         /// 初始化粘贴板
         /// </summary>

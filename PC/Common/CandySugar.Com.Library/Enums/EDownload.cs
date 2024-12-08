@@ -2,7 +2,7 @@
 {
     public enum EDownload
     {
-        Light=1,
+        Light = 1,
         Wallhav,
         Chan,
         Rifan,

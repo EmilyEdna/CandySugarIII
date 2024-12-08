@@ -8,7 +8,7 @@ namespace CandySugar.Com.Library.Cursors
 {
     public class CursorExten
     {
-      
+
         /// <summary>
         /// 根据 本地文件路径 创建鼠标图标
         /// </summary>
@@ -69,7 +69,7 @@ namespace CandySugar.Com.Library.Cursors
         /// <returns>错误则返回null</returns>
         public static Cursor CreateCursor(Bitmap bm, int xHotSpot = 0, int yHotSpot = 0)
         {
-           return InternalCreateCursor(bm, xHotSpot, yHotSpot); ;
+            return InternalCreateCursor(bm, xHotSpot, yHotSpot); ;
         }
 
         /// <summary>

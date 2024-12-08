@@ -123,7 +123,7 @@ namespace CandySugar.NHViewer.ViewModels
         #endregion
 
         #region  方法
-       
+
         public void ChangeActive(int ActiveAnime)
         {
             PageIndex = 1;
@@ -143,7 +143,7 @@ namespace CandySugar.NHViewer.ViewModels
             }
             catch (Exception ex)
             {
-                Log.Logger.Error(ex, "");
+                XLog.Fatal(ex, "");
                 ErrorNotify();
             }
         }
@@ -182,7 +182,7 @@ namespace CandySugar.NHViewer.ViewModels
             }
             catch (Exception ex)
             {
-                Log.Logger.Error(ex, "");
+                XLog.Fatal(ex, "");
                 ErrorNotify();
             }
 
@@ -229,7 +229,7 @@ namespace CandySugar.NHViewer.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -279,7 +279,7 @@ namespace CandySugar.NHViewer.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });

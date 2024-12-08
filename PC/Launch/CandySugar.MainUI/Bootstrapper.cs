@@ -7,7 +7,6 @@ using CandySugar.Com.Options;
 using CandySugar.HostServer;
 using CandySugar.MainUI.ViewModels;
 using RestSharp;
-using Serilog;
 using Stylet;
 using StyletIoC;
 using System;
@@ -18,6 +17,7 @@ using System.Windows.Threading;
 using XExten.Advance;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
+using XExten.Advance.LogFramework;
 using XExten.Advance.NetFramework;
 using XExten.Advance.StaticFramework;
 
@@ -35,16 +35,13 @@ namespace CandySugar.MainUI
             Com.Library.Lnk.Shortcut.Instance.CreateLnk("Candy");
 #endif
             //日志
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.File(CommonHelper.LogPath, rollingInterval: RollingInterval.Day)
-                .CreateLogger().AddSdkLogger().AddEmailLogger();
+            XLog.RegisetLog().AddSdkLogger().AddEmailLogger();
             //代理配置
             GlobalProxy.Instance.ChangeUseProxy();
             //读取本地配置
             JsonReader.JsonRead(CommonHelper.OptionPath, CommonHelper.OptionFile);
             //读取本地插件配置
-            AssemblyLoader Loader = new(CommonHelper.AppPath);
+            AssemblyLoader Loader = new(CommonHelper.PluginPath);
             ComponentBinding.ComponentObjectModelGroups.Normal?.ForEach(Loader.Loads);
             ComponentBinding.ComponentObjectModelGroups.Vip?.ForEach(Loader.Loads);
             //注册请求框架
@@ -54,7 +51,7 @@ namespace CandySugar.MainUI
             //配置请求框架全局异常
             HttpEvent.HttpActionEvent = new Action<HttpClient, Exception>((client, ex) =>
             {
-                Log.Logger.Error(ex, "HTTP全局请求异常捕获");
+                XLog.Fatal(ex, "HTTP全局请求异常捕获");
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     new CandyNotifyControl($"HTTP网络内部异常，请看日志!").Show();
@@ -62,7 +59,7 @@ namespace CandySugar.MainUI
             });
             HttpEvent.RestActionEvent = new Action<RestClient, Exception>((client, ex) =>
             {
-                Log.Logger.Error(ex, "REST全局请求异常捕获");
+                XLog.Fatal(ex, "REST全局请求异常捕获");
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     new CandyNotifyControl($"REST网络内部异常，请看日志!").Show();
@@ -133,7 +130,7 @@ namespace CandySugar.MainUI
         /// <param name="e"></param>
         protected override void OnUnhandledException(DispatcherUnhandledExceptionEventArgs e)
         {
-            Log.Logger.Error(e.Exception.InnerException ?? e.Exception, "");
+            XLog.Fatal(e.Exception.InnerException ?? e.Exception, "");
             GC.Collect();
         }
     }

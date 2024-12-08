@@ -17,7 +17,7 @@ namespace CandySugar.Com.Library.ReadFile
             var builder = new ConfigurationBuilder().SetBasePath(path);
             jsonFile.ForEach(item =>
             {
-                builder = builder.AddJsonFile(item,true,true);
+                builder = builder.AddJsonFile(item, true, true);
             });
             Configuration = builder.Build();
         }

@@ -1,5 +1,4 @@
 ﻿using CandySugar.Com.Options.ComponentObject;
-using Serilog;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using XExten.Advance.LogFramework;
 
 namespace CandySugar.Com.Library.DLLoader
 {
@@ -52,7 +52,7 @@ namespace CandySugar.Com.Library.DLLoader
             }
             catch (Exception ex)
             {
-                Log.Logger.Error(ex,$"当前资源不存在：{ex.Message}");
+                XLog.Fatal(ex, $"当前资源不存在：{ex.Message}");
             }
         }
 
@@ -77,12 +77,12 @@ namespace CandySugar.Com.Library.DLLoader
             }
             catch (Exception ex)
             {
-                Log.Logger.Error(ex, $"当前资源不存在：{ex.Message}");
+                XLog.Fatal(ex, $"当前资源不存在：{ex.Message}");
             }
         }
 
 
-        public void Load(string dllFileName, string typeName) 
+        public void Load(string dllFileName, string typeName)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace CandySugar.Com.Library.DLLoader
             }
             catch (Exception ex)
             {
-                Log.Logger.Error(ex, $"当前资源不存在：{ex.Message}");
+                XLog.Fatal(ex, $"当前资源不存在：{ex.Message}");
             }
         }
     }

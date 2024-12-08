@@ -43,7 +43,7 @@ namespace CandySugar.HostServer.Controllers
             RifanService = IocDependency.Resolve<IService<RifanModel>>();
             WallService = IocDependency.Resolve<IService<WallModel>>();
             MusiceService = IocDependency.Resolve<IService<MusicModel>>();
-            AnimeService =IocDependency.Resolve<IService<AnimeModel>>();
+            AnimeService = IocDependency.Resolve<IService<AnimeModel>>();
             NHentaiService = IocDependency.Resolve<IService<NHentaiModel>>();
             HitomiService = IocDependency.Resolve<IService<HitomiModel>>();
         }
@@ -73,7 +73,7 @@ namespace CandySugar.HostServer.Controllers
             {
                 FileDownloadName = $"{type}.json"
             };
-           
+
         }
         /// <summary>
         /// 导入

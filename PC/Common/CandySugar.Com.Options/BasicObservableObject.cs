@@ -3,14 +3,14 @@ using System.Windows;
 
 namespace CandySugar.Com.Options
 {
-    public partial class BasicObservableObject: ObservableObject
+    public partial class BasicObservableObject : ObservableObject
     {
 
         private Visibility _NavVisible;
         public Visibility NavVisible
         {
             get => _NavVisible;
-            set =>SetProperty(ref _NavVisible, value);
+            set => SetProperty(ref _NavVisible, value);
         }
         [ObservableProperty]
         private double _NavHeight;

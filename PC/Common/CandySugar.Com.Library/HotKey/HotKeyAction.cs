@@ -30,12 +30,12 @@ namespace CandySugar.Com.Library.HotKey
         /// <summary>
         /// 初始化注册快捷键
         /// </summary>
-        public void InitHotKey() 
+        public void InitHotKey()
         {
             InitHotKey(null);
         }
 
-        public void SetHwnd(Window window) 
+        public void SetHwnd(Window window)
         {
             _Window = window;
             // 获取窗体句柄

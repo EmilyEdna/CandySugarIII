@@ -14,7 +14,8 @@
             InitializeComponent();
             AnimeX1 = (Storyboard)FindResource("X1Key");
             AnimeX2 = (Storyboard)FindResource("X2Key");
-            Loaded += delegate { 
+            Loaded += delegate
+            {
                 ViewModel = (NIndexViewModel)this.DataContext;
                 ViewModel.Views = this;
             };

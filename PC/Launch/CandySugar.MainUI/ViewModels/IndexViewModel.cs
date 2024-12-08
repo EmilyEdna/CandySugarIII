@@ -222,7 +222,7 @@ namespace CandySugar.MainUI.ViewModels
                 if (obj == EHandle.Audio)
                     new CandyAudioPlayView().Show();
                 if (obj == EHandle.WebSite)
-                    Process.Start("explorer.exe","http://127.0.0.1:99/swagger");
+                    Process.Start("explorer.exe", "http://127.0.0.1:99/swagger");
             }
 
         });
@@ -389,7 +389,8 @@ namespace CandySugar.MainUI.ViewModels
         /// <summary>
         /// 抽离音频
         /// </summary>
-        private async void ExtractToAudio() {
+        private async void ExtractToAudio()
+        {
             string VideoFile = string.Empty;
             var TempWindow = CreateTempWindow();
             OpenFileDialog Vdialog = new OpenFileDialog

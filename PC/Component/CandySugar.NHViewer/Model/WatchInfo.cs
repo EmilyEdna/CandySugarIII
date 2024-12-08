@@ -1,6 +1,6 @@
 ﻿namespace CandySugar.NHViewer.Model
 {
-    public partial class WatchInfo:BasicObservableObject
+    public partial class WatchInfo : BasicObservableObject
     {
         [ObservableProperty]
         private int _Index;

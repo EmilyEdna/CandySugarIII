@@ -1,11 +1,11 @@
-﻿using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Handlers;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using XExten.Advance.LogFramework;
 using XExten.Advance.NetFramework;
 using XExten.Advance.StaticFramework;
 
@@ -65,7 +65,7 @@ namespace CandySugar.Com.Library.DownPace
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                 }
             }
         }

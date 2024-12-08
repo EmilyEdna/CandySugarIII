@@ -143,7 +143,7 @@ namespace CandySugar.Comic.ViewModels
 
                 Watchs.Select(t => t.Route).ForEnumerEach((item, index) =>
                 {
-                    var fullName = Path.Combine(Catalog, this.Results.FirstOrDefault(t => t.Route == this.Route).Name,$"{index + 1}.{Path.GetExtension(item)}");
+                    var fullName = Path.Combine(Catalog, this.Results.FirstOrDefault(t => t.Route == this.Route).Name, $"{index + 1}.{Path.GetExtension(item)}");
                     data.Add(fullName, item);
                 });
                 await HttpSchedule.HttpDownload(data);
@@ -188,7 +188,7 @@ namespace CandySugar.Comic.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -228,7 +228,7 @@ namespace CandySugar.Comic.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -260,7 +260,7 @@ namespace CandySugar.Comic.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });

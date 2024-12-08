@@ -20,7 +20,6 @@ global using Sdk.Component.Vip.Cosplay.sdk.ViewModel;
 global using Sdk.Component.Vip.Cosplay.sdk.ViewModel.Enums;
 global using Sdk.Component.Vip.Cosplay.sdk.ViewModel.Request;
 global using Sdk.Component.Vip.Cosplay.sdk.ViewModel.Response;
-global using Serilog;
 global using System;
 global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
@@ -33,5 +32,6 @@ global using System.Windows.Controls;
 global using System.Windows.Media.Animation;
 global using XExten.Advance.IocFramework;
 global using XExten.Advance.LinqFramework;
+global using XExten.Advance.LogFramework;
 global using XExten.Advance.StaticFramework;
 

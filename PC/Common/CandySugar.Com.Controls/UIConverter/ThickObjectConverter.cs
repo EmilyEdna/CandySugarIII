@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CandyControls;
+using CandyControls.ControlsModel.Thicks;
+using System;
 using System.Globalization;
 using System.Windows.Data;
-using CandyControls;
-using CandyControls.ControlsModel.Thicks;
 
 namespace CandySugar.Com.Controls.UIConverter
 {

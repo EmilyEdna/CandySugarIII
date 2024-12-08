@@ -99,7 +99,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -132,7 +132,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -166,7 +166,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -199,7 +199,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -232,7 +232,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -247,11 +247,11 @@
             if (param.SelectName.IsNullOrEmpty()) return;
             if (param.SelectName == "Jav")
                 PlatformType = PlatformEnum.Jav;
-            if(param.SelectName == "Skb")
+            if (param.SelectName == "Skb")
                 PlatformType = PlatformEnum.Skb;
             this.Keyword = string.Empty;
             InitPage = SearchPage = 1;
-            
+
         }
         [RelayCommand]
         public void Changed(object item)

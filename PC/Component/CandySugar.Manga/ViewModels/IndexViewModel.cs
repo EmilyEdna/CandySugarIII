@@ -29,15 +29,15 @@
                 MarginThickness = new Thickness(0, 0, 60, 70);
             else
                 MarginThickness = new Thickness(0, 0, 60, 60);
-            BorderHeight =GlobalParam.MAXHeight;
+            BorderHeight = GlobalParam.MAXHeight;
             NavHeight = GlobalParam.NavHeight;
-            NavWidth=GlobalParam.NavWidth;
+            NavWidth = GlobalParam.NavWidth;
         }
         #endregion
 
         #region 属性
         [ObservableProperty]
-        private Dictionary<string,string> _MenuData;
+        private Dictionary<string, string> _MenuData;
         [ObservableProperty]
         private ObservableCollection<MangaCategoryElementResult> _CateResult;
         [ObservableProperty]
@@ -66,7 +66,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -99,7 +99,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -131,7 +131,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -163,7 +163,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -197,7 +197,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -230,7 +230,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -278,7 +278,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });

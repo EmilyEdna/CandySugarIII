@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Threading;
-using System.Windows.Documents;
 using XExten.Advance.LinqFramework;
 
 namespace CandySugar.Com.Library
@@ -79,7 +78,7 @@ namespace CandySugar.Com.Library
         /// <summary>
         /// 强制属性配置
         /// </summary>
-        private static void ForceRefreshOptionObjectModels() 
+        private static void ForceRefreshOptionObjectModels()
         {
             Thread.Sleep(500);
             OptionObjectModel Model = new();

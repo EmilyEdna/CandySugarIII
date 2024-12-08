@@ -12,10 +12,10 @@
         {
             IocModule = this;
             IocDependency.Register(typeof(IndexView));
-            IocDependency.Register(typeof(ReaderView),1);
+            IocDependency.Register(typeof(ReaderView), 1);
 
             IocDependency.Register(typeof(IndexViewModel));
-            IocDependency.Register(typeof(ReaderViewModel),1);
+            IocDependency.Register(typeof(ReaderViewModel), 1);
         }
 
         public T Resolve<T>() where T : UserControl

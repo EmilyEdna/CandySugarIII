@@ -1,13 +1,13 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.IO;
-using System.Windows;
-using CandyControls;
+﻿using CandyControls;
 using CandySugar.Com.Controls.ExtenControls;
 using CandySugar.Com.Options;
 using CandySugar.Com.Options.ComponentGeneric;
 using CandySugar.Com.Style;
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.IO;
+using System.Windows;
 
 namespace CandySugar.MainUI.Views
 {
@@ -40,11 +40,11 @@ namespace CandySugar.MainUI.Views
         private void CloseConfirmEvent(object sender, CancelEventArgs e)
         {
             var Result = !(new CandyNotifyControl().ShowDialog().Value);
-            if(Result) this.Visibility = Visibility.Collapsed;
+            if (Result) this.Visibility = Visibility.Collapsed;
             e.Cancel = Result;
         }
 
-        private void InitUI() 
+        private void InitUI()
         {
             GlobalParam.MAXWidth = 1160;
             GlobalParam.MAXHeight = 550;

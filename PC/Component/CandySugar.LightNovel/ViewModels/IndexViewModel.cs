@@ -18,7 +18,7 @@
             else
                 MarginThickness = new Thickness(0, 0, 60, 15);
             NavHeight = GlobalParam.NavHeight;
-            NavWidth=GlobalParam.NavWidth;
+            NavWidth = GlobalParam.NavWidth;
         }
         #endregion
 
@@ -128,7 +128,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -163,7 +163,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -197,7 +197,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -234,7 +234,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -269,7 +269,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -319,7 +319,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });
@@ -353,12 +353,12 @@
                     }).RunsAsync()).DownResult.Bytes;
                     result.FileCreate(bookName, FileTypes.Txt, "LightNovel", (catalog, fileName) =>
                     {
-                        new CandyNotifyControl(CommonHelper.DownloadFinishInformation,true, catalog).Show();
+                        new CandyNotifyControl(CommonHelper.DownloadFinishInformation, true, catalog).Show();
                     });
                 }
                 catch (Exception ex)
                 {
-                    Log.Logger.Error(ex, "");
+                    XLog.Fatal(ex, "");
                     ErrorNotify();
                 }
             });

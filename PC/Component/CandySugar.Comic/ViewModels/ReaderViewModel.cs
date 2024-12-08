@@ -8,7 +8,8 @@ namespace CandySugar.Comic.ViewModels
         public ReaderViewModel()
         {
             Picture = [];
-            ((List<string>)Module.Param)?.ForEnumerEach((item, index) => {
+            ((List<string>)Module.Param)?.ForEnumerEach((item, index) =>
+            {
                 Picture.Add(new WatchInfo
                 {
                     Index = index,

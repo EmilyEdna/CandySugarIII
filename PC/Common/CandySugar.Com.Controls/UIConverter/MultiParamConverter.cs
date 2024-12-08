@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Windows.Data;
 
 namespace CandySugar.Com.Controls.UIConverter
@@ -11,10 +9,10 @@ namespace CandySugar.Com.Controls.UIConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Dictionary<string,object> keyValuePairs = new Dictionary<string,object>();
+            Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
             for (int i = 0; i < values.Length; i++)
             {
-                keyValuePairs.Add($"Key{i+1}", values[i]);
+                keyValuePairs.Add($"Key{i + 1}", values[i]);
             }
             return keyValuePairs;
         }

@@ -16,7 +16,8 @@ namespace CandySugar.Anime.View
             InitializeComponent();
             AnimeX1 = (Storyboard)FindResource("X1Key");
             AnimeX2 = (Storyboard)FindResource("X2Key");
-            Loaded += delegate {
+            Loaded += delegate
+            {
                 ViewModel = (IndexViewModel)this.DataContext;
             };
             AnimeX1.Completed += CompletedEvent;

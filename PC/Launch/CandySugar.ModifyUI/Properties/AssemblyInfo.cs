@@ -1,6 +1,6 @@
-using System.Windows;
-using System.Runtime.Versioning;
 using System.Reflection;
+using System.Runtime.Versioning;
+using System.Windows;
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 [assembly: AssemblyDescription("847432003@qq.com")]

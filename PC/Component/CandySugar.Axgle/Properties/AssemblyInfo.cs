@@ -1,5 +1,5 @@
-﻿using System.Runtime.Versioning;
-using System.Reflection;
+﻿using System.Reflection;
+using System.Runtime.Versioning;
 
 [assembly: AssemblyDescription("847432003@qq.com")]
 [assembly: AssemblyFileVersion("3.0.0.0")]

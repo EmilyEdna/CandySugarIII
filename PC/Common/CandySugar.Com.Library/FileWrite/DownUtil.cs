@@ -23,7 +23,7 @@ namespace CandySugar.Com.Library.FileWrite
         /// <param name="fileType"></param>
         /// <param name="component"></param>
         /// <param name="invoke"></param>
-        public static void FileCreate(this byte[] result, string fileName, string fileType, string component = "", Action<string,string> invoke = null)
+        public static void FileCreate(this byte[] result, string fileName, string fileType, string component = "", Action<string, string> invoke = null)
         {
             var catalog = SyncStatic.CreateDir(Path.Combine(CommonHelper.DownloadPath, component));
             var files = SyncStatic.CreateFile(Path.Combine(catalog, $"{fileName}.{fileType}"));

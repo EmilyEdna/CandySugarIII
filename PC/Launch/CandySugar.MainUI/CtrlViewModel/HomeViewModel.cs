@@ -46,10 +46,11 @@ namespace CandySugar.MainUI.CtrlViewModel
         public void Keep(NovelModel novel) => GenericDelegate.ChangeContentAction?.Invoke(new
         {
             novel.Platform,
-            MD5= novel.Detail.ToMd5(),
+            MD5 = novel.Detail.ToMd5(),
             Index = novel.Current,
             Current = novel.Route,
-            Chapters = Encoding.UTF8.GetString(Convert.FromBase64String(novel.Detail)).ToModel<JArray>().Select(t=>new {
+            Chapters = Encoding.UTF8.GetString(Convert.FromBase64String(novel.Detail)).ToModel<JArray>().Select(t => new
+            {
                 Route = t["Route"].AsString(),
                 Chapter = t["Chapter"].AsString()
             }).ToList()

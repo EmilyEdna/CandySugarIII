@@ -5,12 +5,12 @@ using CandySugar.Com.Library;
 using CandySugar.Com.Library.KeepOn;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
-using Serilog;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using XExten.Advance.LogFramework;
 
 namespace CandySugar.Com.Controls.ExtenControls
 {
@@ -29,7 +29,7 @@ namespace CandySugar.Com.Controls.ExtenControls
             this._Route = Route;
             this._Mode = Mode;
             this.Title = "网页视频播放器";
-            this.Handle = new WindowHandleStruct(EWindowHandle.Set,false);
+            this.Handle = new WindowHandleStruct(EWindowHandle.Set, false);
             this.Background = new ImageBrush
             {
                 ImageSource = new BitmapImage(new Uri("pack://application:,,,/CandySugar.Com.Style;component/Resources/MusicBackgroud.jpg"))
@@ -63,7 +63,7 @@ namespace CandySugar.Com.Controls.ExtenControls
                         var playuri = res.Replace("\"", "");
                         WebPlayer.CoreWebView2.Navigate(new Uri(CommonHelper.PlayerHtml).AbsoluteUri);
                         await Task.Delay(2000); //等待html加载完成
-                        Log.Logger.Information($"流媒体加载成功！地址：{playuri}");
+                        XLog.Info($"流媒体加载成功！地址：{playuri}");
                         await WebPlayer.CoreWebView2.ExecuteScriptAsync($"opt.uri='{playuri}'");
                     }
                 });
