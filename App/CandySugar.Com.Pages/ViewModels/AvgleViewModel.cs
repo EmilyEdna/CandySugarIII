@@ -140,7 +140,6 @@ namespace CandySugar.Com.Pages.ViewModels
                 {
                     opt.RequestParam = new Input
                     {
-
                         JronType = JronEnum.Search,
                         PlatformType = Platform,
                         CacheSpan = 5,

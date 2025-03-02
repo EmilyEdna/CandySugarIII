@@ -1,7 +1,7 @@
-﻿using CandySugar.Com.Library;
+﻿using System.Collections.ObjectModel;
+using CandySugar.Com.Library;
 using CandySugar.Com.Library.Model;
 using CandySugar.Com.Pages.ChildViews.Animes;
-using CandySugar.Com.Pages.ChildViews.Axgles;
 using CandySugar.Com.Pages.ChildViews.Rifans;
 using CandySugar.Com.Pages.Views;
 using CandySugar.Com.Service;
@@ -15,11 +15,9 @@ using Sdk.Component.Vip.Jron.sdk;
 using Sdk.Component.Vip.Jron.sdk.ViewModel;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
-using System.Collections.ObjectModel;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 using RifanSearch = Sdk.Component.Vip.Anime.sdk.ViewModel.Response.SearchElementResult;
-using Microsoft.Maui.Controls;
 using VideoView = CandySugar.Com.Pages.ChildViews.Axgles.VideoView;
 
 namespace CandySugar.Com.Pages.ViewModels
