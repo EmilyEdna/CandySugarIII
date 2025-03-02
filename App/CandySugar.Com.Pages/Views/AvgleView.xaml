@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CandySugar.Com.Pages.Views.AvgleView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lib="clr-namespace:CandySugar.Com.Library;assembly=CandySugar.Com.Library"
+    xmlns:sdk="clr-namespace:Sdk.Component.Vip.Jron.sdk.ViewModel.Response;assembly=Sdk.Component.Vip"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels"
+    lib:ToolBarAttach.BarSource="{Binding Bar}"
+    x:DataType="vm:AvgleViewModel"
+    BackgroundColor="{DynamicResource BasicContainer}"
+    Shell.BackgroundColor="{DynamicResource BasicPage}">
+    <Shell.SearchHandler>
+        <SearchHandler
+            BackgroundColor="{DynamicResource BasicPage}"
+            ClearIcon="{StaticResource Clear}"
+            Command="{Binding QueryCommand}"
+            Placeholder="请输入查询内容"
+            Query="{Binding QueryKey, Mode=TwoWay}"
+            QueryIcon="{StaticResource Search}"
+            ShowsResults="False"
+            TextColor="{DynamicResource Basic}" />
+    </Shell.SearchHandler>
+    <Grid RowDefinitions="Auto,*">
+        <HorizontalStackLayout>
+            <Switch BackgroundColor="Transparent" Toggled="CheckEvent" />
+            <Picker
+                Title="选择择"
+                Margin="10,0,0,0"
+                ItemsSource="{Binding Tags}"
+                WidthRequest="210" />
+            <Button Style="{DynamicResource ButtonStyle}" Text="重置" />
+        </HorizontalStackLayout>
+        <CollectionView
+            Grid.Row="1"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsSource="{Binding Results}"
+            RemainingItemsThreshold="0"
+            RemainingItemsThresholdReachedCommand="{Binding MoreCommand}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="sdk:JronElemetInitResult">
+                    <Border Stroke="{DynamicResource PotoBrushSafe}">
+                        <Grid BackgroundColor="{DynamicResource BasicContainer}" ColumnDefinitions="Auto,*">
+                            <Border
+                                HeightRequest="120"
+                                StrokeShape="RoundRectangle 0"
+                                WidthRequest="170">
+                                <Image Aspect="Fill" Source="{Binding Cover}" />
+                            </Border>
+                            <StackLayout Grid.Column="1" VerticalOptions="StartAndExpand">
+                                <Label
+                                    Margin="10,0,0,0"
+                                    LineBreakMode="TailTruncation"
+                                    Text="{Binding Title}"
+                                    TextColor="{DynamicResource Basic}" />
+                                <HorizontalStackLayout Margin="10,0,0,0">
+                                    <Label Text="时常：" TextColor="{DynamicResource Basic}" />
+                                    <Label Text="{Binding Duration}" TextColor="{DynamicResource Basic}" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Margin="10,0,0,0">
+                                    <Label Text="更新：" TextColor="{DynamicResource Basic}" />
+                                    <Label Text="{Binding Latest}" TextColor="{DynamicResource Basic}" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Margin="10,0,0,0">
+                                    <Label Text="描述：" TextColor="{DynamicResource Basic}" />
+                                    <Label Text="{Binding Info}" TextColor="{DynamicResource Basic}" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout>
+                                    <Button
+                                        Command="{Binding CollectCommand, Source={RelativeSource AncestorType={x:Type vm:AvgleViewModel}}}"
+                                        CommandParameter="{Binding .}"
+                                        Style="{StaticResource ButtonStyle}"
+                                        Text="收藏"
+                                        WidthRequest="60" />
+                                    <Button
+                                        Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:AvgleViewModel}}}"
+                                        CommandParameter="{Binding .}"
+                                        Style="{StaticResource ButtonStyle}"
+                                        Text="播放"
+                                        WidthRequest="60" />
+                                </HorizontalStackLayout>
+                            </StackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

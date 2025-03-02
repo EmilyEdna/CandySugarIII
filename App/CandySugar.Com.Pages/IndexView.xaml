@@ -29,9 +29,13 @@
             ContentTemplate="{DataTemplate page:RifanView}"
             Route="RifanView" />
         <ShellContent
-            Title="车牌"
+            Title="轿车"
             ContentTemplate="{DataTemplate page:AxgleView}"
             Route="AxgleView" />
+        <ShellContent
+            Title="跑车"
+            ContentTemplate="{DataTemplate page:AvgleView}"
+            Route="AvgleView" />
     </FlyoutItem>
     <MenuItem
         Clicked="ImportEvent"

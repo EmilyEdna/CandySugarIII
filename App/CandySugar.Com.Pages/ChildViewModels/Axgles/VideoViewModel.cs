@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Devices;
 using System.Text.RegularExpressions;
 using XExten.Advance.LinqFramework;
 #if ANDROID

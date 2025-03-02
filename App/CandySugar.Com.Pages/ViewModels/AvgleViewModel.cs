@@ -5,8 +5,6 @@ using CandySugar.Com.Pages.ChildViews.Axgles;
 using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Dispatching;
 using Sdk.Component.Vip.Jron.sdk;
 using Sdk.Component.Vip.Jron.sdk.ViewModel;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
@@ -15,23 +13,18 @@ using Sdk.Component.Vip.Jron.sdk.ViewModel.Response;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 using Application = Microsoft.Maui.Controls.Application;
-using VideoView = CandySugar.Com.Pages.ChildViews.Axgles.VideoView;
 
 namespace CandySugar.Com.Pages.ViewModels
 {
-    public partial class AxgleViewModel : ObservableObject
+    public partial class AvgleViewModel : ObservableObject
     {
-        public AxgleViewModel()
+        public AvgleViewModel()
         {
             Results = [];
-            Platform = PlatformEnum.Jav;
-            Bar = [
-                new BarModel { Name = "Jav", Route = "Jav" },
-                new BarModel { Name = "Skb", Route = "Skb" },
-                new BarModel { Name = "最新", Route = "1" },
-                new BarModel { Name = "热门", Route = "2" },
-                new BarModel { Name = "好评", Route = "3" },
-                ];
+            Mode = ModeEnum.ReleaseDate;
+            Platform = PlatformEnum.A24;
+            InitDict();
+            InitAsync();
         }
 
         #region Field
@@ -41,6 +34,7 @@ namespace CandySugar.Com.Pages.ViewModels
         private int InitPage;
         private int SearchPage;
         private int SearchTotal;
+        private Dictionary<string, List<string>> TagDict;
         #endregion
 
         #region Property
@@ -50,9 +44,36 @@ namespace CandySugar.Com.Pages.ViewModels
         private ObservableCollection<JronElemetInitResult> _Results;
         [ObservableProperty]
         private string _QueryKey;
+        [ObservableProperty]
+        private string _Tag;
+        [ObservableProperty]
+        private ObservableCollection<string> _Tags;
+        #endregion
+
+        #region Event
+        private void InitDict()
+        {
+            Bar = new ObservableCollection<BarModel>();
+            typeof(ModeEnum).GetEnumNames()
+                .ForArrayEach<string>(item =>
+                {
+                    var Mode = Enum.Parse<ModeEnum>(item);
+                    Bar.Add(new BarModel { Name = Mode.ToDes(), Route = item });
+                });
+        }
+        public void Changed(bool input)
+        {
+            if (TagDict==null) return;
+            if (input)
+                Tags = [.. TagDict.FirstOrDefault().Value];
+            else
+                Tags = [.. TagDict.LastOrDefault().Value];
+        }
         #endregion
 
         #region Method
+
+
         private async void InitAsync()
         {
             try
@@ -69,9 +90,11 @@ namespace CandySugar.Com.Pages.ViewModels
                         {
                             ModeType = Mode,
                             Page = 1,
+                            Tag = Tag
                         }
                     };
                 }).RunsAsync()).InitResult;
+                TagDict ??= result.Tags;
                 InitTotal = result.Total;
                 Results = new(result.ElementResults);
             }
@@ -97,6 +120,7 @@ namespace CandySugar.Com.Pages.ViewModels
                         {
                             ModeType = Mode,
                             Page = InitPage,
+                            Tag = Tag
                         }
                     };
                 }).RunsAsync()).InitResult;
@@ -123,7 +147,8 @@ namespace CandySugar.Com.Pages.ViewModels
                         Search = new JronSearch
                         {
                             Page = SearchPage,
-                            Keyword = QueryKey
+                            Keyword = QueryKey,
+                            ModeType = Mode,
                         }
                     };
                 }).RunsAsync()).SearchResult;
@@ -155,13 +180,17 @@ namespace CandySugar.Com.Pages.ViewModels
                         JronType = JronEnum.Detail,
                         PlatformType = Platform,
                         CacheSpan = 5,
-                        Play = new  JronPlay
+                        Play = new JronPlay
                         {
                             Route = input.Route
                         }
                     };
                 }).RunsAsync()).PlayResult;
-                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", result.Play } });
+                var Params = new Dictionary<string, object>();
+                Params.Add("Title", input.Title);
+                Params.Add("Result", result.Plays);
+                Params.Add("Links" ,result.ElementResults);
+                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(LinkView)], new Dictionary<string, object> { { "Param", Params } });
             }
             catch (Exception ex)
             {
@@ -199,9 +228,17 @@ namespace CandySugar.Com.Pages.ViewModels
                     Application.Current.Dispatcher.DispatchAsync(SearchAsync);
             }
         }
+        [RelayCommand]
+        public void Reset() 
+        {
+            Results = [];
+            InitPage = 1;
+            QueryKey = string.Empty;
+            InitAsync();
+        }
 
         [RelayCommand]
-        public void Query() 
+        public void Query()
         {
             if (QueryKey.IsNullOrEmpty()) return;
             SearchPage = 1;
@@ -210,35 +247,15 @@ namespace CandySugar.Com.Pages.ViewModels
             Application.Current.Dispatcher.DispatchAsync(SearchAsync);
         }
 
-        public RelayCommand<string> CatalogCommand => new(obj =>
-        {
-            Results = [];
-            if (obj == "Jav")
-            {
-                Platform = PlatformEnum.Jav;
-            }
-            else if (obj == "Skb")
-            {
-                Platform = PlatformEnum.Skb;
-            }
-            else
-            {
-                var type = obj.AsInt();
-                if (type == 1)
-                    Mode = ModeEnum.Latest;
-                else if (type == 2)
-                    Mode = ModeEnum.Hot;
-                else
-                    Mode = ModeEnum.Praised;
-                InitPage = 1;
-                QueryKey = string.Empty;
-                InitAsync();
-            }
-        });
+        public RelayCommand<JronElemetInitResult> PlayCommand => new(PlayAsync);
 
         public RelayCommand<JronElemetInitResult> CollectCommand => new(Insert);
 
-        public RelayCommand<JronElemetInitResult> PlayCommand => new(PlayAsync);
+        public RelayCommand<string> CatalogCommand => new(obj =>
+        {
+            Mode = Enum.Parse<ModeEnum>(obj);
+            InitAsync();
+        });
         #endregion
     }
 }

@@ -24,14 +24,12 @@
 		<PackageReference Include="XExten.Advance.Maui.Direction" Version="1.0.0" />
 		<PackageReference Include="LibVLCSharp" Version="3.9.2" />
 		<PackageReference Include="VideoLAN.LibVLC.Android" Version="3.5.3" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.40" />
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiXaml Update="Controls\MediaUIViewer.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Update="Microsoft.Maui.Controls" Version="9.0.40" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.92" />

@@ -37,6 +37,9 @@
 	  <MauiXaml Update="ChildViews\Animes\PlayView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="ChildViews\Axgles\LinkView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ChildViews\Axgles\VideoView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -67,7 +70,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.92" />
+	  <None Update="Views\AvgleView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.40" />
 	</ItemGroup>
 
 	<ItemGroup>

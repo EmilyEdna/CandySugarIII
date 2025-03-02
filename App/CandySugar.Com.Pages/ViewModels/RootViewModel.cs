@@ -19,6 +19,8 @@ using System.Collections.ObjectModel;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 using RifanSearch = Sdk.Component.Vip.Anime.sdk.ViewModel.Response.SearchElementResult;
+using Microsoft.Maui.Controls;
+using VideoView = CandySugar.Com.Pages.ChildViews.Axgles.VideoView;
 
 namespace CandySugar.Com.Pages.ViewModels
 {
