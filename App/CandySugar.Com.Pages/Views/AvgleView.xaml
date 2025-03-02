@@ -28,6 +28,7 @@
             <Picker
                 Title="选择择"
                 Margin="10,0,0,0"
+                SelectedIndexChanged="SelectEvent"
                 ItemsSource="{Binding Tags}"
                 WidthRequest="210" />
             <Button Style="{DynamicResource ButtonStyle}" Text="重置" />

@@ -69,6 +69,14 @@ namespace CandySugar.Com.Pages.ViewModels
             else
                 Tags = [.. TagDict.LastOrDefault().Value];
         }
+        public void TagChanged(string input)
+        {
+            Tag = input;
+            Results = [];
+            InitPage = 1;
+            QueryKey = string.Empty;
+            InitAsync();
+        }
         #endregion
 
         #region Method

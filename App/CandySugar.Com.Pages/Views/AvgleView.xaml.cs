@@ -17,4 +17,9 @@ public partial class AvgleView : ContentPage
     {
         VM.Changed(e.Value);
     }
+
+    private void SelectEvent(object sender, EventArgs e)
+    {
+        VM.TagChanged((sender as Picker).SelectedItem.ToString());
+    }
 }
