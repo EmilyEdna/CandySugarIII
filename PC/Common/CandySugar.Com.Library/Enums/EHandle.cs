@@ -19,7 +19,6 @@
         Setting,
         Video,
         Audio,
-        WebSite,
-        Index = 999
+        WebSite
     }
 }

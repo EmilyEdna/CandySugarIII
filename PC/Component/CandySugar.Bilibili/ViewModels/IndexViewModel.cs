@@ -146,7 +146,7 @@
         }
 
         [RelayCommand]
-        public void Transh(BiliVideoInfoModel input)
+        public void Trash(BiliVideoInfoModel input)
         {
             InfoResults.Remove(input);
             if (DataResults.Count > 0)

@@ -1,18 +1,19 @@
 ﻿namespace CandySugar.Axgle.ViewModels
 {
-    public partial class IndexViewModel : BasicObservableObject
+    public partial class ExpendViewModel : BasicObservableObject
     {
-        public IndexViewModel()
+        public ExpendViewModel()
         {
-            CollectResult = [];
-            PlatformType = PlatformEnum.Jav;
-            Title = ["最新", "热门", "好评", "收藏"];
-            MenuData = new() { { "Jav", "1" }, { "Skb", "2" },{ "24MA","3"} };
+            PlatformType = PlatformEnum.A24;
+            ModeType = ModeEnum.ReleaseDate;
+            Close = Visibility.Collapsed;
+            Title = ["无码", "有码"];
             Service = IocDependency.Resolve<IService<AxgleModel>>();
             GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             WindowStateEvent();
-
+            InitDict();
+            OnInit();
         }
 
         #region 事件
@@ -42,34 +43,45 @@
         private ModeEnum ModeType;
         private PlatformEnum PlatformType;
         private IService<AxgleModel> Service;
+        private Dictionary<string, List<string>> TagDict;
         #endregion
 
         #region 属性
         [ObservableProperty]
+        private Visibility _Close;
+        [ObservableProperty]
+        private string _Tag;
+        [ObservableProperty]
+        private Dictionary<string, ModeEnum> _TagEnumDict;
+        [ObservableProperty]
+        private Dictionary<string, string> _Plays;
+        [ObservableProperty]
         private ObservableCollection<string> _Title;
         [ObservableProperty]
-        private Dictionary<string, string> _MenuData;
+        private ObservableCollection<string> _Tags;
         [ObservableProperty]
         private ObservableCollection<JronElemetInitResult> _Results;
         [ObservableProperty]
         private ObservableCollection<AxgleModel> _CollectResult;
-
+        [ObservableProperty]
+        private ObservableCollection<JronRelatedElementResult> _Link;
         #endregion
 
         #region 方法
 
+        private void InitDict()
+        {
+            TagEnumDict = new Dictionary<string, ModeEnum>();
+            typeof(ModeEnum).GetEnumNames()
+                .ForArrayEach<string>(item =>
+                {
+                    var Mode = Enum.Parse<ModeEnum>(item);
+                    TagEnumDict.Add(Mode.ToDes(), Mode);
+                });
+        }
+
         private void ErrorNotify(string input = "") =>
                    Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
-
-        public void ChangeActive(int ActiveAnime)
-        {
-            this.Keyword = string.Empty;
-            InitPage = 1;
-            if (ActiveAnime != 4)
-                OnInit();
-            else
-                CollectResult = new(Service.QueryAll());
-        }
 
         private void OnInit()
         {
@@ -88,14 +100,16 @@
                             Init = new JronInit
                             {
                                 Page = InitPage,
-                                ModeType = ModeType
+                                ModeType = ModeType,
+                                Tag = Tag
                             },
                             PlatformType = PlatformType,
                             JronType = JronEnum.Init
                         };
                     }).RunsAsync()).InitResult;
+                    TagDict ??= res.Tags;
                     InitTotal = res.Total;
-                    Results = new(res.ElementResults);
+                    Results = [.. res.ElementResults];
                 }
                 catch (Exception ex)
                 {
@@ -122,7 +136,8 @@
                             Init = new JronInit
                             {
                                 Page = InitPage,
-                                ModeType = ModeType
+                                ModeType = ModeType,
+                                Tag = Tag
                             },
                             PlatformType = PlatformType,
                             JronType = JronEnum.Init
@@ -140,6 +155,8 @@
 
         private void OnSearch()
         {
+            if (this.Keyword.IsNullOrEmpty())
+                return;
             Task.Run(async () =>
             {
                 try
@@ -157,7 +174,8 @@
                             Search = new JronSearch
                             {
                                 Keyword = this.Keyword,
-                                Page = SearchPage
+                                Page = SearchPage,
+                                ModeType = ModeType
                             }
                         };
                     }).RunsAsync()).SearchResult;
@@ -191,7 +209,8 @@
                             Search = new JronSearch
                             {
                                 Keyword = this.Keyword,
-                                Page = SearchPage
+                                Page = SearchPage,
+                                ModeType = ModeType
                             }
                         };
                     }).RunsAsync()).SearchResult;
@@ -220,15 +239,16 @@
                             ProxyPort = Proxy.Port,
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             JronType = JronEnum.Detail,
-                            PlatformType = input.Route.Contains("javbangers") ? PlatformEnum.Jav : PlatformEnum.Skb,
+                            PlatformType = PlatformType,
                             Play = new JronPlay
                             {
                                 Route = input.Route
                             }
                         };
-                    }).RunsAsync()).PlayResult.Play;
-
-                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result, true).Show());
+                    }).RunsAsync()).PlayResult;
+                    Plays = result.Plays;
+                    Link = [.. result.ElementResults];
+                    this.Close = Visibility.Visible;
                 }
                 catch (Exception ex)
                 {
@@ -241,53 +261,47 @@
 
         #region 命令
         [RelayCommand]
-        public void Active(object input)
+        public void Collect(object element)
         {
-            var param = input.ToMapest<AnonymousWater>();
-            if (param.SelectName.IsNullOrEmpty()) return;
-            if (param.SelectName == "24MA")
-                GenericDelegate.ChangeContentAction?.Invoke(param.SelectName);
+            var Model = element.ToMapest<AxgleModel>();
+            Model.Platfrom = PlatformType.AsString();
+            Service.Insert(Model);
+        }
+        [RelayCommand]
+        public void View(string input)
+            => new CandyWebPlayControl(input, true).Show();
+        [RelayCommand]
+        public void Back()
+            => GenericDelegate.ChangeContentAction?.Invoke(string.Empty);
+        [RelayCommand]
+        public void Selected(string input)
+        {
+            this.InitPage = 1;
+            this.Keyword = string.Empty;
+            Tag = input;
+            OnInit();
+        }
+        [RelayCommand]
+        public void Watch(object input)
+            => OnDetail(input.ToMapest<JronElemetInitResult>());
+        [RelayCommand]
+        public void DropChanged(ModeEnum input)
+        {
+            ModeType = input;
+            if (this.Keyword.IsNullOrEmpty())
+                OnInit();
             else
-            {
-                if (param.SelectName == "Jav")
-                    PlatformType = PlatformEnum.Jav;
-                if (param.SelectName == "Skb")
-                    PlatformType = PlatformEnum.Skb;
-                this.Keyword = string.Empty;
-                InitPage = SearchPage = 1;
-            }
+                OnSearch();
         }
         [RelayCommand]
         public void Changed(object item)
         {
             var Target = ((CandyToggleItem)item);
-            if (Target.FindParent<UserControl>() is IndexView View)
-            {
-                var Temp = Target.Tag.ToString().AsInt();
-                if (Temp == 0)
-                {
-                    ModeType = ModeEnum.Latest;
-                    View.ActiveAnime = 1;
-                    View.AnimeX1.Begin();
-                }
-                else if (Temp == 1)
-                {
-                    ModeType = ModeEnum.Hot;
-                    View.ActiveAnime = 2;
-                    View.AnimeX2.Begin();
-                }
-                else if (Temp == 2)
-                {
-                    ModeType = ModeEnum.Praised;
-                    View.ActiveAnime = 3;
-                    View.AnimeX3.Begin();
-                }
-                else
-                {
-                    View.ActiveAnime = 4;
-                    View.AnimeX4.Begin();
-                }
-            }
+            var Temp = Target.Tag.ToString().AsInt();
+            if (Temp == 0)
+                Tags = [.. TagDict.FirstOrDefault().Value];
+            else
+                Tags = [.. TagDict.LastOrDefault().Value];
         }
         [RelayCommand]
         public void Scroll(ScrollChangedEventArgs obj)
@@ -307,28 +321,15 @@
                     SearchPage += 1;
                     OnLoadMoreSearch();
                 }
-
             }
         }
         [RelayCommand]
-        public void Collect(JronElemetInitResult element)
+        public void Trash()
         {
-            var Model = element.ToMapest<AxgleModel>();
-            Model.Platfrom = PlatformType.AsString();
-            Service.Insert(Model);
-            CollectResult = new(Service.QueryAll());
+            this.Link = [];
+            this.Plays = [];
+            this.Close = Visibility.Collapsed;
         }
-        [RelayCommand]
-        public void Watch(JronElemetInitResult element)
-          =>OnDetail(element);
-        [RelayCommand]
-        public void Remove(Guid id)
-        {
-            Service.Remove(id);
-            CollectResult = new(Service.QueryAll());
-        }
-        [RelayCommand]
-        public void Play(AxgleModel element) => OnDetail(element.ToMapest<JronElemetInitResult>());
         #endregion
 
         #region ExternalCalls
@@ -345,4 +346,3 @@
         #endregion
     }
 }
-

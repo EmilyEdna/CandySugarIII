@@ -1,21 +1,5 @@
-﻿using CandyControls;
-using CandySugar.Com.Controls.ExtenControls;
-using CandySugar.Com.Controls.UIExtenControls;
-using CandySugar.Com.Library;
-using CandySugar.Com.Library.Audios;
-using CandySugar.Com.Library.DLLoader;
-using CandySugar.Com.Library.Enums;
-using CandySugar.Com.Library.FFMPeg;
-using CandySugar.Com.Options.ComponentGeneric;
-using CandySugar.MainUI.CtrlView;
-using CandySugar.MainUI.Views;
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.Win32;
-using Stylet;
-using StyletIoC;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -27,6 +11,20 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using CandyControls;
+using CandySugar.Com.Controls.ExtenControls;
+using CandySugar.Com.Controls.UIExtenControls;
+using CandySugar.Com.Library;
+using CandySugar.Com.Library.Audios;
+using CandySugar.Com.Library.DLLoader;
+using CandySugar.Com.Library.Enums;
+using CandySugar.Com.Library.FFMPeg;
+using CandySugar.Com.Options.ComponentGeneric;
+using CandySugar.MainUI.Views;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Win32;
+using Stylet;
+using StyletIoC;
 using XExten.Advance.LinqFramework;
 using XExten.Advance.StaticFramework;
 using XExten.Advance.ThreadFramework;
@@ -53,19 +51,7 @@ namespace CandySugar.MainUI.ViewModels
         protected override void OnActivate()
         {
             BlurRadius = 15;
-            SearchHistory = ["1", "2"];
-            CandyControl = new HomeView();
             CreateMenuUI();
-            GenericDelegate.ChangeContentAction = new(obj =>
-            {
-                var Plugin = AssemblyLoader.Dll.FirstOrDefault(t => t.Handle == 2);
-                this.View.Dispatcher.Invoke(() =>
-                {
-                    var Ctrl = (Control)Activator.CreateInstance(Plugin.InstanceType);
-                    Ctrl.DataContext = Activator.CreateInstance(Plugin.InstanceViewModel, [obj]);
-                    CandyControl = Ctrl;
-                });
-            });
         }
 
 
@@ -100,14 +86,6 @@ namespace CandySugar.MainUI.ViewModels
             get => _Menus;
             set => SetAndNotify(ref _Menus, value);
         }
-
-        private ObservableCollection<string> _SearchHistory;
-        public ObservableCollection<string> SearchHistory
-        {
-            get => _SearchHistory;
-            set => SetAndNotify(ref _SearchHistory, value);
-        }
-
         private Control _CandyControl;
         public Control CandyControl
         {
@@ -121,18 +99,6 @@ namespace CandySugar.MainUI.ViewModels
         private void CreateMenuUI()
         {
             var Menu = new CandyMenu();
-            Menu.SetResourceReference(CandyMenu.FontFamilyProperty, "FontStyle");
-            var IMainItem = new CandyMenuItem
-            {
-                Header = "首页",
-                CommandParameter = EHandle.Index,
-            };
-            IMainItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
-            {
-                Path = new PropertyPath("ActiveCommad", EHandle.Index),
-                Source = ((IndexView)View).DataContext
-            });
-            Menu.Items.Add(IMainItem);
             //基础插件
             if (ComponentBinding.ComponentObjectModelGroups.Normal != null)
             {
@@ -213,8 +179,6 @@ namespace CandySugar.MainUI.ViewModels
             }
             else
             {
-                if (obj == EHandle.Index)
-                    CandyControl = new HomeView();
                 if (obj == EHandle.Setting)
                     WindowManager.ShowWindow(Container.Get<OptionViewModel>());
                 if (obj == EHandle.Video)

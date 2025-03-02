@@ -11,6 +11,9 @@
             IocModule = this;
             IocDependency.Register(typeof(IndexView));
             IocDependency.Register(typeof(IndexViewModel));
+
+            IocDependency.Register(typeof(ExpendView));
+            IocDependency.Register(typeof(ExpendViewModel));
         }
 
         public T Resolve<T>() where T : UserControl

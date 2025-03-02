@@ -13,7 +13,7 @@
             </ct:ApplicationLoader.Bootstrapper>
 
             <ct:ApplicationLoader.MergedDictionaries>
-                <hc:Theme />
+                <!--<hc:Theme />-->
                 <ResourceDictionary Source="pack://application:,,,/CandySugar.Com.Style;component/Theme.xaml" />
             </ct:ApplicationLoader.MergedDictionaries>
         </ct:ApplicationLoader>

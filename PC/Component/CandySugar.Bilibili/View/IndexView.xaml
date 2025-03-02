@@ -116,7 +116,7 @@
                             <Button
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
-                                Command="{Binding DataContext.TranshCammnd, ElementName=Index}"
+                                Command="{Binding DataContext.TrashCommand, ElementName=Index}"
                                 CommandParameter="{Binding .}"
                                 Content="{x:Static lib:FontIcon.CircleX}"
                                 FontSize="15"
