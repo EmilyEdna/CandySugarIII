@@ -10,7 +10,7 @@
     x:DataType="vm:LinkViewModel"
     BackgroundColor="{DynamicResource BasicContainer}"
     Shell.BackgroundColor="{DynamicResource BasicPage}">
-    <Grid RowDefinitions="Auto,*">
+    <Grid RowDefinitions="Auto，Auto,*">
         <CollectionView
             Margin="2,2,2,10"
             ItemSizingStrategy="MeasureAllItems"
@@ -35,8 +35,14 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <CollectionView
+        <Button
             Grid.Row="1"
+            Command="{Binding CollectCommand}"
+            Style="{StaticResource ButtonStyle}"
+            Text="收藏"
+            WidthRequest="60" />
+        <CollectionView
+            Grid.Row="2"
             ItemSizingStrategy="MeasureAllItems"
             ItemsSource="{Binding Links}">
             <CollectionView.ItemsLayout>
@@ -71,12 +77,6 @@
                                     <Label Text="{Binding Info}" TextColor="{DynamicResource Basic}" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
-                                    <Button
-                                        Command="{Binding CollectCommand, Source={RelativeSource AncestorType={x:Type vm:LinkViewModel}}}"
-                                        CommandParameter="{Binding .}"
-                                        Style="{StaticResource ButtonStyle}"
-                                        Text="收藏"
-                                        WidthRequest="60" />
                                     <Button
                                         Command="{Binding ViewCommand, Source={RelativeSource AncestorType={x:Type vm:LinkViewModel}}}"
                                         CommandParameter="{Binding .}"

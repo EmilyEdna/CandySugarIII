@@ -1,8 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using CandySugar.Com.Library;
+﻿using CandySugar.Com.Library;
 using CandySugar.Com.Library.Model;
 using CandySugar.Com.Pages.ChildViews.Axgles;
-using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Sdk.Component.Vip.Jron.sdk;
@@ -10,7 +8,7 @@ using Sdk.Component.Vip.Jron.sdk.ViewModel;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Response;
-using XExten.Advance.IocFramework;
+using System.Collections.ObjectModel;
 using XExten.Advance.LinqFramework;
 using Application = Microsoft.Maui.Controls.Application;
 
@@ -197,41 +195,13 @@ namespace CandySugar.Com.Pages.ViewModels
                 Params.Add("Title", input.Title);
                 Params.Add("Result", result.Plays);
                 Params.Add("Links" ,result.ElementResults);
+                Params.Add("Cover", input.Cover);
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(LinkView)], new Dictionary<string, object> { { "Param", Params } });
             }
             catch (Exception ex)
             {
                 ex.Message.Info();
             }
-        }
-
-        private async void Insert(JronElemetInitResult result)
-        {
-            var res = (await JronFactory.Jron(opt =>
-            {
-                opt.RequestParam = new Input
-                {
-
-                    JronType = JronEnum.Detail,
-                    PlatformType = Platform,
-                    CacheSpan = 5,
-                    Play = new JronPlay
-                    {
-                        Route = result.Route
-                    }
-                };
-            }).RunsAsync()).PlayResult;
-
-            res.Plays.ForDicEach((k,v,i) =>
-            {
-                IocDependency.Resolve<ICandyService>().Add(new CollectModel
-                {
-                    Category = 3,
-                    Cover = result.Cover,
-                    Name = result.Title+$"-{i+1}",
-                    Route = v,
-                }).Wait();
-            });
         }
 
         #endregion
@@ -273,8 +243,6 @@ namespace CandySugar.Com.Pages.ViewModels
         }
 
         public RelayCommand<JronElemetInitResult> PlayCommand => new(PlayAsync);
-
-        public RelayCommand<JronElemetInitResult> CollectCommand => new(Insert);
 
         public RelayCommand<string> CatalogCommand => new(obj =>
         {

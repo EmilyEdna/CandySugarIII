@@ -13,15 +13,18 @@ using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Response;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
+using static SQLite.SQLite3;
 
 namespace CandySugar.Com.Pages.ChildViewModels.Axgles
 {
     public partial class LinkViewModel : ObservableObject, IQueryAttributable
     {
+        private string Cover;
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             var Temp = (Dictionary<string, object>)query["Param"];
             Title = Temp["Title"].ToString();
+            Cover = Temp["Cover"].ToString();
             Routes = [];
             ((Dictionary<string, string>)Temp["Result"]).ForDicEach((k, v) =>
             {
@@ -33,7 +36,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
                 });
 
             });
-            Links = [..(List<JronRelatedElementResult>)Temp["Links"]];
+            Links = [.. (List<JronRelatedElementResult>)Temp["Links"]];
         }
 
         #region Title
@@ -51,7 +54,8 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
 
         public RelayCommand<JronRelatedElementResult> ViewCommand => new(PlayAsync);
 
-        public RelayCommand<JronRelatedElementResult> CollectCommand => new(Insert);
+        [RelayCommand]
+        public void Collect() => Insert();
         #endregion
 
         #region Method
@@ -94,33 +98,18 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
             }
         }
 
-        private async void Insert(JronRelatedElementResult result)
+        private async void Insert()
         {
-            var res = (await JronFactory.Jron(opt =>
+            for (int i = 0; i < Routes.Count; i++)
             {
-                opt.RequestParam = new Input
-                {
-
-                    JronType = JronEnum.Detail,
-                    PlatformType = PlatformEnum.A24,
-                    CacheSpan = 5,
-                    Play = new JronPlay
-                    {
-                        Route = result.Route
-                    }
-                };
-            }).RunsAsync()).PlayResult;
-
-            res.Plays.ForDicEach((k, v, i) =>
-            {
-                IocDependency.Resolve<ICandyService>().Add(new CollectModel
+                await IocDependency.Resolve<ICandyService>().Add(new CollectModel
                 {
                     Category = 3,
-                    Cover = result.Cover,
-                    Name = result.Title + $"-{i + 1}",
-                    Route = v,
-                }).Wait();
-            });
+                    Cover = Cover,
+                    Name = Routes[i].Key,
+                    Route = Routes[i].Value
+                });
+            }
         }
 
         private async void Next(string input)

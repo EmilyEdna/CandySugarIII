@@ -28,8 +28,8 @@
             <Picker
                 Title="选择择"
                 Margin="10,0,0,0"
-                SelectedIndexChanged="SelectEvent"
                 ItemsSource="{Binding Tags}"
+                SelectedIndexChanged="SelectEvent"
                 WidthRequest="210" />
             <Button Style="{DynamicResource ButtonStyle}" Text="重置" />
         </HorizontalStackLayout>
@@ -71,12 +71,6 @@
                                     <Label Text="{Binding Info}" TextColor="{DynamicResource Basic}" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
-                                    <Button
-                                        Command="{Binding CollectCommand, Source={RelativeSource AncestorType={x:Type vm:AvgleViewModel}}}"
-                                        CommandParameter="{Binding .}"
-                                        Style="{StaticResource ButtonStyle}"
-                                        Text="收藏"
-                                        WidthRequest="60" />
                                     <Button
                                         Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:AvgleViewModel}}}"
                                         CommandParameter="{Binding .}"
