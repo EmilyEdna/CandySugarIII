@@ -10,7 +10,7 @@
     x:DataType="vm:LinkViewModel"
     BackgroundColor="{DynamicResource BasicContainer}"
     Shell.BackgroundColor="{DynamicResource BasicPage}">
-    <Grid RowDefinitions="Auto，Auto,*">
+    <Grid RowDefinitions="Auto,Auto,*">
         <CollectionView
             Margin="2,2,2,10"
             ItemSizingStrategy="MeasureAllItems"

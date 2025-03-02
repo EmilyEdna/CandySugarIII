@@ -13,7 +13,6 @@ using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Response;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
-using static SQLite.SQLite3;
 
 namespace CandySugar.Com.Pages.ChildViewModels.Axgles
 {
