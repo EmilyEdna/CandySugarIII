@@ -81,12 +81,12 @@ namespace CandySugar.Com.Pages.ViewModels
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CollectView)], new Dictionary<string, object> { { "Param", new CartInitElementResult { Title = Model.Name, Route = Model.Route, Cover = Model.Cover } } });
             if (Model.Category == 3)
             {
-                var Type = Model.Route.Contains("javbangers") ? PlatformEnum.Jav : PlatformEnum.Skb;
+                var Type = Model.Route.Contains("javbangers") ? PlatformEnum.Jav :
+                    (Model.Route.Contains("javplayer")? PlatformEnum.A24: PlatformEnum.Skb);
                 var result = (await JronFactory.Jron(opt =>
                 {
                     opt.RequestParam = new Input
                     {
-
                         JronType = JronEnum.Detail,
                         PlatformType = Type,
                         CacheSpan = 5,
