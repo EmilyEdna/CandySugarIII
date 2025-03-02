@@ -96,12 +96,30 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
 
         private async void Insert(JronRelatedElementResult result)
         {
-            await IocDependency.Resolve<ICandyService>().Add(new CollectModel
+            var res = (await JronFactory.Jron(opt =>
             {
-                Category = 3,
-                Cover = result.Cover,
-                Name = result.Title,
-                Route = result.Route,
+                opt.RequestParam = new Input
+                {
+
+                    JronType = JronEnum.Detail,
+                    PlatformType = PlatformEnum.A24,
+                    CacheSpan = 5,
+                    Play = new JronPlay
+                    {
+                        Route = result.Route
+                    }
+                };
+            }).RunsAsync()).PlayResult;
+
+            res.Plays.ForDicEach((k, v, i) =>
+            {
+                IocDependency.Resolve<ICandyService>().Add(new CollectModel
+                {
+                    Category = 3,
+                    Cover = result.Cover,
+                    Name = result.Title + $"-{i + 1}",
+                    Route = v,
+                }).Wait();
             });
         }
 
