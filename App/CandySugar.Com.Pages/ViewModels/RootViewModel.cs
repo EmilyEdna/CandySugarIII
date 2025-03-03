@@ -79,8 +79,12 @@ namespace CandySugar.Com.Pages.ViewModels
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CollectView)], new Dictionary<string, object> { { "Param", new CartInitElementResult { Title = Model.Name, Route = Model.Route, Cover = Model.Cover } } });
             if (Model.Category == 3)
             {
-                var Type = Model.Route.Contains("javbangers") ? PlatformEnum.Jav :
-                    (Model.Route.Contains("javplayer")? PlatformEnum.A24: PlatformEnum.Skb);
+                if (Model.Route.Contains("javplayer"))
+                {
+                    await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", Model.Route } });
+                    return;
+                }
+                var Type = Model.Route.Contains("javbangers") ? PlatformEnum.Jav : PlatformEnum.Skb;
                 var result = (await JronFactory.Jron(opt =>
                 {
                     opt.RequestParam = new Input

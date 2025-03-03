@@ -1,7 +1,11 @@
 using CandySugar.Com.Library;
 using CandySugar.Com.Service;
+using CommunityToolkit.Maui.Storage;
+using System.Text;
+using System.Threading.Tasks;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
+using XExten.Advance.NetFramework.Enums;
 
 namespace CandySugar.Com.Pages;
 
@@ -56,5 +60,12 @@ public partial class IndexView : Shell
             }
         }
        
+    }
+
+    private async Task ExportEvent(object sender, EventArgs e)
+    {
+        var data = await IocDependency.Resolve<ICandyService>().Export();
+        using var stream = new MemoryStream(Encoding.Default.GetBytes(data.ToJson()));
+        await FileSaver.Default.SaveAsync("Export.txt", stream);
     }
 }

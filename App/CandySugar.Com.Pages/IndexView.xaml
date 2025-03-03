@@ -41,4 +41,8 @@
         Clicked="ImportEvent"
         IsDestructive="True"
         Text="导入数据" />
+    <MenuItem
+        Clicked="ExportEvent"
+        IsDestructive="True"
+        Text="导出数据" />
 </Shell>
