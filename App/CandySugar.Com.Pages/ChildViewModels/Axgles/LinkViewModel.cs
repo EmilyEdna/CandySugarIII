@@ -105,7 +105,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
                 {
                     Category = 3,
                     Cover = Cover,
-                    Name = Routes[i].Key,
+                    Name = Title+$"-{i+1}",
                     Route = Routes[i].Value
                 });
             }

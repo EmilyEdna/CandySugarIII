@@ -30,7 +30,8 @@
                             Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:LinkViewModel}}}"
                             CommandParameter="{Binding Value}"
                             Style="{DynamicResource ButtonStyle}"
-                            Text="{Binding Key}" />
+                            Text="{Binding Key}"
+                            WidthRequest="60" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
