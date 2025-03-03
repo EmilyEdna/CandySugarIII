@@ -62,7 +62,7 @@ public partial class IndexView : Shell
        
     }
 
-    private async Task ExportEvent(object sender, EventArgs e)
+    private async void ExportEvent(object sender, EventArgs e)
     {
         var data = await IocDependency.Resolve<ICandyService>().Export();
         using var stream = new MemoryStream(Encoding.Default.GetBytes(data.ToJson()));
