@@ -39,6 +39,11 @@ namespace CandySugar.Com.Service
             return Tuple.Create(Count, Data);
         }
 
+        public async Task<List<CollectModel>> Export()
+        {
+           return await DbContext.Lite.Table<CollectModel>().Where(t => t.Category == 3).ToListAsync();
+        }
+
         public async Task Remove(int Category)
         {
             await DbContext.Lite.Table<CollectModel>().DeleteAsync(t => t.Category == Category);

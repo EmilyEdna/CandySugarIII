@@ -1,7 +1,7 @@
-﻿using CandySugar.Com.Library;
+﻿using System.Collections.ObjectModel;
+using CandySugar.Com.Library;
 using CandySugar.Com.Library.Model;
 using CandySugar.Com.Pages.ChildViews.Animes;
-using CandySugar.Com.Pages.ChildViews.Axgles;
 using CandySugar.Com.Pages.ChildViews.Rifans;
 using CandySugar.Com.Pages.Views;
 using CandySugar.Com.Service;
@@ -15,10 +15,10 @@ using Sdk.Component.Vip.Jron.sdk;
 using Sdk.Component.Vip.Jron.sdk.ViewModel;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
-using System.Collections.ObjectModel;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 using RifanSearch = Sdk.Component.Vip.Anime.sdk.ViewModel.Response.SearchElementResult;
+using VideoView = CandySugar.Com.Pages.ChildViews.Axgles.VideoView;
 
 namespace CandySugar.Com.Pages.ViewModels
 {
@@ -79,12 +79,16 @@ namespace CandySugar.Com.Pages.ViewModels
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CollectView)], new Dictionary<string, object> { { "Param", new CartInitElementResult { Title = Model.Name, Route = Model.Route, Cover = Model.Cover } } });
             if (Model.Category == 3)
             {
+                if (Model.Route.Contains("javplayer"))
+                {
+                    await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", Model.Route } });
+                    return;
+                }
                 var Type = Model.Route.Contains("javbangers") ? PlatformEnum.Jav : PlatformEnum.Skb;
                 var result = (await JronFactory.Jron(opt =>
                 {
                     opt.RequestParam = new Input
                     {
-
                         JronType = JronEnum.Detail,
                         PlatformType = Type,
                         CacheSpan = 5,

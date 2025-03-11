@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Maui.Controls;
+
 #if ANDROID
 using XExten.Advance.Maui.Bar;
 using XExten.Advance.Maui.Direction;

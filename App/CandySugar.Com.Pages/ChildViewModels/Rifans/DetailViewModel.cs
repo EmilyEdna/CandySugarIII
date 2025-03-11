@@ -6,6 +6,8 @@ using CandySugar.Com.Pages.Views;
 using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Dispatching;
 using Sdk.Component.Vip.Anime.sdk;
 using Sdk.Component.Vip.Anime.sdk.ViewModel;
 using Sdk.Component.Vip.Anime.sdk.ViewModel.Enums;
@@ -13,6 +15,7 @@ using Sdk.Component.Vip.Anime.sdk.ViewModel.Request;
 using Sdk.Component.Vip.Anime.sdk.ViewModel.Response;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
+using Application = Microsoft.Maui.Controls.Application;
 
 namespace CandySugar.Com.Pages.ChildViewModels.Rifans
 {

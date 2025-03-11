@@ -10,6 +10,9 @@ using Sdk.Component.Cart.sdk.ViewModel.Enums;
 using Sdk.Component.Cart.sdk.ViewModel.Request;
 using Sdk.Component.Cart.sdk.ViewModel.Response;
 using XExten.Advance.LinqFramework;
+using Microsoft.Maui.Dispatching;
+using Application = Microsoft.Maui.Controls.Application;
+using Microsoft.Maui.Controls;
 
 namespace CandySugar.Com.Pages.ViewModels
 {

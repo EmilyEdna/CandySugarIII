@@ -3,12 +3,15 @@ using CandySugar.Com.Pages.ChildViews.Animes;
 using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Dispatching;
 using Sdk.Component.Cart.sdk;
 using Sdk.Component.Cart.sdk.ViewModel;
 using Sdk.Component.Cart.sdk.ViewModel.Enums;
 using Sdk.Component.Cart.sdk.ViewModel.Request;
 using Sdk.Component.Cart.sdk.ViewModel.Response;
 using XExten.Advance.IocFramework;
+using Application = Microsoft.Maui.Controls.Application;
 
 namespace CandySugar.Com.Pages.ChildViewModels.Animes
 {

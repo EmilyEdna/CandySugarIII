@@ -46,6 +46,7 @@ namespace CandySugar.Com.Library
              {"RifanView","//RifanView" },
              {"AnimeView","//AnimeView" },
              {"AxgleView","//AxgleView" },
+             {"AvgleView","//AvgleView" },
 
              {"CollectView","//AnimeView/CollectView" },
              {"PlayView","//AnimeView/CollectView/PlayView" },
@@ -53,6 +54,7 @@ namespace CandySugar.Com.Library
             { "DetailView","//RifanView/DetailView"},
             { "WatchView","//RifanView/DetailView/WatchView"},
 
+            { "LinkView","//AxgleView/LinkView"},
             { "VideoView","//AxgleView/VideoView"},
          };
     }
