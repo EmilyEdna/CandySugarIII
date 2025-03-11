@@ -21,12 +21,12 @@
             if (GlobalParam.WindowState == WindowState.Maximized)
             {
                 Cols = (int)(GlobalParam.MAXWidth / 360);
-                MarginThickness = new Thickness(0, 0, 15, 20);
+                MarginThickness = new Thickness(0, 0, 25, 20);
             }
             else
             {
                 Cols = (int)(GlobalParam.MAXWidth / 360);
-                MarginThickness = new Thickness(0, 0, 15, 15);
+                MarginThickness = new Thickness(0, 0, 25, 15);
             }
             BorderHeight = GlobalParam.MAXHeight;
             BorderWidth = GlobalParam.MAXWidth;
@@ -328,7 +328,13 @@
             CollectResult = new(Service.QueryAll());
         }
         [RelayCommand]
-        public void Play(AxgleModel element) => OnDetail(element.ToMapest<JronElemetInitResult>());
+        public void Play(AxgleModel element)
+        {
+            if (element.Platfrom == "A24")
+                Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(element.Route, true).Show());
+            else
+                OnDetail(element.ToMapest<JronElemetInitResult>());
+        }
         #endregion
 
         #region ExternalCalls

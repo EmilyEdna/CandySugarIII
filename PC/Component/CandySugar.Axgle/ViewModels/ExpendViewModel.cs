@@ -1,4 +1,6 @@
-﻿namespace CandySugar.Axgle.ViewModels
+﻿using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+
+namespace CandySugar.Axgle.ViewModels
 {
     public partial class ExpendViewModel : BasicObservableObject
     {
@@ -247,6 +249,7 @@
                     Plays = result.Plays;
                     Link = [.. result.ElementResults];
                     this.Close = Visibility.Visible;
+
                 }
                 catch (Exception ex)
                 {
@@ -263,7 +266,17 @@
         {
             var Model = element.ToMapest<AxgleModel>();
             Model.Platfrom = PlatformType.AsString();
-            Service.Insert(Model);
+            OnDetail(element.ToMapest<JronElemetInitResult>());
+            while (this.Plays == null)
+            {
+                Task.Delay(10).Wait();
+            }
+            this.Plays.ForDicEach((Key, Value, Index) =>
+            {
+                Model.Title += $"-{Index + 1}";
+                Model.Route = Value;
+                Service.Insert(Model);
+            });
         }
         [RelayCommand]
         public void View(string input)
