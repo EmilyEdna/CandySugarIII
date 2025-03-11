@@ -175,7 +175,6 @@
                             {
                                 Keyword = this.Keyword,
                                 Page = SearchPage,
-                                ModeType = ModeType
                             }
                         };
                     }).RunsAsync()).SearchResult;
@@ -210,7 +209,6 @@
                             {
                                 Keyword = this.Keyword,
                                 Page = SearchPage,
-                                ModeType = ModeType
                             }
                         };
                     }).RunsAsync()).SearchResult;
