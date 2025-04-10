@@ -29,7 +29,9 @@
                 <ComboBox
                     x:Name="SelectBox"
                     Height="46"
-                    ItemsSource="{Binding Tags}">
+                    DisplayMemberPath="Key"
+                    ItemsSource="{Binding Tags}"
+                    SelectedValuePath="Value">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding SelectedCommand}" CommandParameter="{Binding SelectedValue, ElementName=SelectBox}" />

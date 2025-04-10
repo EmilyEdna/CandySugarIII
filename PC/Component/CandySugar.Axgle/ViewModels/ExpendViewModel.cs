@@ -1,4 +1,5 @@
-﻿using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+﻿using System.Diagnostics;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace CandySugar.Axgle.ViewModels
 {
@@ -45,7 +46,7 @@ namespace CandySugar.Axgle.ViewModels
         private ModeEnum ModeType;
         private PlatformEnum PlatformType;
         private IService<AxgleModel> Service;
-        private Dictionary<string, List<string>> TagDict;
+        private Dictionary<string, Dictionary<string,string>> TagDict;
         #endregion
 
         #region 属性
@@ -60,7 +61,7 @@ namespace CandySugar.Axgle.ViewModels
         [ObservableProperty]
         private ObservableCollection<string> _Title;
         [ObservableProperty]
-        private ObservableCollection<string> _Tags;
+        private Dictionary<string,string> _Tags;
         [ObservableProperty]
         private ObservableCollection<JronElemetInitResult> _Results;
         [ObservableProperty]
@@ -310,9 +311,9 @@ namespace CandySugar.Axgle.ViewModels
             var Target = ((CandyToggleItem)item);
             var Temp = Target.Tag.ToString().AsInt();
             if (Temp == 0)
-                Tags = [.. TagDict.FirstOrDefault().Value];
+                Tags = TagDict.FirstOrDefault().Value;
             else
-                Tags = [.. TagDict.LastOrDefault().Value];
+                Tags = TagDict.LastOrDefault().Value;
         }
         [RelayCommand]
         public void Scroll(ScrollChangedEventArgs obj)
