@@ -32,7 +32,7 @@ namespace CandySugar.Com.Pages.ViewModels
         private int InitPage;
         private int SearchPage;
         private int SearchTotal;
-        private Dictionary<string, List<string>> TagDict;
+        private Dictionary<string, Dictionary<string, string>> TagDict;
         #endregion
 
         #region Property
@@ -61,14 +61,23 @@ namespace CandySugar.Com.Pages.ViewModels
         }
         public void Changed(bool input)
         {
-            if (TagDict==null) return;
+            if (TagDict == null) return;
             if (input)
-                Tags = [.. TagDict.FirstOrDefault().Value];
+                Tags = [.. TagDict.FirstOrDefault().Value.Keys];
             else
-                Tags = [.. TagDict.LastOrDefault().Value];
+                Tags = [.. TagDict.LastOrDefault().Value.Keys];
         }
         public void TagChanged(string input)
         {
+
+            TagDict.Select(item =>
+            {
+                if (item.Value.ContainsKey(input))
+                    return item.Value[input];
+                else return string.Empty;
+            }).Where(t => !t.IsNullOrEmpty()).FirstOrDefault();
+
+
             Tag = input;
             Results = [];
             InitPage = 1;
@@ -194,7 +203,7 @@ namespace CandySugar.Com.Pages.ViewModels
                 var Params = new Dictionary<string, object>();
                 Params.Add("Title", input.Title);
                 Params.Add("Result", result.Plays);
-                Params.Add("Links" ,result.ElementResults);
+                Params.Add("Links", result.ElementResults);
                 Params.Add("Cover", input.Cover);
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(LinkView)], new Dictionary<string, object> { { "Param", Params } });
             }
@@ -224,7 +233,7 @@ namespace CandySugar.Com.Pages.ViewModels
             }
         }
         [RelayCommand]
-        public void Reset() 
+        public void Reset()
         {
             Results = [];
             InitPage = 1;
