@@ -79,7 +79,7 @@ namespace CandySugar.Com.Pages.ViewModels
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CollectView)], new Dictionary<string, object> { { "Param", new CartInitElementResult { Title = Model.Name, Route = Model.Route, Cover = Model.Cover } } });
             if (Model.Category == 3)
             {
-                if (Model.Route.Contains("javplayer"))
+                if (Model.Route.Contains("surrit"))
                 {
                     await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", Model.Route } });
                     return;
@@ -98,7 +98,6 @@ namespace CandySugar.Com.Pages.ViewModels
                         }
                     };
                 }).RunsAsync()).PlayResult;
-
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", result.Play } });
             }
         }
