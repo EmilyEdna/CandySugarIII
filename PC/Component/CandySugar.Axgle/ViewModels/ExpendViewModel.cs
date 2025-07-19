@@ -272,9 +272,10 @@ namespace CandySugar.Axgle.ViewModels
             {
                 Task.Delay(10).Wait();
             }
+            string Title = Model.Title;
             this.Plays.ForDicEach((Key, Value, Index) =>
             {
-                Model.Title += $"-{Index + 1}";
+                Model.Title = $"{Title}-{Index + 1}";
                 Model.Route = Value;
                 Service.Insert(Model);
             });
