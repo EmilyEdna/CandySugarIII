@@ -1,6 +1,7 @@
 ﻿using CandySugar.Com.Library;
 using CandySugar.Com.Library.Model;
 using CandySugar.Com.Pages.ChildViews.Axgles;
+using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Sdk.Component.Vip.Jron.sdk;
@@ -9,6 +10,7 @@ using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Response;
 using System.Collections.ObjectModel;
+using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 using Application = Microsoft.Maui.Controls.Application;
 
@@ -186,6 +188,8 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             try
             {
+                var key = await IocDependency.Resolve<ICandyService>().GetOption();
+
                 var result = (await JronFactory.Jron(opt =>
                 {
                     opt.RequestParam = new Input
@@ -196,7 +200,8 @@ namespace CandySugar.Com.Pages.ViewModels
                         CacheSpan = 5,
                         Play = new JronPlay
                         {
-                            Route = input.Route
+                            Route = input.Route,
+                            DecodeKey= key
                         }
                     };
                 }).RunsAsync()).PlayResult;

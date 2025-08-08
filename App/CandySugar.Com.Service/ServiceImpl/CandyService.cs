@@ -1,4 +1,5 @@
 ﻿using CandySugar.Com.Library;
+using CandySugar.Com.Service.Model;
 using XExten.Advance.LinqFramework;
 
 namespace CandySugar.Com.Service
@@ -47,6 +48,20 @@ namespace CandySugar.Com.Service
         public async Task Remove(int Category)
         {
             await DbContext.Lite.Table<CollectModel>().DeleteAsync(t => t.Category == Category);
+        }
+
+        public async Task<string> GetOption()
+        {
+            var Model = await DbContext.Lite.Table<OptionModel>().FirstOrDefaultAsync();
+            return Model?.Key;
+        }
+
+        public async Task AddOption(string key)
+        {
+            await DbContext.Lite.DeleteAllAsync<OptionModel>();
+            var model = new OptionModel { Key = key };
+            model.InitProperty();
+            await DbContext.Lite.InsertAsync(model);
         }
     }
 }

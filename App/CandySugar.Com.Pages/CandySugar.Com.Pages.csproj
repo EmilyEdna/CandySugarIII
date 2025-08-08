@@ -49,6 +49,9 @@
 	  <MauiXaml Update="ChildViews\Rifans\WatchView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="DecodeView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="IndexView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -70,6 +73,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Update="DecodeView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
 	  <None Update="Views\AvgleView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </None>
