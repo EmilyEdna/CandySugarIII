@@ -1,9 +1,10 @@
 {
-    "Option": {
-        "Cache": 5,
-        "BackgroudLocation": "",
-        "Interval": 30,
-        "Raw": "https://raw.githubusercontent.com",
-        "UseProxy": false
-    }
+  "Option": {
+    "Cache": 5,
+    "BackgroudLocation": "",
+    "Interval": 30,
+    "Raw": "https://raw.githubusercontent.com",
+    "UseProxy": false,
+    "DecodeKey": "QgYgkSJJnpAAWy31"
+  }
 }

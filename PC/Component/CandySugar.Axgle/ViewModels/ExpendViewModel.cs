@@ -243,6 +243,7 @@ namespace CandySugar.Axgle.ViewModels
                             PlatformType = PlatformType,
                             Play = new JronPlay
                             {
+                                DecodeKey= ComponentBinding.OptionObjectModels.DecodeKey,
                                 Route = input.Route
                             }
                         };

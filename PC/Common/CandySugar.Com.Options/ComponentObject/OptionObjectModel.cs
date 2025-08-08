@@ -22,5 +22,9 @@
         /// 启用代理地址
         /// </summary>
         public bool UseProxy { get; set; }
+        /// <summary>
+        /// 解密掩码
+        /// </summary>
+        public string DecodeKey { get; set; }
     }
 }
