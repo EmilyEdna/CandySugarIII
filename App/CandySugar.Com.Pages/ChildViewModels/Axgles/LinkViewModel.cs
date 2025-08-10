@@ -1,16 +1,14 @@
-﻿using System.Collections.ObjectModel;
-using CandySugar.Com.Library;
-using CandySugar.Com.Library.Model;
+﻿using CandySugar.Com.Library;
 using CandySugar.Com.Pages.ChildViews.Axgles;
 using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using LibVLCSharp.Shared;
 using Sdk.Component.Vip.Jron.sdk;
 using Sdk.Component.Vip.Jron.sdk.ViewModel;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Response;
+using System.Collections.ObjectModel;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 
@@ -61,6 +59,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
 
         private async void PlayAsync(JronRelatedElementResult input)
         {
+            var key = await IocDependency.Resolve<ICandyService>().GetOption();
             try
             {
                 var result = (await JronFactory.Jron(opt =>
@@ -73,7 +72,9 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
                         CacheSpan = 5,
                         Play = new JronPlay
                         {
-                            Route = input.Route
+                            Route = input.Route,
+                            DecodeKey= key
+
                         }
                     };
                 }).RunsAsync()).PlayResult;

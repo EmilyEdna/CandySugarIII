@@ -24,14 +24,22 @@
     </Shell.SearchHandler>
     <Grid RowDefinitions="Auto,*">
         <HorizontalStackLayout>
-            <Switch BackgroundColor="Transparent" Toggled="CheckEvent" />
             <Picker
                 Title="选择择"
                 Margin="10,0,0,0"
                 ItemsSource="{Binding Tags}"
                 SelectedIndexChanged="SelectEvent"
-                WidthRequest="210" />
-            <Button Style="{DynamicResource ButtonStyle}" Text="重置" />
+                WidthRequest="180" />
+            <Button
+                Command="{Binding ChangedCommand}"
+                CommandParameter="true"
+                Style="{DynamicResource ButtonStyle}"
+                Text="无码" />
+            <Button
+                Command="{Binding ChangedCommand}"
+                CommandParameter="false"
+                Style="{DynamicResource ButtonStyle}"
+                Text="有码" />
         </HorizontalStackLayout>
         <CollectionView
             Grid.Row="1"

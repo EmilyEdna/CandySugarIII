@@ -61,26 +61,17 @@ namespace CandySugar.Com.Pages.ViewModels
                     Bar.Add(new BarModel { Name = Mode.ToDes(), Route = item });
                 });
         }
-        public void Changed(bool input)
-        {
-            if (TagDict == null) return;
-            if (input)
-                Tags = [.. TagDict.FirstOrDefault().Value.Keys];
-            else
-                Tags = [.. TagDict.LastOrDefault().Value.Keys];
-        }
+      
         public void TagChanged(string input)
         {
 
-            TagDict.Select(item =>
-            {
-                if (item.Value.ContainsKey(input))
-                    return item.Value[input];
-                else return string.Empty;
-            }).Where(t => !t.IsNullOrEmpty()).FirstOrDefault();
+            Tag = TagDict.Select(item =>
+             {
+                 if (item.Value.ContainsKey(input))
+                     return item.Value[input];
+                 else return string.Empty;
+             }).Where(t => !t.IsNullOrEmpty()).FirstOrDefault();
 
-
-            Tag = input;
             Results = [];
             InitPage = 1;
             QueryKey = string.Empty;
@@ -201,7 +192,7 @@ namespace CandySugar.Com.Pages.ViewModels
                         Play = new JronPlay
                         {
                             Route = input.Route,
-                            DecodeKey= key
+                            DecodeKey = key
                         }
                     };
                 }).RunsAsync()).PlayResult;
@@ -221,6 +212,15 @@ namespace CandySugar.Com.Pages.ViewModels
         #endregion
 
         #region Command
+        [RelayCommand]
+        public void Changed(string input)
+        {
+            if (TagDict == null) return;
+            if (input.AsBool())
+                Tags = [.. TagDict.FirstOrDefault().Value.Keys];
+            else
+                Tags = [.. TagDict.LastOrDefault().Value.Keys];
+        }
         [RelayCommand]
         public void More()
         {
