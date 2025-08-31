@@ -32,10 +32,9 @@ public partial class IndexView : Shell
     private async void ImportEvent(object sender, EventArgs e)
     {
         int Type = -1;
-        var action = await DisplayActionSheet("导入类型", "确定", null, "里番", "动漫", "车牌");
-        if (action.Equals("里番")) Type = 1;
-        if (action.Equals("动漫")) Type = 2;
-        if (action.Equals("车牌")) Type = 3;
+        var action = await DisplayActionSheet("导入类型", "确定", null, "动漫", "车牌");
+        if (action.Equals("动漫")) Type = 1;
+        if (action.Equals("车牌")) Type = 2;
         if (Type > 0)
         {
             PickAndShow(Type);
