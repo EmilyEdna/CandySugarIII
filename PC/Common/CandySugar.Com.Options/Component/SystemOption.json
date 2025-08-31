@@ -5,6 +5,7 @@
     "Interval": 30,
     "Raw": "https://raw.githubusercontent.com",
     "UseProxy": false,
-    "DecodeKey": "QgYgkSJJnpAAWy31"
+    "DecodeKey": "QgYgkSJJnpAAWy31",
+    "DecodeM3u8Key": "kBxSj373GhC18iOc"
   }
 }

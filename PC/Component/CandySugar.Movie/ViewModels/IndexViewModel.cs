@@ -202,7 +202,7 @@
             DetailResult = null;
         }
         [RelayCommand]
-        public void Watch(string input) => new CandyWebPlayControl(input, false).Show();
+        public void Watch(string input) => new CandyWebPlayControl(input, false,false).Show();
         #endregion
     }
 }

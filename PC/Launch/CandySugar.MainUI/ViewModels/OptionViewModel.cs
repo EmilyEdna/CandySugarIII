@@ -19,6 +19,7 @@ namespace CandySugar.MainUI.ViewModels
             Interval = ComponentBinding.OptionObjectModels.Interval;
             UseProxy = ComponentBinding.OptionObjectModels.UseProxy;
             DecodeKey = ComponentBinding.OptionObjectModels.DecodeKey;
+            DecodeM3u8Key = ComponentBinding.OptionObjectModels.DecodeM3u8Key;
         }
 
         #region Property
@@ -57,6 +58,12 @@ namespace CandySugar.MainUI.ViewModels
             get => _DecodeKey;
             set => SetAndNotify(ref _DecodeKey, value);
         }
+        private string _DecodeM3u8Key;
+        public string DecodeM3u8Key
+        {
+            get => _DecodeM3u8Key;
+            set => SetAndNotify(ref _DecodeM3u8Key, value);
+        }
         #endregion
 
         #region Command
@@ -86,6 +93,7 @@ namespace CandySugar.MainUI.ViewModels
                 Raw = ComponentBinding.OptionObjectModels.Raw,
                 UseProxy = UseProxy,
                 DecodeKey = DecodeKey,
+                DecodeM3u8Key = DecodeM3u8Key
             };
             var path = Path.Combine(CommonHelper.OptionPath, "SystemOption.json");
             SyncStatic.WriteFile(Encoding.Default.GetBytes(new { Option = Model }.ToJson()), path);

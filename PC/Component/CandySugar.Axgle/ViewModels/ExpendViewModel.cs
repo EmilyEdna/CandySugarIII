@@ -243,7 +243,8 @@ namespace CandySugar.Axgle.ViewModels
                             PlatformType = PlatformType,
                             Play = new JronPlay
                             {
-                                DecodeKey= ComponentBinding.OptionObjectModels.DecodeKey,
+                                DecodeM3u8Key= ComponentBinding.OptionObjectModels.DecodeM3u8Key,
+                                DecodeKey = ComponentBinding.OptionObjectModels.DecodeKey,
                                 Route = input.Route
                             }
                         };
@@ -283,7 +284,7 @@ namespace CandySugar.Axgle.ViewModels
         }
         [RelayCommand]
         public void View(string input)
-            => new CandyWebPlayControl(input, true).Show();
+            => new CandyWebPlayControl(input,false,true).Show();
         [RelayCommand]
         public void Back()
             => GenericDelegate.ChangeContentAction?.Invoke(string.Empty);

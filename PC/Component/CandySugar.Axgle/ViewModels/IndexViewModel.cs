@@ -228,7 +228,7 @@
                         };
                     }).RunsAsync()).PlayResult.Play;
 
-                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result, true).Show());
+                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result, true,false).Show());
                 }
                 catch (Exception ex)
                 {
@@ -331,7 +331,7 @@
         public void Play(AxgleModel element)
         {
             if (element.Platfrom == "A24")
-                Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(element.Route, true).Show());
+                Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(element.Route, false,true).Show());
             else
                 OnDetail(element.ToMapest<JronElemetInitResult>());
         }

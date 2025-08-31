@@ -26,5 +26,9 @@
         /// 解密掩码
         /// </summary>
         public string DecodeKey { get; set; }
+        /// <summary>
+        /// 解密掩码
+        /// </summary>
+        public string DecodeM3u8Key {  get; set; }
     }
 }

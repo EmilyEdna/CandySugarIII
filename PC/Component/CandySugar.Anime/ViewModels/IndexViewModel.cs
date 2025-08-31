@@ -214,7 +214,7 @@
                             }
                         };
                     }).RunsAsync()).PlayResult.PlayRoute;
-                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result, true).Show());
+                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result, true,false).Show());
                 }
                 catch (Exception ex)
                 {
