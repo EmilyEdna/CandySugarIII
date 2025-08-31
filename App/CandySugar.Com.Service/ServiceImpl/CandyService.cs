@@ -50,16 +50,16 @@ namespace CandySugar.Com.Service
             await DbContext.Lite.Table<CollectModel>().DeleteAsync(t => t.Category == Category);
         }
 
-        public async Task<string> GetOption()
+        public async Task<OptionModel> GetOption()
         {
             var Model = await DbContext.Lite.Table<OptionModel>().FirstOrDefaultAsync();
-            return Model?.Key;
+            return Model;
         }
 
-        public async Task AddOption(string key)
+        public async Task AddOption(string key1,string key2)
         {
             await DbContext.Lite.DeleteAllAsync<OptionModel>();
-            var model = new OptionModel { Key = key };
+            var model = new OptionModel { DecodeDataKey = key1, DecodePlayKey=key2 };
             model.InitProperty();
             await DbContext.Lite.InsertAsync(model);
         }

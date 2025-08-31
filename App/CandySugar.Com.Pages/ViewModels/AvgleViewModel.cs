@@ -179,7 +179,7 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             try
             {
-                var key = await IocDependency.Resolve<ICandyService>().GetOption();
+                var Option = await IocDependency.Resolve<ICandyService>().GetOption();
 
                 var result = (await JronFactory.Jron(opt =>
                 {
@@ -192,7 +192,8 @@ namespace CandySugar.Com.Pages.ViewModels
                         Play = new JronPlay
                         {
                             Route = input.Route,
-                            DecodeKey = key
+                            DecodeKey = Option.DecodeDataKey,
+                            DecodeM3u8Key=Option.DecodePlayKey
                         }
                     };
                 }).RunsAsync()).PlayResult;

@@ -16,6 +16,13 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             Route = (string)query["Param"];
+            if ((bool)query["Is24Net"])
+            {
+                using var stream =  FileSystem.OpenAppPackageFileAsync("Dplayer.html");
+                stream.Wait();
+                using var reader = new StreamReader(stream.Result);
+                Content = reader.ReadToEnd();
+            }
 #if ANDROID
             IBarStatus.Instance.HiddenStatusBar();
             IDirection.Instance.LockOrientation(OrientationEnum.Landscape);
@@ -26,6 +33,8 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
         #region Property
         [ObservableProperty]
         private string _Route;
+        [ObservableProperty]
+        private string _Content;
         #endregion
     }
 }

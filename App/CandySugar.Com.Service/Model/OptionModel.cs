@@ -8,6 +8,7 @@ namespace CandySugar.Com.Service.Model
 {
     public class OptionModel: BasicEntity
     {
-        public string Key { get; set; }
+        public string DecodeDataKey { get; set; }
+        public string DecodePlayKey {  get; set; }
     }
 }

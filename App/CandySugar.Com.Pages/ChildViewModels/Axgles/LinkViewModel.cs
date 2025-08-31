@@ -59,7 +59,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
 
         private async void PlayAsync(JronRelatedElementResult input)
         {
-            var key = await IocDependency.Resolve<ICandyService>().GetOption();
+            var option = await IocDependency.Resolve<ICandyService>().GetOption();
             try
             {
                 var result = (await JronFactory.Jron(opt =>
@@ -73,8 +73,8 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
                         Play = new JronPlay
                         {
                             Route = input.Route,
-                            DecodeKey= key
-
+                            DecodeKey= option.DecodeDataKey,
+                            DecodeM3u8Key=option.DecodePlayKey
                         }
                     };
                 }).RunsAsync()).PlayResult;
@@ -114,7 +114,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
 
         private async void Next(string input)
         {
-            await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", input } });
+            await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", input }, { "Is24Net", true } });
         }
         #endregion
     }

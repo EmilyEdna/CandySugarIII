@@ -15,8 +15,8 @@
 		<ApplicationIdGuid>0fff7ad2-ba75-4a80-b32e-56c0d7ba21e7</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0.0.0</ApplicationDisplayVersion>
-		<ApplicationVersion>1</ApplicationVersion>
+		<ApplicationDisplayVersion>2.0.0.0</ApplicationDisplayVersion>
+		<ApplicationVersion>2</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">35.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
@@ -55,6 +55,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiCss Remove="Resources\Raw\DPlayer.min.css" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Content Include="Resources\Fonts\FontAwesome6Thin.otf" />
 	  <Content Include="Resources\Images\head.png" />
 	  <Content Include="Resources\Images\heart.png" />
@@ -62,8 +66,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.2" />
-		<PackageReference Include="VideoLAN.LibVLC.Android" Version="3.5.3" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
+		<PackageReference Include="VideoLAN.LibVLC.Android" Version="3.6.5" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -104,7 +108,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.40" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.100" />
 	</ItemGroup>
 
 	<ItemGroup>
