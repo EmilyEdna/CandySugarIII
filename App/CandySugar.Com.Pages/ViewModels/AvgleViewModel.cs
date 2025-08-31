@@ -1,6 +1,7 @@
 ﻿using CandySugar.Com.Library;
 using CandySugar.Com.Library.Model;
 using CandySugar.Com.Pages.ChildViews.Axgles;
+using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Sdk.Component.Vip.Jron.sdk;
@@ -9,6 +10,7 @@ using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Response;
 using System.Collections.ObjectModel;
+using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 using Application = Microsoft.Maui.Controls.Application;
 
@@ -59,26 +61,17 @@ namespace CandySugar.Com.Pages.ViewModels
                     Bar.Add(new BarModel { Name = Mode.ToDes(), Route = item });
                 });
         }
-        public void Changed(bool input)
-        {
-            if (TagDict == null) return;
-            if (input)
-                Tags = [.. TagDict.FirstOrDefault().Value.Keys];
-            else
-                Tags = [.. TagDict.LastOrDefault().Value.Keys];
-        }
+      
         public void TagChanged(string input)
         {
 
-            TagDict.Select(item =>
-            {
-                if (item.Value.ContainsKey(input))
-                    return item.Value[input];
-                else return string.Empty;
-            }).Where(t => !t.IsNullOrEmpty()).FirstOrDefault();
+            Tag = TagDict.Select(item =>
+             {
+                 if (item.Value.ContainsKey(input))
+                     return item.Value[input];
+                 else return string.Empty;
+             }).Where(t => !t.IsNullOrEmpty()).FirstOrDefault();
 
-
-            Tag = input;
             Results = [];
             InitPage = 1;
             QueryKey = string.Empty;
@@ -186,6 +179,8 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             try
             {
+                var key = await IocDependency.Resolve<ICandyService>().GetOption();
+
                 var result = (await JronFactory.Jron(opt =>
                 {
                     opt.RequestParam = new Input
@@ -196,7 +191,8 @@ namespace CandySugar.Com.Pages.ViewModels
                         CacheSpan = 5,
                         Play = new JronPlay
                         {
-                            Route = input.Route
+                            Route = input.Route,
+                            DecodeKey = key
                         }
                     };
                 }).RunsAsync()).PlayResult;
@@ -216,6 +212,15 @@ namespace CandySugar.Com.Pages.ViewModels
         #endregion
 
         #region Command
+        [RelayCommand]
+        public void Changed(string input)
+        {
+            if (TagDict == null) return;
+            if (input.AsBool())
+                Tags = [.. TagDict.FirstOrDefault().Value.Keys];
+            else
+                Tags = [.. TagDict.LastOrDefault().Value.Keys];
+        }
         [RelayCommand]
         public void More()
         {

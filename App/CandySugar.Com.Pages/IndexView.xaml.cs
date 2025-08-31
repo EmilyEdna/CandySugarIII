@@ -1,6 +1,7 @@
 using CandySugar.Com.Library;
 using CandySugar.Com.Service;
 using CommunityToolkit.Maui.Storage;
+using Mopups.Services;
 using System.Text;
 using System.Threading.Tasks;
 using XExten.Advance.IocFramework;
@@ -67,5 +68,10 @@ public partial class IndexView : Shell
         var data = await IocDependency.Resolve<ICandyService>().Export();
         using var stream = new MemoryStream(Encoding.Default.GetBytes(data.ToJson()));
         await FileSaver.Default.SaveAsync("Export.txt", stream);
+    }
+
+    private void DecodeEvent(object sender, EventArgs e)
+    {
+        MopupService.Instance.PushAsync(new DecodeView());
     }
 }

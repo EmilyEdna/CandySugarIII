@@ -13,11 +13,6 @@ public partial class AvgleView : ContentPage
         this.BindingContext = VM;
     }
 
-    private void CheckEvent(object sender, ToggledEventArgs e)
-    {
-        VM.Changed(e.Value);
-    }
-
     private void SelectEvent(object sender, EventArgs e)
     {
         VM.TagChanged((sender as Picker).SelectedItem.ToString());

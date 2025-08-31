@@ -45,4 +45,8 @@
         Clicked="ExportEvent"
         IsDestructive="True"
         Text="导出数据" />
+    <MenuItem
+        Clicked="DecodeEvent"
+        IsDestructive="True"
+        Text="解密掩码" />
 </Shell>
