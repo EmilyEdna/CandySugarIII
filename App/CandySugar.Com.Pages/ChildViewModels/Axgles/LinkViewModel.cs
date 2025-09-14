@@ -104,7 +104,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
             {
                 await IocDependency.Resolve<ICandyService>().Add(new CollectModel
                 {
-                    Category = 3,
+                    Category = 2,
                     Cover = Cover,
                     Name = Title+$"-{i+1}",
                     Route = Routes[i].Value

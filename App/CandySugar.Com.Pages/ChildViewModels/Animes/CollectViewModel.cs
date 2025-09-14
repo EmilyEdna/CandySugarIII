@@ -35,7 +35,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Animes
         {
             await IocDependency.Resolve<ICandyService>().Add(new CollectModel
             {
-                Category = 2,
+                Category = 1,
                 Cover = result.Cover,
                 Name = result.Title,
                 Route = result.Route,
