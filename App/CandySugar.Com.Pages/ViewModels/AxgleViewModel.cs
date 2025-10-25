@@ -161,7 +161,7 @@ namespace CandySugar.Com.Pages.ViewModels
                         }
                     };
                 }).RunsAsync()).PlayResult;
-                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", result.Play } });
+                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", result.Play }, { "Is24Net", false } });
             }
             catch (Exception ex)
             {
@@ -173,7 +173,7 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             await IocDependency.Resolve<ICandyService>().Add(new CollectModel
             {
-                Category = 3,
+                Category = 2,
                 Cover = result.Cover,
                 Name = result.Title,
                 Route = result.Route,

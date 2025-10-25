@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CandySugar.Com.Service.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace CandySugar.Com.Service
         Task<Tuple<int, List<CollectModel>>> Get(int Category, int PageIndex);
         Task<List<CollectModel>> Export();
 
-        Task<string> GetOption();
-        Task AddOption(string key);
+        Task<OptionModel> GetOption();
+        Task AddOption(string key1,string key2);
     }
 }

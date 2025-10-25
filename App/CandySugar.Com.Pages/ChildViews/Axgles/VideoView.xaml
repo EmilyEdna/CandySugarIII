@@ -6,7 +6,8 @@
     xmlns:uc="clr-namespace:CandySugar.Com.Library.Controls;assembly=CandySugar.Com.Library"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Axgles"
     x:DataType="vm:VideoViewModel"
+    Appearing="LoadEvent"
     Shell.NavBarIsVisible="False">
     <!--<uc:MediaUIViewer x:Name="Player" Source="{Binding Route}" />-->
-    <WebView Source="{Binding Route}" />
+    <WebView x:Name="Player" Source="{Binding Route}" />
 </ContentPage>

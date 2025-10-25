@@ -2,7 +2,6 @@
 using CandySugar.Com.Library;
 using CandySugar.Com.Library.Model;
 using CandySugar.Com.Pages.ChildViews.Animes;
-using CandySugar.Com.Pages.ChildViews.Rifans;
 using CandySugar.Com.Pages.Views;
 using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -17,7 +16,6 @@ using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
 using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
-using RifanSearch = Sdk.Component.Vip.Anime.sdk.ViewModel.Response.SearchElementResult;
 using VideoView = CandySugar.Com.Pages.ChildViews.Axgles.VideoView;
 
 namespace CandySugar.Com.Pages.ViewModels
@@ -29,9 +27,8 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             Bar = new ObservableCollection<BarModel>
             {
-               new BarModel{ Name="里番", Route="1" },
-               new BarModel{ Name="动漫", Route="2" },
-               new BarModel{ Name="车牌", Route="3" },
+               new BarModel{ Name="动漫", Route="1" },
+               new BarModel{ Name="车牌", Route="2" },
             };
             GetLocalData();
             Popup = MopupService.Instance;
@@ -40,7 +37,7 @@ namespace CandySugar.Com.Pages.ViewModels
         }
 
         #region Field
-        private int Category = 4;
+        private int Category = 3;
         private int Page = 1;
         private int Total;
         private IPopupNavigation Popup;
@@ -74,14 +71,12 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             GetLocalData();
             if (Model.Category == 1)
-                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(DetailView)], new Dictionary<string, object> { { "Param", new RifanSearch { Cover = Model.Cover, Name = Model.Name, Route = Model.Route } } });
-            if (Model.Category == 2)
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CollectView)], new Dictionary<string, object> { { "Param", new CartInitElementResult { Title = Model.Name, Route = Model.Route, Cover = Model.Cover } } });
-            if (Model.Category == 3)
+            if (Model.Category == 2)
             {
-                if (Model.Route.Contains("surrit"))
+                if (Model.Route.Contains(".m3u8"))
                 {
-                    await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", Model.Route } });
+                    await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", Model.Route }, { "Is24Net", true } });
                     return;
                 }
                 var Type = Model.Route.Contains("javbangers") ? PlatformEnum.Jav : PlatformEnum.Skb;
@@ -98,7 +93,7 @@ namespace CandySugar.Com.Pages.ViewModels
                         }
                     };
                 }).RunsAsync()).PlayResult;
-                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", result.Play } });
+                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", result.Play },{ "Is24Net",false } });
             }
         }
         #endregion

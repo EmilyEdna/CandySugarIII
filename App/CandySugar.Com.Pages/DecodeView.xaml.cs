@@ -19,7 +19,12 @@ public partial class DecodeView : PopupPage
             {
                 this.Dispatcher.Dispatch(() =>
                 {
-                    this.Name.Text = t.Result;
+                    var R = t.Result;
+                    if (R != null)
+                    {
+                        this.Name.Text = R.DecodeDataKey;
+                        this.Play.Text = R.DecodePlayKey;
+                    }
                 });
             }
         });
@@ -33,7 +38,7 @@ public partial class DecodeView : PopupPage
 
     private async void OkEvent(object sender, EventArgs e)
     {
-        await CandyService.AddOption(this.Name.Text);
+        await CandyService.AddOption(this.Name.Text,this.Play.Text);
         await MopupService.Instance.PopAllAsync();
     }
 }

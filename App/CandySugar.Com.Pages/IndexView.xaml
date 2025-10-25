@@ -25,10 +25,6 @@
             ContentTemplate="{DataTemplate page:AnimeView}"
             Route="AnimeView" />
         <ShellContent
-            Title="里番"
-            ContentTemplate="{DataTemplate page:RifanView}"
-            Route="RifanView" />
-        <ShellContent
             Title="轿车"
             ContentTemplate="{DataTemplate page:AxgleView}"
             Route="AxgleView" />

@@ -6,9 +6,10 @@
     xmlns:pop="clr-namespace:Mopups.Pages;assembly=Mopups">
     <VerticalStackLayout
         BackgroundColor="WhiteSmoke"
-        HeightRequest="80"
+        HeightRequest="140"
         WidthRequest="250">
-        <Entry x:Name="Name" Placeholder="请输入解密密钥" />
+        <Entry x:Name="Name" Placeholder="请输入地址解密密钥" />
+        <Entry x:Name="Play" Placeholder="请输入播放解密密钥" />
         <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
             <Button
                 Margin="0"
