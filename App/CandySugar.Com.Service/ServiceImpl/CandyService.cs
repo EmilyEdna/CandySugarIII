@@ -42,7 +42,7 @@ namespace CandySugar.Com.Service
 
         public async Task<List<CollectModel>> Export()
         {
-           return await DbContext.Lite.Table<CollectModel>().Where(t => t.Category == 3).ToListAsync();
+           return await DbContext.Lite.Table<CollectModel>().Where(t => t.Category == 2).ToListAsync();
         }
 
         public async Task Remove(int Category)
