@@ -22,7 +22,6 @@ namespace CandySugar.MainUI
                 .UseMauiCommunityToolkitMediaElement()
                 .AddServiceHandler()
                 .AddControlHandler()
-                .AddEmailHandler()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("FontAwesome6Thin.otf", "Thin");

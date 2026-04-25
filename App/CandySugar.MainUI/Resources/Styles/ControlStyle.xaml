@@ -102,7 +102,8 @@
     </DataTemplate>
 
     <Style x:Key="ButtonStyle" TargetType="Button">
-        <Setter Property="Margin" Value="10,0,0,0" />
+        <Setter Property="Margin" Value="2" />
+        <Setter Property="CornerRadius" Value="0" />
         <Setter Property="FontSize" Value="8" />
         <Setter Property="HeightRequest" Value="30" />
         <Setter Property="WidthRequest" Value="80" />

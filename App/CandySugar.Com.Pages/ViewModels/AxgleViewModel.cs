@@ -1,17 +1,14 @@
-﻿using System.Collections.ObjectModel;
-using CandySugar.Com.Library;
+﻿using CandySugar.Com.Library;
 using CandySugar.Com.Library.Model;
-using CandySugar.Com.Pages.ChildViews.Axgles;
 using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Dispatching;
-using Sdk.Component.Vip.Jron.sdk;
-using Sdk.Component.Vip.Jron.sdk.ViewModel;
-using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
-using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
-using Sdk.Component.Vip.Jron.sdk.ViewModel.Response;
+using Sdk.Component.Vip.Miss.Sdk;
+using Sdk.Component.Vip.Miss.Sdk.ViewModel;
+using Sdk.Component.Vip.Miss.Sdk.ViewModel.Enums;
+using Sdk.Component.Vip.Miss.Sdk.ViewModel.Request;
+using Sdk.Component.Vip.Miss.Sdk.ViewModel.Response;
+using System.Collections.ObjectModel;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 using Application = Microsoft.Maui.Controls.Application;
@@ -47,7 +44,7 @@ namespace CandySugar.Com.Pages.ViewModels
         [ObservableProperty]
         private ObservableCollection<BarModel> _Bar;
         [ObservableProperty]
-        private ObservableCollection<JronElemetInitResult> _Results;
+        private ObservableCollection<MissElemetInitResult> _Results;
         [ObservableProperty]
         private string _QueryKey;
         #endregion
@@ -57,15 +54,14 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             try
             {
-                var result = (await JronFactory.Jron(opt =>
+                var result = (await MissFactory.Miss(opt =>
                 {
                     opt.RequestParam = new Input
                     {
-
-                        JronType = JronEnum.Init,
+                        FuncType = FuncEnum.Init,
                         PlatformType = Platform,
                         CacheSpan = 5,
-                        Init = new JronInit
+                        Init = new MissInit
                         {
                             ModeType = Mode,
                             Page = 1,
@@ -85,15 +81,15 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             try
             {
-                var result = (await JronFactory.Jron(opt =>
+                var result = (await MissFactory.Miss(opt =>
                 {
                     opt.RequestParam = new Input
                     {
 
-                        JronType = JronEnum.Init,
+                        FuncType = FuncEnum.Init,
                         PlatformType = Platform,
                         CacheSpan = 5,
-                        Init = new JronInit
+                        Init = new MissInit
                         {
                             ModeType = Mode,
                             Page = InitPage,
@@ -112,15 +108,15 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             try
             {
-                var result = (await JronFactory.Jron(opt =>
+                var result = (await MissFactory.Miss(opt =>
                 {
                     opt.RequestParam = new Input
                     {
 
-                        JronType = JronEnum.Search,
+                        FuncType = FuncEnum.Search,
                         PlatformType = Platform,
                         CacheSpan = 5,
-                        Search = new JronSearch
+                        Search = new MissSearch
                         {
                             Page = SearchPage,
                             Keyword = QueryKey
@@ -131,10 +127,10 @@ namespace CandySugar.Com.Pages.ViewModels
                 if (SearchPage == 1)
                 {
                     SearchTotal = result.Total;
-                    Results = new(result.ElementResults.ToMapest<List<JronElemetInitResult>>());
+                    Results = new(result.ElementResults.ToMapest<List<MissElemetInitResult>>());
                 }
                 else
-                    result.ElementResults.ToMapest<List<JronElemetInitResult>>().ForEach(Results.Add);
+                    result.ElementResults.ToMapest<List<MissElemetInitResult>>().ForEach(Results.Add);
 
             }
             catch (Exception ex)
@@ -143,19 +139,19 @@ namespace CandySugar.Com.Pages.ViewModels
             }
         }
 
-        private async void PlayAsync(JronElemetInitResult input)
+        private async void PlayAsync(MissElemetInitResult input)
         {
             try
             {
-                var result = (await JronFactory.Jron(opt =>
+                var result = (await MissFactory.Miss(opt =>
                 {
                     opt.RequestParam = new Input
                     {
 
-                        JronType = JronEnum.Detail,
+                        FuncType = FuncEnum.Detail,
                         PlatformType = Platform,
                         CacheSpan = 5,
-                        Play = new  JronPlay
+                        Play = new  MissPlay
                         {
                             Route = input.Route
                         }
@@ -169,7 +165,7 @@ namespace CandySugar.Com.Pages.ViewModels
             }
         }
 
-        private async void Insert(JronElemetInitResult result)
+        private async void Insert(MissElemetInitResult result)
         {
             await IocDependency.Resolve<ICandyService>().Add(new CollectModel
             {
@@ -236,9 +232,9 @@ namespace CandySugar.Com.Pages.ViewModels
             }
         });
 
-        public RelayCommand<JronElemetInitResult> CollectCommand => new(Insert);
+        public RelayCommand<MissElemetInitResult> CollectCommand => new(Insert);
 
-        public RelayCommand<JronElemetInitResult> PlayCommand => new(PlayAsync);
+        public RelayCommand<MissElemetInitResult> PlayCommand => new(PlayAsync);
         #endregion
     }
 }

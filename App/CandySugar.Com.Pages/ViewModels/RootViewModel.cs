@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using CandySugar.Com.Library;
+﻿using CandySugar.Com.Library;
 using CandySugar.Com.Library.Model;
-using CandySugar.Com.Pages.ChildViews.Animes;
 using CandySugar.Com.Pages.Views;
 using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -9,11 +7,11 @@ using CommunityToolkit.Mvvm.Input;
 using Mopups.Events;
 using Mopups.Interfaces;
 using Mopups.Services;
-using Sdk.Component.Cart.sdk.ViewModel.Response;
-using Sdk.Component.Vip.Jron.sdk;
-using Sdk.Component.Vip.Jron.sdk.ViewModel;
-using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
-using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
+using Sdk.Component.Vip.Miss.Sdk;
+using Sdk.Component.Vip.Miss.Sdk.ViewModel;
+using Sdk.Component.Vip.Miss.Sdk.ViewModel.Enums;
+using Sdk.Component.Vip.Miss.Sdk.ViewModel.Request;
+using System.Collections.ObjectModel;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 using VideoView = CandySugar.Com.Pages.ChildViews.Axgles.VideoView;
@@ -27,7 +25,6 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             Bar = new ObservableCollection<BarModel>
             {
-               new BarModel{ Name="动漫", Route="1" },
                new BarModel{ Name="车牌", Route="2" },
             };
             GetLocalData();
@@ -70,8 +67,6 @@ namespace CandySugar.Com.Pages.ViewModels
         private async void Next(CollectModel Model)
         {
             GetLocalData();
-            if (Model.Category == 1)
-                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(CollectView)], new Dictionary<string, object> { { "Param", new CartInitElementResult { Title = Model.Name, Route = Model.Route, Cover = Model.Cover } } });
             if (Model.Category == 2)
             {
                 if (Model.Route.Contains(".m3u8"))
@@ -80,14 +75,14 @@ namespace CandySugar.Com.Pages.ViewModels
                     return;
                 }
                 var Type = Model.Route.Contains("javbangers") ? PlatformEnum.Jav : PlatformEnum.Skb;
-                var result = (await JronFactory.Jron(opt =>
+                var result = (await MissFactory.Miss(opt =>
                 {
                     opt.RequestParam = new Input
                     {
-                        JronType = JronEnum.Detail,
+                        FuncType = FuncEnum.Detail,
                         PlatformType = Type,
                         CacheSpan = 5,
-                        Play = new JronPlay
+                        Play = new MissPlay
                         {
                             Route = Model.Route
                         }

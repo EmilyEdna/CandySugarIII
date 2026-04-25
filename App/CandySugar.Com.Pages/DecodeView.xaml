@@ -8,8 +8,14 @@
         BackgroundColor="WhiteSmoke"
         HeightRequest="140"
         WidthRequest="250">
-        <Entry x:Name="Name" Placeholder="请输入地址解密密钥" />
-        <Entry x:Name="Play" Placeholder="请输入播放解密密钥" />
+        <Entry
+            x:Name="Name"
+            Placeholder="请输入地址解密密钥"
+            Text="QgYgkSJJnpAAWy31,G9zhUyphqPWZGWzZ" />
+        <Entry
+            x:Name="Play"
+            Placeholder="请输入播放解密密钥"
+            Text="ym1eS4t0jTLakZYQ" />
         <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
             <Button
                 Margin="0"

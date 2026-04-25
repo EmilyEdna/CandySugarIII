@@ -31,12 +31,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="ChildViews\Animes\CollectView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="ChildViews\Animes\PlayView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="ChildViews\Axgles\LinkView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -52,10 +46,10 @@
 	  <MauiXaml Update="Views\AlterView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\AnimeView.xaml">
+	  <MauiXaml Update="Views\AxgleView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\AxgleView.xaml">
+	  <MauiXaml Update="Views\JAgleView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\RootView.xaml">

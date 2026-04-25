@@ -1,56 +1,62 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CandySugar.Com.Pages.ChildViews.Axgles.LinkView"
+    x:Class="CandySugar.Com.Pages.Views.JAgleView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lib="clr-namespace:CandySugar.Com.Library;assembly=CandySugar.Com.Library"
     xmlns:sdk="clr-namespace:Sdk.Component.Vip.Miss.Sdk.ViewModel.Response;assembly=Sdk.Component.Vip"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Axgles"
-    Title="{Binding Title}"
-    x:DataType="vm:LinkViewModel"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:CandySugar.Com.Pages.ViewModels"
+    lib:ToolBarAttach.BarSource="{Binding Bar}"
+    x:DataType="vm:JAgleViewModel"
     BackgroundColor="{DynamicResource BasicContainer}"
     Shell.BackgroundColor="{DynamicResource BasicPage}">
-    <Grid RowDefinitions="Auto,Auto,*">
+    <Shell.SearchHandler>
+        <SearchHandler
+            BackgroundColor="{DynamicResource BasicPage}"
+            ClearIcon="{StaticResource Clear}"
+            Command="{Binding QueryCommand}"
+            Placeholder="请输入查询内容"
+            Query="{Binding QueryKey, Mode=TwoWay}"
+            QueryIcon="{StaticResource Search}"
+            ShowsResults="False"
+            TextColor="{DynamicResource Basic}" />
+    </Shell.SearchHandler>
+    <Grid RowDefinitions="Auto,*">
+        <HorizontalStackLayout>
+            <Picker
+                Title="选择择"
+                Margin="10,0,0,0"
+                ItemsSource="{Binding Tags}"
+                SelectedIndexChanged="SelectEvent"
+                WidthRequest="120" />
+            <Button
+                Command="{Binding ChangedCommand}"
+                CommandParameter="1"
+                Style="{DynamicResource ButtonStyle}"
+                Text="无码" />
+            <Button
+                Command="{Binding ChangedCommand}"
+                CommandParameter="2"
+                Style="{DynamicResource ButtonStyle}"
+                Text="有码" />
+            <Button
+                Command="{Binding ChangedCommand}"
+                CommandParameter="3"
+                Style="{DynamicResource ButtonStyle}"
+                Text="类别" />
+        </HorizontalStackLayout>
         <CollectionView
-            Margin="2,2,2,10"
-            ItemSizingStrategy="MeasureAllItems"
-            ItemsSource="{Binding Routes}">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout
-                    HorizontalItemSpacing="1"
-                    Orientation="Vertical"
-                    Span="3"
-                    VerticalItemSpacing="1" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="vm:Model">
-                    <Grid Margin="2">
-                        <Button
-                            Margin="0"
-                            Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:LinkViewModel}}}"
-                            CommandParameter="{Binding Value}"
-                            Style="{DynamicResource ButtonStyle}"
-                            Text="{Binding Key}"
-                            WidthRequest="60" />
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <Button
             Grid.Row="1"
-            Command="{Binding CollectCommand}"
-            Style="{StaticResource ButtonStyle}"
-            Text="收藏"
-            WidthRequest="60" />
-        <CollectionView
-            Grid.Row="2"
             ItemSizingStrategy="MeasureAllItems"
-            ItemsSource="{Binding Links}">
+            ItemsSource="{Binding Results}"
+            RemainingItemsThreshold="0"
+            RemainingItemsThresholdReachedCommand="{Binding MoreCommand}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="3" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="sdk:MissRelatedElementResult">
+                <DataTemplate x:DataType="sdk:MissElemetInitResult">
                     <Border Stroke="{DynamicResource PotoBrushSafe}">
                         <Grid BackgroundColor="{DynamicResource BasicContainer}" ColumnDefinitions="Auto,*">
                             <Border
@@ -79,7 +85,7 @@
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
                                     <Button
-                                        Command="{Binding ViewCommand, Source={RelativeSource AncestorType={x:Type vm:LinkViewModel}}}"
+                                        Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:AvgleViewModel}}}"
                                         CommandParameter="{Binding .}"
                                         Style="{StaticResource ButtonStyle}"
                                         Text="播放"

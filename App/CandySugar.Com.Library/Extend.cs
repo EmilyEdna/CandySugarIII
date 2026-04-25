@@ -29,27 +29,17 @@ namespace CandySugar.Com.Library
         public static MauiAppBuilder AddControlHandler(this MauiAppBuilder builder)
         {
             NetFactoryExtension.RegisterNetFramework(1, Platform.Android);
-            HttpEvent.RestActionEvent = new((Client, Ex) => Ex.Message.Info());
             HttpEvent.HttpActionEvent = new((Client, Ex) => Ex.Message.Info());
-            return builder;
-        }
-
-        public static MauiAppBuilder AddEmailHandler(this MauiAppBuilder builder)
-        {
-            EmailSetting.SetOption("smtp.qq.com", "847432003@qq.com", "odvbqicdusiobfed");
             return builder;
         }
 
         public static Dictionary<string, string> RouteMap = new()
         {
              {"RootView","//RootView" },
-             {"AnimeView","//AnimeView" },
              {"AxgleView","//AxgleView" },
              {"AvgleView","//AvgleView" },
-
-             {"CollectView","//AnimeView/CollectView" },
-             {"PlayView","//AnimeView/CollectView/PlayView" },
-
+             {"JAgleView","//JAgleView" },
+             
             { "LinkView","//AxgleView/LinkView"},
             { "VideoView","//AxgleView/VideoView"},
          };

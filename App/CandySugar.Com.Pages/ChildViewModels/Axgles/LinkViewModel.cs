@@ -3,11 +3,11 @@ using CandySugar.Com.Pages.ChildViews.Axgles;
 using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Sdk.Component.Vip.Jron.sdk;
-using Sdk.Component.Vip.Jron.sdk.ViewModel;
-using Sdk.Component.Vip.Jron.sdk.ViewModel.Enums;
-using Sdk.Component.Vip.Jron.sdk.ViewModel.Request;
-using Sdk.Component.Vip.Jron.sdk.ViewModel.Response;
+using Sdk.Component.Vip.Miss.Sdk;
+using Sdk.Component.Vip.Miss.Sdk.ViewModel;
+using Sdk.Component.Vip.Miss.Sdk.ViewModel.Enums;
+using Sdk.Component.Vip.Miss.Sdk.ViewModel.Request;
+using Sdk.Component.Vip.Miss.Sdk.ViewModel.Response;
 using System.Collections.ObjectModel;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
@@ -17,11 +17,13 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
     public partial class LinkViewModel : ObservableObject, IQueryAttributable
     {
         private string Cover;
+        private PlatformEnum Platform;
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             var Temp = (Dictionary<string, object>)query["Param"];
             Title = Temp["Title"].ToString();
             Cover = Temp["Cover"].ToString();
+            Platform = (PlatformEnum)Temp["Platform"];
             Routes = [];
             ((Dictionary<string, string>)Temp["Result"]).ForDicEach((k, v) =>
             {
@@ -33,7 +35,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
                 });
 
             });
-            Links = [.. (List<JronRelatedElementResult>)Temp["Links"]];
+            Links = [.. (List<MissRelatedElementResult>)Temp["Links"]];
         }
 
         #region Title
@@ -42,14 +44,14 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
         [ObservableProperty]
         private ObservableCollection<Model> _Routes;
         [ObservableProperty]
-        private ObservableCollection<JronRelatedElementResult> _Links;
+        private ObservableCollection<MissRelatedElementResult> _Links;
         #endregion
 
         #region Command
         [RelayCommand]
         public void Play(string input) => Next(input);
 
-        public RelayCommand<JronRelatedElementResult> ViewCommand => new(PlayAsync);
+        public RelayCommand<MissRelatedElementResult> ViewCommand => new(PlayAsync);
 
         [RelayCommand]
         public void Collect() => Insert();
@@ -57,23 +59,28 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
 
         #region Method
 
-        private async void PlayAsync(JronRelatedElementResult input)
+        private async void PlayAsync(MissRelatedElementResult input)
         {
             var option = await IocDependency.Resolve<ICandyService>().GetOption();
             try
             {
-                var result = (await JronFactory.Jron(opt =>
+                var Keys= option.DecodeDataKey.Split(",");
+                string Key = string.Empty;
+                if (Platform == PlatformEnum.A24) Key = Keys.First();
+                if (Platform == PlatformEnum.JAXX) Key = Keys.Last();
+
+                var result = (await MissFactory.Miss(opt =>
                 {
                     opt.RequestParam = new Input
                     {
 
-                        JronType = JronEnum.Detail,
-                        PlatformType = PlatformEnum.A24,
+                        FuncType = FuncEnum.Detail,
+                        PlatformType = Platform,
                         CacheSpan = 5,
-                        Play = new JronPlay
+                        Play = new MissPlay
                         {
                             Route = input.Route,
-                            DecodeKey= option.DecodeDataKey,
+                            DecodeKey= Key,
                             DecodeM3u8Key=option.DecodePlayKey
                         }
                     };

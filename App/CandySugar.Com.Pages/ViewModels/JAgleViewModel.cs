@@ -13,16 +13,15 @@ using System.Collections.ObjectModel;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 using Application = Microsoft.Maui.Controls.Application;
-
 namespace CandySugar.Com.Pages.ViewModels
 {
-    public partial class AvgleViewModel : ObservableObject
+    public partial class JAgleViewModel: ObservableObject
     {
-        public AvgleViewModel()
+        public JAgleViewModel()
         {
             Results = [];
             Mode = ModeEnum.ReleaseDate;
-            Platform = PlatformEnum.A24;
+            Platform = PlatformEnum.JAXX;
             InitDict();
             InitAsync();
         }
@@ -61,16 +60,16 @@ namespace CandySugar.Com.Pages.ViewModels
                     Bar.Add(new BarModel { Name = Mode.ToDes(), Route = item });
                 });
         }
-      
+
         public void TagChanged(string input)
         {
 
             Tag = TagDict.Select(item =>
-             {
-                 if (item.Value.ContainsKey(input))
-                     return item.Value[input];
-                 else return string.Empty;
-             }).Where(t => !t.IsNullOrEmpty()).FirstOrDefault();
+            {
+                if (item.Value.ContainsKey(input))
+                    return item.Value[input];
+                else return string.Empty;
+            }).Where(t => !t.IsNullOrEmpty()).FirstOrDefault();
 
             Results = [];
             InitPage = 1;
@@ -190,8 +189,8 @@ namespace CandySugar.Com.Pages.ViewModels
                         Play = new MissPlay
                         {
                             Route = input.Route,
-                            DecodeKey = Option.DecodeDataKey.Split(",").FirstOrDefault(),
-                            DecodeM3u8Key=Option.DecodePlayKey
+                            DecodeKey = Option.DecodeDataKey.Split(",").LastOrDefault(),
+                            DecodeM3u8Key = Option.DecodePlayKey
                         }
                     };
                 }).RunsAsync()).PlayResult;
@@ -216,8 +215,10 @@ namespace CandySugar.Com.Pages.ViewModels
         public void Changed(string input)
         {
             if (TagDict == null) return;
-            if (input.AsBool())
+            if (input=="1")
                 Tags = [.. TagDict.FirstOrDefault().Value.Keys];
+            else if (input=="2")
+                Tags = [.. TagDict.ElementAtOrDefault(1).Value.Keys];
             else
                 Tags = [.. TagDict.LastOrDefault().Value.Keys];
         }
