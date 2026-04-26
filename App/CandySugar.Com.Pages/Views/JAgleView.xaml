@@ -85,7 +85,7 @@
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
                                     <Button
-                                        Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:AvgleViewModel}}}"
+                                        Command="{Binding PlayCommand, Source={RelativeSource AncestorType={x:Type vm:JAgleViewModel}}}"
                                         CommandParameter="{Binding .}"
                                         Style="{StaticResource ButtonStyle}"
                                         Text="播放"
