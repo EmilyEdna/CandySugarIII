@@ -364,3 +364,5 @@ FodyWeavers.xsd
 
 #dll
 Lib/
+/Library_Current
+/Library_Previous
