@@ -514,7 +514,8 @@ namespace CandySugar.Bilibili.ViewModels
             }
         }
 
-        private void ErrorNotify(string input = "") => CandyNotify.Error(input);
+        private void ErrorNotify(string input = "")
+            => CandyNotify.Error(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input);
         #endregion
     }
 }

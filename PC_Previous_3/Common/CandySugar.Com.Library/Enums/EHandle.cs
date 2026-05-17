@@ -7,7 +7,6 @@
         Bilibili,
         WallPaper,
         Cosplay,
-        NHViewer,
         Axgle,
         Setting,
         Video,

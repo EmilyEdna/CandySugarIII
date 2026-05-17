@@ -80,8 +80,8 @@
                 });
         }
 
-        private void ErrorNotify(string input = "") =>
-                   Application.Current.Dispatcher.Invoke(() => new CandyNotifyControl(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input).Show());
+        private void ErrorNotify(string input = "")
+             => CandyNotify.Error(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input);
 
         private void OnInit()
         {

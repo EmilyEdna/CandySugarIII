@@ -9,9 +9,12 @@
   <Folder Name="/插件/" />
   <Folder Name="/插件/会员插件/">
     <Project Path="../PC_Previous_3/Component/CandySugar.Axgle/CandySugar.Axgle.csproj" />
+    <Project Path="../PC_Previous_3/Component/CandySugar.Cosplay/CandySugar.Cosplay.csproj" />
+    <Project Path="../PC_Previous_3/Component/CandySugar.WallPaper/CandySugar.WallPaper.csproj" />
   </Folder>
   <Folder Name="/插件/普通插件/">
     <Project Path="../PC_Previous_3/Component/CandySugar.Bilibili/CandySugar.Bilibili.csproj" />
+    <Project Path="../PC_Previous_3/Component/CandySugar.Music/CandySugar.Music.csproj" />
   </Folder>
   <Folder Name="/类库/">
     <Project Path="../PC_Previous_3/Common/CandySugar.Com.Library/CandySugar.Com.Library.csproj" />

@@ -57,7 +57,8 @@
 
         #region 方法
 
-        private void ErrorNotify(string input = "") => CandyNotify.Error(input);
+        private void ErrorNotify(string input = "")
+            => CandyNotify.Error(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input);
 
         public void ChangeActive(int ActiveAnime)
         {

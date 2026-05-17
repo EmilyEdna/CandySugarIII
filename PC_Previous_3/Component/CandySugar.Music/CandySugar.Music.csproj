@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<TargetFramework>net9.0-windows7.0</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
+		<!--<BaseOutputPath>..\..\Launch\CandySugar.MainUI\bin</BaseOutputPath>-->
+		<OutDir>..\..\Launch\CandySugar.MainUI\bin\Debug\net9.0-windows7.0\Plugin</OutDir>
+		<!--动态加载-->
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<!--Aot发布-->
+		<!--<PublishAot>true</PublishAot>-->
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Common\CandySugar.Com.Style\CandySugar.Com.Style.csproj">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</ProjectReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Sdk.Component">
+			<HintPath>..\..\..\Library_Current\Sdk.Component.dll</HintPath>
+		</Reference>
+		<Reference Include="Sdk.Plugins">
+			<HintPath>..\..\..\Library_Current\Sdk.Plugins.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+</Project>
