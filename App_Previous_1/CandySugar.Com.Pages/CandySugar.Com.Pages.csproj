@@ -20,10 +20,10 @@
 	  <ProjectReference Include="..\CandySugar.Com.Controls\CandySugar.Com.Controls.csproj" />
 	  <ProjectReference Include="..\CandySugar.Com.Service\CandySugar.Com.Service.csproj" />
 		<Reference Include="Sdk.Component.Vip">
-			<HintPath>..\..\Lib\Sdk.Component.Vip.dll</HintPath>
+			<HintPath>..\..\Library_Previous\Sdk.Component.Vip.dll</HintPath>
 		</Reference>
 		<Reference Include="Sdk.Plugins">
-			<HintPath>..\..\Lib\Sdk.Plugins.dll</HintPath>
+			<HintPath>..\..\Library_Previous\Sdk.Plugins.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 
