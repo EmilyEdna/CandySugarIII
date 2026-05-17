@@ -19,47 +19,47 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "会员插件", "会员插�
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "基本插件", "基本插件", "{365D3069-1933-4B8D-ACFE-C7F0D80DFF16}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Options", "..\PC\Common\CandySugar.Com.Options\CandySugar.Com.Options.csproj", "{3BC3CF8B-9896-4331-93D1-4A6E61136385}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Options", "..\PC_Previous_2\Common\CandySugar.Com.Options\CandySugar.Com.Options.csproj", "{3BC3CF8B-9896-4331-93D1-4A6E61136385}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.MainUI", "..\PC\Launch\CandySugar.MainUI\CandySugar.MainUI.csproj", "{6E3DEC06-C6DF-405C-B38A-B1951776DF19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.MainUI", "..\PC_Previous_2\Launch\CandySugar.MainUI\CandySugar.MainUI.csproj", "{6E3DEC06-C6DF-405C-B38A-B1951776DF19}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Style", "..\PC\Common\CandySugar.Com.Style\CandySugar.Com.Style.csproj", "{35941CF4-E6B7-4473-9D05-038CAFC7A3A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Style", "..\PC_Previous_2\Common\CandySugar.Com.Style\CandySugar.Com.Style.csproj", "{35941CF4-E6B7-4473-9D05-038CAFC7A3A4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Data", "..\PC\Common\CandySugar.Com.Data\CandySugar.Com.Data.csproj", "{BF6DE9BF-496B-458C-8DDF-0A10297F0710}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Data", "..\PC_Previous_2\Common\CandySugar.Com.Data\CandySugar.Com.Data.csproj", "{BF6DE9BF-496B-458C-8DDF-0A10297F0710}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Library", "..\PC\Common\CandySugar.Com.Library\CandySugar.Com.Library.csproj", "{2DFD3573-02AE-4819-AB66-10BD558C69CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Library", "..\PC_Previous_2\Common\CandySugar.Com.Library\CandySugar.Com.Library.csproj", "{2DFD3573-02AE-4819-AB66-10BD558C69CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Controls", "..\PC\Common\CandySugar.Com.Controls\CandySugar.Com.Controls.csproj", "{5A2AACDA-B970-4A7A-9583-E5E6523DC488}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Com.Controls", "..\PC_Previous_2\Common\CandySugar.Com.Controls\CandySugar.Com.Controls.csproj", "{5A2AACDA-B970-4A7A-9583-E5E6523DC488}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.HostServer", "..\PC\Launch\CandySugar.HostServer\CandySugar.HostServer.csproj", "{905BD2CE-65CC-433B-B337-F5A72333E284}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.HostServer", "..\PC_Previous_2\Launch\CandySugar.HostServer\CandySugar.HostServer.csproj", "{905BD2CE-65CC-433B-B337-F5A72333E284}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.LightNovel", "..\PC\Component\CandySugar.LightNovel\CandySugar.LightNovel.csproj", "{0F9AA369-07D9-4AA2-A1E2-9F0076CAA835}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.LightNovel", "..\PC_Previous_2\Component\CandySugar.LightNovel\CandySugar.LightNovel.csproj", "{0F9AA369-07D9-4AA2-A1E2-9F0076CAA835}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Bilibili", "..\PC\Component\CandySugar.Bilibili\CandySugar.Bilibili.csproj", "{F79BBE5D-3C4A-45C6-B4D8-42117F55B551}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Bilibili", "..\PC_Previous_2\Component\CandySugar.Bilibili\CandySugar.Bilibili.csproj", "{F79BBE5D-3C4A-45C6-B4D8-42117F55B551}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Anime", "..\PC\Component\CandySugar.Anime\CandySugar.Anime.csproj", "{FCBDDF67-B1EE-473B-82C2-AE4DD7EB9C1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Anime", "..\PC_Previous_2\Component\CandySugar.Anime\CandySugar.Anime.csproj", "{FCBDDF67-B1EE-473B-82C2-AE4DD7EB9C1E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Novel", "..\PC\Component\CandySugar.Novel\CandySugar.Novel.csproj", "{05CA16FD-4D4C-4F8B-A31F-FB7A21B17AA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Novel", "..\PC_Previous_2\Component\CandySugar.Novel\CandySugar.Novel.csproj", "{05CA16FD-4D4C-4F8B-A31F-FB7A21B17AA5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Manga", "..\PC\Component\CandySugar.Manga\CandySugar.Manga.csproj", "{764F1173-BD76-411C-AF62-ADED56EC0F1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Manga", "..\PC_Previous_2\Component\CandySugar.Manga\CandySugar.Manga.csproj", "{764F1173-BD76-411C-AF62-ADED56EC0F1A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Axgle", "..\PC\Component\CandySugar.Axgle\CandySugar.Axgle.csproj", "{F8918A44-B028-48F9-840A-5DF7DE3B3623}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Axgle", "..\PC_Previous_2\Component\CandySugar.Axgle\CandySugar.Axgle.csproj", "{F8918A44-B028-48F9-840A-5DF7DE3B3623}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Rifan", "..\PC\Component\CandySugar.Rifan\CandySugar.Rifan.csproj", "{CB1A276C-E44F-41F0-AFE1-D4F224D68651}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Rifan", "..\PC_Previous_2\Component\CandySugar.Rifan\CandySugar.Rifan.csproj", "{CB1A276C-E44F-41F0-AFE1-D4F224D68651}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Movie", "..\PC\Component\CandySugar.Movie\CandySugar.Movie.csproj", "{574D7327-288D-4A91-AB83-0D2B192130F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Movie", "..\PC_Previous_2\Component\CandySugar.Movie\CandySugar.Movie.csproj", "{574D7327-288D-4A91-AB83-0D2B192130F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Music", "..\PC\Component\CandySugar.Music\CandySugar.Music.csproj", "{4920650D-6828-46D5-BD06-DD9303BCE16F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Music", "..\PC_Previous_2\Component\CandySugar.Music\CandySugar.Music.csproj", "{4920650D-6828-46D5-BD06-DD9303BCE16F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Cosplay", "..\PC\Component\CandySugar.Cosplay\CandySugar.Cosplay.csproj", "{94D5BEDE-E8B4-4FAC-AC87-6878ACDA9506}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Cosplay", "..\PC_Previous_2\Component\CandySugar.Cosplay\CandySugar.Cosplay.csproj", "{94D5BEDE-E8B4-4FAC-AC87-6878ACDA9506}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.NHViewer", "..\PC\Component\CandySugar.NHViewer\CandySugar.NHViewer.csproj", "{242437A6-E277-4954-98C2-1B6E6DCFC26F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.NHViewer", "..\PC_Previous_2\Component\CandySugar.NHViewer\CandySugar.NHViewer.csproj", "{242437A6-E277-4954-98C2-1B6E6DCFC26F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Comic", "..\PC\Component\CandySugar.Comic\CandySugar.Comic.csproj", "{649ED15A-319E-46C3-A438-B2FA9563D7FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.Comic", "..\PC_Previous_2\Component\CandySugar.Comic\CandySugar.Comic.csproj", "{649ED15A-319E-46C3-A438-B2FA9563D7FF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.WallPaper", "..\PC\Component\CandySugar.WallPaper\CandySugar.WallPaper.csproj", "{A22D23CD-3AEC-4612-9AE3-5EB51EA68C58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.WallPaper", "..\PC_Previous_2\Component\CandySugar.WallPaper\CandySugar.WallPaper.csproj", "{A22D23CD-3AEC-4612-9AE3-5EB51EA68C58}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.ModifyUI", "..\PC\Launch\CandySugar.ModifyUI\CandySugar.ModifyUI.csproj", "{9DBC6921-2ADB-40D4-83B4-44ECA1CE0573}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandySugar.ModifyUI", "..\PC_Previous_2\Launch\CandySugar.ModifyUI\CandySugar.ModifyUI.csproj", "{9DBC6921-2ADB-40D4-83B4-44ECA1CE0573}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
