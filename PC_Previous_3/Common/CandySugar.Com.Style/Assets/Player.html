@@ -1,0 +1,59 @@
+﻿﻿
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Dplayer</title>
+    <script src="https://cdn.staticfile.org/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/dplayer/1.27.1/DPlayer.min.js"></script>
+    <script src="https://cdn.staticfile.org/hls.js/1.4.12/hls.min.js"></script>
+    <link href="https://cdn.staticfile.org/dplayer/1.22.2/DPlayer.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+        }
+
+        #dplayer {
+            flex: auto;
+            border-bottom-right-radius: 15px;
+        }
+    </style>
+    <script>
+
+        var opt = {
+            uri: ""
+        };
+
+        var interval = setInterval(function () {
+            Play();
+            clearInterval(interval);
+        }, 3000)
+
+        function Play() {
+            var ele = document.getElementById('dplayer');
+            console.log(opt.uri);
+            $("#dplayer").height("100%");
+            var dp = new DPlayer({
+                container: ele,
+                video: {
+                    url: opt.uri,
+                    lang: 'zh-cn',
+                    autoplay: 'true',
+                }
+            });
+            dp.play();
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div id="dplayer" class="dplayer"></div>
+</body>
+</html>

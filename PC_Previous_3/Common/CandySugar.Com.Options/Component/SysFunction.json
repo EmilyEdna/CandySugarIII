@@ -1,0 +1,20 @@
+{
+  "System": [
+    {
+      "Description": "系统设置",
+      "Code": 14
+    },
+    {
+      "Description": "视频播放",
+      "Code": 15
+    },
+    {
+      "Description": "音乐播放",
+      "Code": 16
+    },
+    {
+      "Description": "网址服务",
+      "Code": 17
+    }
+  ]
+}

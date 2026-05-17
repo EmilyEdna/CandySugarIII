@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0-windows7.0</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CandySugar.Com.Options\CandySugar.Com.Options.csproj" />
+	</ItemGroup>
+
+</Project>

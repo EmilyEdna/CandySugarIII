@@ -1,10 +1,26 @@
 <Solution>
-  <Folder Name="/启动/" />
-  <Folder Name="/控件/" />
+  <Folder Name="/启动/">
+    <Project Path="../PC_Previous_3/Launch/CandySugar.HostServer/CandySugar.HostServer.csproj" />
+    <Project Path="../PC_Previous_3/Launch/CandySugar.MainUI/CandySugar.MainUI.csproj" />
+  </Folder>
+  <Folder Name="/控件/">
+    <Project Path="../PC_Previous_3/Common/CandySugar.Com.Controls/CandySugar.Com.Controls.csproj" />
+  </Folder>
   <Folder Name="/插件/" />
-  <Folder Name="/插件/会员插件/" />
-  <Folder Name="/插件/普通插件/" />
-  <Folder Name="/类库/" />
-  <Folder Name="/资源/" />
-  <Folder Name="/配置/" />
+  <Folder Name="/插件/会员插件/">
+    <Project Path="../PC_Previous_3/Component/CandySugar.Axgle/CandySugar.Axgle.csproj" />
+  </Folder>
+  <Folder Name="/插件/普通插件/">
+    <Project Path="../PC_Previous_3/Component/CandySugar.Bilibili/CandySugar.Bilibili.csproj" />
+  </Folder>
+  <Folder Name="/类库/">
+    <Project Path="../PC_Previous_3/Common/CandySugar.Com.Library/CandySugar.Com.Library.csproj" />
+  </Folder>
+  <Folder Name="/资源/">
+    <Project Path="../PC_Previous_3/Common/CandySugar.Com.Style/CandySugar.Com.Style.csproj" />
+  </Folder>
+  <Folder Name="/配置/">
+    <Project Path="../PC_Previous_3/Common/CandySugar.Com.Data/CandySugar.Com.Data.csproj" />
+    <Project Path="../PC_Previous_3/Common/CandySugar.Com.Options/CandySugar.Com.Options.csproj" />
+  </Folder>
 </Solution>

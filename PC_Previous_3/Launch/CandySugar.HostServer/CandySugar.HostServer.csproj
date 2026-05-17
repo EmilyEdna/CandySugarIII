@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App"></FrameworkReference>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.8" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="9.0.8" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
+		<PackageReference Include="XExten.Advance" Version="2.2.3.5" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Common\CandySugar.Com.Data\CandySugar.Com.Data.csproj" />
+	</ItemGroup>
+</Project>

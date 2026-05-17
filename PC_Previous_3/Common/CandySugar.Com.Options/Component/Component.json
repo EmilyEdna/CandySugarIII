@@ -1,0 +1,84 @@
+{
+  "ComponentInfos": {
+    "Normal": [
+      {
+        "Plugin": "CandySugar.Music.dll",
+        "Bootstrapper": "MainView",
+        "Ioc": "Module",
+        "Description": "音乐",
+        "Code": 1
+      },
+      {
+        "Plugin": "CandySugar.Bilibili.dll",
+        "Bootstrapper": "MainView",
+        "Ioc": "Module",
+        "Description": "B站",
+        "Code": 2
+      }
+    ],
+    "Vip": [
+      {
+        "Plugin": "CandySugar.WallPaper.dll",
+        "Bootstrapper": "MainView",
+        "Ioc": "Module",
+        "Description": "壁纸",
+        "Code": 3
+      },
+      {
+        "Plugin": "CandySugar.Cosplay.dll",
+        "Bootstrapper": "MainView",
+        "Ioc": "Module",
+        "Description": "写真",
+        "Code": 4
+      },
+      {
+        "Plugin": "CandySugar.NHViewer.dll",
+        "Bootstrapper": "MainView",
+        "Ioc": "Module",
+        "Description": "熊猫",
+        "Code": 5
+      },
+      {
+        "Plugin": "CandySugar.Axgle.dll",
+        "Bootstrapper": "MainView",
+        "Ioc": "Module",
+        "Description": "车牌",
+        "Code": 6,
+        "Child": [
+          {
+            "Name": "Jav",
+            "Value": "Jav",
+            "Code": 6,
+            "Plugin": "CandySugar.Axgle.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module"
+          },
+          {
+            "Name": "Spank",
+            "Value": "Skb",
+            "Code": 6,
+            "Plugin": "CandySugar.Axgle.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module"
+          },
+          {
+            "Name": "A24",
+            "Value": "A24",
+            "Code": 6,
+            "Plugin": "CandySugar.Axgle.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module"
+          },
+          {
+            "Name": "Jaxx",
+            "Value": "JAXX",
+            "Code": 6,
+            "Plugin": "CandySugar.Axgle.dll",
+            "Bootstrapper": "MainView",
+            "Ioc": "Module"
+          }
+        ]
+      }
+    ]
+  }
+}
