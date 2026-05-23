@@ -16,6 +16,7 @@ namespace CandySugar.Axgle.ViewModels
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             WindowStateEvent();
             CollectResult = new(Service.QueryAll());
+            GenericDelegate.ChangeContentAction = obj => Service.QueryAll();
         }
 
         #region 属性

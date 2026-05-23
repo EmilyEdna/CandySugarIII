@@ -270,6 +270,7 @@
             var Model = element.ToMapest<AxgleModel>();
             Model.Platfrom = PlatformType.AsString();
             Service.Insert(Model);
+            GenericDelegate.ChangeContentAction?.Invoke(string.Empty);
         }
         [RelayCommand]
         public void Watch(MissElemetInitResult element)

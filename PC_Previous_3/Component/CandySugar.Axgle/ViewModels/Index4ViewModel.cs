@@ -262,6 +262,7 @@
                 Model.Route = Value;
                 Service.Insert(Model);
             });
+            GenericDelegate.ChangeContentAction?.Invoke(string.Empty);
         }
         [RelayCommand]
         public void View(string input)
