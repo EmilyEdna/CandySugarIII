@@ -63,7 +63,7 @@
             </eda:CandyTabControl.ItemTemplate>
             <eda:CandyTabControl.ContentTemplate>
                 <DataTemplate>
-                    <ContentControl Content="{Binding CandyControl}" HorizontalAlignment="Center" />
+                    <ContentControl Content="{Binding CandyControl}"/>
                 </DataTemplate>
             </eda:CandyTabControl.ContentTemplate>
         </eda:CandyTabControl>

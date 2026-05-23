@@ -18,6 +18,9 @@
 
             IocDependency.Register(typeof(Index4View));
             IocDependency.Register(typeof(Index4ViewModel));
+
+            IocDependency.Register(typeof(Index5View));
+            IocDependency.Register(typeof(Index5ViewModel));
         }
 
         public T Resolve<T>() where T : UserControl

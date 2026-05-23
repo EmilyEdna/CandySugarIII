@@ -49,7 +49,7 @@ namespace CandySugar.Com.Controls.ExtenControls
         private async void LoadedWebPlayer(object sender, System.Windows.RoutedEventArgs e)
         {
             await WebPlayer.EnsureCoreWebView2Async();
-            WebPlayer.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+            WebPlayer.CoreWebView2.Settings.AreDefaultContextMenusEnabled = true;
             WebPlayer.CoreWebView2.Settings.AreDevToolsEnabled = true;
             WebPlayer.CoreWebView2.AddWebResourceRequestedFilter("*", CoreWebView2WebResourceContext.All);
             WebPlayer.CoreWebView2.WebResourceRequested += (s, e) => { };

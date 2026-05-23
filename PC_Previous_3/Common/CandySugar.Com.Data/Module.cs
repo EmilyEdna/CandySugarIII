@@ -20,15 +20,11 @@ namespace CandySugar.Com.Data
         public static Dictionary<Type, Type> Services => new Dictionary<Type, Type>
         {
             { typeof(AxgleService),typeof(IService<AxgleModel>) },
-            { typeof(ComicService),typeof(IService<ComicModel>) },
             { typeof(CosplayService),typeof(IService<CosplayModel>) },
-            { typeof(RifanService),typeof(IService<RifanModel>) },
             { typeof(WallService),typeof(IService<WallModel>) },
             { typeof(MusicService),typeof(IService<MusicModel>) },
             { typeof(NHentaiService),typeof(IService<NHentaiModel>) },
             { typeof(HitomiService),typeof(IService<HitomiModel>) },
-            { typeof(AnimeService),typeof(IService<AnimeModel>) },
-            { typeof(NovelService),typeof(IService<NovelModel>) },
             { typeof(HistoryService),typeof(IService<HistoryModel>) }
         };
     }

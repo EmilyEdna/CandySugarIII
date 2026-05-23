@@ -9,7 +9,20 @@
     x:Name="Main"
     d:DataContext="{d:DesignInstance vm:MainViewModel}"
     d:DesignHeight="700"
+    xmlns:eda="https://github.com/EmilyEdna"
     d:DesignWidth="1200"
     mc:Ignorable="d">
-    <ContentControl Content="{Binding ComponentControl}" />
+    <eda:CandyTabControl ItemsSource="{Binding ComponentControl}"
+                         IsEnableCloseButton="Collapsed">
+        <eda:CandyTabControl.ItemTemplate>
+            <DataTemplate>
+                <TextBlock Text="{Binding Title}" Width="100"/>
+            </DataTemplate>
+        </eda:CandyTabControl.ItemTemplate>
+        <eda:CandyTabControl.ContentTemplate>
+            <DataTemplate>
+                <ContentControl Content="{Binding Value}" Width="{Binding Width}"/>
+            </DataTemplate>
+        </eda:CandyTabControl.ContentTemplate>
+    </eda:CandyTabControl>
 </UserControl>

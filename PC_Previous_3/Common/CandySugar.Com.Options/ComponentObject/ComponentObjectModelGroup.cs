@@ -9,17 +9,8 @@ namespace CandySugar.Com.Options.ComponentObject
         public string Description { get; set; }
         public string Ioc { get; set; }
         public int Code { get; set; }
-        public List<ChildComponentObjectModel> Child {  get; set; }
     }
 
-    public class ChildComponentObjectModel
-    {
-        public string Name {  get; set; }
-        public string Value { get; set; }
-        public string Bootstrapper { get; set; }
-        public string Ioc { get; set; }
-        public int Code { get; set; }
-    }
     public class ComponentObjectModelGroup
     {
         public List<ComponentObjectModel> Vip { get; set; }

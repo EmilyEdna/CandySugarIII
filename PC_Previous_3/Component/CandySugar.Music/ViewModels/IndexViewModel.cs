@@ -258,7 +258,7 @@ namespace CandySugar.Music.ViewModels
         [RelayCommand]
         public void Active(object input)
         {
-            var Data = input.ToMapest<AnonymousWater>().SelectValue.AsString().AsInt();
+            var Data = input.AsString().AsInt();
             if (Data == 0) return;
             PlatformType = (PlatformEnum)Data;
             if (SearchKeyword.IsNullOrEmpty())

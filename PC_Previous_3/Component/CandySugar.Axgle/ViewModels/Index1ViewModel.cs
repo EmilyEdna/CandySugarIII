@@ -4,7 +4,6 @@
     {
         public Index1ViewModel()
         {
-            CollectResult = [];
             PlatformType = PlatformEnum.Skb;
             Title = ["最新", "热门", "好评"];
             Service = IocDependency.Resolve<IService<AxgleModel>>();
@@ -17,18 +16,17 @@
         #region 事件
         private void WindowStateEvent()
         {
+            BorderHeight = GlobalParam.MAXHeight;
+            BorderWidth = GlobalParam.MAXWidth;
             if (GlobalParam.WindowState == WindowState.Maximized)
             {
                 Cols = (int)(GlobalParam.MAXWidth / 360);
-                MarginThickness = new Thickness(0, 0, 25, 20);
             }
             else
             {
                 Cols = (int)(GlobalParam.MAXWidth / 360);
-                MarginThickness = new Thickness(0, 0, 25, 15);
+                BorderWidth -= 60;
             }
-            BorderHeight = GlobalParam.MAXHeight;
-            BorderWidth = GlobalParam.MAXWidth;
         }
         #endregion
 
@@ -50,9 +48,6 @@
         private Dictionary<string, string> _MenuData;
         [ObservableProperty]
         private ObservableCollection<MissElemetInitResult> _Results;
-        [ObservableProperty]
-        private ObservableCollection<AxgleModel> _CollectResult;
-
         #endregion
 
         #region 方法
@@ -64,10 +59,7 @@
         {
             this.Keyword = string.Empty;
             InitPage = 1;
-            if (ActiveAnime != 4)
-                OnInit();
-            else
-                CollectResult = new(Service.QueryAll());
+            OnInit();
         }
 
         private void OnInit()
@@ -204,7 +196,7 @@
                         {
                             CacheSpan = ComponentBinding.OptionObjectModels.Cache,
                             FuncType = FuncEnum.Detail,
-                            PlatformType = input.Route.Contains("javbangers") ? PlatformEnum.Jav : PlatformEnum.Skb,
+                            PlatformType = PlatformType,
                             Play = new MissPlay
                             {
                                 Route = input.Route
@@ -278,25 +270,10 @@
             var Model = element.ToMapest<AxgleModel>();
             Model.Platfrom = PlatformType.AsString();
             Service.Insert(Model);
-            CollectResult = new(Service.QueryAll());
         }
         [RelayCommand]
         public void Watch(MissElemetInitResult element)
           =>OnDetail(element);
-        [RelayCommand]
-        public void Remove(Guid id)
-        {
-            Service.Remove(id);
-            CollectResult = new(Service.QueryAll());
-        }
-        [RelayCommand]
-        public void Play(AxgleModel element)
-        {
-            if (element.Platfrom == "A24")
-                Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(element.Route, false,true).Show());
-            else
-                OnDetail(element.ToMapest<MissElemetInitResult>());
-        }
         #endregion
 
         #region ExternalCalls

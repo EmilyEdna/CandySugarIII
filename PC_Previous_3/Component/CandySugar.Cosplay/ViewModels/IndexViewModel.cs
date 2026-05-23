@@ -144,8 +144,7 @@
         [RelayCommand]
         public void Active(object input)
         {
-            var param = input.ToMapest<AnonymousWater>();
-            var value = param.SelectValue.AsString().AsInt();
+            var value = input.AsString().AsInt();
             if (value == 1)
             {
                 PlatformType = PlatformEnum.Lab;

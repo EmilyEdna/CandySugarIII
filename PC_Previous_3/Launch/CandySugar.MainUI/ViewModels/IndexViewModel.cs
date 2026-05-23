@@ -113,27 +113,11 @@ namespace CandySugar.MainUI.ViewModels
                 ComponentBinding.ComponentObjectModelGroups.Normal.ForEach(item =>
                 {
                     var SubItem = new CandyMenuItem { Header = item.Description, CommandParameter = (EHandle)item.Code };
-                    if (item.Child != null)
+                    SubItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
                     {
-                        item.Child.ForEach(node =>
-                        {
-                            var ChildItem = new CandyMenuItem { Header = node.Name, CommandParameter = node };
-                            ChildItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
-                            {
-                                Path = new PropertyPath("ActiveChildCommad", node),
-                                Source = ((IndexView)View).DataContext
-                            });
-                            SubItem.Items.Add(ChildItem);
-                        });
-                    }
-                    else
-                    {
-                        SubItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
-                        {
-                            Path = new PropertyPath("ActiveCommad", (EHandle)item.Code),
-                            Source = ((IndexView)View).DataContext
-                        });
-                    }
+                        Path = new PropertyPath("ActiveCommad", (EHandle)item.Code),
+                        Source = ((IndexView)View).DataContext
+                    });
                     FMainItem.Items.Add(SubItem);
                 });
                 Menu.Items.Add(FMainItem);
@@ -149,27 +133,11 @@ namespace CandySugar.MainUI.ViewModels
                 ComponentBinding.ComponentObjectModelGroups.Vip.ForEach(item =>
                 {
                     var SubItem = new CandyMenuItem { Header = item.Description, CommandParameter = (EHandle)item.Code };
-                    if (item.Child != null)
+                    SubItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
                     {
-                        item.Child.ForEach(node =>
-                        {
-                            var ChildItem = new CandyMenuItem { Header = node.Name, CommandParameter = node };
-                            ChildItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
-                            {
-                                Path = new PropertyPath("ActiveChildCommad", node),
-                                Source = ((IndexView)View).DataContext
-                            });
-                            SubItem.Items.Add(ChildItem);
-                        });
-                    }
-                    else
-                    {
-                        SubItem.SetBinding(CandyMenuItem.CommandProperty, new Binding()
-                        {
-                            Path = new PropertyPath("ActiveCommad", (EHandle)item.Code),
-                            Source = ((IndexView)View).DataContext
-                        });
-                    }
+                        Path = new PropertyPath("ActiveCommad", (EHandle)item.Code),
+                        Source = ((IndexView)View).DataContext
+                    });
                     SMainItem.Items.Add(SubItem);
                 });
                 Menu.Items.Add(SMainItem);
@@ -200,21 +168,6 @@ namespace CandySugar.MainUI.ViewModels
         #endregion
 
         #region 命令
-
-        public RelayCommand<ChildComponentObjectModel> ActiveChildCommad => new(obj =>
-        {
-            var Plugin = AssemblyLoader.Dll.FirstOrDefault(t => t.Handle == obj.Code);
-            this.View.Dispatcher.Invoke(() =>
-            {
-                var Ctrl = (Control)Activator.CreateInstance(Plugin.InstanceType);
-                Ctrl.DataContext = Activator.CreateInstance(Plugin.InstanceViewModel,[obj.Value]);
-                Models.Add(new FunctionModel
-                {
-                    CandyControl = Ctrl,
-                    Title = obj.Name
-                });
-            });
-        });
         public RelayCommand<EHandle> ActiveCommad => new(obj =>
         {
             if (obj < EHandle.Setting)

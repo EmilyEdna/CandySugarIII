@@ -36,41 +36,7 @@
         "Bootstrapper": "MainView",
         "Ioc": "Module",
         "Description": "车牌",
-        "Code": 5,
-        "Child": [
-          {
-            "Name": "Jav",
-            "Value": "Jav",
-            "Code": 5,
-            "Plugin": "CandySugar.Axgle.dll",
-            "Bootstrapper": "MainView",
-            "Ioc": "Module"
-          },
-          {
-            "Name": "Spank",
-            "Value": "Skb",
-            "Code": 5,
-            "Plugin": "CandySugar.Axgle.dll",
-            "Bootstrapper": "MainView",
-            "Ioc": "Module"
-          },
-          {
-            "Name": "A24",
-            "Value": "A24",
-            "Code": 5,
-            "Plugin": "CandySugar.Axgle.dll",
-            "Bootstrapper": "MainView",
-            "Ioc": "Module"
-          },
-          {
-            "Name": "Jaxx",
-            "Value": "JAXX",
-            "Code": 5,
-            "Plugin": "CandySugar.Axgle.dll",
-            "Bootstrapper": "MainView",
-            "Ioc": "Module"
-          }
-        ]
+        "Code": 5
       }
     ]
   }

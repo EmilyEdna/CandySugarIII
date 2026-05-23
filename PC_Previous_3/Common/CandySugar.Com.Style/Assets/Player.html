@@ -33,8 +33,9 @@
 
         var interval = setInterval(function () {
             Play();
-            clearInterval(interval);
-        }, 3000)
+            if (opt.uri!="")
+                clearInterval(interval);
+        }, 1000)
 
         function Play() {
             var ele = document.getElementById('dplayer');

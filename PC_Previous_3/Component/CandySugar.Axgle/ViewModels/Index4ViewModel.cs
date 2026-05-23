@@ -19,18 +19,17 @@
         #region 事件
         private void WindowStateEvent()
         {
+            BorderHeight = GlobalParam.MAXHeight;
+            BorderWidth = GlobalParam.MAXWidth;
             if (GlobalParam.WindowState == WindowState.Maximized)
             {
                 Cols = (int)(GlobalParam.MAXWidth / 360);
-                MarginThickness = new Thickness(0, 0, 15, 20);
             }
             else
             {
                 Cols = (int)(GlobalParam.MAXWidth / 360);
-                MarginThickness = new Thickness(0, 0, 15, 15);
+                BorderWidth -= 60;
             }
-            BorderHeight = GlobalParam.MAXHeight;
-            BorderWidth = GlobalParam.MAXWidth;
         }
         #endregion
 
@@ -267,9 +266,6 @@
         [RelayCommand]
         public void View(string input)
             => new CandyWebPlayControl(input,false,true).Show();
-        [RelayCommand]
-        public void Back()
-            => GenericDelegate.ChangeContentAction?.Invoke(string.Empty);
         [RelayCommand]
         public void Selected(string input)
         {

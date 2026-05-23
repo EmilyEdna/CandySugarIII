@@ -2,19 +2,42 @@
 {
     public partial class MainViewModel : BasicObservableObject
     {
-        public MainViewModel(string input)
+        public MainViewModel()
         {
-            PlatformEnum Platform = Enum.Parse<PlatformEnum>(input);
-            Control View = null;
-            if (Platform == PlatformEnum.Skb) View = Module.IocModule.Resolve<Index1View>();
-            if (Platform == PlatformEnum.Jav) View = Module.IocModule.Resolve<Index2View>();
-            if (Platform == PlatformEnum.A24) View = Module.IocModule.Resolve<Index3View>();
-            if (Platform == PlatformEnum.JAXX) View = Module.IocModule.Resolve<Index4View>();
-            ComponentControl = View;
+            ComponentControl = new ObservableCollection<AnonymousTab>
+            {
+                new AnonymousTab{ Title="SKB",Value = Module.IocModule.Resolve<Index1View>() },
+                new AnonymousTab{ Title="JAV",Value = Module.IocModule.Resolve<Index2View>() },
+                new AnonymousTab{ Title="H24",Value = Module.IocModule.Resolve<Index3View>() },
+                new AnonymousTab{ Title="JAX",Value = Module.IocModule.Resolve<Index4View>() },
+                new AnonymousTab{ Title="收藏",Value = Module.IocModule.Resolve<Index5View>() },
+            };
+            GenericDelegate.WindowStateEvent += WindowStateEvent;
+            WindowStateEvent();
         }
         #region Property
         [ObservableProperty]
-        private Control _ComponentControl;
+        private ObservableCollection<AnonymousTab> _ComponentControl;
         #endregion
+
+        #region 事件
+        private void WindowStateEvent()
+        {
+            if (GlobalParam.WindowState == WindowState.Maximized) {
+                foreach (var item in ComponentControl)
+                {
+                    item.Width = GlobalParam.MAXWidth+152d;
+                }
+            }
+            else
+            {
+                foreach (var item in ComponentControl)
+                {
+                    item.Width = GlobalParam.MAXWidth-60;
+                }
+            }
+        }
+        #endregion
+
     }
 }

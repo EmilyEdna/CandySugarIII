@@ -50,11 +50,6 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ComboBox>
-                <eda:CandyButton
-                    Height="48"
-                    ButtonType="Success"
-                    Command="{Binding BackCommand}"
-                    Content="返回" />
             </StackPanel>
             <eda:CandyBorder
                 Grid.Row="1"
