@@ -17,7 +17,6 @@ namespace CandySugar.MainUI.ViewModels
         {
             Route = ComponentBinding.OptionObjectModels.BackgroudLocation;
             Interval = ComponentBinding.OptionObjectModels.Interval;
-            UseProxy = ComponentBinding.OptionObjectModels.UseProxy;
             DecodeKey = ComponentBinding.OptionObjectModels.DecodeKey;
             DecodeM3u8Key = ComponentBinding.OptionObjectModels.DecodeM3u8Key;
         }
@@ -34,17 +33,6 @@ namespace CandySugar.MainUI.ViewModels
         {
             get => _Interval;
             set => SetAndNotify(ref _Interval, value);
-        }
-        private bool _UseProxy;
-        public bool UseProxy
-        {
-            get => _UseProxy;
-            set
-            {
-                SetAndNotify(ref _UseProxy, value);
-                ProxyState = value ? "启用" : "禁用";
-            }
-
         }
         private string _ProxyState;
         public string ProxyState
@@ -91,7 +79,6 @@ namespace CandySugar.MainUI.ViewModels
                 BackgroudLocation = Route,
                 Interval = Interval,
                 Raw = ComponentBinding.OptionObjectModels.Raw,
-                UseProxy = UseProxy,
                 DecodeKey = DecodeKey,
                 DecodeM3u8Key = DecodeM3u8Key
             };

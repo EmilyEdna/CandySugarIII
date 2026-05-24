@@ -102,6 +102,7 @@
              x:Name="X2"
              Width="{Binding BorderWidth}"
              Height="{Binding BorderHeight}"
+             Visibility="Hidden"
              BorderType="Info">
                 <eda:CandyBorder.RenderTransform>
                     <TransformGroup>

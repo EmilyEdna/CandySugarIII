@@ -2,19 +2,19 @@
   "System": [
     {
       "Description": "系统设置",
-      "Code": 14
+      "Code": 6
     },
     {
       "Description": "视频播放",
-      "Code": 15
+      "Code": 7
     },
     {
       "Description": "音乐播放",
-      "Code": 16
+      "Code": 8
     },
     {
       "Description": "网址服务",
-      "Code": 17
+      "Code": 9
     }
   ]
 }

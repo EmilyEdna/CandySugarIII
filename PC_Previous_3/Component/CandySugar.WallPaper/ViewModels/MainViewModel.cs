@@ -4,11 +4,38 @@
     {
         public MainViewModel()
         {
-            ComponentControl = Module.IocModule.Resolve<IndexView>();
+            ComponentControl = new ObservableCollection<AnonymousTab>
+            {
+                new AnonymousTab{ Title="WallHaven",Value = Module.IocModule.Resolve<Index1View>() },
+                new AnonymousTab{ Title="Koanchan",Value = Module.IocModule.Resolve<Index2View>() },
+                new AnonymousTab{ Title="收藏",Value = Module.IocModule.Resolve<Index3View>() }
+            };
+            GenericDelegate.WindowStateEvent += WindowStateEvent;
+            WindowStateEvent();
         }
-        #region 属性
+        #region Property
         [ObservableProperty]
-        private Control _ComponentControl;
+        private ObservableCollection<AnonymousTab> _ComponentControl;
+        #endregion
+
+        #region 事件
+        private void WindowStateEvent()
+        {
+            if (GlobalParam.WindowState == WindowState.Maximized)
+            {
+                foreach (var item in ComponentControl)
+                {
+                    item.Width = GlobalParam.MAXWidth + 152d;
+                }
+            }
+            else
+            {
+                foreach (var item in ComponentControl)
+                {
+                    item.Width = GlobalParam.MAXWidth - 60;
+                }
+            }
+        }
         #endregion
     }
 }

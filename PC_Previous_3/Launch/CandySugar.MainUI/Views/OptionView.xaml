@@ -103,23 +103,6 @@
                     Foreground="#fdf5e6"
                     Text="秒" />
             </WrapPanel>
-            <WrapPanel Margin="10">
-                <TextBlock
-                    Margin="1,2"
-                    VerticalAlignment="Bottom"
-                    FontSize="18"
-                    Foreground="#fdf5e6"
-                    Text="启用代理地址：" />
-                <CheckBox
-                    VerticalContentAlignment="Center"
-                    Background="Transparent"
-                    BorderBrush="#fdf5e6"
-                    Content="{Binding ProxyState}"
-                    FontSize="18"
-                    Foreground="#fdf5e6"
-                    IsChecked="{Binding UseProxy}" />
-            </WrapPanel>
-
         </StackPanel>
         <eda:CandyButton
             Grid.Row="1"
