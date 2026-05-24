@@ -38,13 +38,13 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <eda:CandyImage
-                                Width="360"
+                                Width="350"
                                 Height="250"
                                 Margin="8"
                                 BorderBrush="SkyBlue"
                                 BorderThickness="1"
                                 Entity="{Binding .}"
-                                ImageThickness="360,250"
+                                ImageThickness="350,250"
                                 MaskFill="#80e6cfe6"
                                 Source="{Binding Cover}">
                                 <eda:CandyImage.MaskTemplate>

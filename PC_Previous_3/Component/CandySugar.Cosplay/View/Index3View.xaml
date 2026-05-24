@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="CandySugar.Cosplay.View.Index3View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:eda="https://github.com/EmilyEdna"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:lib="http://lib.candy.com"
+             xmlns:local="clr-namespace:CandySugar.Cosplay.View"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:CandySugar.Cosplay.ViewModels"
+             x:Name="Index"
+             d:DataContext="{d:DesignInstance vm:Index3ViewModel}"
+             d:DesignHeight="700"
+             d:DesignWidth="1200"
+             mc:Ignorable="d">
+    <Grid>
+        <eda:CandyBorder
+            Width="{Binding BorderWidth}"
+            Height="{Binding BorderHeight}"
+            BorderType="Info">
+            <Grid>
+                <Rectangle Fill="#50fff0f5">
+                    <Rectangle.Effect>
+                        <DropShadowEffect
+                            BlurRadius="15"
+                            Direction="300"
+                            Opacity="1" />
+                    </Rectangle.Effect>
+                </Rectangle>
+                <ListBox ItemsSource="{Binding CollectResult, IsAsync=True}" Style="{DynamicResource CandyListBoxStyle}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="{Binding DataContext.Cols, ElementName=Index}" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <eda:CandyImage
+                                Width="350"
+                                Height="250"
+                                Margin="8"
+                                BorderBrush="SkyBlue"
+                                BorderThickness="1"
+                                Entity="{Binding .}"
+                                ImageThickness="350,250"
+                                MaskFill="#80e6cfe6"
+                                Source="{Binding Cover}">
+                                <eda:CandyImage.MaskTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition Height="30" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                Style="{DynamicResource TextBlockStyle}"
+                                                Text="{Binding Title}" />
+                                            <CheckBox
+                                                Grid.Row="1"
+                                                Margin="0,0,10,5"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Bottom"
+                                                Background="Transparent">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Checked">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.CheckCommand, ElementName=Index}" CommandParameter="{Binding .}" />
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="Unchecked">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.UnCheckCommand, ElementName=Index}" CommandParameter="{Binding .}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </CheckBox>
+                                        </Grid>
+                                    </DataTemplate>
+                                </eda:CandyImage.MaskTemplate>
+                            </eda:CandyImage>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </eda:CandyBorder>
+        <eda:CandyWaterButton
+            Margin="{Binding MarginThickness}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Command="{Binding ActiveCommand}"
+            ItemSource="{Binding MenuData, IsAsync=True}" />
+    </Grid>
+</UserControl>
