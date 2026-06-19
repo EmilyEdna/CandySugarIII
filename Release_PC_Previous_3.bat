@@ -2,12 +2,12 @@ chcp 65001
 
 echo 开始自动化发布
 cd /d %~dp0
-dotnet publish PC_Previous_3\Launch\CandySugar.MainUI\CandySugar.MainUI.csproj -c Release -o ..\CandySugar\Release -f net9.0-windows7.0 --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
-dotnet publish PC_Previous_3\Launch\CandySugar.ModifyUI\CandySugar.ModifyUI.csproj -c Release -o ..\CandySugar\Release -f net9.0-windows7.0 --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
+dotnet publish PC_Previous_3\Launch\CandySugar.MainUI\CandySugar.MainUI.csproj -c Release -o ..\CandySugar\Release -f net10.0-windows7.0 --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
+dotnet publish PC_Previous_3\Launch\CandySugar.ModifyUI\CandySugar.ModifyUI.csproj -c Release -o ..\CandySugar\Release -f net10.0-windows7.0 --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
 
 set List=Music WallPaper Bilibili Axgle Cosplay
 for %%a in (%List%) do (
-dotnet publish PC_Previous_3\Component\CandySugar.%%a\CandySugar.%%a.csproj -c Release -o ..\CandySugar\Release\Plugin -f net9.0-windows7.0 --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
+dotnet publish PC_Previous_3\Component\CandySugar.%%a\CandySugar.%%a.csproj -c Release -o ..\CandySugar\Release\Plugin -f net10.0-windows7.0 --sc true -r win-x64 /p:DebugType=None /p:DebugSymbols=false
 ) 
 
 rd /S /Q PC_Previous_3\Launch\CandySugar.MainUI\obj PC_Previous_3\Launch\CandySugar.MainUI\bin\Release
@@ -30,8 +30,8 @@ for %%a in (%List%) do (
 rd /S /Q PC_Previous_3\Component\CandySugar.%%a\obj PC_Previous_3\Component\CandySugar.%%a\bin\Release
 )
 
-xcopy PC_Previous_3\Launch\CandySugar.MainUI\bin\Debug\net9.0-windows7.0\ffmpeg Release\ffmpeg /e /s
-xcopy PC_Previous_3\Launch\CandySugar.MainUI\bin\Debug\net9.0-windows7.0\vlclib Release\vlclib /e /s
+xcopy PC_Previous_3\Launch\CandySugar.MainUI\bin\Debug\net10.0-windows7.0\ffmpeg Release\ffmpeg /e /s
+xcopy PC_Previous_3\Launch\CandySugar.MainUI\bin\Debug\net10.0-windows7.0\vlclib Release\vlclib /e /s
 
 cd Release
 del *.pdb *.json 
