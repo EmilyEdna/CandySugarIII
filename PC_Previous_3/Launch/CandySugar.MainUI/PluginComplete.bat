@@ -1,6 +1,6 @@
 echo %CD%
 
-cd bin\Debug\net9.0-windows7.0\Plugin
+cd bin\Debug\net10.0-windows7.0\Plugin
 
 del *.json *.pdb *.xml
 

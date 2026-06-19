@@ -6,7 +6,7 @@
 		<UseWPF>true</UseWPF>
 		<SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
 		<!--<BaseOutputPath>..\..\Launch\CandySugar.MainUI\bin</BaseOutputPath>-->
-		<OutDir>..\..\Launch\CandySugar.MainUI\bin\Debug\net9.0-windows7.0\Plugin</OutDir>
+		<OutDir>..\..\Launch\CandySugar.MainUI\bin\Debug\net10.0-windows7.0\Plugin</OutDir>
 		<!--动态加载-->
 		<EnableDynamicLoading>true</EnableDynamicLoading>
 		<!--Aot发布-->
