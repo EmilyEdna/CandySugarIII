@@ -2,6 +2,7 @@
   <Folder Name="/启动/">
     <Project Path="../PC_Previous_3/Launch/CandySugar.HostServer/CandySugar.HostServer.csproj" />
     <Project Path="../PC_Previous_3/Launch/CandySugar.MainUI/CandySugar.MainUI.csproj" />
+    <Project Path="../PC_Previous_3/Launch/CandySugar.ModifyUI/CandySugar.ModifyUI.csproj" />
   </Folder>
   <Folder Name="/控件/">
     <Project Path="../PC_Previous_3/Common/CandySugar.Com.Controls/CandySugar.Com.Controls.csproj" />
