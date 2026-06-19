@@ -21,10 +21,8 @@ namespace CandySugar.Com.Pages.ViewModels
         public AxgleViewModel()
         {
             Results = [];
-            Platform = PlatformEnum.Jav;
+            Platform = PlatformEnum.Skb;
             Bar = [
-                new BarModel { Name = "Jav", Route = "Jav" },
-                new BarModel { Name = "Skb", Route = "Skb" },
                 new BarModel { Name = "最新", Route = "1" },
                 new BarModel { Name = "热门", Route = "2" },
                 new BarModel { Name = "好评", Route = "3" },
@@ -209,27 +207,16 @@ namespace CandySugar.Com.Pages.ViewModels
         public RelayCommand<string> CatalogCommand => new(obj =>
         {
             Results = [];
-            if (obj == "Jav")
-            {
-                Platform = PlatformEnum.Jav;
-            }
-            else if (obj == "Skb")
-            {
-                Platform = PlatformEnum.Skb;
-            }
+            var type = obj.AsInt();
+            if (type == 1)
+                Mode = ModeEnum.Latest;
+            else if (type == 2)
+                Mode = ModeEnum.Hot;
             else
-            {
-                var type = obj.AsInt();
-                if (type == 1)
-                    Mode = ModeEnum.Latest;
-                else if (type == 2)
-                    Mode = ModeEnum.Hot;
-                else
-                    Mode = ModeEnum.Praised;
-                InitPage = 1;
-                QueryKey = string.Empty;
-                InitAsync();
-            }
+                Mode = ModeEnum.Praised;
+            InitPage = 1;
+            QueryKey = string.Empty;
+            InitAsync();
         });
 
         public RelayCommand<MissElemetInitResult> CollectCommand => new(Insert);

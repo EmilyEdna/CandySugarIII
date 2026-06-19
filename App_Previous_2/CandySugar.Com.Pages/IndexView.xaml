@@ -28,10 +28,6 @@
             Title="车牌合集2"
             ContentTemplate="{DataTemplate page:AvgleView}"
             Route="AvgleView" />
-        <ShellContent
-            Title="车牌合集3"
-            ContentTemplate="{DataTemplate page:JAgleView}"
-            Route="JAgleView" />
     </FlyoutItem>
     <MenuItem
         Clicked="ImportEvent"
@@ -41,8 +37,8 @@
         Clicked="ExportEvent"
         IsDestructive="True"
         Text="导出数据" />
-    <MenuItem
+    <!--<MenuItem
         Clicked="DecodeEvent"
         IsDestructive="True"
-        Text="解密掩码" />
+        Text="解密掩码" />-->
 </Shell>

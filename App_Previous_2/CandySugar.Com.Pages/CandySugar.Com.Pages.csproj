@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0;net9.0-android</TargetFrameworks>
+		<TargetFrameworks>net10.0;net10.0-android</TargetFrameworks>
 		<SingleProject>true</SingleProject>
 		<UseMaui>true</UseMaui>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -49,9 +49,6 @@
 	  <MauiXaml Update="Views\AxgleView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\JAgleView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\RootView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -70,7 +67,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.100" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.71" />
 	</ItemGroup>
 
 	<ItemGroup>

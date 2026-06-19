@@ -13,13 +13,11 @@ namespace CandySugar.MainUI
     {
         public static MauiApp CreateMauiApp()
         {
-            SdkOption.EnableEmail = true;
-            SdkOption.AcceptEmail = "1575890051@qq.com";
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
-                .UseMauiCommunityToolkitMediaElement()
+                .UseMauiCommunityToolkitMediaElement(true)
                 .AddServiceHandler()
                 .AddControlHandler()
                 .ConfigureFonts(fonts =>

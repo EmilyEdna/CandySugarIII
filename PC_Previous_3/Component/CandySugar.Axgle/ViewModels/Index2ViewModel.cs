@@ -40,7 +40,7 @@
         private string Keyword;
         private ModeEnum ModeType;
         private IService<AxgleModel> Service;
-        private Dictionary<string, Dictionary<string,string>> TagDict;
+        private Dictionary<string, Dictionary<string, string>> TagDict;
         private PlatformEnum PlatformType;
         #endregion
 
@@ -56,7 +56,7 @@
         [ObservableProperty]
         private ObservableCollection<string> _Title;
         [ObservableProperty]
-        private Dictionary<string,string> _Tags;
+        private Dictionary<string, string> _Tags;
         [ObservableProperty]
         private ObservableCollection<MissElemetInitResult> _Results;
         [ObservableProperty]
@@ -208,7 +208,7 @@
             });
         }
 
-        private void OnDetail(MissElemetInitResult input)
+        private void OnDetail(MissElemetInitResult input, Action action = null)
         {
             Task.Run(async () =>
             {
@@ -223,7 +223,7 @@
                             PlatformType = PlatformType,
                             Play = new MissPlay
                             {
-                                DecodeM3u8Key= ComponentBinding.OptionObjectModels.DecodeM3u8Key,
+                                DecodeM3u8Key = ComponentBinding.OptionObjectModels.DecodeM3u8Key,
                                 DecodeKey = ComponentBinding.OptionObjectModels.DecodeKey,
                                 Route = input.Route
                             }
@@ -232,7 +232,7 @@
                     Plays = result.Plays;
                     Link = [.. result.ElementResults];
                     this.Close = Visibility.Visible;
-
+                    action?.Invoke();
                 }
                 catch (Exception ex)
                 {
@@ -249,19 +249,17 @@
         {
             var Model = element.ToMapest<AxgleModel>();
             Model.Platfrom = PlatformType.AsString();
-            OnDetail(element.ToMapest<MissElemetInitResult>());
-            while (this.Plays == null)
+            OnDetail(element.ToMapest<MissElemetInitResult>(), () =>
             {
-                Task.Delay(10).Wait();
-            }
-            string Title = Model.Title;
-            this.Plays.ForDicEach((Key, Value, Index) =>
-            {
-                Model.Title = $"{Title}-{Index + 1}";
-                Model.Route = Value;
-                Service.Insert(Model);
+                string Title = Model.Title;
+                this.Plays.ForDicEach((Key, Value, Index) =>
+                {
+                    Model.Title = $"{Title}-{Index + 1}";
+                    Model.Route = Value;
+                    Service.Insert(Model);
+                });
+                GenericDelegate.ChangeContentAction?.Invoke(string.Empty);
             });
-            GenericDelegate.ChangeContentAction?.Invoke(string.Empty);
         }
         [RelayCommand]
         public void View(string input)

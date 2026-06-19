@@ -38,7 +38,6 @@ namespace CandySugar.Com.Library
              {"RootView","//RootView" },
              {"AxgleView","//AxgleView" },
              {"AvgleView","//AvgleView" },
-             {"JAgleView","//JAgleView" },
              
             { "LinkView","//AxgleView/LinkView"},
             { "VideoView","//AxgleView/VideoView"},

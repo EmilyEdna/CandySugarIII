@@ -69,18 +69,17 @@ namespace CandySugar.Com.Pages.ViewModels
             GetLocalData();
             if (Model.Category == 2)
             {
-                if (Model.Route.Contains(".m3u8"))
+                if (Model.Route.Contains("surrit"))
                 {
-                    await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", Model.Route }, { "Is24Net", true } });
+                    await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", Model.Route }, { "Is24Net", false } });
                     return;
                 }
-                var Type = Model.Route.Contains("javbangers") ? PlatformEnum.Jav : PlatformEnum.Skb;
                 var result = (await MissFactory.Miss(opt =>
                 {
                     opt.RequestParam = new Input
                     {
                         FuncType = FuncEnum.Detail,
-                        PlatformType = Type,
+                        PlatformType = PlatformEnum.Skb,
                         CacheSpan = 5,
                         Play = new MissPlay
                         {

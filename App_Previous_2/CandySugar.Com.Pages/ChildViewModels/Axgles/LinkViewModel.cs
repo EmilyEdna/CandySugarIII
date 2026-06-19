@@ -61,14 +61,8 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
 
         private async void PlayAsync(MissRelatedElementResult input)
         {
-            var option = await IocDependency.Resolve<ICandyService>().GetOption();
             try
             {
-                var Keys= option.DecodeDataKey.Split(",");
-                string Key = string.Empty;
-                if (Platform == PlatformEnum.A24) Key = Keys.First();
-                if (Platform == PlatformEnum.JAXX) Key = Keys.Last();
-
                 var result = (await MissFactory.Miss(opt =>
                 {
                     opt.RequestParam = new Input
@@ -80,8 +74,6 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
                         Play = new MissPlay
                         {
                             Route = input.Route,
-                            DecodeKey= Key,
-                            DecodeM3u8Key=option.DecodePlayKey
                         }
                     };
                 }).RunsAsync()).PlayResult;
@@ -121,7 +113,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
 
         private async void Next(string input)
         {
-            await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", input }, { "Is24Net", true } });
+            await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", input }, { "Is24Net", false } });
         }
         #endregion
     }

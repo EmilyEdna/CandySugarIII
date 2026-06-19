@@ -177,8 +177,6 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             try
             {
-                var Option = await IocDependency.Resolve<ICandyService>().GetOption();
-
                 var result = (await MissFactory.Miss(opt =>
                 {
                     opt.RequestParam = new Input
@@ -190,8 +188,6 @@ namespace CandySugar.Com.Pages.ViewModels
                         Play = new MissPlay
                         {
                             Route = input.Route,
-                            DecodeKey = Option.DecodeDataKey.Split(",").FirstOrDefault(),
-                            DecodeM3u8Key=Option.DecodePlayKey
                         }
                     };
                 }).RunsAsync()).PlayResult;
