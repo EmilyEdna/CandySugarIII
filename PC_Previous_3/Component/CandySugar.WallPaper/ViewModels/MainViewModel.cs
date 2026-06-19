@@ -37,5 +37,13 @@
             }
         }
         #endregion
+
+        #region 命令
+        [RelayCommand]
+        public void Select(AnonymousTab input)
+        {
+            (input.Value.DataContext as BasicObservableObject).InitSearch();
+        }
+        #endregion
     }
 }

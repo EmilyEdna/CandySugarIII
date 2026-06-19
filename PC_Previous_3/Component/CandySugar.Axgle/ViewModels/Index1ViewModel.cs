@@ -7,7 +7,6 @@
             PlatformType = PlatformEnum.Skb;
             Title = ["最新", "热门", "好评"];
             Service = IocDependency.Resolve<IService<AxgleModel>>();
-            GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             WindowStateEvent();
 
@@ -204,7 +203,7 @@
                         };
                     }).RunsAsync()).PlayResult.Play;
 
-                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result, true,false).Show());
+                    Application.Current.Dispatcher.Invoke(() => new CandyWebPlayControl(result, true).Show());
                 }
                 catch (Exception ex)
                 {
@@ -282,7 +281,7 @@
         /// 检索数据
         /// </summary>
         /// <param name="keyword"></param>
-        private void SearchHandler(string keyword)
+        protected override void SearchHandler(string keyword)
         {
             this.Keyword = keyword;
             this.SearchPage = 1;

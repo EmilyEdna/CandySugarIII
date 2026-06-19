@@ -23,7 +23,6 @@ namespace CandySugar.Music.ViewModels
                 new() { Width = 80, UseUnderLine = Visibility.Collapsed, Content = FontIcon.Repeat1 }
                 ];
             Service = IocDependency.Resolve<IService<MusicModel>>();
-            GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             CollectResult = new(Service.QueryAll());
             WindowStateEvent();
@@ -108,7 +107,7 @@ namespace CandySugar.Music.ViewModels
 
         private void EventCommon()
         {
-            CurrentPlay = CollectResult[PlayIndex].ToMapper<MusicSongElementResult>();
+            CurrentPlay = CollectResult[PlayIndex].ToMapest<MusicSongElementResult>();
             OnInitLyric(CurrentPlay);
             if (!DownUtil.FileExists($"[High]{CurrentPlay.SongId}", FileTypes.Mp3, "Music"))
                 //播放下一首
@@ -640,7 +639,7 @@ namespace CandySugar.Music.ViewModels
                         };
                         if (!CollectResult.Any(t => t.SongId == input.SongId))
                         {
-                            var Model = input.ToMapper<MusicModel>();
+                            var Model = input.ToMapest<MusicModel>();
                             Model.PId = Service.Insert(Model);
                             CollectResult.Add(Model);
                         }
@@ -688,7 +687,7 @@ namespace CandySugar.Music.ViewModels
         /// 检索数据
         /// </summary>
         /// <param name="keyword"></param>
-        private void SearchHandler(string keyword)
+        protected override void SearchHandler(string keyword)
         {
             SearchKeyword = keyword;
             SearchPageIndex = SheetPageIndex = 1;
@@ -707,7 +706,7 @@ namespace CandySugar.Music.ViewModels
                 ErrorNotify("收藏列表未添加歌曲!");
                 return;
             }
-            CurrentPlay = CollectResult[PlayIndex].ToMapper<MusicSongElementResult>();
+            CurrentPlay = CollectResult[PlayIndex].ToMapest<MusicSongElementResult>();
             OnInitLyric(CurrentPlay);
             if (PlayMoudle == 1)
             {

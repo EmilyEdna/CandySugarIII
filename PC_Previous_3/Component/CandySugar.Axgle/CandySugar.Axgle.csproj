@@ -29,10 +29,4 @@
 		</Reference>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="View\Index4View.xaml.cs">
-	    <SubType>Code</SubType>
-	  </Compile>
-	</ItemGroup>
-
 </Project>

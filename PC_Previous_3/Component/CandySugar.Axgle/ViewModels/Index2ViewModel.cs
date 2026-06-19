@@ -1,15 +1,14 @@
 ﻿namespace CandySugar.Axgle.ViewModels
 {
-    public partial class Index4ViewModel : BasicObservableObject
+    public partial class Index2ViewModel : BasicObservableObject
     {
-        public Index4ViewModel()
+        public Index2ViewModel()
         {
             ModeType = ModeEnum.ReleaseDate;
             Close = Visibility.Collapsed;
-            PlatformType = PlatformEnum.JAXX;
+            PlatformType = PlatformEnum.A24;
             Title = ["无码", "有码"];
             Service = IocDependency.Resolve<IService<AxgleModel>>();
-            GenericDelegate.SearchAction = new(SearchHandler);
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             WindowStateEvent();
             InitDict();
@@ -80,7 +79,7 @@
         }
 
         private void ErrorNotify(string input = "")
-             => CandyNotify.Error(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input);
+            => CandyNotify.Error(input.IsNullOrEmpty() ? CommonHelper.ComponentErrorInformation : input);
 
         private void OnInit()
         {
@@ -266,7 +265,7 @@
         }
         [RelayCommand]
         public void View(string input)
-            => new CandyWebPlayControl(input,false,true).Show();
+            => new CandyWebPlayControl(input, true).Show();
         [RelayCommand]
         public void Selected(string input)
         {
@@ -331,7 +330,7 @@
         /// 检索数据
         /// </summary>
         /// <param name="keyword"></param>
-        private void SearchHandler(string keyword)
+        protected override void SearchHandler(string keyword)
         {
             this.Keyword = keyword;
             this.SearchPage = 1;

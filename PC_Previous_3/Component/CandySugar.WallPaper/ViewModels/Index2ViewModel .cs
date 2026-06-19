@@ -246,7 +246,7 @@ namespace CandySugar.WallPaper.ViewModels
         /// 检索数据
         /// </summary>
         /// <param name="keyword"></param>
-        private void SearchHandler(string keyword)
+        protected override void SearchHandler(string keyword)
         {
             this.Keyword = keyword;
             SearchPage = 1;

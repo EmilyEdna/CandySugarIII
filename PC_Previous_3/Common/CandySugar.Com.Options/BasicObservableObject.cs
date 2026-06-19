@@ -1,5 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
+using CandySugar.Com.Options.ComponentGeneric;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace CandySugar.Com.Options
 {
@@ -24,5 +25,8 @@ namespace CandySugar.Com.Options
         private int _Cols;
         [ObservableProperty]
         private Thickness _MarginThickness;
+
+        protected virtual void SearchHandler(string keyword) { }
+        public void InitSearch() => GenericDelegate.SearchAction = new(SearchHandler);
     }
 }

@@ -19,8 +19,10 @@ namespace CandySugar.WallPaper
         public T Resolve<T>() where T : UserControl
         {
             var Ctrl = (UserControl)IocDependency.Resolve(typeof(T));
-            var VM = this.GetType().Assembly.GetTypes().FirstOrDefault(t => t.Name == $"{typeof(T).Name}Model");
-            Ctrl.DataContext = IocDependency.Resolve(VM);
+            var VMName = this.GetType().Assembly.GetTypes().FirstOrDefault(t => t.Name == $"{typeof(T).Name}Model");
+            var VM = (BasicObservableObject)IocDependency.Resolve(VMName);
+            VM.InitSearch();
+            Ctrl.DataContext = VM;
             return (T)Ctrl;
         }
     }

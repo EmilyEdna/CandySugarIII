@@ -7,10 +7,8 @@
             ComponentControl = new ObservableCollection<AnonymousTab>
             {
                 new AnonymousTab{ Title="SKB",Value = Module.IocModule.Resolve<Index1View>() },
-                new AnonymousTab{ Title="JAV",Value = Module.IocModule.Resolve<Index2View>() },
-                new AnonymousTab{ Title="H24",Value = Module.IocModule.Resolve<Index3View>() },
-                new AnonymousTab{ Title="JAX",Value = Module.IocModule.Resolve<Index4View>() },
-                new AnonymousTab{ Title="收藏",Value = Module.IocModule.Resolve<Index5View>() },
+                new AnonymousTab{ Title="H24",Value = Module.IocModule.Resolve<Index2View>() },
+                new AnonymousTab{ Title="收藏",Value = Module.IocModule.Resolve<Index3View>() },
             };
             GenericDelegate.WindowStateEvent += WindowStateEvent;
             WindowStateEvent();
@@ -39,5 +37,12 @@
         }
         #endregion
 
+        #region 命令
+        [RelayCommand]
+        public void Select(AnonymousTab input)
+        {
+            (input.Value.DataContext as BasicObservableObject).InitSearch();
+        }
+        #endregion
     }
 }
