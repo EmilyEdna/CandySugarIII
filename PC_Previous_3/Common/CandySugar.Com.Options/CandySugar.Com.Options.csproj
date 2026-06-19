@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<TargetFramework>net9.0-windows7.0</TargetFramework>
+		  <TargetFramework>net10.0-windows7.0</TargetFramework>
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 
@@ -23,7 +23,7 @@
 		<PackageReference Include="JavaScriptEngineSwitcher.Jint" Version="3.34.3" />
 		<PackageReference Include="Hardcodet.Wpf.TaskbarNotification.Core" Version="2.0.0" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.9" />
-		<PackageReference Include="XExten.WPFControls" Version="1.1.0.2" />
+		<PackageReference Include="XExten.WPFControls" Version="1.1.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>

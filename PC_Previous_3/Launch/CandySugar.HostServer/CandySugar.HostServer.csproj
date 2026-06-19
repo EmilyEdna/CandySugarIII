@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<OutputType>Library</OutputType>
 	</PropertyGroup>
@@ -10,10 +10,10 @@
 		<FrameworkReference Include="Microsoft.AspNetCore.App"></FrameworkReference>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.8" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="9.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.9" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.9" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.1" />
-		<PackageReference Include="XExten.Advance" Version="2.2.3.5" />
+		<PackageReference Include="XExten.Advance" Version="2.2.3.6" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\Common\CandySugar.Com.Data\CandySugar.Com.Data.csproj" />

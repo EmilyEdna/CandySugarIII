@@ -1,4 +1,9 @@
-﻿using CandySugar.Com.Controls.ExtenControls;
+﻿using System;
+using System.Linq;
+using System.Net.Http;
+using System.Windows;
+using System.Windows.Threading;
+using CandySugar.Com.Controls.ExtenControls;
 using CandySugar.Com.Data;
 using CandySugar.Com.Library;
 using CandySugar.Com.Library.DLLoader;
@@ -8,11 +13,6 @@ using CandySugar.HostServer;
 using CandySugar.MainUI.ViewModels;
 using Stylet;
 using StyletIoC;
-using System;
-using System.Linq;
-using System.Net.Http;
-using System.Windows;
-using System.Windows.Threading;
 using XExten.Advance;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
@@ -76,7 +76,7 @@ namespace CandySugar.MainUI
         protected override void Configure()
         {
             base.Configure();
-            //WebHost.StartWeb();
+            WebHost.StartWeb();
         }
 
         /// <summary>
