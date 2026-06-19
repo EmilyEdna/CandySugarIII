@@ -10,17 +10,9 @@
         /// </summary>
         Axgle = 1,
         /// <summary>
-        /// Comic
-        /// </summary>
-        Comic,
-        /// <summary>
         /// Cosplay
         /// </summary>
         Cosplay,
-        /// <summary>
-        /// Rifan
-        /// </summary>
-        Rifan,
         /// <summary>
         /// Wallpaper
         /// </summary>
@@ -28,18 +20,6 @@
         /// <summary>
         /// Music
         /// </summary>
-        Music,
-        /// <summary>
-        /// Anime
-        /// </summary>
-        Anime,
-        /// <summary>
-        /// NHentai
-        /// </summary>
-        NHentai,
-        /// <summary>
-        /// Hitomi
-        /// </summary>
-        Hitomi
+        Music
     }
 }

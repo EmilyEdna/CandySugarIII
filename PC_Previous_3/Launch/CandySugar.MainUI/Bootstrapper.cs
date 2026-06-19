@@ -76,7 +76,7 @@ namespace CandySugar.MainUI
         protected override void Configure()
         {
             base.Configure();
-            WebHost.StartWeb();
+            //WebHost.StartWeb();
         }
 
         /// <summary>

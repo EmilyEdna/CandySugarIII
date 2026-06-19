@@ -1,16 +1,11 @@
-﻿using CandySugar.Com.Data;
-using CandySugar.Com.Data.Entity.AnimeEntity;
+﻿using System.Text;
+using CandySugar.Com.Data;
 using CandySugar.Com.Data.Entity.AxgleEntity;
-using CandySugar.Com.Data.Entity.ComicEntity;
 using CandySugar.Com.Data.Entity.CosplayEntity;
-using CandySugar.Com.Data.Entity.HitomiEntity;
 using CandySugar.Com.Data.Entity.MusicEntity;
-using CandySugar.Com.Data.Entity.NHentaiEntity;
-using CandySugar.Com.Data.Entity.RifanEntity;
 using CandySugar.Com.Data.Entity.WallEntity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 
@@ -24,28 +19,18 @@ namespace CandySugar.HostServer.Controllers
     public class CandyController : Controller
     {
         private IService<AxgleModel> AxgleService;
-        private IService<ComicModel> ComicService;
         private IService<CosplayModel> CosplayService;
-        private IService<RifanModel> RifanService;
         private IService<WallModel> WallService;
         private IService<MusicModel> MusiceService;
-        private IService<AnimeModel> AnimeService;
-        private IService<NHentaiModel> NHentaiService;
-        private IService<HitomiModel> HitomiService;
         /// <summary>
         /// 甜糖服务
         /// </summary>
         public CandyController()
         {
             AxgleService = IocDependency.Resolve<IService<AxgleModel>>();
-            ComicService = IocDependency.Resolve<IService<ComicModel>>();
             CosplayService = IocDependency.Resolve<IService<CosplayModel>>();
-            RifanService = IocDependency.Resolve<IService<RifanModel>>();
             WallService = IocDependency.Resolve<IService<WallModel>>();
             MusiceService = IocDependency.Resolve<IService<MusicModel>>();
-            AnimeService = IocDependency.Resolve<IService<AnimeModel>>();
-            NHentaiService = IocDependency.Resolve<IService<NHentaiModel>>();
-            HitomiService = IocDependency.Resolve<IService<HitomiModel>>();
         }
         /// <summary>
         /// 导出
@@ -58,14 +43,10 @@ namespace CandySugar.HostServer.Controllers
             var bytes = type switch
             {
                 DataEnums.Axgle => Encoding.UTF8.GetBytes(AxgleService.QueryAll().ToJson()),
-                DataEnums.Comic => Encoding.UTF8.GetBytes(ComicService.QueryAll().ToJson()),
                 DataEnums.Cosplay => Encoding.UTF8.GetBytes(CosplayService.QueryAll().ToJson()),
-                DataEnums.Rifan => Encoding.UTF8.GetBytes(RifanService.QueryAll().ToJson()),
                 DataEnums.Wallpaper => Encoding.UTF8.GetBytes(WallService.QueryAll().ToJson()),
                 DataEnums.Music => Encoding.UTF8.GetBytes(MusiceService.QueryAll().ToJson()),
-                DataEnums.Anime => Encoding.UTF8.GetBytes(AnimeService.QueryAll().ToJson()),
-                DataEnums.NHentai => Encoding.UTF8.GetBytes(NHentaiService.QueryAll().ToJson()),
-                DataEnums.Hitomi => Encoding.UTF8.GetBytes(HitomiService.QueryAll().ToJson()),
+           
                 _ => null
             };
 
@@ -97,24 +78,13 @@ namespace CandySugar.HostServer.Controllers
                         AxgleService.Insert(item);
                     });
                     break;
-                case DataEnums.Comic:
-                    fileContent.ToModel<List<ComicModel>>().ForEach(item =>
-                    {
-                        ComicService.Insert(item);
-                    });
-                    break;
                 case DataEnums.Cosplay:
                     fileContent.ToModel<List<CosplayModel>>().ForEach(item =>
                     {
                         CosplayService.Insert(item);
                     });
                     break;
-                case DataEnums.Rifan:
-                    fileContent.ToModel<List<RifanModel>>().ForEach(item =>
-                    {
-                        RifanService.Insert(item);
-                    });
-                    break;
+
                 case DataEnums.Wallpaper:
                     fileContent.ToModel<List<WallModel>>().ForEach(item =>
                     {
@@ -125,24 +95,6 @@ namespace CandySugar.HostServer.Controllers
                     fileContent.ToModel<List<MusicModel>>().ForEach(item =>
                     {
                         MusiceService.Insert(item);
-                    });
-                    break;
-                case DataEnums.Anime:
-                    fileContent.ToModel<List<AnimeModel>>().ForEach(item =>
-                    {
-                        AnimeService.Insert(item);
-                    });
-                    break;
-                case DataEnums.NHentai:
-                    fileContent.ToModel<List<NHentaiModel>>().ForEach(item =>
-                    {
-                        NHentaiService.Insert(item);
-                    });
-                    break;
-                case DataEnums.Hitomi:
-                    fileContent.ToModel<List<HitomiModel>>().ForEach(item =>
-                    {
-                        HitomiService.Insert(item);
                     });
                     break;
                 default:
