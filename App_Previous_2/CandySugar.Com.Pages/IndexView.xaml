@@ -3,7 +3,6 @@
     x:Class="CandySugar.Com.Pages.IndexView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:om="clr-namespace:CandySugar.Com.Library.Model;assembly=CandySugar.Com.Library"
     xmlns:page="clr-namespace:CandySugar.Com.Pages.Views"
     x:Name="shell"
     FlyoutBackgroundColor="{DynamicResource BasicPage}"
