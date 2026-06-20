@@ -87,7 +87,7 @@ namespace CandySugar.Com.Library.Handlers
 
         private void PrepareControl(VideoView nativeView)
         {
-            _libVLC = new LibVLC("--http-referrer=https://avgle.com/");
+            _libVLC = new LibVLC();
             _mediaPlayer = new MediaPlayer(_libVLC)
             {
                 EnableHardwareDecoding = true

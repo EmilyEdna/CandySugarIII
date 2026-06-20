@@ -1,7 +1,6 @@
 ﻿using CandySugar.Com.Library;
 using CandySugar.Com.Library.Model;
 using CandySugar.Com.Pages.ChildViews.Axgles;
-using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Sdk.Component.Vip.Miss.Sdk;
@@ -10,7 +9,6 @@ using Sdk.Component.Vip.Miss.Sdk.ViewModel.Enums;
 using Sdk.Component.Vip.Miss.Sdk.ViewModel.Request;
 using Sdk.Component.Vip.Miss.Sdk.ViewModel.Response;
 using System.Collections.ObjectModel;
-using XExten.Advance.IocFramework;
 using XExten.Advance.LinqFramework;
 using Application = Microsoft.Maui.Controls.Application;
 
@@ -192,10 +190,9 @@ namespace CandySugar.Com.Pages.ViewModels
                     };
                 }).RunsAsync()).PlayResult;
                 var Params = new Dictionary<string, object>();
-                Params.Add("Title", input.Title);
+                Params.Add("Init", input);
                 Params.Add("Result", result.Plays);
                 Params.Add("Links", result.ElementResults);
-                Params.Add("Cover", input.Cover);
                 Params.Add("Platform", Platform);
                 await Shell.Current.GoToAsync(Extend.RouteMap[nameof(LinkView)], new Dictionary<string, object> { { "Param", Params } });
             }

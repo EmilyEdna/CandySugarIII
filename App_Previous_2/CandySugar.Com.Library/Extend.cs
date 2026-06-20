@@ -35,12 +35,13 @@ namespace CandySugar.Com.Library
 
         public static Dictionary<string, string> RouteMap = new()
         {
-             {"RootView","//RootView" },
-             {"AxgleView","//AxgleView" },
-             {"AvgleView","//AvgleView" },
+            {"RootView","//RootView" },
+            {"AxgleView","//AxgleView" },
+            {"AvgleView","//AvgleView" },
              
             { "LinkView","//AxgleView/LinkView"},
             { "VideoView","//AxgleView/VideoView"},
+            { "MedieView","//AxgleView/MedieView"},
          };
     }
 }

@@ -14,12 +14,17 @@
             HorizontalOptions="CenterAndExpand"
             VerticalOptions="CenterAndExpand"
             VideoUrl="{Binding Source, Source={x:Reference UIViewer}}" />
-        <Border
+        <Grid BackgroundColor="Transparent">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnPlayerTapped" />
+            </Grid.GestureRecognizers>
+        </Grid>
+        <Border x:Name="ControlBar"
             Margin="0,0,0,5"
             Background="#30FFFFFF"
             HeightRequest="30"
             HorizontalOptions="CenterAndExpand"
-            StrokeShape="RoundRectangle 50"
+            StrokeShape="RoundRectangle 0"
             VerticalOptions="EndAndExpand"
             WidthRequest="750">
             <Grid ColumnDefinitions="*,Auto">

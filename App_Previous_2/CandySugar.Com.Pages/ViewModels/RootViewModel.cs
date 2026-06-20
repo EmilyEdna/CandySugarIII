@@ -1,5 +1,6 @@
 ﻿using CandySugar.Com.Library;
 using CandySugar.Com.Library.Model;
+using CandySugar.Com.Pages.ChildViews.Axgles;
 using CandySugar.Com.Pages.Views;
 using CandySugar.Com.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -13,7 +14,6 @@ using Sdk.Component.Vip.Miss.Sdk.ViewModel.Enums;
 using Sdk.Component.Vip.Miss.Sdk.ViewModel.Request;
 using System.Collections.ObjectModel;
 using XExten.Advance.IocFramework;
-using XExten.Advance.LinqFramework;
 using VideoView = CandySugar.Com.Pages.ChildViews.Axgles.VideoView;
 
 namespace CandySugar.Com.Pages.ViewModels
@@ -25,7 +25,9 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             Bar = new ObservableCollection<BarModel>
             {
-               new BarModel{ Name="车牌", Route="2" },
+               new BarModel{ Name="A24", Route="A24" },
+               new BarModel{ Name="Noodle", Route="Noodle" },
+               new BarModel{ Name="Skb", Route="Skb" },
             };
             GetLocalData();
             Popup = MopupService.Instance;
@@ -34,7 +36,7 @@ namespace CandySugar.Com.Pages.ViewModels
         }
 
         #region Field
-        private int Category = 3;
+        private string Platform;
         private int Page = 1;
         private int Total;
         private IPopupNavigation Popup;
@@ -50,7 +52,7 @@ namespace CandySugar.Com.Pages.ViewModels
         #region Method
         private async void GetLocalData()
         {
-            var data = await IocDependency.Resolve<ICandyService>().Get(Category, Page);
+            var data = await IocDependency.Resolve<ICandyService>().Get(Platform, Page);
             if (Page <= 1)
             {
                 Total = data.Item1;
@@ -66,14 +68,8 @@ namespace CandySugar.Com.Pages.ViewModels
         }
         private async void Next(CollectModel Model)
         {
-            GetLocalData();
-            if (Model.Category == 2)
+            if (Model.Platfrom == "Skb")
             {
-                if (Model.Route.Contains("surrit"))
-                {
-                    await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", Model.Route }, { "Is24Net", false } });
-                    return;
-                }
                 var result = (await MissFactory.Miss(opt =>
                 {
                     opt.RequestParam = new Input
@@ -87,15 +83,19 @@ namespace CandySugar.Com.Pages.ViewModels
                         }
                     };
                 }).RunsAsync()).PlayResult;
-                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", result.Play },{ "Is24Net",false } });
+                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", result.Play }, { "Is24Net", false } });
             }
+            else if (Model.Platfrom == "A24")
+                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(VideoView)], new Dictionary<string, object> { { "Param", Model.Route }, { "Is24Net", false } });
+            else 
+                await Shell.Current.GoToAsync(Extend.RouteMap[nameof(MedieView)], new Dictionary<string, object> { { "Param", Model.Route }});
         }
         #endregion
 
         #region Command
         public RelayCommand<string> CatalogCommand => new(input =>
         {
-            Category = input.AsInt();
+            Platform = input;
             Page = 1;
             GetLocalData();
         });

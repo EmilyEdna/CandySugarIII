@@ -167,10 +167,14 @@ namespace CandySugar.Com.Pages.ViewModels
         {
             await IocDependency.Resolve<ICandyService>().Add(new CollectModel
             {
-                Category = 2,
+                Platfrom = PlatformEnum.Skb.ToString(),
                 Cover = result.Cover,
-                Name = result.Title,
+                Title = result.Title,
                 Route = result.Route,
+                Duration= result.Duration,
+                Latest= result.Latest,
+                ViewCount= result.ViewCount,
+                Info= result.Info,
             });
         }
 

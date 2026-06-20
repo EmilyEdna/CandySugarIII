@@ -34,10 +34,10 @@
 	  <MauiXaml Update="ChildViews\Axgles\LinkView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="ChildViews\Axgles\VideoView.xaml">
+	  <MauiXaml Update="ChildViews\Axgles\MedieView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="DecodeView.xaml">
+	  <MauiXaml Update="ChildViews\Axgles\VideoView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="IndexView.xaml">

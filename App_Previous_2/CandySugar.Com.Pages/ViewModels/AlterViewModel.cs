@@ -20,7 +20,7 @@ namespace CandySugar.Com.Pages.ViewModels
 
         public RelayCommand OkCommand => new(async () => {
 
-            CollectModel.Name = Name;
+            CollectModel.Title = Name;
             await IocDependency.Resolve<ICandyService>().Alter(CollectModel);
             await MopupService.Instance.PopAllAsync();
         });

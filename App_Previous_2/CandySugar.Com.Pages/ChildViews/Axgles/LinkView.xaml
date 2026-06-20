@@ -6,7 +6,7 @@
     xmlns:sdk="clr-namespace:Sdk.Component.Vip.Miss.Sdk.ViewModel.Response;assembly=Sdk.Component.Vip"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:vm="clr-namespace:CandySugar.Com.Pages.ChildViewModels.Axgles"
-    Title="{Binding Title}"
+    Title="{Binding Init.Title}"
     x:DataType="vm:LinkViewModel"
     BackgroundColor="{DynamicResource BasicContainer}"
     Shell.BackgroundColor="{DynamicResource BasicPage}">

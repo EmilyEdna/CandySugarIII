@@ -33,8 +33,27 @@
                             <Label
                                 Margin="10,0,0,0"
                                 LineBreakMode="WordWrap"
-                                Text="{Binding Name}"
+                                Text="{Binding Title}"
                                 TextColor="{DynamicResource Basic}" />
+                            <Label
+                                Margin="10,0,0,0"
+                                LineBreakMode="WordWrap"
+                                Text="{Binding Info}"
+                                TextColor="{DynamicResource Basic}" />
+                            <HorizontalStackLayout Margin="10,0,0,0">
+                                <Label
+                                    LineBreakMode="WordWrap"
+                                    Text="{Binding Latest}"
+                                    TextColor="{DynamicResource Basic}" />
+                                <Label
+                                    LineBreakMode="WordWrap"
+                                    Text="{Binding ViewCount}"
+                                    TextColor="{DynamicResource Basic}" />
+                                <Label
+                                    LineBreakMode="WordWrap"
+                                    Text="{Binding Duration}"
+                                    TextColor="{DynamicResource Basic}" />
+                            </HorizontalStackLayout>
                             <HorizontalStackLayout Margin="10,0,0,0">
                                 <Button
                                     Margin="0"
@@ -47,7 +66,7 @@
                                     Command="{Binding NextCommand, Source={RelativeSource AncestorType={x:Type vm:RootViewModel}}}"
                                     CommandParameter="{Binding .}"
                                     Style="{DynamicResource ButtonStyle}"
-                                    Text="继续" />
+                                    Text="播放" />
                                 <Button
                                     Margin="5,0,0,0"
                                     Command="{Binding RemoveCommand, Source={RelativeSource AncestorType={x:Type vm:RootViewModel}}}"

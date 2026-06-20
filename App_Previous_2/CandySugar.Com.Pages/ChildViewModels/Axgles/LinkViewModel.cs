@@ -21,8 +21,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             var Temp = (Dictionary<string, object>)query["Param"];
-            Title = Temp["Title"].ToString();
-            Cover = Temp["Cover"].ToString();
+            Init = Temp["Init"] as MissElemetInitResult;
             Platform = (PlatformEnum)Temp["Platform"];
             Routes = [];
             ((Dictionary<string, string>)Temp["Result"]).ForDicEach((k, v) =>
@@ -40,7 +39,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
 
         #region Title
         [ObservableProperty]
-        private string _Title;
+        private MissElemetInitResult _Init;
         [ObservableProperty]
         private ObservableCollection<Model> _Routes;
         [ObservableProperty]
@@ -77,7 +76,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
                         }
                     };
                 }).RunsAsync()).PlayResult;
-                Title = input.Title;
+                Init = input.ToMapest<MissElemetInitResult>();
                 Links = [.. result.ElementResults];
                 var Params = new Dictionary<string, object>();
                 Routes = [];
@@ -103,10 +102,14 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
             {
                 await IocDependency.Resolve<ICandyService>().Add(new CollectModel
                 {
-                    Category = 2,
+                    Platfrom = Platform.ToString(),
                     Cover = Cover,
-                    Name = Title+$"-{i+1}",
-                    Route = Routes[i].Value
+                    Title = Init.Title+$"-{i+1}",
+                    Route = Routes[i].Value,
+                    Latest= Init.Latest,
+                    Duration= Init.Duration,
+                    ViewCount= Init.ViewCount,
+                    Info= Init.Info,
                 });
             }
         }

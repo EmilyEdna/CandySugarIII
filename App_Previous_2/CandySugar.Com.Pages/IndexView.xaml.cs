@@ -31,16 +31,16 @@ public partial class IndexView : Shell
 
     private async void ImportEvent(object sender, EventArgs e)
     {
-        int Type = -1;
-        var action = await DisplayActionSheet("导入类型", "确定", null, "车牌");
-        if (action.Equals("车牌")) Type = 2;
-        if (Type > 0)
-        {
-            PickAndShow(Type);
-        }
+        //int Type = -1;
+        //var action = await DisplayActionSheetAsync("导入类型", "确定", null, "车牌");
+        //if (action.Equals("车牌")) Type = 2;
+        //if (Type > 0)
+        //{
 
+        //}
+        PickAndShow();
     }
-    public async void PickAndShow(int type)
+    public async void PickAndShow()
     {
         var result = await FilePicker.Default.PickAsync(PickOptions.Default);
         if (result != null)
@@ -53,7 +53,6 @@ public partial class IndexView : Shell
                 var service = IocDependency.Resolve<ICandyService>();
                 foreach (var item in model)
                 {
-                    item.Category = type;
                     await service.Add(item);
                 }
             }
@@ -66,10 +65,5 @@ public partial class IndexView : Shell
         var data = await IocDependency.Resolve<ICandyService>().Export();
         using var stream = new MemoryStream(Encoding.Default.GetBytes(data.ToJson()));
         await FileSaver.Default.SaveAsync("Export.txt", stream);
-    }
-
-    private void DecodeEvent(object sender, EventArgs e)
-    {
-        MopupService.Instance.PushAsync(new DecodeView());
     }
 }

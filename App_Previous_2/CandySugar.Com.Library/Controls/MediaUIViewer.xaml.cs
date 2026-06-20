@@ -5,19 +5,19 @@ namespace CandySugar.Com.Library.Controls;
 
 public partial class MediaUIViewer : ContentView
 {
-	public MediaUIViewer()
-	{
-		InitializeComponent();
-	}
+    public MediaUIViewer()
+    {
+        InitializeComponent();
+    }
 
-	public string  Source
-	{
-		get { return (string )GetValue(SourceProperty); }
-		set { SetValue(SourceProperty, value); }
-	}
+    public string Source
+    {
+        get { return (string)GetValue(SourceProperty); }
+        set { SetValue(SourceProperty, value); }
+    }
 
-	public static readonly BindableProperty SourceProperty =
-        BindableProperty.Create(nameof(Source), typeof(string ), typeof(MediaUIViewer),string.Empty,BindingMode.TwoWay);
+    public static readonly BindableProperty SourceProperty =
+        BindableProperty.Create(nameof(Source), typeof(string), typeof(MediaUIViewer), string.Empty, BindingMode.TwoWay);
 
     private int CountIndex = 0;
     private void ButtonEvent(object sender, EventArgs e)
@@ -32,31 +32,31 @@ public partial class MediaUIViewer : ContentView
         if (index == 1)
         {
             if (!Media.IsPlaying) return;
-            
+
             CountIndex += 1;
-            if (CountIndex==1)
+            if (CountIndex == 1)
                 Rate.Text = "X2";
-            if(CountIndex==2)
+            if (CountIndex == 2)
                 Rate.Text = "X4";
             if (CountIndex == 3)
             {
                 CountIndex = 0;
                 Rate.Text = "X1";
             }
-            Media.SetRate(float.Parse(Regex.Match(Rate.Text,"\\d+").Value));
+            Media.SetRate(float.Parse(Regex.Match(Rate.Text, "\\d+").Value));
         }
-		if (index == 2)
-		{
-			Play.IsVisible = false;
-			Pause.IsVisible = true;
-			Media.Play();
+        if (index == 2)
+        {
+            Play.IsVisible = false;
+            Pause.IsVisible = true;
+            Media.Play();
         }
         if (index == 3)
         {
             Play.IsVisible = true;
             Pause.IsVisible = false;
             Media.Pause();
-		}
+        }
         if (index == 4)
         {
             Play.IsVisible = true;
@@ -75,4 +75,19 @@ public partial class MediaUIViewer : ContentView
         Media.Dispose();
     }
 
+
+    public void AutoHiddenControl()
+    {
+        if (Media.IsPlaying)
+            Task.Run(() => {
+                Task.Delay(5000).Wait();
+                this.Dispatcher.Dispatch(() => this.ControlBar.IsVisible = false);
+            });
+    }
+
+    private void OnPlayerTapped(object sender, TappedEventArgs e)
+    {
+        this.ControlBar.IsVisible = true;
+        AutoHiddenControl();
+    }
 }
