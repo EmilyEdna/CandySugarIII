@@ -21,6 +21,7 @@ namespace CandySugar.Com.Pages.ViewModels
             Results = [];
             Mode = ModeEnum.ReleaseDate;
             Platform = PlatformEnum.A24;
+            InitPage = 1;
             InitDict();
             InitAsync();
         }
@@ -93,7 +94,7 @@ namespace CandySugar.Com.Pages.ViewModels
                         Init = new MissInit
                         {
                             ModeType = Mode,
-                            Page = 1,
+                            Page = InitPage,
                             Tag = Tag
                         }
                     };

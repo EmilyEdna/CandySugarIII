@@ -16,7 +16,6 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
 {
     public partial class LinkViewModel : ObservableObject, IQueryAttributable
     {
-        private string Cover;
         private PlatformEnum Platform;
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
@@ -103,7 +102,7 @@ namespace CandySugar.Com.Pages.ChildViewModels.Axgles
                 await IocDependency.Resolve<ICandyService>().Add(new CollectModel
                 {
                     Platfrom = Platform.ToString(),
-                    Cover = Cover,
+                    Cover = Init.Cover,
                     Title = Init.Title+$"-{i+1}",
                     Route = Routes[i].Value,
                     Latest= Init.Latest,
